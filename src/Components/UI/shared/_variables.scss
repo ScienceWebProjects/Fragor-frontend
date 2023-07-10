@@ -1,0 +1,38 @@
+// colors
+$font-color: #000;
+
+$primary-color: #666;
+$secondary-color: #bfbfbf;
+
+$red: #8a100e;
+$red-gradient: linear-gradient(30deg, rgba(61, 1, 0, 1) 0%, rgba(138, 16, 14, 1) 40%);
+
+$yellow: #d6af15;
+$yellow-gradient: linear-gradient(30deg, rgba(138, 111, 7, 1) 0%, rgba(214, 175, 21, 1) 40%);
+
+$blue: #1375bd;
+
+$bcg-color: linear-gradient(
+    60deg,
+    rgb(238, 238, 238) 30%,
+    rgb(210, 210, 210) 50%,
+    rgb(238, 238, 238) 70%
+  )
+  no-repeat fixed;
+
+$bcg-color--decktop: linear-gradient(
+    60deg,
+    rgba(9, 50, 73, 1) 0%,
+    rgba(37, 12, 40, 1) 40%,
+    rgba(50, 6, 9, 1) 80%
+  )
+  no-repeat fixed;
+
+// font damily
+$fragor-font: 'Electrolize', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+// Predefined Break-points
+$breakpoint-mobile: 650px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1080px;

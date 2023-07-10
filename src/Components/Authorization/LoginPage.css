@@ -1,0 +1,86 @@
+.header_logo {
+  width: 100vw;
+  height: 23vh;
+  background-color: #666666;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logo_txt {
+  width: 60%;
+  font-size: 1.25rem;
+  font-family: Electrolize;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  text-align: start;
+}
+
+@media (min-width: 500px) {
+  .logo_txt {
+    font-size: 1.4rem;
+  }
+}
+.logo_img {
+  width: 8.125rem;
+  height: 8.125rem;
+  max-width: 20vh;
+  max-height: 20vh;
+}
+
+.logo_img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.pin_heading {
+  color: black;
+  font-size: 1.25rem;
+  text-align: start;
+  width: 80vw;
+  margin: 0.625rem 0;
+}
+
+.pin_field {
+  width: 80vw;
+  margin: 0.625rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.field_input {
+  margin: 0.625rem 0;
+  padding: 0.625rem;
+  font-size: 1.125rem;
+  width: 2.5rem;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  text-align: center;
+  transition: 0.3s;
+}
+.field_input:focus {
+  outline-offset: 5px;
+}
+
+.main_additionals {
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 80%;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.main_additionals .additionals_reminder {
+  color: #8a100e;
+}
+
+.login_form {
+  min-height: 77vh;
+}

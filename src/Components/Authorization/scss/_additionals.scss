@@ -1,0 +1,14 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.main_additionals {
+  color: $font-color;
+  @include flexCenter(column, center, flex-start);
+  width: 80%;
+  font-size: 1rem;
+  line-height: 1.7;
+
+  .additionals_reminder {
+    color: $red;
+  }
+}

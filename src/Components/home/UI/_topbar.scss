@@ -1,0 +1,73 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.topbar {
+  background-color: $primary-color;
+
+  width: 100vw;
+  height: 10vh;
+
+  @include flexCenter(row, space-between, center);
+
+  position: sticky;
+  top: 0;
+  right: 0;
+  z-index: 2;
+
+  .topbar_logo-wrapper {
+    width: 50%;
+    height: 60%;
+    background-color: #fff;
+
+    margin: 0 1.25rem;
+    border-radius: 10px;
+
+    @include flexCenter(row, space-between, center);
+
+    font-size: 1.25rem;
+    padding-left: 1.25rem;
+
+    .logo-wrapper_txt {
+      background-image: linear-gradient(60deg, $blue 20%, $red 50%);
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+    }
+  }
+
+  img {
+    height: 100%;
+    border-radius: 0 10px 10px 0;
+  }
+
+  //better font look for larger mobile
+  @media (min-width: 490px) {
+    .topbar_logo-wrapper {
+      font-size: 1.6rem;
+    }
+  }
+
+  .topbar_menu {
+    margin: 0 1.5rem;
+
+    button {
+      // all: inherit;
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .topbar {
+    display: none;
+  }
+}

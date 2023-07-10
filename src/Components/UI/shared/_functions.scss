@@ -1,0 +1,31 @@
+@mixin flexCenter($direction, $justify, $align) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: $justify;
+  -ms-flex-pack: $justify;
+  justify-content: $justify;
+  -webkit-box-align: $align;
+  -ms-flex-align: $align;
+  align-items: $align;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+@mixin gridStart($columns-size, $rows-size, $areas, $gap) {
+  display: grid;
+  grid-template-columns: $columns-size; // 50px 50px
+  grid-template-rows: $rows-size; // 25px 25px 25px
+  grid-template-areas: $areas;
+  // " header header "
+  // " main main "
+  //  " footer footer "
+  gap: $gap;
+}
+
+@mixin buttonHover($background) {
+  background: $background;
+  cursor: pointer;
+}

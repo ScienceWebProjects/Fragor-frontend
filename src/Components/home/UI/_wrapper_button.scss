@@ -1,0 +1,12 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.wrapper_buttons {
+  @include gridStart(50% 50%, 5rem 5rem, 'printers filaments' 'settings users', 0.625rem);
+  justify-items: stretch;
+
+  .wrapper_button {
+    width: 100%;
+    height: 100%;
+  }
+}
