@@ -9,7 +9,7 @@ import HomePage from './Components/home/HomePage';
 import './App.css';
 
 const endpoints = {
-  ip: 'http://127.0.0.1:8000',
+  ip: 'http://127.0.0.1:802300',
 
   // REACT-ROUTER-DOM
   loginPage: '/',
