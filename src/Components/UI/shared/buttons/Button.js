@@ -15,11 +15,11 @@ const colors = {
   },
   blue: {
     textColor: '#1375BD',
-    borderColor: '2px solid #1375BD',
+    borderColor: 'linear-gradient(30deg, rgba(0,80,138,1) 0%, rgba(19,117,189,1) 40%);',
   },
   green: {
     textColor: '#2F8A07',
-    borderColor: '2px solid #2F8A07',
+    borderColor: 'linear-gradient(30deg, rgba(25,74,4,1) 0%, rgba(47,138,7,1) 40%)',
   },
 };
 

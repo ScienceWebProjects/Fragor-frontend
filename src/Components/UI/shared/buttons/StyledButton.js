@@ -40,6 +40,15 @@ const StyledButton = styled.button`
     border-radius: 0.5rem;
     background: ${(props) => props.$bordercolor};
   }
+
+  &:hover,
+  &:active {
+    color: #fff;
+    background: ${(props) => props.$textcolor};
+
+    border: 3px solid #000;
+    cursor: pointer;
+  }
 `;
 
 export default StyledButton;
