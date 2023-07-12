@@ -11,7 +11,7 @@ const colors = {
   },
   yellow: {
     textColor: '#8A6F07',
-    borderColor: 'linear-gradient(30deg, rgba(138,111,7,1) 0%, rgba(214,175,21,1) 40%);',
+    borderColor: 'linear-gradient(30deg, rgba(138,111,7,1) 0%, rgba(214,175,21,1) 40%)',
   },
   blue: {
     textColor: '#1375BD',
@@ -40,8 +40,8 @@ const Button = (props) => {
   return (
     <StyledButton
       className={className}
-      textcolor={colorData.textColor}
-      bordercolor={colorData.borderColor}
+      $textcolor={colorData.textColor}
+      $bordercolor={colorData.borderColor}
     >
       {props.children}
     </StyledButton>
