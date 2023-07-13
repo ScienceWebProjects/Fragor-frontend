@@ -32,6 +32,9 @@ $bcg-color--decktop: linear-gradient(
 $fragor-font: 'Electrolize', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
+// some UI elements
+$corners: 0.625rem;
+
 // Predefined Break-points
 $breakpoint-mobile: 650px;
 $breakpoint-tablet: 768px;

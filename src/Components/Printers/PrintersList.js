@@ -6,13 +6,12 @@ import TopBar from '../_shared/TopBar';
 import Button from '../UI/shared/buttons/Button';
 
 // UI elements
-import logo from '../../Images/icon-white.png';
 import StyledLink from '../UI/shared/StyledLink';
 
 // scss
 import '../UI/shared/_topbar.scss';
 
-function PrintersPage(props) {
+function PrintersList(props) {
   return (
     <div>
       {/* <header> */}
@@ -46,4 +45,4 @@ function PrintersPage(props) {
   );
 }
 
-export default PrintersPage;
+export default PrintersList;

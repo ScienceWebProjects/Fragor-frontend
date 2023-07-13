@@ -1,0 +1,14 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.container_bar {
+  width: 95vw;
+  min-height: 3.125rem;
+
+  background-color: $blue;
+  border-radius: $corners;
+
+  .bar_filter {
+    border-radius: $corners;
+  }
+}

@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // components
 import LoginPage from './Components/Authorization/LoginPage';
 import HomePage from './Components/Home/HomePage';
-import PrintersPage from './Components/Printers/PrintersPage';
+import PrintersList from './Components/Printers/PrintersList';
 import FilamentsPage from './Components/Filaments/FilamentsPage';
 
 // UI elements
@@ -27,7 +27,7 @@ function App() {
   const router = createBrowserRouter([
     { path: endpoints.loginPage, element: <LoginPage api={endpoints} /> },
     { path: endpoints.home, element: <HomePage api={endpoints} /> },
-    { path: endpoints.printersPage, element: <PrintersPage api={endpoints} /> },
+    { path: endpoints.printersPage, element: <PrintersList api={endpoints} /> },
     { path: endpoints.filamentsPage, element: <FilamentsPage api={endpoints} /> },
   ]);
 

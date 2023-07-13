@@ -3,10 +3,9 @@ import React from 'react';
 
 // components
 import TopBar from '../_shared/TopBar';
-import Button from '../UI/shared/buttons/Button';
 
 // UI elements
-import StyledLink from '../UI/shared/StyledLink';
+import FiltersBar from './FiltersBar';
 
 function FilamentsPage(props) {
   return (
@@ -16,7 +15,7 @@ function FilamentsPage(props) {
       {/* </ header> */}
 
       <main className='App-header'>
-        <nav></nav>
+        <FiltersBar />
       </main>
     </div>
   );
