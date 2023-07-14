@@ -1,6 +1,6 @@
 // libs
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // custom hooks
 // import useToken from '../../Hooks/useToken';
@@ -16,53 +16,55 @@ const MaterialFilter = (props) => {
 
   // const user = useToken();
 
-  const dropdownChangeHandler = (event) => {
-    props.onMaterialFilter(event.target.value);
-  };
+  // const dropdownChangeHandler = (event) => {
+  //   props.onMaterialFilter(event.target.value);
+  // };
 
-  const makeAPICall = async () => {
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // Authorization: `token ${user.token}`,
-      },
-    };
-    try {
-      const response = await fetch(`${props.api.ip}${props.api.materialFilaments}`, requestOptions);
-      const data = await response.json();
-      setMaterials(data);
-    } catch (e) {
-      console.log('Error in MaterialFilter.js');
-    }
-  };
-  useEffect(() => {
-    makeAPICall();
-  }, []);
+  // const makeAPICall = async () => {
+  //   const requestOptions = {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       // Authorization: `token ${user.token}`,
+  //     },
+  //   };
+  //   try {
+  //     const response = await fetch(`${props.api.ip}${props.api.materialFilaments}`, requestOptions);
+  //     const data = await response.json();
+  //     setMaterials(data);
+  //   } catch (e) {
+  //     console.log('Error in MaterialFilter.js');
+  //   }
+  // };
+  // useEffect(() => {
+  //   makeAPICall();
+  // }, []);
 
   return (
     <SelectBox>
-      <label htmlFor='materials'>Material</label>
-      <select
-        name='materials'
-        value={props.selected}
-        onChange={dropdownChangeHandler}
-      >
-        <option
-          key='all-materials'
-          value='all'
+      <div className='SelectBox_border-gradient'>
+        <label htmlFor='materials'>Material</label>
+        <select
+          name='materials'
+          value={props.selected}
+          // onChange={dropdownChangeHandler}
         >
-          All
-        </option>
-        {materials.map((material) => (
           <option
-            key={material.id}
-            value={material.type}
+            key='all-materials'
+            value='all'
           >
-            {material.type}
+            All
           </option>
-        ))}
-      </select>
+          {materials.map((material) => (
+            <option
+              key={material.id}
+              value={material.type}
+            >
+              {material.type}
+            </option>
+          ))}
+        </select>
+      </div>
     </SelectBox>
   );
 };

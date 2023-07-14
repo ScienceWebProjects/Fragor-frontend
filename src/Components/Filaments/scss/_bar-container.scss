@@ -2,11 +2,16 @@
 @import '../../UI/shared/functions';
 
 .container_bar {
+  position: fixed;
+  top: calc(10vh + 0.625rem);
+
   width: 95vw;
   min-height: 3.125rem;
 
   background-color: $blue;
   border-radius: $corners;
+
+  @include flexCenter(row, space-around, center);
 
   .bar_filter {
     border-radius: $corners;

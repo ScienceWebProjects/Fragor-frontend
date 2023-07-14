@@ -25,7 +25,8 @@
     @include flexCenter(row, space-between, center);
 
     font-size: 1.25rem;
-    padding-left: 1.25rem;
+    white-space: nowrap;
+    padding-left: 0.625rem;
 
     .logo-wrapper_txt {
       background-image: linear-gradient(60deg, $blue 20%, $red 50%);
@@ -46,6 +47,14 @@
   @media (min-width: 490px) {
     .topbar_logo-wrapper {
       font-size: 1.6rem;
+      white-space: nowrap;
+    }
+  }
+
+  @media (orientation: landscape) {
+    .topbar_logo-wrapper {
+      font-size: 5vh;
+      white-space: nowrap;
     }
   }
 
