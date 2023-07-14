@@ -12,7 +12,6 @@ import logo from '../../Images/icon-white.png';
 import StyledLink from '../UI/shared/StyledLink';
 
 // scss
-import '../UI/shared/_topbar.scss';
 import './UI/_wrapper_button.scss';
 
 function HomePage(props) {

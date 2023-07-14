@@ -16,7 +16,7 @@
 
   .topbar_logo-wrapper {
     width: 50%;
-    height: 60%;
+    height: 70%;
     background-color: #fff;
 
     margin: 0 1.25rem;
@@ -60,16 +60,30 @@
 
   .topbar_menu {
     margin: 0 1.5rem;
+    height: 70%;
 
-    button {
-      // all: inherit;
-      margin: 0;
-      padding: 0;
-      background: none;
-      border: none;
+    .menu_button {
+      height: 100%;
+      vertical-align: middle;
 
-      &:hover {
-        cursor: pointer;
+      button {
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: none;
+
+        width: 7vh;
+        height: 7vh;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: 3px;
+        grid-row-gap: 3px;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }

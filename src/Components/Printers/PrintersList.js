@@ -9,7 +9,6 @@ import Button from '../UI/shared/buttons/Button';
 import StyledLink from '../UI/shared/StyledLink';
 
 // scss
-import '../UI/shared/_topbar.scss';
 
 function PrintersList(props) {
   return (
