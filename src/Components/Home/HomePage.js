@@ -8,7 +8,6 @@ import Quotes from './Quotes';
 import Button from '../UI/shared/buttons/Button';
 
 // UI elements
-import logo from '../../Images/icon-white.png';
 import StyledLink from '../UI/shared/StyledLink';
 
 // scss

@@ -9,6 +9,8 @@
 
   @include flexCenter(row, space-between, center);
 
+  position: -webkit-sticky;
+
   position: sticky;
   top: 0;
   right: 0;
@@ -29,6 +31,7 @@
     padding-left: 0.625rem;
 
     .logo-wrapper_txt {
+      background-image: -o-linear-gradient(30deg, $blue 20%, $red 50%);
       background-image: linear-gradient(60deg, $blue 20%, $red 50%);
       background-size: 100%;
       -webkit-background-clip: text;
@@ -60,10 +63,8 @@
 
   .topbar_menu {
     margin: 0 1.5rem;
-    height: 70%;
 
     .menu_button {
-      height: 100%;
       vertical-align: middle;
 
       button {
@@ -72,8 +73,8 @@
         background: none;
         border: none;
 
-        width: 7vh;
-        height: 7vh;
+        width: 5vh;
+        height: 5vh;
 
         display: grid;
         grid-template-columns: repeat(3, 1fr);

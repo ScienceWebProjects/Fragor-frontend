@@ -1,5 +1,5 @@
 // react libs
-import { useState } from 'react';
+// import { useState } from 'react';
 
 // UI elements
 import StyledButton from './StyledButton';
@@ -25,7 +25,8 @@ const colors = {
 
 const Button = (props) => {
   const { color, className } = props;
-  const [colorData, setColorData] = useState(
+  // const [colorData, setColorData] = useState(
+  const colorData =
     color === 'red'
       ? colors.red
       : color === 'yellow'
@@ -34,8 +35,7 @@ const Button = (props) => {
       ? colors.blue
       : color === 'green'
       ? colors.green
-      : null
-  );
+      : null;
 
   return (
     <StyledButton
