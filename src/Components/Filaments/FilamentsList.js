@@ -1,9 +1,30 @@
 // libs
+import React, { useState, useEffect } from 'react';
 
 // components
 import FilamentItem from './UI/FilamentItem';
 
+// downloaded components
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 const FilamentsList = (props) => {
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+  // A function that handles the window resize event
+  const handleWindowResize = () => {
+    setWindowHeight(window.innerHeight);
+  };
+
+  useEffect(() => {
+    // Add listener for window resize event on component assembly
+    window.addEventListener('resize', handleWindowResize);
+
+    // Remove event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
   if (props.items.length === 0) {
     return (
       <div>
@@ -13,7 +34,13 @@ const FilamentsList = (props) => {
   }
 
   return (
-    <ul>
+    <InfiniteScroll
+      dataLength={props.items.length}
+      hasMore={false}
+      height={windowHeight * 0.6}
+      endMessage={'No more added filaments'}
+      style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+    >
       {props.items.map((filament) => (
         <FilamentItem
           key={filament.id}
@@ -24,7 +51,7 @@ const FilamentsList = (props) => {
           hotend={filament.hotend}
         />
       ))}
-    </ul>
+    </InfiniteScroll>
   );
 };
 

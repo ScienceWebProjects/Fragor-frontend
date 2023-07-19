@@ -13,6 +13,8 @@
 
   @include flexCenter(row, space-around, center);
 
+  z-index: 2;
+
   .bar_filter {
     border-radius: $corners;
   }

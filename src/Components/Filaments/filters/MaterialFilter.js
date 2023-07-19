@@ -16,10 +16,6 @@ const MaterialFilter = (props) => {
 
   // code below is for remove react warrning
   // in future this will delete
-  setMaterials([
-    { id: 1, type: 'PLA' },
-    { id: 2, type: 'EASY PLA' },
-  ]);
 
   // const user = useToken();
 

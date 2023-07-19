@@ -1,5 +1,4 @@
-// react libs
-// import { useState } from 'react';
+// libs
 
 // UI elements
 import StyledButton from './StyledButton';
