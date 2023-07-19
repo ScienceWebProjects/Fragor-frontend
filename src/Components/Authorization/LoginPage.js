@@ -46,7 +46,7 @@ function LoginPage(props) {
           <Pin />
         </div>
         <StyledLink to={props.api.home}>
-          <Button color='red'>Log in</Button>
+          <Button color='green'>Log in</Button>
         </StyledLink>
         <StyledLink to={props.api.signinPage}>
           <Button color='yellow'>Sign in</Button>
