@@ -1,4 +1,5 @@
 // libs
+import { useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'; // version 6.14.1
 
 // components
@@ -36,11 +37,35 @@ const endpoints = {
 };
 
 function App() {
+  const [printerDetails, setPrinterDetails] = useState();
+
+  const printerDetailsHandler = (details) => {
+    setPrinterDetails(details);
+  };
+
   const router = createBrowserRouter([
     { path: endpoints.loginPage, element: <LoginPage api={endpoints} /> },
     { path: endpoints.home, element: <HomePage api={endpoints} /> },
-    { path: endpoints.printersPage, element: <PrintersList api={endpoints} /> },
-    { path: `${endpoints.printersPage}/:printerName`, element: <PrinterDetails api={endpoints} /> },
+
+    {
+      path: endpoints.printersPage,
+      element: (
+        <PrintersList
+          api={endpoints}
+          onPrinterSelect={printerDetailsHandler}
+        />
+      ),
+    },
+    {
+      path: `${endpoints.printersPage}/:printerName`,
+      element: (
+        <PrinterDetails
+          api={endpoints}
+          details={printerDetails}
+        />
+      ),
+    },
+
     { path: endpoints.filamentsPage, element: <FilamentsPage api={endpoints} /> },
   ]);
 

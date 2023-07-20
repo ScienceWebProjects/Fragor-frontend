@@ -69,6 +69,10 @@ function PrintersList(props) {
     },
   ]);
 
+  const printerSelectionHandler = (printer) => {
+    props.onPrinterSelect(printer);
+  };
+
   const user = useToken();
 
   const makeAPICall = async () => {
@@ -122,6 +126,7 @@ function PrintersList(props) {
             <PrinterItem
               printer={printer}
               api={props.api}
+              onPrinterSelect={printerSelectionHandler}
             />
           </Button>
         ))}
