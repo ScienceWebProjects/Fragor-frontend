@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'; // version 6.14.1
 
 // components
-import LoginPage from './Components/Authorization/LoginPage';
+import LoginPage from './Components/Authorization/Login/LoginPage';
 import HomePage from './Components/Home/HomePage';
 import PrintersList from './Components/Printers/PrintersList';
 import FilamentsPage from './Components/Filaments/FilamentsPage';
 import PrinterDetails from './Components/Printers/PrinterDetails';
+import SigninPage from './Components/Authorization/Signin/SigninPage';
 
 // UI elements
 import './App.css';
@@ -45,6 +46,7 @@ function App() {
 
   const router = createBrowserRouter([
     { path: endpoints.loginPage, element: <LoginPage api={endpoints} /> },
+    { path: endpoints.signinPage, element: <SigninPage api={endpoints} /> },
     { path: endpoints.home, element: <HomePage api={endpoints} /> },
 
     {

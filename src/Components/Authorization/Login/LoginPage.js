@@ -1,14 +1,14 @@
 // UI elements
 // import Card from '../UI/shared/Card';
 import './LoginPage.scss';
-import logo from '../../Images/logo-black.png';
-import StyledLabel from '../UI/authorization/StyledLabel';
-import StyledInput from '../UI/authorization/StyledInput';
+import logo from '../../../Images/logo-black.png';
+import StyledLabel from '../../UI/authorization/StyledLabel';
+import StyledInput from '../../UI/authorization/StyledInput';
 
 // components
-import Button from '../UI/shared/buttons/Button';
+import Button from '../../UI/shared/buttons/Button';
 import Pin from './Pin';
-import StyledLink from '../UI/shared/StyledLink';
+import StyledLink from '../../UI/shared/StyledLink';
 
 function LoginPage(props) {
   return (
