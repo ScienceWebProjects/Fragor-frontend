@@ -1,0 +1,26 @@
+@import '../../UI/shared/functions';
+@import '../../UI/shared/variables';
+
+.details-printer {
+  min-height: 50vh;
+  width: 85vw;
+
+  background-color: #aaa;
+  border-radius: 0.625rem;
+
+  .printer-img {
+    height: 9.375rem;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  .printer-data {
+  }
+}
