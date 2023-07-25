@@ -10,7 +10,7 @@ const Pin = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: '85%', margin: '0 auto' }}>
       <h2 className='pin_heading'>PIN</h2>
       <div className='pin_field'>
         <PinField

@@ -7,7 +7,7 @@ import StyledInput from '../../UI/authorization/StyledInput';
 
 // components
 import Button from '../../UI/shared/buttons/Button';
-import Pin from './Pin';
+import Pin from '../Pin';
 import StyledLink from '../../UI/shared/StyledLink';
 
 function LoginPage(props) {

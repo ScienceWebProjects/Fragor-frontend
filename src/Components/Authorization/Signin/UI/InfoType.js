@@ -1,22 +1,28 @@
 // libs
 import styled from 'styled-components';
 
-const Underline = styled.div`
+const Text = styled.div`
   width: 100%;
+  margin: 1rem auto 0.625rem auto;
+  font-weight: 700;
+`;
+
+const Underline = styled.div`
+  width: 90%;
   height: 2px;
   background-color: #000;
 
-  margin: 0.313rem 0;
+  margin: 0.313rem auto;
 `;
 
 function InfoType(props) {
   const { text } = props;
 
   return (
-    <div style={{ width: '100%', margin: '0.625rem 0' }}>
+    <Text>
       <div style={{ color: '#000' }}>{text}</div>
       <Underline />
-    </div>
+    </Text>
   );
 }
 
