@@ -43,7 +43,7 @@ function PrintersList(props) {
       name: 'test',
       work_hours: 0.0,
       model: 'Ender 3',
-      image: 'http://127.0.0.1:8000/media/images/printer.png',
+      image: '',
     },
     {
       id: 2,

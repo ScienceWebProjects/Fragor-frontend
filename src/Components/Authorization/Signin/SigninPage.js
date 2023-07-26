@@ -37,10 +37,10 @@ function SigninPage(props) {
       email: emailEntered,
       firstName: firstNameEntered,
       lastName: lastNameEntered,
-      pin: pinEntered, // IMPORTATNT - backend doesn't have this
+      pin: pinEntered,
       password: passwordEntered,
       password2: passwordConfirmEntered,
-      token: productInformationEntered, // IMPORTATNT - is it product info for sure
+      token: productInformationEntered,
     };
 
     const requestOptions = {
