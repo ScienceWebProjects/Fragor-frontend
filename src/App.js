@@ -26,9 +26,10 @@ const endpoints = {
   usersPage: '/users-page',
 
   // authorization
+  registration: '/api/account/registration/', // POST
 
   // printers
-  printersList: '/api/printer/get/',
+  printersList: '/api/printer/get/', // GET
 
   // filaments
 

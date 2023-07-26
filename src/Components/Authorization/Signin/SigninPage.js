@@ -1,7 +1,9 @@
 // libs
+import React from 'react';
 
 // hooks
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../Hooks/useWindowSize';
 
 // components
@@ -16,6 +18,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'; // v6.1.0
 import logo from '../../../Images/logo-black.png';
 import Button from '../../UI/shared/buttons/Button';
 import InfoType from './UI/InfoType';
+import StyledLink from '../../UI/shared/StyledLink';
 
 function SigninPage(props) {
   const [firstNameEntered, setFirstNameEntered] = useState('');
@@ -23,39 +26,55 @@ function SigninPage(props) {
   const [emailEntered, setEmailEntered] = useState('');
   const [pinEntered, setPinEntered] = useState('');
   const [passwordEntered, setPasswordEntered] = useState('');
-  const [passwrdConfirmEntered, setPasswordConfirmEntered] = useState('');
+  const [passwordConfirmEntered, setPasswordConfirmEntered] = useState('');
   const [productInformationEntered, setProductInformationEntered] = useState('');
 
-  const firstNameChangeHandler = (event) => {
-    setFirstNameEntered(event.target.value);
-    console.log(firstNameEntered);
-  };
-
-  const lastNameChangeHandler = (event) => {
-    setLastNameEntered(event.target.value);
-  };
-
-  const emailChangeHandler = (event) => {
-    setEmailEntered(event.target.value);
-  };
-
-  const pinChangeHandler = (event) => {
-    setPinEntered(event.target.value);
-  };
-
-  const passwordChangeHandler = (event) => {
-    setPasswordEntered(event.target.value);
-  };
-
-  const passwordConfirmChangeHandler = (event) => {
-    setPasswordConfirmEntered(event.target.value);
-  };
-
-  const productInformationChangeHandler = (event) => {
-    setProductInformationEntered(event.target.value);
-  };
-
   const windowSize = useWindowSize();
+  const navigate = useNavigate();
+
+  const makeAPIPost = async () => {
+    const registerData = {
+      email: emailEntered,
+      firstName: firstNameEntered,
+      lastName: lastNameEntered,
+      pin: pinEntered, // IMPORTATNT - backend doesn't have this
+      password: passwordEntered,
+      password2: passwordConfirmEntered,
+      token: productInformationEntered, // IMPORTATNT - is it product info for sure
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(registerData),
+    };
+
+    try {
+      const response = await fetch(`${props.api.ip}${props.api.registration}`, requestOptions);
+
+      if (response.status === 404) {
+        console.log(`error ${response.status} fetch POST SigninPage.js`);
+        return false;
+      }
+      if (response.status === 400) {
+        console.log('Unable to register'); // in this line must add some UI info about failure
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      alert('Post error! Failed attempt to register. Try again.');
+    }
+  };
+
+  const submitFormHandler = async (e) => {
+    e.preventDefault();
+    const successful = await makeAPIPost();
+
+    if (successful) {
+      navigate(props.api.loginPage);
+    }
+  };
 
   return (
     <div className='App'>
@@ -82,95 +101,122 @@ function SigninPage(props) {
         className='App-header'
         style={{ minHeight: '77vh' }}
       >
-        <InfiniteScroll
-          dataLength={''}
-          hasMore={false}
-          height={windowSize * 0.5}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            width: '85vw',
-            textAlign: 'center',
-            alignItems: 'center',
-            padding: '0px 15px 0 15px',
-            margin: '10px',
-          }}
-        >
-          <InfoType text={'Personal information'} />
+        <form onSubmit={submitFormHandler}>
+          <InfiniteScroll
+            dataLength={''}
+            hasMore={false}
+            height={windowSize * 0.5}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-start',
+              width: '85vw',
+              textAlign: 'center',
+              alignItems: 'center',
+              padding: '0px 15px 0 15px',
+              margin: '10px',
+            }}
+          >
+            <InfoType text={'Personal information'} />
 
-          <StyledLabel htmlFor='first-name'>First Name</StyledLabel>
-          <StyledInput
-            name='first-name'
-            id='first-name'
-            type='text'
-            value={firstNameEntered}
-            onChange={firstNameChangeHandler}
-          ></StyledInput>
+            <StyledLabel htmlFor='first-name'>First Name</StyledLabel>
+            <StyledInput
+              name='first-name'
+              id='first-name'
+              type='text'
+              value={firstNameEntered}
+              onChange={(event) => {
+                setFirstNameEntered(event.target.value);
+              }}
+              required
+            ></StyledInput>
 
-          <StyledLabel htmlFor='last-name'>Last Name</StyledLabel>
-          <StyledInput
-            name='last-name'
-            id='last-name'
-            type='text'
-            // value={enteredUserEmail}
-            onChange={lastNameChangeHandler}
-          ></StyledInput>
+            <StyledLabel htmlFor='last-name'>Last Name</StyledLabel>
+            <StyledInput
+              name='last-name'
+              id='last-name'
+              type='text'
+              value={lastNameEntered}
+              onChange={(event) => {
+                setLastNameEntered(event.target.value);
+              }}
+              required
+            ></StyledInput>
 
-          <InfoType text={'Account information'} />
+            <InfoType text={'Account information'} />
 
-          <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
-          <StyledInput
-            name='user-email'
-            id='user-email'
-            type='email'
-            // value={enteredUserEmail}
-            onChange={emailChangeHandler}
-          ></StyledInput>
+            <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
+            <StyledInput
+              name='user-email'
+              id='user-email'
+              type='email'
+              value={emailEntered}
+              onChange={(event) => {
+                setEmailEntered(event.target.value);
+              }}
+              required
+            ></StyledInput>
 
-          <Pin />
+            <Pin
+              onPinEntered={(pin) => {
+                setPinEntered(pin);
+              }}
+            />
 
-          <StyledLabel htmlFor='user-password'>Password</StyledLabel>
-          <StyledInput
-            name='user-password'
-            id='user-password'
-            type='password'
-            // value={enteredUserEmail}
-            onChange={passwordChangeHandler}
-          ></StyledInput>
+            <StyledLabel htmlFor='user-password'>Password</StyledLabel>
+            <StyledInput
+              name='user-password'
+              id='user-password'
+              type='password'
+              value={passwordEntered}
+              onChange={(event) => {
+                setPasswordEntered(event.target.value);
+              }}
+              required
+            ></StyledInput>
 
-          <StyledLabel htmlFor='user-confirm-password'>Confirm password</StyledLabel>
-          <StyledInput
-            name='user-confirm-password'
-            id='user-confirm-password'
-            type='password'
-            // value={enteredUserEmail}
-            onChange={passwordConfirmChangeHandler}
-          ></StyledInput>
+            <StyledLabel htmlFor='user-confirm-password'>Confirm password</StyledLabel>
+            <StyledInput
+              name='user-confirm-password'
+              id='user-confirm-password'
+              type='password'
+              value={passwordConfirmEntered}
+              onChange={(event) => {
+                setPasswordConfirmEntered(event.target.value);
+              }}
+              required
+            ></StyledInput>
 
-          <InfoType text={'Product information'} />
+            <InfoType text={'Product information'} />
 
-          <StyledLabel htmlFor='product-information'>Product information</StyledLabel>
-          <StyledInput
-            name='product-information'
-            id='product-information'
-            type='text'
-            // value={enteredUserEmail}
-            onChange={productInformationChangeHandler}
-          ></StyledInput>
-        </InfiniteScroll>
-        <Button
-          className=''
-          color='yellow'
-        >
-          Sign in
-        </Button>
-        <Button
-          className=''
-          color='red'
-        >
-          Back
-        </Button>
+            <StyledLabel htmlFor='product-information'>Product information</StyledLabel>
+            <StyledInput
+              name='product-information'
+              id='product-information'
+              type='text'
+              value={productInformationEntered}
+              onChange={(event) => {
+                setProductInformationEntered(event.target.value);
+              }}
+              required
+            ></StyledInput>
+          </InfiniteScroll>
+          <Button
+            className=''
+            color='yellow'
+            type='submit'
+          >
+            Sign in
+          </Button>
+        </form>
+        <StyledLink to={props.api.loginPage}>
+          <Button
+            className=''
+            color='red'
+          >
+            Back
+          </Button>
+        </StyledLink>
       </main>
     </div>
   );
