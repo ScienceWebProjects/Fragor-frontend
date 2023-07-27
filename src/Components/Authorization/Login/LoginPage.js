@@ -1,3 +1,7 @@
+// hooks
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // UI elements
 // import Card from '../UI/shared/Card';
 import './LoginPage.scss';
@@ -11,6 +15,55 @@ import Pin from '../Pin';
 import StyledLink from '../../UI/shared/StyledLink';
 
 function LoginPage(props) {
+  const [emailEntered, setEmailEntered] = useState('');
+  const [pinEntered, setPinEntered] = useState('');
+
+  const navigate = useNavigate();
+
+  const makeAPIPost = async () => {
+    const loginData = {
+      email: emailEntered,
+      pin: pinEntered,
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(loginData),
+    };
+
+    try {
+      const response = await fetch(`${props.api.ip}${props.api.login}`, requestOptions);
+
+      if (response.status === 404) {
+        console.log(`error ${response.status} fetch POST SigninPage.js`);
+        return false;
+      }
+      if (response.status === 400) {
+        console.log('Unable to register'); // in this line must add some UI info about failure
+        return false;
+      }
+
+      const user = await response.json();
+
+      const encodedToken = btoa(JSON.stringify(user));
+      sessionStorage.set('token', encodedToken);
+
+      return true;
+    } catch (e) {
+      alert('Post error! Failed attempt to register. Try again.');
+    }
+  };
+
+  const submitFormHandler = async (e) => {
+    e.preventDefault();
+    const successful = await makeAPIPost();
+
+    if (successful) {
+      navigate(props.api.home);
+    }
+  };
+
   return (
     <div className='App'>
       <header className='header_logo'>
@@ -31,23 +84,37 @@ function LoginPage(props) {
           </a>
         </div>
       </header>
+
       <main className='App-header login_form'>
-        <div>
-          <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
-          <StyledInput
-            name='user-email'
-            id='user-email'
-            type='email'
-            // value={enteredUserEmail}
-            // onChange={userEmailChangeHandler}
-          ></StyledInput>
-        </div>
-        <div>
-          <Pin />
-        </div>
-        <StyledLink to={props.api.home}>
-          <Button color='green'>Log in</Button>
-        </StyledLink>
+        <form onSubmit={submitFormHandler}>
+          <div style={{ width: '85vw', margin: '0 auto' }}>
+            <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
+            <StyledInput
+              name='user-email'
+              id='user-email'
+              type='email'
+              value={emailEntered}
+              onChange={(event) => {
+                setEmailEntered(event.target.value);
+              }}
+              required
+            ></StyledInput>
+          </div>
+          <div>
+            <Pin
+              onPinEntered={(pin) => {
+                setPinEntered(pin);
+              }}
+            />
+          </div>
+          <Button
+            color='green'
+            type='submit'
+          >
+            Log in
+          </Button>
+        </form>
+
         <StyledLink to={props.api.signinPage}>
           <Button color='yellow'>Sign in</Button>
         </StyledLink>

@@ -57,7 +57,7 @@ function SigninPage(props) {
         return false;
       }
       if (response.status === 400) {
-        console.log('Unable to register'); // in this line must add some UI info about failure
+        alert('Unable to register. Please check your input data and try again.'); // in this line must add some UI info about failure
         return false;
       }
 
