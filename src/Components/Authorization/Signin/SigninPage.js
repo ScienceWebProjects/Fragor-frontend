@@ -37,9 +37,9 @@ function SigninPage(props) {
       email: emailEntered,
       firstName: firstNameEntered,
       lastName: lastNameEntered,
-      pin: pinEntered,
       password: passwordEntered,
       password2: passwordConfirmEntered,
+      pin: pinEntered,
       token: productInformationEntered,
     };
 
@@ -50,6 +50,8 @@ function SigninPage(props) {
     };
 
     try {
+      console.log(registerData);
+
       const response = await fetch(`${props.api.ip}${props.api.registration}`, requestOptions);
 
       if (response.status === 404) {
@@ -57,11 +59,15 @@ function SigninPage(props) {
         return false;
       }
       if (response.status === 400) {
-        alert('Unable to register. Please check your input data and try again.'); // in this line must add some UI info about failure
+        const res = await response.json();
+        console.log(res);
+        alert(`Unable to register. Please check your input data and try again. ${res}`); // in this line must add some UI info about failure
         return false;
       }
 
-      return true;
+      if (response.status === 201) {
+        return true;
+      }
     } catch (e) {
       alert('Post error! Failed attempt to register. Try again.');
     }
