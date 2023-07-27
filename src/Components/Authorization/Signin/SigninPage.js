@@ -72,6 +72,7 @@ function SigninPage(props) {
     const successful = await makeAPIPost();
 
     if (successful) {
+      alert('Succesfull registered.');
       navigate(props.api.loginPage);
     }
   };
