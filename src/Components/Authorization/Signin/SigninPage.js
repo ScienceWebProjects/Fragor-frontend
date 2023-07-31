@@ -44,29 +44,36 @@ function SigninPage(props) {
     };
 
     const requestOptions = {
-      method: 'POST',
+      method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(registerData),
+      // body: JSON.stringify(registerData),
     };
 
     try {
       console.log(registerData);
 
-      const response = await fetch(`${props.api.ip}${props.api.registration}`, requestOptions);
+      const response = await fetch(`${props.api.ip}${props.api.printersList}`, requestOptions);
+
+      if (response.status === 201) {
+        return true;
+      }
+
+      if (response.status === 400) {
+        const res400 = await response.json();
+        console.log(res400);
+        alert(`Unable to register. Please check your input data and try again. ${res400}`); // in this line must add some UI info about failure
+        return false;
+      }
+
+      if (response.status === 403) {
+        console.log('test');
+        const res403 = await response.json();
+        console.log(res403);
+      }
 
       if (response.status === 404) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
         return false;
-      }
-      if (response.status === 400) {
-        const res = await response.json();
-        console.log(res);
-        alert(`Unable to register. Please check your input data and try again. ${res}`); // in this line must add some UI info about failure
-        return false;
-      }
-
-      if (response.status === 201) {
-        return true;
       }
     } catch (e) {
       alert('Post error! Failed attempt to register. Try again.');
@@ -196,10 +203,10 @@ function SigninPage(props) {
 
             <InfoType text={'Product information'} />
 
-            <StyledLabel htmlFor='product-information'>Product information</StyledLabel>
+            <StyledLabel htmlFor='product-key'>Product key</StyledLabel>
             <StyledInput
-              name='product-information'
-              id='product-information'
+              name='product-key'
+              id='product-key'
               type='text'
               value={productInformationEntered}
               onChange={(event) => {
