@@ -26,7 +26,8 @@ const endpoints = {
   usersPage: '/users-page',
 
   // authorization
-  login: '/api/account/login/', // POST
+  loginPin: '/api/account/login/', // POST
+  loginPassword: '', // POST
   registration: '/api/account/registration/', // POST
 
   // printers
