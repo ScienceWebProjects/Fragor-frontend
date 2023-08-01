@@ -4,13 +4,13 @@ import PinField from 'react-pin-field';
 
 const PinRef = React.createRef();
 
-const Pin = () => {
+const Pin = (props) => {
   const handleComplete = (pin) => {
-    console.log('Entered PIN:', pin);
+    props.onPinEntered(pin);
   };
 
   return (
-    <div>
+    <div style={{ width: '85%', margin: '0 auto' }}>
       <h2 className='pin_heading'>PIN</h2>
       <div className='pin_field'>
         <PinField
@@ -20,6 +20,7 @@ const Pin = () => {
           onComplete={handleComplete}
           className='field_input'
           type='password'
+          required
         />
       </div>
     </div>

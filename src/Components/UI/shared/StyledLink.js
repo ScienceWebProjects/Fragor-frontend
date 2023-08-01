@@ -8,12 +8,14 @@ const LinkStyle = styled(Link)`
 `;
 
 const StyledLink = (props) => {
-  const { className, children, to } = props; // Destructuring props do oddzielnych zmiennych
+  const { className, children, to, style, onClick } = props; // Destructuring props to separate variables
 
   return (
     <LinkStyle
       to={to}
       className={className}
+      style={style}
+      onClick={onClick}
     >
       {children}
     </LinkStyle>

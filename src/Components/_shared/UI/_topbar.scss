@@ -9,6 +9,8 @@
 
   @include flexCenter(row, space-between, center);
 
+  position: -webkit-sticky;
+
   position: sticky;
   top: 0;
   right: 0;
@@ -16,7 +18,7 @@
 
   .topbar_logo-wrapper {
     width: 50%;
-    height: 60%;
+    height: 70%;
     background-color: #fff;
 
     margin: 0 1.25rem;
@@ -25,9 +27,11 @@
     @include flexCenter(row, space-between, center);
 
     font-size: 1.25rem;
-    padding-left: 1.25rem;
+    white-space: nowrap;
+    padding-left: 0.625rem;
 
     .logo-wrapper_txt {
+      background-image: -o-linear-gradient(30deg, $blue 20%, $red 50%);
       background-image: linear-gradient(60deg, $blue 20%, $red 50%);
       background-size: 100%;
       -webkit-background-clip: text;
@@ -46,21 +50,41 @@
   @media (min-width: 490px) {
     .topbar_logo-wrapper {
       font-size: 1.6rem;
+      white-space: nowrap;
+    }
+  }
+
+  @media (orientation: landscape) {
+    .topbar_logo-wrapper {
+      font-size: 5vh;
+      white-space: nowrap;
     }
   }
 
   .topbar_menu {
     margin: 0 1.5rem;
 
-    button {
-      // all: inherit;
-      margin: 0;
-      padding: 0;
-      background: none;
-      border: none;
+    .menu_button {
+      vertical-align: middle;
 
-      &:hover {
-        cursor: pointer;
+      button {
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: none;
+
+        width: 5vh;
+        height: 5vh;
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: 3px;
+        grid-row-gap: 3px;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
