@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 // components
 import TopBar from '../_shared/TopBar';
 import Button from '../UI/shared/buttons/Button';
-import PrinterDetails from './PrinterDetails';
 
 // custom hooks
 import useToken from '../../Hooks/useToken';
@@ -80,23 +79,17 @@ function PrintersList(props) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `token ${user.token}`,
+        Authorization: `token ${user.token}`,
       },
     };
 
     try {
       const response = await fetch(`${props.api.ip}${props.api.printersList}`, requestOptions);
 
-      if (response.status === 404) {
-        console.log(`error ${response.status} fetch PrintersPage.js`);
-        return;
-      }
-
       const data = await response.json();
       setPrinters(data);
-    } catch (e) {
-      console.log('Error in try (catch) printer fetch');
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 
