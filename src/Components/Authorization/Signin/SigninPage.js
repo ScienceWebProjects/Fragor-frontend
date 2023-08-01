@@ -61,7 +61,14 @@ function SigninPage(props) {
       if (response.status === 400) {
         const res400 = await response.json();
         console.log(res400);
-        alert(`Unable to register. Please check your input data and try again. ${res400}`); // in this line must add some UI info about failure
+
+        // get elements value from json server response
+        let errorMessage = 'Unable to register.\nPlease check your input data and try again.\n\n';
+        for (const key in res400) {
+          errorMessage += `${res400[key]}\n`;
+        }
+
+        alert(`${errorMessage}`); // in this line must add some UI info about failure
         return false;
       }
 
@@ -69,7 +76,7 @@ function SigninPage(props) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
         return false;
       }
-    } catch (e) {
+    } catch (error) {
       alert('Post error! Failed attempt to register. Try again.');
     }
   };
