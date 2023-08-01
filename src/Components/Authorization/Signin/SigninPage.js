@@ -44,15 +44,15 @@ function SigninPage(props) {
     };
 
     const requestOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify(registerData),
+      body: JSON.stringify(registerData),
     };
 
     try {
       console.log(registerData);
 
-      const response = await fetch(`${props.api.ip}${props.api.printersList}`, requestOptions);
+      const response = await fetch(`${props.api.ip}${props.api.registration}`, requestOptions);
 
       if (response.status === 201) {
         return true;
@@ -63,12 +63,6 @@ function SigninPage(props) {
         console.log(res400);
         alert(`Unable to register. Please check your input data and try again. ${res400}`); // in this line must add some UI info about failure
         return false;
-      }
-
-      if (response.status === 403) {
-        console.log('test');
-        const res403 = await response.json();
-        console.log(res403);
       }
 
       if (response.status === 404) {

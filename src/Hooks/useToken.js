@@ -1,5 +1,5 @@
 function useToken() {
-  const encodedToken = sessionStorage.get('token', { json: true });
+  const encodedToken = sessionStorage.getItem('token', { json: true });
 
   if (encodedToken) {
     const decodedToken = JSON.parse(atob(encodedToken));

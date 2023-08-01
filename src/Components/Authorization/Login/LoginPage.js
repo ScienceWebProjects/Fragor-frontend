@@ -23,7 +23,7 @@ function LoginPage(props) {
   const makeAPIPost = async () => {
     const loginData = {
       email: emailEntered,
-      pin: pinEntered,
+      password: pinEntered,
     };
 
     const requestOptions = {
@@ -40,18 +40,21 @@ function LoginPage(props) {
         return false;
       }
       if (response.status === 400) {
-        console.log('Unable to register'); // in this line must add some UI info about failure
+        console.log('Unable to login'); // in this line must add some UI info about failure
         return false;
       }
 
       const user = await response.json();
 
       const encodedToken = btoa(JSON.stringify(user));
-      sessionStorage.set('token', encodedToken);
+      sessionStorage.setItem('token', encodedToken);
 
       return true;
-    } catch (e) {
-      alert('Post error! Failed attempt to register. Try again.');
+    } catch (error) {
+      alert(`
+      Post error! Failed attempt to login. 
+      Try again.`);
+      console.log(error);
     }
   };
 
