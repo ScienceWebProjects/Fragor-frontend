@@ -16,6 +16,9 @@ import './App.css';
 const endpoints = {
   ip: 'http://127.0.0.1:8080',
 
+  //
+  quotes: 'https://type.fit/api/quotes', // 1643 quotes
+
   // REACT-ROUTER-DOM
   loginPage: '/',
   home: '/home',
