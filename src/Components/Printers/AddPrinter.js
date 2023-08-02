@@ -1,7 +1,7 @@
 // libs
 
 // hooks
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
@@ -23,11 +23,35 @@ function AddPrinter(props) {
   const permission = usePermissions(user);
 
   const [modelEntered, setModelEntered] = useState('');
+  const [printerNameEntered, setprinterNameEntered] = useState('');
+  const [printersModels, setPrintersModels] = useState([]);
+  const [modelAdd, setModelAdd] = useState('');
+
+  const getAddedPrinter = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await fetch(`${props.api.ip}${props.api.printersModelsGet}`, requestOptions);
+
+      const data = await response.json();
+      setPrintersModels(data);
+      setModelAdd(data[0].model);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getAddedPrinter();
+  }, []);
 
   const printerModelAdd = async () => {
     if (modelEntered === '') {
-      alert('You cannot add empty model name!');
-      return;
+      return alert('You cannot add empty model name!');
     }
 
     const modelData = {
@@ -48,6 +72,7 @@ function AddPrinter(props) {
 
       if (response.status === 201) {
         alert('Succesfully added printer model');
+        window.location.reload();
       }
 
       if (response.status === 400) {
@@ -56,6 +81,39 @@ function AddPrinter(props) {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const printerAdd = async () => {
+    if (printerNameEntered === '' || modelAdd === '') {
+      return alert('Name or model cannot be empty!');
+    }
+
+    const printerData = {
+      name: printerNameEntered,
+      model: modelAdd,
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      body: JSON.stringify(printerData),
+    };
+
+    try {
+      const response = await fetch(`${props.api.ip}${props.api.printerAdd}`, requestOptions);
+
+      if (response.status === 201) {
+        return alert('Succesfully printer added.');
+      }
+
+      if (response.status === 400) {
+        const res400 = await response.json();
+        alert(res400.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Post error! Failed attempt to add printer. Refresh page and try again.');
     }
   };
 
@@ -93,6 +151,45 @@ function AddPrinter(props) {
           </div>
         )}
         <InfoType text={'Printer'} />
+        <div className='printer-add-input'>
+          <div className='add-input'>
+            {/* <StyledLabel htmlFor='printer-add'>Add printer model name</StyledLabel> */}
+            <StyledInput
+              name='printer-add'
+              id='printer-add'
+              type='text'
+              value={printerNameEntered}
+              placeholder='Add printer model name'
+              onChange={(event) => {
+                setprinterNameEntered(event.target.value);
+              }}
+            />
+          </div>
+          <select
+            className='add-select'
+            onChange={(event) => {
+              console.log(modelAdd);
+              setModelAdd(event.target.value);
+            }}
+          >
+            {printersModels.map((model) => (
+              <option
+                key={model.id}
+                value={model.model}
+              >
+                {model.model}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <Button
+          className='add-btn'
+          color='yellow'
+          onClick={printerAdd}
+        >
+          Add printer
+        </Button>
       </main>
     </div>
   );

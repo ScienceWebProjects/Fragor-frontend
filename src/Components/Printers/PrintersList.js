@@ -54,7 +54,7 @@ function PrintersList(props) {
       {/* </ header> */}
 
       <main className='App-header'>
-        <StyledLink to={props.api.printerAdd}>
+        <StyledLink to={props.api.printerAddPage}>
           <Button
             className=''
             color='yellow'

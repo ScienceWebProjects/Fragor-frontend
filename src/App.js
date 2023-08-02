@@ -25,7 +25,7 @@ const endpoints = {
   signinPage: '/signin-page',
   home: '/home',
   printersPage: '/printers-page',
-  printerAdd: '/printer-add',
+  printerAddPage: '/printer-add',
   filamentsPage: '/filaments-page',
   settingsPage: '/settings-page',
   usersPage: '/users-page',
@@ -37,7 +37,9 @@ const endpoints = {
 
   // printers
   printersList: '/api/printer/get/all/', // GET
-  printerModelAdd: '/api/printer/model/add/',
+  printerModelAdd: '/api/printer/model/add/', // POST
+  printersModelsGet: '/api/printer/model/get/all/', // GET
+  printerAdd: '/api/printer/add/', // POST
 
   // filaments
 
@@ -76,7 +78,7 @@ function App() {
         />
       ),
     },
-    { path: `${endpoints.printerAdd}`, element: <AddPrinter api={endpoints} /> },
+    { path: `${endpoints.printerAddPage}`, element: <AddPrinter api={endpoints} /> },
     { path: endpoints.filamentsPage, element: <FilamentsPage api={endpoints} /> },
   ]);
 
