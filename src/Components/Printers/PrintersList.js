@@ -29,7 +29,7 @@ function PrintersList(props) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `token ${user.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     };
 
@@ -54,12 +54,14 @@ function PrintersList(props) {
       {/* </ header> */}
 
       <main className='App-header'>
-        <Button
-          className=''
-          color='yellow'
-        >
-          Add Printer
-        </Button>
+        <StyledLink to={props.api.printerAdd}>
+          <Button
+            className=''
+            color='yellow'
+          >
+            Add Printer
+          </Button>
+        </StyledLink>
 
         {printers.map((printer) => (
           <Button

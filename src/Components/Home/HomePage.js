@@ -3,12 +3,14 @@ import React from 'react';
 
 // hooks
 import useToken from '../../Hooks/useToken';
+import usePermissions from '../../Hooks/usePermissions';
 
 // components
 import TopBar from '../_shared/TopBar';
 import ClockAndDate from './ClockAndDate';
 import Quotes from './Quotes';
 import Button from '../UI/shared/buttons/Button';
+import LogoutUser from '../_shared/LogoutUser';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
@@ -18,32 +20,13 @@ import './UI/_wrapper_button.scss';
 
 function HomePage(props) {
   const user = useToken();
+  const permission = usePermissions(user);
 
-  const loggedUser = user ? 'logged' : 'logout';
-
-  const masterUser =
-    loggedUser === 'logged' && (user.permission === 'MASTER_USER' || user.permission === 'OWNER')
-      ? true
-      : false;
-
-  if (loggedUser === 'logout') {
-    return (
-      <div>
-        {/* <header> */}
-        <TopBar />
-        {/* </ header> */}
-
-        <main
-          className='App-header'
-          style={{ color: '#000' }}
-        >
-          You don't have accsess to this page. Please login.
-        </main>
-      </div>
-    );
+  if (permission.logged === 'logout') {
+    return <LogoutUser />;
   }
 
-  if (loggedUser === 'logged') {
+  if (permission.logged === 'logged') {
     return (
       <div>
         {/* <header> */}
@@ -80,7 +63,7 @@ function HomePage(props) {
                   Settings
                 </Button>
               </StyledLink>
-              {masterUser && (
+              {permission.master && (
                 <StyledLink to={props.api.usersPage}>
                   <Button
                     className='wrapper_button'

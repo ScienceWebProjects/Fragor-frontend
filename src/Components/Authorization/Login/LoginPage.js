@@ -23,7 +23,7 @@ function LoginPage(props) {
   const makeAPIPost = async () => {
     const loginData = {
       email: emailEntered,
-      password: pinEntered, // change to pin in future
+      pin: pinEntered, // change to pin in future
     };
 
     const requestOptions = {
@@ -54,7 +54,7 @@ function LoginPage(props) {
       alert(`
       Post error! Failed attempt to login. 
       Try again.`);
-      console.log(error);
+      console.log('LoginPage.js', error);
     }
   };
 

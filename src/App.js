@@ -9,6 +9,7 @@ import PrintersList from './Components/Printers/PrintersList';
 import FilamentsPage from './Components/Filaments/FilamentsPage';
 import PrinterDetails from './Components/Printers/PrinterDetails';
 import SigninPage from './Components/Authorization/Signin/SigninPage';
+import AddPrinter from './Components/Printers/AddPrinter';
 
 // UI elements
 import './App.css';
@@ -21,20 +22,22 @@ const endpoints = {
 
   // REACT-ROUTER-DOM
   loginPage: '/',
-  home: '/home',
   signinPage: '/signin-page',
+  home: '/home',
   printersPage: '/printers-page',
+  printerAdd: '/printer-add',
   filamentsPage: '/filaments-page',
   settingsPage: '/settings-page',
   usersPage: '/users-page',
 
   // authorization
-  loginPin: '/api/account/login/', // POST
+  loginPin: '/api/account/login/pin/', // POST
   loginPassword: '', // POST
   registration: '/api/account/registration/', // POST
 
   // printers
-  printersList: '/api/printer/get/', // GET
+  printersList: '/api/printer/get/all/', // GET
+  printerModelAdd: '/api/printer/model/add/',
 
   // filaments
 
@@ -73,7 +76,7 @@ function App() {
         />
       ),
     },
-
+    { path: `${endpoints.printerAdd}`, element: <AddPrinter api={endpoints} /> },
     { path: endpoints.filamentsPage, element: <FilamentsPage api={endpoints} /> },
   ]);
 
