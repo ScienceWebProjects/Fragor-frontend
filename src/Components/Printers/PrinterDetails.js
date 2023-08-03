@@ -25,6 +25,13 @@ function PrinterDetails(props) {
     }
   }, []);
 
+  // sum all printed material filaments to one variable
+  let filamentAllAmount = 0;
+  const filamentsAll = details ? details.filaments : '';
+  for (const key in filamentsAll) {
+    filamentAllAmount += filamentsAll[key].amount;
+  }
+
   if (!details) {
     return <div>Brak wybranej drukarki.</div>;
   }
@@ -71,12 +78,12 @@ function PrinterDetails(props) {
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
               <div>{details.name}</div>
-              <div>{details.model}</div>
+              <div>{details.printerModel.model}</div>
               <br />
-              <div>Work hours: {details.work_hours} h</div>
+              <div>Work hours: {details.workHours} h</div>
               <br />
               <div>Printed Filements:</div>
-              <div>All: ?? kg</div>
+              <div>All: {filamentAllAmount} kg</div>
 
               {details.filaments.map((item, index) => (
                 <div key={index}>
