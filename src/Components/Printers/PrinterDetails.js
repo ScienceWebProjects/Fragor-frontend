@@ -1,8 +1,9 @@
 // libs
 import React from 'react';
-import { useState, useEffect } from 'react';
 
 // hooks
+import { useState, useEffect } from 'react';
+import useToken from '../../Hooks/useToken';
 
 // components
 import TopBar from '../_shared/TopBar';
@@ -12,11 +13,15 @@ import Button from '../UI/shared/buttons/Button';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // scss
-import './UI/_details-buttons.scss';
-import './UI/_details-printer.scss';
+import './scss/_details-buttons.scss';
+import './scss/_details-printer.scss';
+import DeleteBox from './DeleteBox';
 
 function PrinterDetails(props) {
   const [details, setDetails] = useState(props.details);
+  const [deleteBox, setDeleteBox] = useState(false);
+
+  const user = useToken();
 
   useEffect(() => {
     if (!details) {
@@ -31,6 +36,10 @@ function PrinterDetails(props) {
   for (const key in filamentsAll) {
     filamentAllAmount += filamentsAll[key].amount;
   }
+
+  const deleteButtonHandler = () => {
+    setDeleteBox(true);
+  };
 
   if (!details) {
     return <div>Brak wybranej drukarki.</div>;
@@ -59,9 +68,18 @@ function PrinterDetails(props) {
           <Button
             className='wrapper-btn'
             color='red'
+            onClick={deleteButtonHandler}
           >
             Delete
           </Button>
+          {deleteBox && (
+            <DeleteBox
+              setDeleteBox={setDeleteBox}
+              api={props.api}
+              printerName={details.name}
+              id={details.id}
+            />
+          )}
         </div>
 
         <div className='details-printer'>
@@ -77,8 +95,8 @@ function PrinterDetails(props) {
               // endMessage={'No more added filaments'}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
-              <div>{details.name}</div>
-              <div>{details.printerModel.model}</div>
+              <div>Name: {details.name}</div>
+              <div>Model: {details.printerModel.model}</div>
               <br />
               <div>Work hours: {details.workHours} h</div>
               <br />

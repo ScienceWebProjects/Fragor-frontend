@@ -1,0 +1,37 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.shadow {
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  @include flexCenter(column, center, center);
+
+  .box {
+    @include flexCenter(column, center, center);
+    background-color: $secondary-color;
+
+    border-radius: 0.625rem;
+    min-height: 20rem;
+    padding: 0.625rem;
+
+    > h3 {
+      color: $red;
+    }
+
+    .box-btns {
+      width: 100%;
+      @include flexCenter(row, center, center);
+
+      .btns-btn {
+        width: 49%;
+      }
+    }
+  }
+}

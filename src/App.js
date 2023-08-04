@@ -40,6 +40,8 @@ const endpoints = {
   printerModelAdd: '/api/printer/model/add/', // POST
   printersModelsGet: '/api/printer/model/get/all/', // GET
   printerAdd: '/api/printer/add/', // POST
+  printerDelete: '/api/printer/model/delete/', // ...{id}/ DELETE
+  printerGet: '/api/printer/get/', // ...<id>/ GET
 
   // filaments
 
