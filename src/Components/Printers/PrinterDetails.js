@@ -7,10 +7,13 @@ import useToken from '../../Hooks/useToken';
 
 // components
 import TopBar from '../_shared/TopBar';
-import Button from '../UI/shared/buttons/Button';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component';
+
+// UI elements
+import StyledLink from '../UI/shared/StyledLink';
+import Button from '../UI/shared/buttons/Button';
 
 // scss
 import './scss/_details-buttons.scss';
@@ -147,6 +150,14 @@ function PrinterDetails(props) {
             </InfiniteScroll>
           </div>
         </div>
+        <StyledLink to={props.api.printersPage}>
+          <Button
+            className=''
+            color='red'
+          >
+            Back
+          </Button>
+        </StyledLink>
       </main>
     </div>
   );
