@@ -13,6 +13,7 @@ import LogoutUser from '../_shared/LogoutUser';
 import InfoType from '../Authorization/Signin/UI/InfoType';
 import StyledLabel from '../UI/authorization/StyledLabel';
 import StyledInput from '../UI/authorization/StyledInput';
+import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
@@ -159,7 +160,7 @@ function AddPrinter(props) {
               id='printer-add'
               type='text'
               value={printerNameEntered}
-              placeholder='Add printer model name'
+              placeholder='Printer model name'
               onChange={(event) => {
                 setprinterNameEntered(event.target.value);
               }}
@@ -190,6 +191,14 @@ function AddPrinter(props) {
         >
           Add printer
         </Button>
+        <StyledLink to={props.api.printersPage}>
+          <Button
+            className=''
+            color='red'
+          >
+            Back
+          </Button>
+        </StyledLink>
       </main>
     </div>
   );

@@ -7,6 +7,7 @@ import LoginPage from './Components/Authorization/Login/LoginPage';
 import HomePage from './Components/Home/HomePage';
 import PrintersList from './Components/Printers/PrintersList';
 import FilamentsPage from './Components/Filaments/FilamentsPage';
+import FilamentDetails from './Components/Filaments/FilamentDetails';
 import PrinterDetails from './Components/Printers/PrinterDetails';
 import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
@@ -20,22 +21,27 @@ const endpoints = {
   //
   quotes: 'https://type.fit/api/quotes', // 1643 quotes
 
-  // REACT-ROUTER-DOM
+  // --------- REACT-ROUTER-DOM --------- \\
+  //  authorization
   loginPage: '/',
   signinPage: '/signin-page',
   home: '/home',
-  printersPage: '/printers-page',
+  // printers
+  printersPage: '/printers-page', // printers list
   printerAddPage: '/printer-add',
+  // filaments
   filamentsPage: '/filaments-page',
+  // settings
   settingsPage: '/settings-page',
+  // users
   usersPage: '/users-page',
 
-  // authorization
+  // --------- AUTHORIZATION --------- \\
   loginPin: '/api/account/login/pin/', // POST
   loginPassword: '', // POST
   registration: '/api/account/registration/', // POST
 
-  // printers
+  // --------- PRINTERS --------- \\
   printersList: '/api/printer/get/all/', // GET
   printerModelAdd: '/api/printer/model/add/', // POST
   printersModelsGet: '/api/printer/model/get/all/', // GET
@@ -43,21 +49,29 @@ const endpoints = {
   printerDelete: '/api/printer/model/delete/', // ...{id}/ DELETE
   printerGet: '/api/printer/get/', // ...<id>/ GET
 
-  // devices
+  // --------- DEVICES --------- \\
   deviceAdd: '/api/device/connect/', // ...<printer id> GET
 
-  // filaments
+  // --------- FILAMENTS --------- \\
+  filamentsFiltered: '/api/filaments/filter/', //  ...<color>/<type>/<quantity>/ GET
+  filamentGet: '/api/filaments/get/', // ...<filament id> GET
+  filamentsMaterialsGet: '/api/filaments/material/get/all/', // GET
 
-  // settings
+  // --------- SETTINGS --------- \\
 
-  // users
+  // --------- USERS --------- \\
 };
 
 function App() {
   const [printerDetails, setPrinterDetails] = useState();
+  const [filamentDetails, setFilamentDetails] = useState();
 
   const printerDetailsHandler = (details) => {
     setPrinterDetails(details);
+  };
+
+  const filamentDetailsHandler = (details) => {
+    setFilamentDetails(details);
   };
 
   const router = createBrowserRouter([
@@ -84,7 +98,24 @@ function App() {
       ),
     },
     { path: `${endpoints.printerAddPage}`, element: <AddPrinter api={endpoints} /> },
-    { path: endpoints.filamentsPage, element: <FilamentsPage api={endpoints} /> },
+    {
+      path: endpoints.filamentsPage,
+      element: (
+        <FilamentsPage
+          api={endpoints}
+          onFilamentSelect={filamentDetailsHandler}
+        />
+      ),
+    },
+    {
+      path: `${endpoints.filamentsPage}/:filamentName`,
+      element: (
+        <FilamentDetails
+          api={endpoints}
+          details={filamentDetails}
+        />
+      ),
+    },
   ]);
 
   return <RouterProvider router={router} />;

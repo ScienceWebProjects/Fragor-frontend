@@ -1,6 +1,7 @@
 // libs
-import React from 'react';
-// import { useState } from 'react';
+
+// hooks
+import { useState, useEffect } from 'react';
 
 // components
 import MaterialFilter from './filters/MaterialFilter';
@@ -16,19 +17,28 @@ import FiltersDropdownMenu from './filters/FiltersDropdownMenu';
 import './scss/_bar-container.scss';
 
 function FiltersBar(props) {
-  // const [filteredMaterial, setFilteredMaterial] = useState('all');
+  const [color, setColor] = useState('all');
+  const [material, setMaterial] = useState('all');
+  const [brand, setBrand] = useState('all');
+  const [stock, setStock] = useState('0');
 
-  // //filters set
-  // const filterMaterialHandler = (selectedMaterial) => {
-  //   setFilteredMaterial(selectedMaterial);
-  // };
+  useEffect(() => {
+    props.onFilterChange = {
+      color: color,
+      material: material,
+      brand: brand,
+      stock: stock,
+    };
+  }, [color, material, brand, stock]);
 
   return (
     <div className='container_bar'>
       <MaterialFilter
         className='bar_filter'
         api={props.api}
-        // onMaterialFilter={filterMaterialHandler}
+        onMaterialFilter={(material) => {
+          setMaterial(material);
+        }}
       />
       <ColorFilter
         className='bar_filter'
