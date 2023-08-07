@@ -43,6 +43,9 @@ const endpoints = {
   printerDelete: '/api/printer/model/delete/', // ...{id}/ DELETE
   printerGet: '/api/printer/get/', // ...<id>/ GET
 
+  // devices
+  deviceAdd: '/api/device/connect/', // ...<printer id> GET
+
   // filaments
 
   // settings

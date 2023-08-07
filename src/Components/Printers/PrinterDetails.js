@@ -37,12 +37,46 @@ function PrinterDetails(props) {
     filamentAllAmount += filamentsAll[key].amount;
   }
 
+  const deviceAddHandler = async () => {
+    const btn = document.getElementById('deviceAddBtn');
+
+    btn.textContent = 'Waiting...';
+
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.deviceAdd}${details.id}/`,
+        requestOptions
+      );
+
+      if (response.status === 201) {
+        alert('Succesfully added device.');
+        btn.textContent = 'Add device';
+      }
+
+      if (response.status === 400) {
+        const res = await response.json();
+        console.log(res);
+        btn.textContent = 'Add device';
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const deleteButtonHandler = () => {
     setDeleteBox(true);
   };
 
   if (!details) {
-    return <div>Brak wybranej drukarki.</div>;
+    return <div>No printer selected.</div>;
   }
 
   return (
@@ -62,6 +96,8 @@ function PrinterDetails(props) {
           <Button
             className='wrapper-btn'
             color='red'
+            onClick={deviceAddHandler}
+            id='deviceAddBtn'
           >
             Add device
           </Button>
