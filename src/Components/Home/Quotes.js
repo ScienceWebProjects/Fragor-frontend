@@ -9,17 +9,19 @@ const Quotes = () => {
   const [author, setAuthor] = useState('Rak Pieseł');
 
   const makeAPICall = async () => {
-    const quoteFetch = await fetch('https://type.fit/api/quotes'); // 1643 quotes
+    const quoteFetch = await fetch('https://type.fit/api/quotes');
     const data = await quoteFetch.json();
 
     const getRandomInt = (max) => {
       return Math.floor(Math.random() * max);
     };
 
-    const number = getRandomInt(1643);
+    const number = getRandomInt(16);
 
-    localStorage.setItem('quote', data[number].text);
-    localStorage.setItem('author', data[number].author);
+    if (data) {
+      localStorage.setItem('quote', data[number].text);
+      localStorage.setItem('author', data[number].author);
+    }
   };
 
   const currentQuote = () => {

@@ -1,6 +1,9 @@
 // libs
 import React from 'react';
+
+// hooks
 import { useState, useEffect } from 'react';
+import useToken from '../../Hooks/useToken';
 
 // components
 import TopBar from '../_shared/TopBar';
@@ -9,183 +12,44 @@ import TopBar from '../_shared/TopBar';
 import FiltersBar from './FiltersBar';
 import FilamentsWindow from './UI/FilamentsWindow';
 import FilamentsList from './FilamentsList';
+import StyledLink from '../UI/shared/StyledLink';
+import Button from '../UI/shared/buttons/Button';
 
 function FilamentsPage(props) {
-  const [filaments, setFilaments] = useState([
-    {
-      id: '1',
-      quantity: 0.745,
-      type: 'PLA',
-      color: 'RED',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '2',
-      quantity: 3.02,
-      type: 'EASY PLA',
-      color: 'YELLOW',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '3',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-    {
-      id: '4',
-      quantity: 0.745,
-      type: 'PLA',
-      color: 'RED',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '5',
-      quantity: 3.02,
-      type: 'EASY PLA',
-      color: 'YELLOW',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '6',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-    {
-      id: '7',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-    {
-      id: '8',
-      quantity: 0.745,
-      type: 'PLA',
-      color: 'RED',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '9',
-      quantity: 3.02,
-      type: 'EASY PLA',
-      color: 'YELLOW',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '10',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-    {
-      id: '11',
-      quantity: 0.745,
-      type: 'PLA',
-      color: 'RED',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '12',
-      quantity: 3.02,
-      type: 'EASY PLA',
-      color: 'YELLOW',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '13',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-    {
-      id: '14',
-      quantity: 0.745,
-      type: 'PLA',
-      color: 'RED',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '15',
-      quantity: 3.02,
-      type: 'EASY PLA',
-      color: 'YELLOW',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '16',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-    {
-      id: '17',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-    {
-      id: '18',
-      quantity: 0.745,
-      type: 'PLA',
-      color: 'RED',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '19',
-      quantity: 3.02,
-      type: 'EASY PLA',
-      color: 'YELLOW',
-      hotbed: 40,
-      hotend: 205,
-    },
-    {
-      id: '20',
-      quantity: 2.45,
-      type: 'PET-G',
-      color: 'GREEN',
-      hotbed: 60,
-      hotend: 235,
-    },
-  ]);
+  const user = useToken();
+
+  const [filteredColor, setFilteredColor] = useState('all');
+  const [filteredMaterial, setFilteredMaterial] = useState('all');
+  const [filteredBrand, setFilteredBrand] = useState('FraGor');
+  const [filteredStock, setFilteredStock] = useState('0');
+  const [filaments, setFilaments] = useState([]);
+
+  const filamentSelectionHandler = (filament) => {
+    props.onFilamentSelect(filament);
+  };
+
+  const filterChangeHandler = (filters) => {
+    const { color, material, brand, stock } = filters;
+    setFilteredColor(color);
+    setFilteredMaterial(material);
+    setFilteredBrand(brand);
+    setFilteredStock(stock);
+    console.log(filters);
+  };
 
   const makeAPICall = async () => {
     const requestOptions = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `token ${user.token}`,
+        Authorization: `token ${user.token}`,
       },
     };
 
     try {
       const response = await fetch(
-        // `${props.api.ip}${props.api.filterFilament}${filteredColor}/${filteredMaterial}/${filteredStock}/`,
+        `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredStock}/`,
+        // `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredBrand}/${filteredStock}/`,
         requestOptions
       );
 
@@ -205,10 +69,7 @@ function FilamentsPage(props) {
 
   useEffect(() => {
     makeAPICall();
-    // }, [filteredMaterial, filteredColor, filteredBrand, filteredStock]);
-  }, []);
-
-  const filteredFilaments = filaments;
+  }, [filteredMaterial, filteredColor, filteredBrand, filteredStock]);
 
   return (
     <div>
@@ -217,11 +78,23 @@ function FilamentsPage(props) {
       {/* </ header> */}
 
       <main className='App-header'>
-        <FiltersBar />
+        <FiltersBar onFilterChange={filterChangeHandler} />
 
         <FilamentsWindow>
-          <FilamentsList items={filteredFilaments} />
+          <FilamentsList
+            items={filaments}
+            api={props.api}
+            onFilamentSelect={filamentSelectionHandler}
+          />
         </FilamentsWindow>
+        <StyledLink to={props.api.home}>
+          <Button
+            className=''
+            color='red'
+          >
+            Back
+          </Button>
+        </StyledLink>
       </main>
     </div>
   );

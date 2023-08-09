@@ -1,47 +1,45 @@
 // libs
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // custom hooks
-// import useToken from '../../Hooks/useToken';
+import useToken from '../../../Hooks/useToken';
 
 // UI elements
 import SelectBox from '../../UI/shared/SelectBox';
 
 const MaterialFilter = (props) => {
-  const [materials, setMaterials] = useState([
-    { id: 1, type: 'PLA' },
-    { id: 2, type: 'EASY PLA' },
-  ]);
+  const [materials, setMaterials] = useState([{ id: 1, type: 'all' }]);
 
-  // code below is for remove react warrning
-  // in future this will delete
+  const user = useToken();
 
-  // const user = useToken();
+  const dropdownChangeHandler = (event) => {
+    props.onMaterialFilter(event.target.value);
+  };
 
-  // const dropdownChangeHandler = (event) => {
-  //   props.onMaterialFilter(event.target.value);
-  // };
+  const makeAPICall = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `token ${user.token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentsMaterialsGet}`,
+        requestOptions
+      );
 
-  // const makeAPICall = async () => {
-  //   const requestOptions = {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       // Authorization: `token ${user.token}`,
-  //     },
-  //   };
-  //   try {
-  //     const response = await fetch(`${props.api.ip}${props.api.materialFilaments}`, requestOptions);
-  //     const data = await response.json();
-  //     setMaterials(data);
-  //   } catch (e) {
-  //     console.log('Error in MaterialFilter.js');
-  //   }
-  // };
-  // useEffect(() => {
-  //   makeAPICall();
-  // }, []);
+      const materialsList = await response.json();
+      setMaterials(materialsList);
+    } catch (e) {
+      console.log('Error in MaterialFilter.js');
+    }
+  };
+  useEffect(() => {
+    makeAPICall();
+  }, []);
 
   return (
     <SelectBox>
@@ -50,7 +48,7 @@ const MaterialFilter = (props) => {
         <select
           name='materials'
           value={props.selected}
-          // onChange={dropdownChangeHandler}
+          onChange={dropdownChangeHandler}
         >
           <option
             key='all-materials'
@@ -61,9 +59,9 @@ const MaterialFilter = (props) => {
           {materials.map((material) => (
             <option
               key={material.id}
-              value={material.type}
+              value={material.material}
             >
-              {material.type}
+              {material.material}
             </option>
           ))}
         </select>

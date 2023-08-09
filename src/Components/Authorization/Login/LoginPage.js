@@ -23,7 +23,7 @@ function LoginPage(props) {
   const makeAPIPost = async () => {
     const loginData = {
       email: emailEntered,
-      password: pinEntered,
+      pin: pinEntered, // change to pin in future
     };
 
     const requestOptions = {
@@ -33,7 +33,7 @@ function LoginPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.login}`, requestOptions);
+      const response = await fetch(`${props.api.ip}${props.api.loginPin}`, requestOptions);
 
       if (response.status === 404) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
@@ -54,7 +54,7 @@ function LoginPage(props) {
       alert(`
       Post error! Failed attempt to login. 
       Try again.`);
-      console.log(error);
+      console.log('LoginPage.js', error);
     }
   };
 

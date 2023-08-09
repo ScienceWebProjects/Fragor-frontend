@@ -1,22 +1,30 @@
 // libs
 import React from 'react';
-import { useState, useEffect } from 'react';
 
 // hooks
+import { useState, useEffect } from 'react';
+import useToken from '../../Hooks/useToken';
 
 // components
 import TopBar from '../_shared/TopBar';
-import Button from '../UI/shared/buttons/Button';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+// UI elements
+import StyledLink from '../UI/shared/StyledLink';
+import Button from '../UI/shared/buttons/Button';
+
 // scss
-import './UI/_details-buttons.scss';
-import './UI/_details-printer.scss';
+import './scss/_details-buttons.scss';
+import './scss/_details-printer.scss';
+import DeleteBox from './DeleteBox';
 
 function PrinterDetails(props) {
   const [details, setDetails] = useState(props.details);
+  const [deleteBox, setDeleteBox] = useState(false);
+
+  const user = useToken();
 
   useEffect(() => {
     if (!details) {
@@ -25,8 +33,53 @@ function PrinterDetails(props) {
     }
   }, []);
 
+  // sum all printed material filaments to one variable
+  let filamentAllAmount = 0;
+  const filamentsAll = details ? details.filaments : '';
+  for (const key in filamentsAll) {
+    filamentAllAmount += filamentsAll[key].amount;
+  }
+
+  const deviceAddHandler = async () => {
+    const btn = document.getElementById('deviceAddBtn');
+
+    btn.textContent = 'Waiting...';
+
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.deviceAdd}${details.id}/`,
+        requestOptions
+      );
+
+      if (response.status === 201) {
+        alert('Succesfully added device.');
+        btn.textContent = 'Add device';
+      }
+
+      if (response.status === 400) {
+        const res = await response.json();
+        console.log(res);
+        btn.textContent = 'Add device';
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteButtonHandler = () => {
+    setDeleteBox(true);
+  };
+
   if (!details) {
-    return <div>Brak wybranej drukarki.</div>;
+    return <div>No printer selected.</div>;
   }
 
   return (
@@ -46,15 +99,26 @@ function PrinterDetails(props) {
           <Button
             className='wrapper-btn'
             color='red'
+            onClick={deviceAddHandler}
+            id='deviceAddBtn'
           >
             Add device
           </Button>
           <Button
             className='wrapper-btn'
             color='red'
+            onClick={deleteButtonHandler}
           >
             Delete
           </Button>
+          {deleteBox && (
+            <DeleteBox
+              setDeleteBox={setDeleteBox}
+              api={props.api}
+              printerName={details.name}
+              id={details.id}
+            />
+          )}
         </div>
 
         <div className='details-printer'>
@@ -70,13 +134,13 @@ function PrinterDetails(props) {
               // endMessage={'No more added filaments'}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
-              <div>{details.name}</div>
-              <div>{details.model}</div>
+              <div>Name: {details.name}</div>
+              <div>Model: {details.model}</div>
               <br />
-              <div>Work hours: {details.work_hours} h</div>
+              <div>Work hours: {details.workHours} h</div>
               <br />
               <div>Printed Filements:</div>
-              <div>All: ?? kg</div>
+              <div>All: {filamentAllAmount} kg</div>
 
               {details.filaments.map((item, index) => (
                 <div key={index}>
@@ -86,6 +150,14 @@ function PrinterDetails(props) {
             </InfiniteScroll>
           </div>
         </div>
+        <StyledLink to={props.api.printersPage}>
+          <Button
+            className=''
+            color='red'
+          >
+            Back
+          </Button>
+        </StyledLink>
       </main>
     </div>
   );

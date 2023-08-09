@@ -16,57 +16,7 @@ import PrinterItem from './PrinterItem';
 // scss
 
 function PrintersList(props) {
-  const [printers, setPrinters] = useState([
-    {
-      id: 1,
-      filaments: [
-        {
-          id: 3,
-          amount: 0.123,
-          type: 'PLA',
-          printer: 1,
-        },
-        {
-          id: 4,
-          amount: 0.123,
-          type: 'ABS',
-          printer: 1,
-        },
-      ],
-      device: {
-        id: 2,
-        ip: '123.456.789',
-        port: 7654,
-        printer: 1,
-      },
-      name: 'test',
-      work_hours: 0.0,
-      model: 'Ender 3',
-      image: '',
-    },
-    {
-      id: 2,
-      filaments: [
-        {
-          id: 5,
-          amount: 123232.13,
-          type: 'PLA',
-          printer: 2,
-        },
-        {
-          id: 6,
-          amount: 6.541,
-          type: 'ABS',
-          printer: 2,
-        },
-      ],
-      device: null,
-      name: 'ender 2',
-      work_hours: 0.0,
-      model: 'Ender 5',
-      image: 'http://127.0.0.1:8000/media/images/printer.png',
-    },
-  ]);
+  const [printers, setPrinters] = useState([]);
 
   const printerSelectionHandler = (printer) => {
     props.onPrinterSelect(printer);
@@ -79,7 +29,7 @@ function PrintersList(props) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `token ${user.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     };
 
@@ -104,12 +54,14 @@ function PrintersList(props) {
       {/* </ header> */}
 
       <main className='App-header'>
-        <Button
-          className=''
-          color='yellow'
-        >
-          Add Printer
-        </Button>
+        <StyledLink to={props.api.printerAddPage}>
+          <Button
+            className=''
+            color='yellow'
+          >
+            Add Printer
+          </Button>
+        </StyledLink>
 
         {printers.map((printer) => (
           <Button
