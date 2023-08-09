@@ -129,7 +129,7 @@ function AddPrinter(props) {
       {/* </ header> */}
 
       <main className='App-header add-printer'>
-        {permission.master && (
+        {(permission.owner || permission.master) && (
           <div>
             <InfoType text={'Model'} />
             <StyledLabel htmlFor='printer-model-add'>Add printer model name</StyledLabel>

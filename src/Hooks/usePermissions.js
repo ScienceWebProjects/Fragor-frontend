@@ -5,14 +5,17 @@ function usePermissions(user) {
 
   const loggedUser = user ? 'logged' : 'logout';
 
-  const masterUser =
-    loggedUser === 'logged' && (user.permission === 'MASTER_USER' || user.permission === 'OWNER')
-      ? true
-      : false;
+  const ownerUser = loggedUser === 'logged' && user.permission === 'OWNER' ? true : false;
+
+  const masterUser = loggedUser === 'logged' && user.permission === 'MASTER_USER' ? true : false;
+
+  const changerUser = loggedUser === 'logged' && user.permission === 'CHANGER_USER' ? true : false;
 
   return {
     logged: loggedUser,
+    owner: ownerUser,
     master: masterUser,
+    changer: changerUser,
   };
 }
 

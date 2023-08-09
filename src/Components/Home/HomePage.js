@@ -63,7 +63,7 @@ function HomePage(props) {
                   Settings
                 </Button>
               </StyledLink>
-              {permission.master && (
+              {(permission.owner || permission.master) && (
                 <StyledLink to={props.api.usersPage}>
                   <Button
                     className='wrapper_button'

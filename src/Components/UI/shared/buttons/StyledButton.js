@@ -22,7 +22,7 @@ const StyledButton = styled.button`
   border-radius: 0.625rem;
 
   text-align: center;
-  font-size: 1.75rem;
+  font-size: 1rem;
   font-family: 'Electrolize';
   font-style: normal;
   font-weight: 400;
@@ -48,6 +48,10 @@ const StyledButton = styled.button`
 
     border: 3px solid #000;
     cursor: pointer;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.75rem;
   }
 `;
 

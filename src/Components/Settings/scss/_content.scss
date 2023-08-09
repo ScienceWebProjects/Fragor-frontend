@@ -1,0 +1,18 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.content {
+  min-height: 50vh;
+  @include flexCenter(column, center, center);
+
+  background: $secondary-color;
+  border-radius: 0.625rem;
+  opacity: 0.99;
+
+  padding: 0.625rem;
+  margin: 0.625rem 0;
+
+  .content-delete {
+    color: red;
+  }
+}

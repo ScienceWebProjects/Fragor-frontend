@@ -135,7 +135,7 @@ function PrinterDetails(props) {
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
               <div>Name: {details.name}</div>
-              <div>Model: {details.printerModel.model}</div>
+              <div>Model: {details.model}</div>
               <br />
               <div>Work hours: {details.workHours} h</div>
               <br />

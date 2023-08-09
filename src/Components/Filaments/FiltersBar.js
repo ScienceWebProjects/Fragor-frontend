@@ -17,18 +17,20 @@ import FiltersDropdownMenu from './filters/FiltersDropdownMenu';
 import './scss/_bar-container.scss';
 
 function FiltersBar(props) {
+  const { onFilterChange } = props;
   const [color, setColor] = useState('all');
   const [material, setMaterial] = useState('all');
   const [brand, setBrand] = useState('all');
   const [stock, setStock] = useState('0');
 
   useEffect(() => {
-    props.onFilterChange = {
+    const filters = {
       color: color,
       material: material,
       brand: brand,
       stock: stock,
     };
+    onFilterChange(filters);
   }, [color, material, brand, stock]);
 
   return (

@@ -1,7 +1,7 @@
 // libs
 
 // hooks
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToken from '../../Hooks/useToken';
 
 // scss
@@ -12,6 +12,7 @@ import Button from '../UI/shared/buttons/Button';
 
 function DeleteBox(props) {
   const user = useToken();
+  const navigate = useNavigate();
 
   const { setDeleteBox } = props;
 
@@ -30,8 +31,9 @@ function DeleteBox(props) {
         requestOptions
       );
 
-      if (response.status === 201) {
+      if (response.status === 204) {
         alert('Succesfully printer delete.');
+        navigate(props.api.printersPage);
       }
 
       if (response.status === 404) {

@@ -11,6 +11,7 @@ import FilamentDetails from './Components/Filaments/FilamentDetails';
 import PrinterDetails from './Components/Printers/PrinterDetails';
 import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
+import SettingsPage from './Components/Settings/SettingsPage';
 
 // UI elements
 import './App.css';
@@ -46,7 +47,7 @@ const endpoints = {
   printerModelAdd: '/api/printer/model/add/', // POST
   printersModelsGet: '/api/printer/model/get/all/', // GET
   printerAdd: '/api/printer/add/', // POST
-  printerDelete: '/api/printer/model/delete/', // ...{id}/ DELETE
+  printerDelete: '/api/printer/delete/', // ...{id}/ DELETE
   printerGet: '/api/printer/get/', // ...<id>/ GET
 
   // --------- DEVICES --------- \\
@@ -58,6 +59,7 @@ const endpoints = {
   filamentsMaterialsGet: '/api/filaments/material/get/all/', // GET
 
   // --------- SETTINGS --------- \\
+  settingLogout: '/api/account/logout/', // DELETE
 
   // --------- USERS --------- \\
 };
@@ -115,6 +117,10 @@ function App() {
           details={filamentDetails}
         />
       ),
+    },
+    {
+      path: endpoints.settingsPage,
+      element: <SettingsPage api={endpoints} />,
     },
   ]);
 
