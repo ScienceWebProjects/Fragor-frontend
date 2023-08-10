@@ -11,7 +11,7 @@ import StyledInput from '../../UI/authorization/StyledInput';
 
 // components
 import Button from '../../UI/shared/buttons/Button';
-import Pin from '../Pin';
+import Pin from '../../_shared/Pin';
 import StyledLink from '../../UI/shared/StyledLink';
 
 function LoginPage(props) {
@@ -23,7 +23,7 @@ function LoginPage(props) {
   const makeAPIPost = async () => {
     const loginData = {
       email: emailEntered,
-      pin: pinEntered, // change to pin in future
+      pin: pinEntered,
     };
 
     const requestOptions = {
@@ -105,6 +105,8 @@ function LoginPage(props) {
           </div>
           <div>
             <Pin
+              text={'PIN'}
+              length={4}
               onPinEntered={(pin) => {
                 setPinEntered(pin);
               }}

@@ -17,7 +17,7 @@ import SettingsPage from './Components/Settings/SettingsPage';
 import './App.css';
 
 const endpoints = {
-  ip: 'http://127.0.0.1:8080',
+  ip: 'http://192.168.1.12:8080',
 
   //
   quotes: 'https://type.fit/api/quotes', // 1643 quotes
@@ -59,7 +59,11 @@ const endpoints = {
   filamentsMaterialsGet: '/api/filaments/material/get/all/', // GET
 
   // --------- SETTINGS --------- \\
+  settingDeleteAccount: '',
   settingLogout: '/api/account/logout/', // DELETE
+  settingPinChange: '/', // PUT
+  settingPasswordChange: '/api/account/settings/password/', // PUT
+  settingEmailChange: '/', // PUT
 
   // --------- USERS --------- \\
 };

@@ -86,7 +86,7 @@ function SettingsPage(props) {
         <main className='App-header'>
           <div className='content'>
             <h1>Settings</h1>
-            {permission.changer && (
+            {(permission.changer || permission.common) && (
               <Button
                 className='content-delete'
                 color='red'
@@ -95,7 +95,7 @@ function SettingsPage(props) {
                 Delete account
               </Button>
             )}
-            {deleteAccountBox && <DeleteAccountBox api={props.api} />}
+
             <Button
               className=''
               color='red'
@@ -118,8 +118,6 @@ function SettingsPage(props) {
             >
               Change pin
             </Button>
-            {changePinBox && <ChangePinBox api={props.api} />}
-
             <Button
               className=''
               color='yellow'
@@ -127,7 +125,6 @@ function SettingsPage(props) {
             >
               Change password
             </Button>
-            {changePasswordBox && <ChangePasswordBox api={props.api} />}
 
             <Button
               className=''
@@ -136,7 +133,6 @@ function SettingsPage(props) {
             >
               Change e-mail
             </Button>
-            {changeEmailBox && <ChangeEmailBox api={props.api} />}
           </div>
 
           <StyledLink to={props.api.home}>
@@ -148,6 +144,30 @@ function SettingsPage(props) {
             </Button>
           </StyledLink>
         </main>
+        {deleteAccountBox && (
+          <DeleteAccountBox
+            api={props.api}
+            setDeleteAccountBox={setDeleteAccountBox}
+          />
+        )}
+        {changePinBox && (
+          <ChangePinBox
+            api={props.api}
+            setChangePinBox={setChangePinBox}
+          />
+        )}
+        {changePasswordBox && (
+          <ChangePasswordBox
+            api={props.api}
+            setChangePasswordBox={setChangePasswordBox}
+          />
+        )}
+        {changeEmailBox && (
+          <ChangeEmailBox
+            api={props.api}
+            setChangeEmailBox={setChangeEmailBox}
+          />
+        )}
       </div>
     );
   }

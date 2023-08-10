@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useToken from '../../Hooks/useToken';
 
 // scss
-import './scss/_delete-box.scss';
+import '../UI/shared/_box.scss';
 
 // UI elements
 import Button from '../UI/shared/buttons/Button';

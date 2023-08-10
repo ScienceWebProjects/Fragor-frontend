@@ -33,7 +33,10 @@ function HomePage(props) {
         <TopBar />
         {/* </ header> */}
 
-        <main className='App-header'>
+        <main
+          className='App-header'
+          style={{ minHeight: 'unset' }}
+        >
           <div className='App-content_wrapper'>
             <ClockAndDate />
             <Quotes />
