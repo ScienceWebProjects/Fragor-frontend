@@ -12,6 +12,7 @@ import PrinterDetails from './Components/Printers/PrinterDetails';
 import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
+import UsersPage from './Components/Users/UsersPage';
 
 // UI elements
 import './App.css';
@@ -66,6 +67,8 @@ const endpoints = {
   settingEmailChange: '/', // PUT
 
   // --------- USERS --------- \\
+  usersGetAll: '/-/',
+  userGetPermissions: '/-/',
 };
 
 function App() {
@@ -125,6 +128,10 @@ function App() {
     {
       path: endpoints.settingsPage,
       element: <SettingsPage api={endpoints} />,
+    },
+    {
+      path: endpoints.usersPage,
+      element: <UsersPage api={endpoints} />,
     },
   ]);
 

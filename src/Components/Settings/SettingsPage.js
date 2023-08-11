@@ -74,8 +74,9 @@ function SettingsPage(props) {
   };
 
   if (permission.logged === 'logout') {
-    return <LogoutUser />;
+    return <LogoutUser api={props.api} />;
   }
+
   if (permission.logged === 'logged') {
     return (
       <div>
