@@ -1,6 +1,6 @@
 function usePermissions(user) {
   if (user === null) {
-    return;
+    return { logged: 'logout' };
   }
 
   const loggedUser = user ? 'logged' : 'logout';

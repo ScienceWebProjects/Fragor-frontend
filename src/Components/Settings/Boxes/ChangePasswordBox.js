@@ -107,6 +107,7 @@ function ChangePasswordBox(props) {
             <Button
               className='btns-btn'
               color='yellow'
+              type='button'
               onClick={() => setChangePasswordBox(false)}
             >
               Back

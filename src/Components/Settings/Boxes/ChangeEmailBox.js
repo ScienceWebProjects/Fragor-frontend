@@ -78,6 +78,7 @@ function ChangeEmailBox(props) {
             <Button
               className='btns-btn'
               color='yellow'
+              type='button'
               onClick={() => setChangeEmailBox(false)}
             >
               Back

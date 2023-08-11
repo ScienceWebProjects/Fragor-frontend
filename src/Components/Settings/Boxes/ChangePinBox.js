@@ -44,8 +44,8 @@ function ChangePinBox(props) {
     }
   };
 
-  const submitFormHandler = async (e) => {
-    e.preventDefault();
+  const submitFormHandler = async (event) => {
+    event.preventDefault();
     const btn = document.getElementById('confirmBtn');
     btn.textContent = 'Wait...';
 
@@ -83,10 +83,12 @@ function ChangePinBox(props) {
             }}
           />
 
-          <div className='box-btns'>
+          <section className='box-btns'>
             <Button
               className='btns-btn'
               color='yellow'
+              id='cancelBtn'
+              type='button'
               onClick={() => setChangePinBox(false)}
             >
               Back
@@ -99,7 +101,7 @@ function ChangePinBox(props) {
             >
               Confirm
             </Button>
-          </div>
+          </section>
         </form>
       </div>
     </div>

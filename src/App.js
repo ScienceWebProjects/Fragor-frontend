@@ -17,16 +17,16 @@ import SettingsPage from './Components/Settings/SettingsPage';
 import './App.css';
 
 const endpoints = {
-  ip: 'http://192.168.1.12:8080',
+  ip: 'http://192.168.57.191:8080',
 
   //
   quotes: 'https://type.fit/api/quotes', // 1643 quotes
 
   // --------- REACT-ROUTER-DOM --------- \\
   //  authorization
-  loginPage: '/',
+  loginPage: '/loginPage',
   signinPage: '/signin-page',
-  home: '/home',
+  home: '/',
   // printers
   printersPage: '/printers-page', // printers list
   printerAddPage: '/printer-add',

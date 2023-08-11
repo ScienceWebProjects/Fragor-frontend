@@ -54,6 +54,7 @@ function DeleteAccountBox(props) {
           <Button
             className='btns-btn'
             color='yellow'
+            type='button'
             onClick={() => setDeleteAccountBox(false)}
           >
             Back

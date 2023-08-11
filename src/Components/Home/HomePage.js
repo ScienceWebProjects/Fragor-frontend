@@ -2,6 +2,8 @@
 import React from 'react';
 
 // hooks
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
@@ -21,10 +23,13 @@ import './UI/_wrapper_button.scss';
 function HomePage(props) {
   const user = useToken();
   const permission = usePermissions(user);
+  const navigate = useNavigate();
 
-  if (permission.logged === 'logout') {
-    return <LogoutUser />;
-  }
+  useEffect(() => {
+    if (permission.logged === 'logout') {
+      navigate(props.api.loginPage);
+    }
+  }, []);
 
   if (permission.logged === 'logged') {
     return (

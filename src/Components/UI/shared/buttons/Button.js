@@ -23,7 +23,7 @@ const colors = {
 };
 
 const Button = (props) => {
-  const { color, className, onClick, id } = props;
+  const { color, className, onClick, id, type } = props;
   // const [colorData, setColorData] = useState(
   const colorData =
     color === 'red'
@@ -43,6 +43,7 @@ const Button = (props) => {
       $bordercolor={colorData.borderColor}
       onClick={onClick}
       id={id}
+      type={type}
     >
       {props.children}
     </StyledButton>
