@@ -4,6 +4,7 @@ import React from 'react';
 // hooks
 import { useState, useEffect } from 'react';
 import useToken from '../../Hooks/useToken';
+import usePermissions from '../../Hooks/usePermissions';
 
 // components
 import TopBar from '../_shared/TopBar';
@@ -17,12 +18,40 @@ import Button from '../UI/shared/buttons/Button';
 
 function FilamentsPage(props) {
   const user = useToken();
+  const permission = usePermissions(user);
 
   const [filteredColor, setFilteredColor] = useState('all');
   const [filteredMaterial, setFilteredMaterial] = useState('all');
   const [filteredBrand, setFilteredBrand] = useState('FraGor');
   const [filteredStock, setFilteredStock] = useState('0');
   const [filaments, setFilaments] = useState([]);
+
+  const filamentsRandomAddHandler = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentsRandomAdd}10/`,
+        requestOptions
+      );
+
+      if (response.status === 404) {
+        setFilaments([]);
+        return;
+      }
+
+      const data = await response.json();
+      setFilaments(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const filamentSelectionHandler = (filament) => {
     props.onFilamentSelect(filament);
@@ -34,7 +63,6 @@ function FilamentsPage(props) {
     setFilteredMaterial(material);
     setFilteredBrand(brand);
     setFilteredStock(stock);
-    console.log(filters);
   };
 
   const makeAPICall = async () => {
@@ -42,7 +70,7 @@ function FilamentsPage(props) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `token ${user.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     };
 
@@ -59,7 +87,7 @@ function FilamentsPage(props) {
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       setFilaments(data);
     } catch (e) {
@@ -78,7 +106,10 @@ function FilamentsPage(props) {
       {/* </ header> */}
 
       <main className='App-header'>
-        <FiltersBar onFilterChange={filterChangeHandler} />
+        <FiltersBar
+          api={props.api}
+          onFilterChange={filterChangeHandler}
+        />
 
         <FilamentsWindow>
           <FilamentsList
@@ -87,14 +118,25 @@ function FilamentsPage(props) {
             onFilamentSelect={filamentSelectionHandler}
           />
         </FilamentsWindow>
-        <StyledLink to={props.api.home}>
-          <Button
-            className=''
-            color='red'
-          >
-            Back
-          </Button>
-        </StyledLink>
+        <div>
+          <StyledLink to={props.api.home}>
+            <Button
+              className=''
+              color='red'
+            >
+              Back
+            </Button>
+          </StyledLink>
+          {permission.owner && (
+            <Button
+              className=''
+              color='yellow'
+              onClick={filamentsRandomAddHandler}
+            >
+              Random filaments add
+            </Button>
+          )}
+        </div>
       </main>
     </div>
   );

@@ -49,7 +49,8 @@ function SettingsPage(props) {
 
       if (response.status === 204) {
         console.log('Successful logout');
-        navigate(props.api.home);
+        sessionStorage.setItem('token', '');
+        navigate(props.api.loginPage);
       }
 
       if (response.status === 404) {

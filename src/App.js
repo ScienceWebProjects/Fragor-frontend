@@ -18,7 +18,8 @@ import UsersPage from './Components/Users/UsersPage';
 import './App.css';
 
 const endpoints = {
-  ip: 'http://192.168.57.191:8080',
+  ip: 'http://127.0.0.1:8080',
+  // ip: 'http://192.168.57.191:8080',
 
   //
   quotes: 'https://type.fit/api/quotes', // 1643 quotes
@@ -58,6 +59,9 @@ const endpoints = {
   filamentsFiltered: '/api/filaments/filter/', //  ...<color>/<type>/<quantity>/ GET
   filamentGet: '/api/filaments/get/', // ...<filament id> GET
   filamentsMaterialsGet: '/api/filaments/material/get/all/', // GET
+  filamentsColorsGet: '/api/filaments/color/get/all/', // GET
+  filamentsBrandsGet: '/api/filaments/brand/get/all/', // GET
+  filamentsRandomAdd: '/api/filaments/random/add/', // ...<ammount> GET
 
   // --------- SETTINGS --------- \\
   settingDeleteAccount: '',

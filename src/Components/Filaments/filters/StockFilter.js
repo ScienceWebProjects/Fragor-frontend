@@ -1,10 +1,19 @@
 // libs
 import React from 'react';
 
+// hooks
+import useToken from '../../../Hooks/useToken';
+
 // UI elements
 import SelectBox from '../../UI/shared/SelectBox';
 
 function StockFilter(props) {
+  const user = useToken();
+
+  const dropdownChangeHandler = (event) => {
+    props.onStockFilter(event.target.value);
+  };
+
   return (
     <SelectBox>
       <div className='SelectBox_border-gradient'>
@@ -12,7 +21,7 @@ function StockFilter(props) {
         <select
           name='stock'
           value={props.selected}
-          // onChange={dropdownChangeHandler}
+          onChange={dropdownChangeHandler}
         >
           <option
             key='0-stock'
