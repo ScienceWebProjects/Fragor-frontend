@@ -1,7 +1,6 @@
 // libs
 
 // hooks
-import { useNavigate } from 'react-router-dom';
 
 // components
 import TopBar from './TopBar';

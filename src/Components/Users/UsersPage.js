@@ -10,20 +10,52 @@ import useWindowSize from '../../Hooks/useWindowSize';
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import UserItem from './UI/UserItem';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
-import './scss/_users-list.scss';
+import './scss/_content.scss';
 
 function UsersPage(props) {
   const user = useToken();
   const permission = usePermissions(user);
   const windowSize = useWindowSize();
 
-  const [usersList, setUsersList] = useState([]);
+  const [usersList, setUsersList] = useState([
+    {
+      id: '0',
+      name: 'Jan',
+      surname: 'Kowalski',
+    },
+    {
+      id: '1',
+      name: 'John',
+      surname: 'Cena',
+    },
+    {
+      id: '2',
+      name: 'Tony',
+      surname: 'Stark',
+    },
+    {
+      id: '3',
+      name: 'Ela',
+      surname: 'Chodakowska',
+    },
+    {
+      id: '4',
+      name: 'Marek',
+      surname: 'Zberaźny',
+    },
+    {
+      id: '5',
+      name: 'Orlando',
+      surname: 'Żółć',
+    },
+  ]);
 
   const makeApiCall = async () => {
     const requestOptions = {
@@ -47,7 +79,11 @@ function UsersPage(props) {
 
   useEffect(() => {
     makeApiCall();
-  }, []);
+  });
+
+  const userSelectionHandler = (user) => {
+    props.onUserSelect(user);
+  };
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
@@ -66,7 +102,7 @@ function UsersPage(props) {
 
             <InfiniteScroll
               dataLength={0}
-              hasMore={false}
+              hasMore={true}
               height={windowSize * 0.6}
               style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
             >
@@ -76,11 +112,11 @@ function UsersPage(props) {
                   key={`btn-${user.id}`}
                   className='user-button'
                 >
-                  {/* <UserItem
-            user={user}
-            api={props.api}
-            onUserSelect={userSelectionHandler}
-          /> */}
+                  <UserItem
+                    user={user}
+                    api={props.api}
+                    onUserSelect={userSelectionHandler}
+                  />
                 </Button>
               ))}
             </InfiniteScroll>

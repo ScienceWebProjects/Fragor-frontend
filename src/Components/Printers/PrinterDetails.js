@@ -27,10 +27,8 @@ function PrinterDetails(props) {
   const user = useToken();
 
   useEffect(() => {
-    if (!details) {
-      const storedPrinter = sessionStorage.getItem('printerDetails');
-      setDetails(JSON.parse(storedPrinter));
-    }
+    const storedPrinter = sessionStorage.getItem('printerDetails');
+    setDetails(JSON.parse(storedPrinter));
   }, []);
 
   // sum all printed material filaments to one variable
@@ -142,11 +140,18 @@ function PrinterDetails(props) {
               <div>Printed Filements:</div>
               <div>All: {filamentAllAmount} kg</div>
 
-              {details.filaments.map((item, index) => (
+              {/* {details.filaments.map((item, index) => (
                 <div key={index}>
                   {item.type}: {item.amount} kg
                 </div>
-              ))}
+              ))} */}
+
+              {Array.isArray(details.filaments) &&
+                details.filaments.map((item, index) => (
+                  <div key={index}>
+                    {item.type}: {item.amount} kg
+                  </div>
+                ))}
             </InfiniteScroll>
           </div>
         </div>

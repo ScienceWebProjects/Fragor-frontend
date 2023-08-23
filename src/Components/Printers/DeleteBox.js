@@ -33,6 +33,7 @@ function DeleteBox(props) {
 
       if (response.status === 204) {
         alert('Succesfully printer delete.');
+        sessionStorage.setItem('printerDetails', '');
         navigate(props.api.printersPage);
       }
 

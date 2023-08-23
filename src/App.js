@@ -13,13 +13,14 @@ import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
 import UsersPage from './Components/Users/UsersPage';
+import UserDetails from './Components/Users/UserDetails';
 
 // UI elements
 import './App.css';
 
 const endpoints = {
-  ip: 'http://127.0.0.1:8080',
-  // ip: 'http://192.168.57.191:8080',
+  // ip: 'http://127.0.0.1:8080',
+  ip: 'http://192.168.0.3:8080',
 
   //
   quotes: 'https://type.fit/api/quotes', // 1643 quotes
@@ -71,13 +72,15 @@ const endpoints = {
   settingEmailChange: '/', // PUT
 
   // --------- USERS --------- \\
-  usersGetAll: '/-/',
+  usersGetAll: '/api/companies/users/get/all/',
+  userGetOne: '/api/companies/users/get/', // ...<id>/ GET
   userGetPermissions: '/-/',
 };
 
 function App() {
-  const [printerDetails, setPrinterDetails] = useState();
-  const [filamentDetails, setFilamentDetails] = useState();
+  const [printerDetails, setPrinterDetails] = useState([]);
+  const [filamentDetails, setFilamentDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
 
   const printerDetailsHandler = (details) => {
     setPrinterDetails(details);
@@ -85,6 +88,10 @@ function App() {
 
   const filamentDetailsHandler = (details) => {
     setFilamentDetails(details);
+  };
+
+  const userDetailsHandler = (details) => {
+    setUserDetails(details);
   };
 
   const router = createBrowserRouter([
@@ -135,7 +142,21 @@ function App() {
     },
     {
       path: endpoints.usersPage,
-      element: <UsersPage api={endpoints} />,
+      element: (
+        <UsersPage
+          api={endpoints}
+          onUserSelect={userDetailsHandler}
+        />
+      ),
+    },
+    {
+      path: `${endpoints.usersPage}/:userName`,
+      element: (
+        <UserDetails
+          api={endpoints}
+          details={userDetails}
+        />
+      ),
     },
   ]);
 
