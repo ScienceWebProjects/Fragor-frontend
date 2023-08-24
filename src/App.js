@@ -1,3 +1,6 @@
+// REST API
+import endpoints from './endpoints.json';
+
 // libs
 import { useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'; // version 6.14.1
@@ -12,70 +15,12 @@ import PrinterDetails from './Components/Printers/PrinterDetails';
 import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
+import FilamentsOptions from './Components/Settings/FilamentsOptions';
 import UsersPage from './Components/Users/UsersPage';
 import UserDetails from './Components/Users/UserDetails';
 
 // UI elements
 import './App.css';
-
-const endpoints = {
-  // ip: 'http://127.0.0.1:8080',
-  ip: 'http://192.168.0.3:8080',
-
-  //
-  quotes: 'https://type.fit/api/quotes', // 1643 quotes
-
-  // --------- REACT-ROUTER-DOM --------- \\
-  //  authorization
-  loginPage: '/loginPage',
-  signinPage: '/signin-page',
-  home: '/',
-  // printers
-  printersPage: '/printers-page', // printers list
-  printerAddPage: '/printer-add',
-  // filaments
-  filamentsPage: '/filaments-page',
-  // settings
-  settingsPage: '/settings-page',
-  // users
-  usersPage: '/users-page',
-
-  // --------- AUTHORIZATION --------- \\
-  loginPin: '/api/account/login/pin/', // POST
-  loginPassword: '', // POST
-  registration: '/api/account/registration/', // POST
-
-  // --------- PRINTERS --------- \\
-  printersList: '/api/printer/get/all/', // GET
-  printerModelAdd: '/api/printer/model/add/', // POST
-  printersModelsGet: '/api/printer/model/get/all/', // GET
-  printerAdd: '/api/printer/add/', // POST
-  printerDelete: '/api/printer/delete/', // ...{id}/ DELETE
-  printerGet: '/api/printer/get/', // ...<id>/ GET
-
-  // --------- DEVICES --------- \\
-  deviceAdd: '/api/device/connect/', // ...<printer id> GET
-
-  // --------- FILAMENTS --------- \\
-  filamentsFiltered: '/api/filaments/filter/', //  ...<color>/<type>/<quantity>/ GET
-  filamentGet: '/api/filaments/get/', // ...<filament id> GET
-  filamentsMaterialsGet: '/api/filaments/material/get/all/', // GET
-  filamentsColorsGet: '/api/filaments/color/get/all/', // GET
-  filamentsBrandsGet: '/api/filaments/brand/get/all/', // GET
-  filamentsRandomAdd: '/api/filaments/random/add/', // ...<ammount> GET
-
-  // --------- SETTINGS --------- \\
-  settingDeleteAccount: '',
-  settingLogout: '/api/account/logout/', // DELETE
-  settingPinChange: '/', // PUT
-  settingPasswordChange: '/api/account/settings/password/', // PUT
-  settingEmailChange: '/', // PUT
-
-  // --------- USERS --------- \\
-  usersGetAll: '/api/companies/users/get/all/',
-  userGetOne: '/api/companies/users/get/', // ...<id>/ GET
-  userGetPermissions: '/-/',
-};
 
 function App() {
   const [printerDetails, setPrinterDetails] = useState([]);
@@ -139,6 +84,10 @@ function App() {
     {
       path: endpoints.settingsPage,
       element: <SettingsPage api={endpoints} />,
+    },
+    {
+      path: endpoints.settingsFilamentsOptions,
+      element: <FilamentsOptions api={endpoints} />,
     },
     {
       path: endpoints.usersPage,

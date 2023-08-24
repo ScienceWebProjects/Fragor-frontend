@@ -105,13 +105,15 @@ function SettingsPage(props) {
             >
               Log out
             </Button>
-            {permission.owner && (
-              <Button
-                className=''
-                color='blue'
-              >
-                Filaments options
-              </Button>
+            {(permission.owner || permission.master) && (
+              <StyledLink to={props.api.settingsFilamentsOptions}>
+                <Button
+                  className=''
+                  color='blue'
+                >
+                  Filaments options
+                </Button>
+              </StyledLink>
             )}
             <Button
               className=''

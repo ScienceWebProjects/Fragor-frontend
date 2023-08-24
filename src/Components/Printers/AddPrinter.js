@@ -50,7 +50,7 @@ function AddPrinter(props) {
     getAddedPrinter();
   }, []);
 
-  const printerModelAdd = async () => {
+  const printerModelAddHandler = async () => {
     if (modelEntered === '') {
       return alert('You cannot add empty model name!');
     }
@@ -145,7 +145,7 @@ function AddPrinter(props) {
             <Button
               className='add-btn'
               color='yellow'
-              onClick={printerModelAdd}
+              onClick={printerModelAddHandler}
             >
               Add model
             </Button>

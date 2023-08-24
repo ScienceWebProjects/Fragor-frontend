@@ -46,8 +46,10 @@ function FilamentsPage(props) {
         return;
       }
 
-      const data = await response.json();
-      setFilaments(data);
+      if (response.status === 200) {
+        window.location.reload();
+        return;
+      }
     } catch (error) {
       console.log(error);
     }

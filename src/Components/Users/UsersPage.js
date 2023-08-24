@@ -70,7 +70,8 @@ function UsersPage(props) {
       const response = await fetch(`${props.api.ip}${props.api.usersGetAll}`, requestOptions);
 
       if (response.status === 200) {
-        setUsersList(response);
+        const users = await response.json();
+        setUsersList(users);
       }
     } catch (error) {
       console.log(error);

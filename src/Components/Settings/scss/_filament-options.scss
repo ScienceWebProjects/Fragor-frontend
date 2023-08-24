@@ -1,0 +1,23 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.filament-options {
+  width: 90vw;
+
+  .minMax-wrapper {
+    width: 100%;
+    @include flexCenter(row, space-between, center);
+
+    .wrapper-min,
+    .wrapper-max {
+      width: 45%;
+      text-align: center;
+
+      .min-label,
+      .max-label {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
