@@ -37,7 +37,7 @@ function FilamentsPage(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.filamentsRandomAdd}10/`,
+        `${props.api.ip}${props.api.filamentsRandomAdd_ammount}10/`,
         requestOptions
       );
 

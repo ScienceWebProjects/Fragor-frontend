@@ -78,7 +78,13 @@ function UsersPage(props) {
             >
               {usersList.map((user) => (
                 <Button
-                  color='blue'
+                  color={
+                    user.permission === 'OWNER' || user.permission === 'MASTER'
+                      ? 'red'
+                      : user.permission === 'CHANGER'
+                      ? 'blue'
+                      : 'green'
+                  }
                   key={`btn-${user.id}`}
                   className='user-button'
                 >

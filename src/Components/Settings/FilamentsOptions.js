@@ -76,12 +76,18 @@ function FilamentsOptions(props) {
         requestOptions
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         return alert('Succesfully color added.');
+      }
+
+      if (response.status === 404) {
+        const res404 = await response.json();
+        return res404.message ? alert(res404.message) : alert('Something went bad.');
       }
     } catch (error) {
       console.log(error);
       alert('An unpredictable problem has been encountered. \nPlease add color again.');
+      alert(error);
     }
   };
 

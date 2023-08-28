@@ -42,7 +42,7 @@
   "settingEmailChange": "/-/",
   "settingFilamentMaterialAdd": "/-/",
   "settingFilamentMaterialDelete": "/-/",
-  "settingFilamentColorAdd": "/-/",
+  "settingFilamentColorAdd": "/api/filaments/color/add/",
   "settingFilamentColorDelete": "/-/",
   "settingFilamentBrandAdd": "/-/",
   "settingFilamentBrandDelete": "/-/",
