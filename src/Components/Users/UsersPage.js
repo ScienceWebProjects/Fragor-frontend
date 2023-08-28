@@ -24,38 +24,7 @@ function UsersPage(props) {
   const permission = usePermissions(user);
   const windowSize = useWindowSize();
 
-  const [usersList, setUsersList] = useState([
-    {
-      id: '0',
-      name: 'Jan',
-      surname: 'Kowalski',
-    },
-    {
-      id: '1',
-      name: 'John',
-      surname: 'Cena',
-    },
-    {
-      id: '2',
-      name: 'Tony',
-      surname: 'Stark',
-    },
-    {
-      id: '3',
-      name: 'Ela',
-      surname: 'Chodakowska',
-    },
-    {
-      id: '4',
-      name: 'Marek',
-      surname: 'Zberaźny',
-    },
-    {
-      id: '5',
-      name: 'Orlando',
-      surname: 'Żółć',
-    },
-  ]);
+  const [usersList, setUsersList] = useState([]);
 
   const makeApiCall = async () => {
     const requestOptions = {

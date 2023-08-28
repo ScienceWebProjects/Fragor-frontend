@@ -38,12 +38,83 @@ function FilamentsOptions(props) {
       hotend: `${minHotendEntered}-${maxHotendEntered}`,
     };
 
-    console.log(materialData);
-    alert('added');
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      body: JSON.stringify(materialData),
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingFilamentMaterialAdd}`,
+        requestOptions
+      );
+
+      if (response.status === 200) {
+        return alert('Succesfully material added.');
+      }
+    } catch (error) {
+      console.log(error);
+      alert('An unpredictable problem has been encountered. \nPlease add material again.');
+    }
   };
 
-  const colorAddHandler = async () => {};
-  const brandAddHandler = async () => {};
+  const colorAddHandler = async () => {
+    const colorData = {
+      color: colorEntered.toUpperCase(),
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      body: JSON.stringify(colorData),
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingFilamentColorAdd}`,
+        requestOptions
+      );
+
+      if (response.status === 200) {
+        return alert('Succesfully color added.');
+      }
+    } catch (error) {
+      console.log(error);
+      alert('An unpredictable problem has been encountered. \nPlease add color again.');
+    }
+  };
+
+  const brandAddHandler = async () => {
+    const brandData = {
+      brand: brandEntered,
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      body: JSON.stringify(brandData),
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingFilamentBrandAdd}`,
+        requestOptions
+      );
+
+      if (response.status === 200) {
+        return alert('Succesfully brand added.');
+      }
+
+      if (response.status === 404) {
+        const res404 = await response.json();
+        return res404.message ? alert(res404.message) : alert('Something went bad.');
+      }
+    } catch (error) {
+      console.log(error);
+      alert('An unpredictable problem has been encountered. \nPlease add brand again.');
+    }
+  };
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
