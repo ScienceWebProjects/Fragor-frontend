@@ -59,7 +59,9 @@ function FilamentsOptions(props) {
     }
   };
 
-  const colorAddHandler = async () => {
+  const colorAddHandler = async (e) => {
+    e.preventDefault();
+
     const colorData = {
       color: colorEntered.toUpperCase(),
     };
@@ -80,7 +82,7 @@ function FilamentsOptions(props) {
         return alert('Succesfully color added.');
       }
 
-      if (response.status === 404) {
+      if (response.status === 400) {
         const res404 = await response.json();
         return res404.message ? alert(res404.message) : alert('Something went bad.');
       }

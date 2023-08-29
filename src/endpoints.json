@@ -49,5 +49,9 @@
 
   "usersGetAll": "/api/companies/users/get/",
   "userGetOne_id": "/api/companies/users/get/",
-  "userGetPermissions": "/-/"
+  "userGetPermissions": "/-/",
+
+  "ownersCompanyAdd": "/owner/company/add/",
+  "ownersCompaniesGetAll": "/api/companies/get/all/",
+  "ownersCompanyUsersGet_id": "/api/companies/users/get/"
 }

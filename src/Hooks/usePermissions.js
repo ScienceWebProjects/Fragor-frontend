@@ -4,14 +4,33 @@ function usePermissions(user) {
   }
 
   const loggedUser = user ? 'logged' : 'logout';
+  let ownerUser = false;
+  let masterUser = false;
+  let changerUser = false;
+  let commonUser = false;
 
-  const ownerUser = loggedUser === 'logged' && user.permission === 'OWNER' ? true : false;
-
-  const masterUser = loggedUser === 'logged' && user.permission === 'MASTER_USER' ? true : false;
-
-  const changerUser = loggedUser === 'logged' && user.permission === 'CHANGER_USER' ? true : false;
-
-  const commonUser = loggedUser === 'logged' && user.permission === 'COMMON_USER' ? true : false;
+  if (loggedUser === 'logged') {
+    switch (user.permission) {
+      case 'OWNER':
+        ownerUser = true;
+        masterUser = true;
+        changerUser = true;
+        commonUser = true;
+        break;
+      case 'MASTER_USER':
+        masterUser = true;
+        changerUser = true;
+        commonUser = true;
+        break;
+      case 'CHANGER_USER':
+        changerUser = true;
+        commonUser = true;
+        break;
+      case 'COMMON_USER':
+        commonUser = true;
+        break;
+    }
+  }
 
   return {
     logged: loggedUser,

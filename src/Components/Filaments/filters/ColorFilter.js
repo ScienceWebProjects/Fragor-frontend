@@ -59,9 +59,9 @@ function ColorFilter(props) {
           {colors.map((color, index) => (
             <option
               key={`color-${index}`}
-              value={color.type}
+              value={color.color}
             >
-              {color.type}
+              {color.color}
             </option>
           ))}
         </select>
