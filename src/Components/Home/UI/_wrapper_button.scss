@@ -2,8 +2,29 @@
 @import '../../UI/shared/functions';
 
 .wrapper_buttons {
-  @include gridStart(50% 50%, 5rem 5rem, 'printers filaments' 'settings users', 0.625rem);
+  @include gridStart(
+    50% 50%,
+    5rem 5rem,
+    'printers filaments' 'settings users' 'owners owners',
+    0.625rem
+  );
   justify-items: stretch;
+
+  .area-printers {
+    grid-area: printers;
+  }
+  .area-filaments {
+    grid-area: filaments;
+  }
+  .area-settings {
+    grid-area: settings;
+  }
+  .area-users {
+    grid-area: users;
+  }
+  .area-owners {
+    grid-area: owners;
+  }
 
   .wrapper_button {
     width: 100%;

@@ -18,6 +18,7 @@ import SettingsPage from './Components/Settings/SettingsPage';
 import FilamentsOptions from './Components/Settings/FilamentsOptions';
 import UsersPage from './Components/Users/UsersPage';
 import UserDetails from './Components/Users/UserDetails';
+import OwnersPage from './Components/Owners/OwnersPage';
 
 // UI elements
 import './App.css';
@@ -106,6 +107,10 @@ function App() {
           details={userDetails}
         />
       ),
+    },
+    {
+      path: `${endpoints.ownersPage}`,
+      element: <OwnersPage api={endpoints} />,
     },
   ]);
 

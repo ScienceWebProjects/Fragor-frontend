@@ -50,8 +50,6 @@ function SigninPage(props) {
     };
 
     try {
-      console.log(registerData);
-
       const response = await fetch(`${props.api.ip}${props.api.registration}`, requestOptions);
 
       if (response.status === 201) {

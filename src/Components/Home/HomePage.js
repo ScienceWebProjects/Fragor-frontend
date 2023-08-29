@@ -47,37 +47,62 @@ function HomePage(props) {
             <Quotes />
 
             <div className='wrapper_buttons'>
-              <StyledLink to={props.api.printersPage}>
+              <StyledLink
+                to={props.api.printersPage}
+                className='area-printers'
+              >
                 <Button
-                  className='wrapper_button'
+                  className='wrapper_button '
                   color='red'
                 >
                   Printers
                 </Button>
               </StyledLink>
-              <StyledLink to={props.api.filamentsPage}>
+              <StyledLink
+                to={props.api.filamentsPage}
+                className='area-filaments'
+              >
                 <Button
-                  className='wrapper_button'
+                  className='wrapper_button '
                   color='red'
                 >
                   Filaments
                 </Button>
               </StyledLink>
-              <StyledLink to={props.api.settingsPage}>
+              <StyledLink
+                to={props.api.settingsPage}
+                className='area-settings'
+              >
                 <Button
-                  className='wrapper_button'
+                  className='wrapper_button '
                   color='red'
                 >
                   Settings
                 </Button>
               </StyledLink>
               {(permission.owner || permission.master) && (
-                <StyledLink to={props.api.usersPage}>
+                <StyledLink
+                  to={props.api.usersPage}
+                  className='area-users'
+                >
                   <Button
                     className='wrapper_button'
                     color='red'
                   >
                     Users
+                  </Button>
+                </StyledLink>
+              )}
+              {permission.owner && (
+                <StyledLink
+                  to={props.api.ownersPage}
+                  className='area-owners'
+                >
+                  <Button
+                    className='wrapper_button'
+                    color='red'
+                  >
+                    Owners
                   </Button>
                 </StyledLink>
               )}

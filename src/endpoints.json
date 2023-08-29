@@ -4,15 +4,16 @@
 
   "quotes": "https://type.fit/api/quotes",
 
-  "loginPage": "/loginPage",
-  "signinPage": "/signin-page",
+  "loginPage": "/login",
+  "signinPage": "/signin",
   "home": "/",
-  "printersPage": "/printers-page",
+  "printersPage": "/printers-list",
   "printerAddPage": "/printer-add",
-  "filamentsPage": "/filaments-page",
-  "settingsPage": "/settings-page",
+  "filamentsPage": "/filaments-list",
+  "settingsPage": "/settings",
   "settingsFilamentsOptions": "/filaments-options",
-  "usersPage": "/users-page",
+  "usersPage": "/users",
+  "ownersPage": "/owners",
 
   "loginPin": "/api/account/login/pin/",
   "loginPassword": "/api/account/login/password/",

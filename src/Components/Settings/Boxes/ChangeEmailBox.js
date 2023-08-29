@@ -27,7 +27,7 @@ function ChangeEmailBox(props) {
     btn.textContent = 'Wait...';
 
     const emailData = {
-      newEmail: newEmailEntered,
+      email: newEmailEntered,
     };
 
     const requestOptions = {
@@ -47,7 +47,7 @@ function ChangeEmailBox(props) {
 
       if (response.status === 200) {
         setChangeEmailBox(false);
-        alert('Successful password change');
+        alert('Successful email change');
       }
       if (response.status === 400) {
         const res400 = await response.json();
