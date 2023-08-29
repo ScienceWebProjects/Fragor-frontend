@@ -88,7 +88,7 @@ function SettingsPage(props) {
         <main className='App-header'>
           <div className='content'>
             <h1>Settings</h1>
-            {(permission.changer || permission.common) && (
+            {!permission.owner && !permission.master && (
               <Button
                 className='content-delete'
                 color='red'

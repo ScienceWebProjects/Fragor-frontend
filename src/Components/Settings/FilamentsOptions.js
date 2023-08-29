@@ -28,14 +28,20 @@ function FilamentsOptions(props) {
   const [maxHotbedEntered, setMaxHotbedEntered] = useState('');
   const [minHotendEntered, setMinHotendEntered] = useState('');
   const [maxHotendEntered, setMaxHotendEntered] = useState('');
+  const [densityEntered, setDensityEntered] = useState(1.0);
+  const [diameterEntered, setDiameterEntered] = useState(1.75);
   const [colorEntered, setColorEntered] = useState('');
   const [brandEntered, setBrandEntered] = useState('');
 
-  const materialAddHandler = async () => {
+  const materialAddHandler = async (e) => {
+    e.preventDefault();
+
     const materialData = {
       material: materialNameEntered,
       hotbed: `${minHotbedEntered}-${maxHotbedEntered}`,
       hotend: `${minHotendEntered}-${maxHotendEntered}`,
+      density: densityEntered,
+      diameter: diameterEntered,
     };
 
     const requestOptions = {
@@ -50,8 +56,14 @@ function FilamentsOptions(props) {
         requestOptions
       );
 
-      if (response.status === 200) {
-        return alert('Succesfully material added.');
+      if (response.status === 201) {
+        alert('Succesfully material added.');
+        window.location.reload();
+      }
+
+      if (response.status === 400) {
+        const res404 = await response.json();
+        return res404.message ? alert(res404.message) : alert('Something went bad.');
       }
     } catch (error) {
       console.log(error);
@@ -93,7 +105,9 @@ function FilamentsOptions(props) {
     }
   };
 
-  const brandAddHandler = async () => {
+  const brandAddHandler = async (e) => {
+    e.preventDefault();
+
     const brandData = {
       brand: brandEntered,
     };
@@ -233,6 +247,49 @@ function FilamentsOptions(props) {
                     value={maxHotendEntered}
                     onChange={(event) => {
                       setMaxHotendEntered(event.target.value);
+                    }}
+                    required
+                  />
+                </div>
+              </div>
+              {/* DENSITY & DIAMETER */}
+              <div className='minMax-wrapper'>
+                <div className='wrapper-min'>
+                  <StyledLabel
+                    htmlFor='density'
+                    className='min-label'
+                  >
+                    Density
+                  </StyledLabel>
+                  <StyledInput
+                    name='density'
+                    id='density'
+                    type='number'
+                    min='0.0'
+                    step='0.01'
+                    value={densityEntered}
+                    onChange={(event) => {
+                      setDensityEntered(event.target.value);
+                    }}
+                    required
+                  />
+                </div>
+                <div className='wrapper-max'>
+                  <StyledLabel
+                    htmlFor='diameter'
+                    className='max-label'
+                  >
+                    Diameter
+                  </StyledLabel>
+                  <StyledInput
+                    name='diameter'
+                    id='diameter'
+                    type='number'
+                    min='0.0'
+                    step='0.01'
+                    value={diameterEntered}
+                    onChange={(event) => {
+                      setDiameterEntered(event.target.value);
                     }}
                     required
                   />

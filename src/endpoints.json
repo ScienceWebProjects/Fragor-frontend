@@ -15,7 +15,7 @@
   "usersPage": "/users-page",
 
   "loginPin": "/api/account/login/pin/",
-  "loginPassword": "",
+  "loginPassword": "/api/account/login/password/",
 
   "registration": "/api/account/registration/",
 
@@ -39,12 +39,12 @@
   "settingLogout": "/api/account/logout/",
   "settingPinChange": "/-/",
   "settingPasswordChange": "/api/account/settings/password/",
-  "settingEmailChange": "/-/",
-  "settingFilamentMaterialAdd": "/-/",
+  "settingEmailChange": "/api/account/settings/email/",
+  "settingFilamentMaterialAdd": "/api/filaments/material/add/",
   "settingFilamentMaterialDelete": "/-/",
   "settingFilamentColorAdd": "/api/filaments/color/add/",
   "settingFilamentColorDelete": "/-/",
-  "settingFilamentBrandAdd": "/-/",
+  "settingFilamentBrandAdd": "/api/filaments/brand/add/",
   "settingFilamentBrandDelete": "/-/",
 
   "usersGetAll": "/api/companies/users/get/",
