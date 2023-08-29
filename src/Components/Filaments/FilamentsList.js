@@ -35,12 +35,12 @@ const FilamentsList = (props) => {
       hasMore={false}
       height={windowSize * 0.6}
       endMessage={'No more added filaments'}
-      style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+      style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '2rem' }}
     >
-      {props.items.map((filament) => (
+      {props.items.map((filament, index) => (
         <Button
           color='blue'
-          key={`btn-${filament.id}`}
+          key={`btn-${index}`}
           className='filament-button'
         >
           <FilamentItem

@@ -23,7 +23,7 @@ const FilamentItem = (props) => {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.filamentGet}${props.filament.id}/`,
+        `${props.api.ip}${props.api.filamentGet_id}${props.filament.id}/`,
         requestOptions
       );
 

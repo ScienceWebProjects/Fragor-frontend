@@ -56,9 +56,9 @@ function BrandFilter(props) {
           >
             All
           </option>
-          {brands.map((brand) => (
+          {brands.map((brand, index) => (
             <option
-              key={brand.id}
+              key={`brand-${index}`}
               value={brand.name}
             >
               {brand.name}

@@ -3,7 +3,7 @@
 // components
 import TopBar from '../_shared/TopBar';
 
-function FilamentDetails() {
+function FilamentDetails(props) {
   return (
     <div>
       {/* <header> */}

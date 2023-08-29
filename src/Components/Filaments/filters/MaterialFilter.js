@@ -56,9 +56,9 @@ const MaterialFilter = (props) => {
           >
             All
           </option>
-          {materials.map((material) => (
+          {materials.map((material, index) => (
             <option
-              key={material.id}
+              key={`material-${index}`}
               value={material.material}
             >
               {material.material}

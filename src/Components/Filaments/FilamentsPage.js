@@ -16,6 +16,9 @@ import FilamentsList from './FilamentsList';
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
+// scss
+import './scss/_bottom-buttons.scss';
+
 function FilamentsPage(props) {
   const user = useToken();
   const permission = usePermissions(user);
@@ -120,7 +123,8 @@ function FilamentsPage(props) {
             onFilamentSelect={filamentSelectionHandler}
           />
         </FilamentsWindow>
-        <div>
+
+        <div className='bottom-buttons'>
           <StyledLink to={props.api.home}>
             <Button
               className=''
