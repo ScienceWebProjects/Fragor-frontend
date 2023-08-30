@@ -23,7 +23,8 @@ const FilamentItem = (props) => {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.filamentGet_id}${props.filament.id}/`,
+        // `${props.api.ip}${props.api.filamentGet_id}${props.filament.id}/`,
+        `${props.api.ip}${props.api.filamentGet_id}1/`, // this is test line - delete after testing
         requestOptions
       );
 

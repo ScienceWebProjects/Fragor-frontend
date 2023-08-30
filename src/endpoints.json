@@ -35,6 +35,8 @@
   "filamentsColorsGet": "/api/filaments/color/get/all/",
   "filamentsBrandsGet": "/api/filaments/brand/get/all/",
   "filamentsRandomAdd_ammount": "/api/filaments/add/",
+  "filamentEdit_id": "/api/filaments/update/",
+  "filamentDelete_id": "/api/filaments/delete/",
 
   "settingDeleteAccount": "/-/",
   "settingLogout": "/api/account/logout/",

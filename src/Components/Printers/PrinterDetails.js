@@ -16,7 +16,7 @@ import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
-import './scss/_details-buttons.scss';
+import '../_shared/UI/_details-buttons.scss';
 import './scss/_details-printer.scss';
 import DeleteBox from './DeleteBox';
 
@@ -90,13 +90,13 @@ function PrinterDetails(props) {
         <div className='buttons-wrapper'>
           <Button
             className='wrapper-btn'
-            color='red'
+            color='yellow'
           >
             Edit
           </Button>
           <Button
             className='wrapper-btn'
-            color='red'
+            color='yellow'
             onClick={deviceAddHandler}
             id='deviceAddBtn'
           >
@@ -139,12 +139,6 @@ function PrinterDetails(props) {
               <br />
               <div>Printed Filements:</div>
               <div>All: {filamentAllAmount} kg</div>
-
-              {/* {details.filaments.map((item, index) => (
-                <div key={index}>
-                  {item.type}: {item.amount} kg
-                </div>
-              ))} */}
 
               {Array.isArray(details.filaments) &&
                 details.filaments.map((item, index) => (

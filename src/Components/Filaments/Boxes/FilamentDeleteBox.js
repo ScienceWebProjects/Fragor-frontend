@@ -2,21 +2,26 @@
 
 // hooks
 import { useNavigate } from 'react-router-dom';
-import useToken from '../../Hooks/useToken';
+import useToken from '../../../Hooks/useToken';
 
-// scss
-import '../UI/shared/_box.scss';
+// components
 
 // UI elements
-import Button from '../UI/shared/buttons/Button';
+import Button from '../../UI/shared/buttons/Button';
 
-function DeleteBox(props) {
+// scss
+import '../../UI/shared/_box.scss';
+
+function FilamentDeleteBox(props) {
   const user = useToken();
   const navigate = useNavigate();
 
-  const { setDeleteBox } = props;
+  const { onFilamentDeleteBox } = props;
 
-  const deleteConfirm = async () => {
+  const deleteConfirmApiCall = async () => {
+    const btn = document.getElementById('confirmBtn');
+    btn.textContent = 'Deleting...';
+
     const requestOptions = {
       method: 'DELETE',
       headers: {
@@ -27,19 +32,21 @@ function DeleteBox(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.printerDelete}${props.id}/`,
+        `${props.api.ip}${props.api.filamentDelete_id}${props.details.id}/`,
         requestOptions
       );
 
       if (response.status === 204) {
-        alert('Succesfully printer delete.');
-        sessionStorage.setItem('printerDetails', '');
-        navigate(props.api.printersPage);
+        onFilamentDeleteBox(false);
+        alert('Succesfull filament deleted.');
+        navigate(props.api.filamentsPage);
       }
 
       if (response.status === 404) {
-        alert(response);
+        alert(response.message);
       }
+
+      btn.textContent = 'Delete';
     } catch (error) {
       console.log(error);
     }
@@ -48,22 +55,23 @@ function DeleteBox(props) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h2>Are you sure you want to delete printer:</h2>
-        <h3>{props.printerName}</h3>
+        <h2>Are you sure you want to delete this filament?</h2>
         <div className='box-btns'>
           <Button
             className='btns-btn'
             color='yellow'
-            onClick={() => setDeleteBox(false)}
+            type='button'
+            onClick={() => onFilamentDeleteBox(false)}
           >
             Back
           </Button>
           <Button
             className='btns-btn'
             color='red'
-            onClick={deleteConfirm}
+            onClick={deleteConfirmApiCall}
+            id='confirmBtn'
           >
-            Delete
+            Confirm
           </Button>
         </div>
       </div>
@@ -71,4 +79,4 @@ function DeleteBox(props) {
   );
 }
 
-export default DeleteBox;
+export default FilamentDeleteBox;
