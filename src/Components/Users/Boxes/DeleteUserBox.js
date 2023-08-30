@@ -18,7 +18,34 @@ function DeleteUserBox(props) {
 
   const { onDeleteUserBox } = props;
 
-  const deleteConfirmApiCall = async () => {};
+  const deleteConfirmApiCall = async () => {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.userAccountDelete_email}${props.details.email}/`,
+        requestOptions
+      );
+
+      if (response.status === 204) {
+        alert('Succesfully printer delete.');
+        sessionStorage.setItem('userDetails', '');
+        navigate(props.api.usersPage);
+      }
+
+      if (response.status === 404) {
+        alert(response.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className='shadow'>

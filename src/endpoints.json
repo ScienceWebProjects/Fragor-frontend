@@ -1,6 +1,6 @@
 {
-  "ip": "http://127.0.0.1:8080",
-  "ip-local": "http://192.168.0.3:8080",
+  "ip-0": "http://127.0.0.1:8080",
+  "ip": "http://192.168.0.6:8080",
 
   "quotes": "https://type.fit/api/quotes",
 
@@ -54,6 +54,7 @@
   "userGetOne_id": "/api/companies/users/get/",
   "userGetPermissions": "/-/",
   "userSetPermissions": "/api/account/permission/set/",
+  "userAccountDelete_email": "/api/account/permission/delete/",
 
   "ownersCompanyAdd": "/owner/company/add/",
   "ownersCompaniesGetAll": "/api/companies/get/all/",
