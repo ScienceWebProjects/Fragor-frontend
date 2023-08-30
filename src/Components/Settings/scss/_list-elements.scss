@@ -1,0 +1,21 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.list-element {
+  width: inherit;
+  @include flexCenter(row, center, center);
+  opacity: 0.99;
+  margin: 0.313rem auto;
+
+  border-radius: 0.625rem;
+
+  background-color: $secondary-color;
+
+  .element-label {
+    width: 50%;
+  }
+
+  .element-delete {
+    width: 30%;
+  }
+}

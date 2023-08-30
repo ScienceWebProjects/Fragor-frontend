@@ -16,6 +16,9 @@ import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
 import FilamentsOptions from './Components/Settings/FilamentsOptions';
+import MaterialsOptions from './Components/Settings/MaterialsOptions';
+import ColorsOptions from './Components/Settings/ColorsOptions';
+import BrandsOptions from './Components/Settings/BrandsOptions';
 import UsersPage from './Components/Users/UsersPage';
 import UserDetails from './Components/Users/UserDetails';
 import OwnersPage from './Components/Owners/OwnersPage';
@@ -89,6 +92,18 @@ function App() {
     {
       path: endpoints.settingsFilamentsOptions,
       element: <FilamentsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingMaterialsOptions,
+      element: <MaterialsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingColorsOptions,
+      element: <ColorsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingBrandsOptions,
+      element: <BrandsOptions api={endpoints} />,
     },
     {
       path: endpoints.usersPage,

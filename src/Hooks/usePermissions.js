@@ -29,6 +29,8 @@ function usePermissions(user) {
       case 'COMMON_USER':
         commonUser = true;
         break;
+      default:
+        break;
     }
   }
 
