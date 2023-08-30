@@ -74,7 +74,7 @@ function FilamentEditBox(props) {
           <StyledInput
             name='material'
             id='material'
-            type='material'
+            type='text'
             value={materialEntered}
             onChange={(event) => {
               setMaterialEntered(event.target.value);

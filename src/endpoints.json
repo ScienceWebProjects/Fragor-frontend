@@ -53,6 +53,7 @@
   "usersGetAll": "/api/companies/users/get/",
   "userGetOne_id": "/api/companies/users/get/",
   "userGetPermissions": "/-/",
+  "userSetPermissions": "/api/account/permission/set/",
 
   "ownersCompanyAdd": "/owner/company/add/",
   "ownersCompaniesGetAll": "/api/companies/get/all/",

@@ -85,7 +85,7 @@ function UserDetails(props) {
       {permissionBox && (
         <ChangePermissionBox
           api={props.api}
-          details={props.details}
+          details={details}
           onPermissionBox={setPermissionBox}
         />
       )}
@@ -93,7 +93,7 @@ function UserDetails(props) {
       {deleteUserBox && (
         <DeleteUserBox
           api={props.api}
-          details={props.details}
+          details={details}
           onDeleteUserBox={setDeleteUserBox}
         />
       )}
