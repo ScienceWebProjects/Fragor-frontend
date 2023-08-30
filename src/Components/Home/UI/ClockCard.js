@@ -2,8 +2,7 @@
 import styled from 'styled-components';
 
 const ClockCard = styled.div`
-  margin: 2rem 0;
-  padding: 0.625rem 0;
+  margin: 1rem 0;
 
   height: 12vh;
 

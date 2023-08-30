@@ -16,10 +16,14 @@
   .box {
     @include flexCenter(column, center, center);
     background-color: $secondary-color;
+    text-align: center;
 
     border-radius: 0.625rem;
     min-height: 20rem;
+    width: 80vw;
     padding: 0.625rem;
+
+    opacity: 0.99;
 
     > h3 {
       color: $red;

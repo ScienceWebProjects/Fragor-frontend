@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useToken from '../../Hooks/useToken';
 
 // scss
-import './scss/_delete-box.scss';
+import '../UI/shared/_box.scss';
 
 // UI elements
 import Button from '../UI/shared/buttons/Button';
@@ -33,6 +33,7 @@ function DeleteBox(props) {
 
       if (response.status === 204) {
         alert('Succesfully printer delete.');
+        sessionStorage.setItem('printerDetails', '');
         navigate(props.api.printersPage);
       }
 
@@ -45,12 +46,7 @@ function DeleteBox(props) {
   };
 
   return (
-    <div
-      className='shadow'
-      onClick={() => {
-        setDeleteBox(false);
-      }}
-    >
+    <div className='shadow'>
       <div className='box'>
         <h2>Are you sure you want to delete printer:</h2>
         <h3>{props.printerName}</h3>

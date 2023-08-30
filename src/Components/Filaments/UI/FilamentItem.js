@@ -23,7 +23,8 @@ const FilamentItem = (props) => {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.filamentGet}${props.filament.id}/`,
+        // `${props.api.ip}${props.api.filamentGet_id}${props.filament.id}/`,
+        `${props.api.ip}${props.api.filamentGet_id}1/`, // this is test line - delete after testing
         requestOptions
       );
 
@@ -55,10 +56,10 @@ const FilamentItem = (props) => {
       className='filament-item'
       onClick={filamentDetailsHandler}
     >
-      <h2>{props.filament.type}</h2>
+      <h2>{props.filament.material}</h2>
       <div>
         <div className=''>Color: {props.filament.color}</div>
-        <div className=''>Quantity: {props.filament.quantity} kg</div>
+        <div className=''>Quantity: {props.filament.quantity} g</div>
       </div>
     </StyledLink>
   );

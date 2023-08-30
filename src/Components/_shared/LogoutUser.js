@@ -1,7 +1,15 @@
+// libs
+
+// hooks
+
 // components
 import TopBar from './TopBar';
 
-function LogoutUser() {
+// UI elements
+
+// scss
+
+function LogoutUser(props) {
   return (
     <div>
       {/* <header> */}
@@ -12,7 +20,9 @@ function LogoutUser() {
         className='App-header'
         style={{ color: '#000' }}
       >
-        You don't have accsess to this page. Please login.
+        <div>
+          You don't have accsess to this page. Please <a href={props.api.loginPage}>login</a>.
+        </div>
       </main>
     </div>
   );

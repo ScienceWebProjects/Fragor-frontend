@@ -12,16 +12,13 @@ import Button from '../../UI/shared/buttons/Button';
 // scss
 import '../../UI/shared/_box.scss';
 
-function DeleteAccountBox(props) {
+function DeleteUserBox(props) {
   const user = useToken();
   const navigate = useNavigate();
 
-  const { setDeleteAccountBox } = props;
+  const { onDeleteUserBox } = props;
 
   const deleteConfirmApiCall = async () => {
-    const btn = document.getElementById('confirmBtn');
-    btn.textContent = 'Deleting...';
-
     const requestOptions = {
       method: 'DELETE',
       headers: {
@@ -32,14 +29,18 @@ function DeleteAccountBox(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.settingDeleteAccount}/`,
+        `${props.api.ip}${props.api.userAccountDelete_email}${props.details.email}/`,
         requestOptions
       );
 
       if (response.status === 204) {
-        setDeleteAccountBox(false);
-        navigate(props.api.loginPage);
-        alert('Succesfull account deleted.');
+        alert('Succesfully printer delete.');
+        sessionStorage.setItem('userDetails', '');
+        navigate(props.api.usersPage);
+      }
+
+      if (response.status === 404) {
+        alert(response.message);
       }
     } catch (error) {
       console.log(error);
@@ -49,13 +50,13 @@ function DeleteAccountBox(props) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h1>Are you sure you want to delete your account?</h1>
+        <h2>Are you sure you want to delete this user account?</h2>
         <div className='box-btns'>
           <Button
             className='btns-btn'
             color='yellow'
             type='button'
-            onClick={() => setDeleteAccountBox(false)}
+            onClick={() => onDeleteUserBox(false)}
           >
             Back
           </Button>
@@ -73,4 +74,4 @@ function DeleteAccountBox(props) {
   );
 }
 
-export default DeleteAccountBox;
+export default DeleteUserBox;

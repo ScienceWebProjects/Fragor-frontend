@@ -1,0 +1,19 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.details-filament {
+  min-height: 50vh;
+  width: 85vw;
+
+  background-color: $secondary-color;
+  border-radius: 0.625rem;
+
+  @include flexCenter(column, center, center);
+
+  .filament-data {
+    @include flexCenter(column, center, center);
+
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}

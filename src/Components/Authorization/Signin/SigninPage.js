@@ -7,9 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../Hooks/useWindowSize';
 
 // components
-import StyledLabel from '../../UI/authorization/StyledLabel';
-import StyledInput from '../../UI/authorization/StyledInput';
-import Pin from '../Pin';
+import Pin from '../../_shared/Pin';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component'; // v6.1.0
@@ -19,6 +17,8 @@ import logo from '../../../Images/logo-black.png';
 import Button from '../../UI/shared/buttons/Button';
 import InfoType from './UI/InfoType';
 import StyledLink from '../../UI/shared/StyledLink';
+import StyledLabel from '../../UI/authorization/StyledLabel';
+import StyledInput from '../../UI/authorization/StyledInput';
 
 function SigninPage(props) {
   const [firstNameEntered, setFirstNameEntered] = useState('');
@@ -50,8 +50,6 @@ function SigninPage(props) {
     };
 
     try {
-      console.log(registerData);
-
       const response = await fetch(`${props.api.ip}${props.api.registration}`, requestOptions);
 
       if (response.status === 201) {
@@ -173,6 +171,8 @@ function SigninPage(props) {
             ></StyledInput>
 
             <Pin
+              text={'PIN'}
+              length={4}
               onPinEntered={(pin) => {
                 setPinEntered(pin);
               }}

@@ -17,7 +17,6 @@ import FiltersDropdownMenu from './filters/FiltersDropdownMenu';
 import './scss/_bar-container.scss';
 
 function FiltersBar(props) {
-  const { onFilterChange } = props;
   const [color, setColor] = useState('all');
   const [material, setMaterial] = useState('all');
   const [brand, setBrand] = useState('all');
@@ -30,7 +29,7 @@ function FiltersBar(props) {
       brand: brand,
       stock: stock,
     };
-    onFilterChange(filters);
+    props.onFilterChange(filters);
   }, [color, material, brand, stock]);
 
   return (
@@ -45,14 +44,23 @@ function FiltersBar(props) {
       <ColorFilter
         className='bar_filter'
         api={props.api}
+        onColorFilter={(color) => {
+          setColor(color);
+        }}
       />
       <BrandFilter
         className='bar_filter'
         api={props.api}
+        onBrandFilter={(brand) => {
+          setBrand(brand);
+        }}
       />
       <StockFilter
         className='bar_filter'
         api={props.api}
+        onStockFilter={(stock) => {
+          setStock(stock);
+        }}
       />
       <FiltersDropdownMenu />
     </div>

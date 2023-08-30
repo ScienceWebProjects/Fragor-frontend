@@ -12,11 +12,11 @@ import Button from '../../UI/shared/buttons/Button';
 // scss
 import '../../UI/shared/_box.scss';
 
-function DeleteAccountBox(props) {
+function FilamentDeleteBox(props) {
   const user = useToken();
   const navigate = useNavigate();
 
-  const { setDeleteAccountBox } = props;
+  const { onFilamentDeleteBox } = props;
 
   const deleteConfirmApiCall = async () => {
     const btn = document.getElementById('confirmBtn');
@@ -32,15 +32,21 @@ function DeleteAccountBox(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.settingDeleteAccount}/`,
+        `${props.api.ip}${props.api.filamentDelete_id}${props.details.id}/`,
         requestOptions
       );
 
       if (response.status === 204) {
-        setDeleteAccountBox(false);
-        navigate(props.api.loginPage);
-        alert('Succesfull account deleted.');
+        onFilamentDeleteBox(false);
+        alert('Succesfull filament deleted.');
+        navigate(props.api.filamentsPage);
       }
+
+      if (response.status === 404) {
+        alert(response.message);
+      }
+
+      btn.textContent = 'Delete';
     } catch (error) {
       console.log(error);
     }
@@ -49,13 +55,13 @@ function DeleteAccountBox(props) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h1>Are you sure you want to delete your account?</h1>
+        <h2>Are you sure you want to delete this filament?</h2>
         <div className='box-btns'>
           <Button
             className='btns-btn'
             color='yellow'
             type='button'
-            onClick={() => setDeleteAccountBox(false)}
+            onClick={() => onFilamentDeleteBox(false)}
           >
             Back
           </Button>
@@ -73,4 +79,4 @@ function DeleteAccountBox(props) {
   );
 }
 
-export default DeleteAccountBox;
+export default FilamentDeleteBox;

@@ -9,9 +9,9 @@ import useToken from '../../../Hooks/useToken';
 import SelectBox from '../../UI/shared/SelectBox';
 
 const MaterialFilter = (props) => {
-  const [materials, setMaterials] = useState([{ id: 1, type: 'all' }]);
-
   const user = useToken();
+
+  const [materials, setMaterials] = useState([]);
 
   const dropdownChangeHandler = (event) => {
     props.onMaterialFilter(event.target.value);
@@ -22,7 +22,7 @@ const MaterialFilter = (props) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `token ${user.token}`,
+        Authorization: `Bearer ${user.token}`,
       },
     };
     try {
@@ -33,8 +33,8 @@ const MaterialFilter = (props) => {
 
       const materialsList = await response.json();
       setMaterials(materialsList);
-    } catch (e) {
-      console.log('Error in MaterialFilter.js');
+    } catch (error) {
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -56,9 +56,9 @@ const MaterialFilter = (props) => {
           >
             All
           </option>
-          {materials.map((material) => (
+          {materials.map((material, index) => (
             <option
-              key={material.id}
+              key={`material-${index}`}
               value={material.material}
             >
               {material.material}

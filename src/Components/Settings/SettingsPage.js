@@ -49,7 +49,8 @@ function SettingsPage(props) {
 
       if (response.status === 204) {
         console.log('Successful logout');
-        navigate(props.api.home);
+        sessionStorage.setItem('token', '');
+        navigate(props.api.loginPage);
       }
 
       if (response.status === 404) {
@@ -74,8 +75,9 @@ function SettingsPage(props) {
   };
 
   if (permission.logged === 'logout') {
-    return <LogoutUser />;
+    return <LogoutUser api={props.api} />;
   }
+
   if (permission.logged === 'logged') {
     return (
       <div>
@@ -86,7 +88,7 @@ function SettingsPage(props) {
         <main className='App-header'>
           <div className='content'>
             <h1>Settings</h1>
-            {permission.changer && (
+            {!permission.owner && !permission.master && (
               <Button
                 className='content-delete'
                 color='red'
@@ -95,7 +97,7 @@ function SettingsPage(props) {
                 Delete account
               </Button>
             )}
-            {deleteAccountBox && <DeleteAccountBox api={props.api} />}
+
             <Button
               className=''
               color='red'
@@ -103,13 +105,15 @@ function SettingsPage(props) {
             >
               Log out
             </Button>
-            {permission.owner && (
-              <Button
-                className=''
-                color='blue'
-              >
-                Filaments options
-              </Button>
+            {(permission.owner || permission.master) && (
+              <StyledLink to={props.api.settingsFilamentsOptions}>
+                <Button
+                  className=''
+                  color='blue'
+                >
+                  Filaments options
+                </Button>
+              </StyledLink>
             )}
             <Button
               className=''
@@ -118,8 +122,6 @@ function SettingsPage(props) {
             >
               Change pin
             </Button>
-            {changePinBox && <ChangePinBox api={props.api} />}
-
             <Button
               className=''
               color='yellow'
@@ -127,7 +129,6 @@ function SettingsPage(props) {
             >
               Change password
             </Button>
-            {changePasswordBox && <ChangePasswordBox api={props.api} />}
 
             <Button
               className=''
@@ -136,7 +137,6 @@ function SettingsPage(props) {
             >
               Change e-mail
             </Button>
-            {changeEmailBox && <ChangeEmailBox api={props.api} />}
           </div>
 
           <StyledLink to={props.api.home}>
@@ -148,6 +148,30 @@ function SettingsPage(props) {
             </Button>
           </StyledLink>
         </main>
+        {deleteAccountBox && (
+          <DeleteAccountBox
+            api={props.api}
+            setDeleteAccountBox={setDeleteAccountBox}
+          />
+        )}
+        {changePinBox && (
+          <ChangePinBox
+            api={props.api}
+            setChangePinBox={setChangePinBox}
+          />
+        )}
+        {changePasswordBox && (
+          <ChangePasswordBox
+            api={props.api}
+            setChangePasswordBox={setChangePasswordBox}
+          />
+        )}
+        {changeEmailBox && (
+          <ChangeEmailBox
+            api={props.api}
+            setChangeEmailBox={setChangeEmailBox}
+          />
+        )}
       </div>
     );
   }

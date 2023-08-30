@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import Card from '../UI/shared/Card';
-
 import './UI/_quotes.scss';
 
 const Quotes = () => {
@@ -63,10 +61,10 @@ const Quotes = () => {
   }, []);
 
   return (
-    <Card className='quote_wrapper'>
-      <Card className='wrapper_quote'>{quote}</Card>
-      <Card className='wrapper_author'>{author}</Card>
-    </Card>
+    <div className='quote_wrapper'>
+      <div className='wrapper_quote'>{quote}</div>
+      <div className='wrapper_author'>{author}</div>
+    </div>
   );
 };
 

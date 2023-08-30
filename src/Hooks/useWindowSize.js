@@ -1,5 +1,5 @@
 // hooks
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function useWindowSize() {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);

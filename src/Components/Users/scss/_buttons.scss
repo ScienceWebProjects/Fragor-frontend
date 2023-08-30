@@ -1,0 +1,13 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.btns-wrapper {
+  width: 90vw;
+  margin: 0 auto;
+  @include flexCenter(row, center, center);
+
+  .wrapper-btn {
+    width: 49%;
+    font-size: 0.875rem;
+  }
+}

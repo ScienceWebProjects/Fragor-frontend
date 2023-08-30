@@ -8,26 +8,27 @@ import useToken from '../../../Hooks/useToken';
 
 // UI elements
 import Button from '../../UI/shared/buttons/Button';
-import StyledLabel from '../../UI/authorization/StyledLabel';
-import StyledInput from '../../UI/authorization/StyledInput';
+import StyledCheckbox from '../../UI/shared/StyledCheckbox';
 
 // scss
 import '../../UI/shared/_box.scss';
 
-function ChangeEmailBox(props) {
+function ChangePermissionBox(props) {
   const user = useToken();
 
-  const { setChangeEmailBox } = props;
-  const [newEmailEntered, setNewEmailEntered] = useState('');
+  const { onPermissionBox } = props;
 
-  const changeEmailApiCall = async (e) => {
+  const [changerChecked, setChangerChecked] = useState(false);
+
+  const changePermissionApiCall = async (e) => {
     e.preventDefault();
 
     const btn = document.getElementById('confirmBtn');
     btn.textContent = 'Wait...';
 
-    const emailData = {
-      email: newEmailEntered,
+    const permissionsData = {
+      email: props.details.email,
+      changer: changerChecked,
     };
 
     const requestOptions = {
@@ -36,18 +37,18 @@ function ChangeEmailBox(props) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify(emailData),
+      body: JSON.stringify(permissionsData),
     };
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.settingEmailChange}`,
+        `${props.api.ip}${props.api.userSetPermissions}`,
         requestOptions
       );
 
       if (response.status === 200) {
-        setChangeEmailBox(false);
-        alert('Successful email change');
+        onPermissionBox(false);
+        alert('Successful permissions change');
       }
       if (response.status === 400) {
         const res400 = await response.json();
@@ -62,32 +63,39 @@ function ChangeEmailBox(props) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <form onSubmit={changeEmailApiCall}>
-          <StyledLabel htmlFor='new-email'>New E-mail</StyledLabel>
-          <StyledInput
-            name='new-email'
-            id='new-email'
-            type='email'
-            value={newEmailEntered}
-            onChange={(event) => {
-              setNewEmailEntered(event.target.value);
-            }}
-            required
-          />
+        <form onSubmit={changePermissionApiCall}>
+          <fieldset>
+            <legend>{props.details.email} permissions</legend>
+            <StyledCheckbox
+              label='Changer user'
+              name='changer-user'
+              onChange={() => {
+                setChangerChecked(!changerChecked);
+                console.log(changerChecked);
+              }}
+            />
+            <StyledCheckbox
+              label='Common user'
+              name='common-user'
+              defaultChecked
+              disabled
+            />
+          </fieldset>
+
           <div className='box-btns'>
             <Button
               className='btns-btn'
               color='yellow'
               type='button'
-              onClick={() => setChangeEmailBox(false)}
+              onClick={() => onPermissionBox(false)}
             >
               Back
             </Button>
             <Button
+              id='confirmBtn'
               className='btns-btn'
               color='green'
-              type='submit'
-              id='confirmBtn'
+              type='confirm'
             >
               Confirm
             </Button>
@@ -98,4 +106,4 @@ function ChangeEmailBox(props) {
   );
 }
 
-export default ChangeEmailBox;
+export default ChangePermissionBox;

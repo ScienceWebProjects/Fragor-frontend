@@ -2,6 +2,8 @@
 import React from 'react';
 
 // hooks
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
@@ -21,10 +23,13 @@ import './UI/_wrapper_button.scss';
 function HomePage(props) {
   const user = useToken();
   const permission = usePermissions(user);
+  const navigate = useNavigate();
 
-  if (permission.logged === 'logout') {
-    return <LogoutUser />;
-  }
+  useEffect(() => {
+    if (permission.logged === 'logout') {
+      navigate(props.api.loginPage);
+    }
+  }, []);
 
   if (permission.logged === 'logged') {
     return (
@@ -33,43 +38,71 @@ function HomePage(props) {
         <TopBar />
         {/* </ header> */}
 
-        <main className='App-header'>
+        <main
+          className='App-header'
+          style={{ minHeight: 'unset' }}
+        >
           <div className='App-content_wrapper'>
             <ClockAndDate />
             <Quotes />
 
             <div className='wrapper_buttons'>
-              <StyledLink to={props.api.printersPage}>
+              <StyledLink
+                to={props.api.printersPage}
+                className='area-printers'
+              >
                 <Button
-                  className='wrapper_button'
+                  className='wrapper_button '
                   color='red'
                 >
                   Printers
                 </Button>
               </StyledLink>
-              <StyledLink to={props.api.filamentsPage}>
+              <StyledLink
+                to={props.api.filamentsPage}
+                className='area-filaments'
+              >
                 <Button
-                  className='wrapper_button'
+                  className='wrapper_button '
                   color='red'
                 >
                   Filaments
                 </Button>
               </StyledLink>
-              <StyledLink to={props.api.settingsPage}>
+              <StyledLink
+                to={props.api.settingsPage}
+                className='area-settings'
+              >
                 <Button
-                  className='wrapper_button'
+                  className='wrapper_button '
                   color='red'
                 >
                   Settings
                 </Button>
               </StyledLink>
               {(permission.owner || permission.master) && (
-                <StyledLink to={props.api.usersPage}>
+                <StyledLink
+                  to={props.api.usersPage}
+                  className='area-users'
+                >
                   <Button
                     className='wrapper_button'
                     color='red'
                   >
                     Users
+                  </Button>
+                </StyledLink>
+              )}
+              {permission.owner && (
+                <StyledLink
+                  to={props.api.ownersPage}
+                  className='area-owners'
+                >
+                  <Button
+                    className='wrapper_button'
+                    color='red'
+                  >
+                    Owners
                   </Button>
                 </StyledLink>
               )}

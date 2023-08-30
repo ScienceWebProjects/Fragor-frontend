@@ -16,7 +16,7 @@ import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
-import './scss/_details-buttons.scss';
+import '../_shared/UI/_details-buttons.scss';
 import './scss/_details-printer.scss';
 import DeleteBox from './DeleteBox';
 
@@ -27,10 +27,8 @@ function PrinterDetails(props) {
   const user = useToken();
 
   useEffect(() => {
-    if (!details) {
-      const storedPrinter = sessionStorage.getItem('printerDetails');
-      setDetails(JSON.parse(storedPrinter));
-    }
+    const storedPrinter = sessionStorage.getItem('printerDetails');
+    setDetails(JSON.parse(storedPrinter));
   }, []);
 
   // sum all printed material filaments to one variable
@@ -92,13 +90,13 @@ function PrinterDetails(props) {
         <div className='buttons-wrapper'>
           <Button
             className='wrapper-btn'
-            color='red'
+            color='yellow'
           >
             Edit
           </Button>
           <Button
             className='wrapper-btn'
-            color='red'
+            color='yellow'
             onClick={deviceAddHandler}
             id='deviceAddBtn'
           >
@@ -142,11 +140,12 @@ function PrinterDetails(props) {
               <div>Printed Filements:</div>
               <div>All: {filamentAllAmount} kg</div>
 
-              {details.filaments.map((item, index) => (
-                <div key={index}>
-                  {item.type}: {item.amount} kg
-                </div>
-              ))}
+              {Array.isArray(details.filaments) &&
+                details.filaments.map((item, index) => (
+                  <div key={index}>
+                    {item.type}: {item.amount} kg
+                  </div>
+                ))}
             </InfiniteScroll>
           </div>
         </div>
