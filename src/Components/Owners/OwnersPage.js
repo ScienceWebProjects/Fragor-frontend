@@ -1,24 +1,110 @@
 // libs
 
 // hooks
+import { useState, useEffect } from 'react';
+import useToken from '../../Hooks/useToken';
+import usePermissions from '../../Hooks/usePermissions';
+import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
 import TopBar from '../_shared/TopBar';
+import LogoutUser from '../_shared/LogoutUser';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
+import InfoType from '../Authorization/Signin/UI/InfoType';
+import StyledInput from '../UI/authorization/StyledInput';
+import StyledLabel from '../UI/authorization/StyledLabel';
 
 // scss
 
 function OwnersPage(props) {
+  const user = useToken();
+  const permission = usePermissions(user);
+  const windowSize = useWindowSize();
+
+  const [companyNameEntered, setCompanyNameEntered] = useState('');
+
+  const addCompanyHandler = async (e) => {
+    e.preventDefault();
+
+    const companyData = {
+      name: companyNameEntered,
+    };
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      body: JSON.stringify(companyData),
+    };
+
+    try {
+      const response = await fetch(`${props.api.ip}${props.api.ownersCompanyAdd}`, requestOptions);
+
+      if (response.status === 201) {
+        alert('Succesfully company added.');
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+      alert('An unpredictable problem has been encountered. \nPlease add company again.');
+    }
+  };
+
+  if (permission.logged === 'logout') {
+    return <LogoutUser api={props.api} />;
+  }
+
   return (
     <div>
       {/* <header> */}
       <TopBar />
       {/* </ header> */}
 
-      <main></main>
+      <main>
+        <InfiniteScroll
+          dataLength={''}
+          hasMore={false}
+          height={windowSize * 0.7}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            width: '85vw',
+            textAlign: 'center',
+            alignItems: 'center',
+            padding: '0px 15px 0 15px',
+            margin: '10px',
+          }}
+        >
+          <InfoType text={'New company'} />
+          <form
+            onSubmit={addCompanyHandler}
+            className=''
+          >
+            <StyledLabel htmlFor='company-name'>Company name</StyledLabel>
+            <StyledInput
+              name='company-name'
+              id='company-name'
+              type='text'
+              value={companyNameEntered}
+              onChange={(event) => {
+                setCompanyNameEntered(event.target.value);
+              }}
+              required
+            />
+            <Button
+              className=''
+              color='yellow'
+              type='submit'
+            >
+              Add company
+            </Button>
+          </form>
+        </InfiniteScroll>
+      </main>
 
       <StyledLink to={props.api.home}>
         <Button

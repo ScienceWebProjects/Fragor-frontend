@@ -9,7 +9,7 @@ import useWindowSize from '../../Hooks/useWindowSize';
 // components
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
-import DeleteBox from './Boxes/DeleteBox';
+import DeleteBox from '../_shared/DeleteBox';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements

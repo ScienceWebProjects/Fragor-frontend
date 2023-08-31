@@ -1,15 +1,15 @@
 // libs
 
 // hooks
-import useToken from '../../../Hooks/useToken';
+import useToken from '../../Hooks/useToken';
 
 // components
 
 // UI elements
-import Button from '../../UI/shared/buttons/Button';
+import Button from '../UI/shared/buttons/Button';
 
 // scss
-import '../../UI/shared/_box.scss';
+import '../UI/shared/_box.scss';
 
 function DeleteBox(props) {
   const user = useToken();
