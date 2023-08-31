@@ -52,7 +52,8 @@ function ColorsOptions(props) {
       );
 
       if (response.status === 201) {
-        return alert('Succesfully color added.');
+        alert('Succesfully color added.');
+        window.location.reload();
       }
 
       if (response.status === 400) {
