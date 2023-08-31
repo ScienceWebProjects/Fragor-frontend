@@ -22,6 +22,7 @@ import BrandsOptions from './Components/Settings/BrandsOptions';
 import UsersPage from './Components/Users/UsersPage';
 import UserDetails from './Components/Users/UserDetails';
 import OwnersPage from './Components/Owners/OwnersPage';
+import CompanyDetails from './Components/Owners/CompanyDetails';
 
 // UI elements
 import './App.css';
@@ -30,6 +31,8 @@ function App() {
   const [printerDetails, setPrinterDetails] = useState([]);
   const [filamentDetails, setFilamentDetails] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
+  const [companyDetails, setCompanyDetails] = useState([]);
+  const [companyUsers, setCompanyUsers] = useState([]);
 
   const printerDetailsHandler = (details) => {
     setPrinterDetails(details);
@@ -125,7 +128,27 @@ function App() {
     },
     {
       path: `${endpoints.ownersPage}`,
-      element: <OwnersPage api={endpoints} />,
+      element: (
+        <OwnersPage
+          api={endpoints}
+          onCompanyDetailsSelect={(details) => {
+            setCompanyDetails(details);
+          }}
+          onCompanyUsersSelect={(users) => {
+            setCompanyUsers(users);
+          }}
+        />
+      ),
+    },
+    {
+      path: `${endpoints.ownersPage}/:companyName`,
+      element: (
+        <CompanyDetails
+          api={endpoints}
+          details={companyDetails}
+          users={companyUsers}
+        />
+      ),
     },
   ]);
 

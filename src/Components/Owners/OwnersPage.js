@@ -10,6 +10,7 @@ import useWindowSize from '../../Hooks/useWindowSize';
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import CompanyItem from './CompanyItem';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
@@ -26,6 +27,7 @@ function OwnersPage(props) {
   const windowSize = useWindowSize();
 
   const [companyNameEntered, setCompanyNameEntered] = useState('');
+  const [companies, setCompanies] = useState([]);
 
   const addCompanyHandler = async (e) => {
     e.preventDefault();
@@ -52,6 +54,30 @@ function OwnersPage(props) {
       alert('An unpredictable problem has been encountered. \nPlease add company again.');
     }
   };
+
+  const makeAPICall = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.ownersCompaniesGetAll}`,
+        requestOptions
+      );
+
+      const companiesList = await response.json();
+      setCompanies(companiesList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    makeAPICall();
+  });
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
@@ -103,6 +129,26 @@ function OwnersPage(props) {
               Add company
             </Button>
           </form>
+
+          <InfoType text={'All companies'} />
+          {companies.map((company) => (
+            <Button
+              key={`material-${company.id}`}
+              className='company-button'
+              color='blue'
+            >
+              <CompanyItem
+                api={props.api}
+                company={company}
+                onCompanyDetailsSelect={(details) => {
+                  props.onCompanyDetailsSelect(details);
+                }}
+                onCompanyUsersSelect={(users) => {
+                  props.onCompanyUsersSelect(users);
+                }}
+              />
+            </Button>
+          ))}
         </InfiniteScroll>
       </main>
 
