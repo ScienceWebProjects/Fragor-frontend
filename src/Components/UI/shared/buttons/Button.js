@@ -24,7 +24,7 @@ const colors = {
 
 const Button = (props) => {
   const { color, className, onClick, id, type } = props;
-  // const [colorData, setColorData] = useState(
+
   const colorData =
     color === 'red'
       ? colors.red

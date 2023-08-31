@@ -1,24 +1,25 @@
 // libs
 
 // hooks
-import { useNavigate } from 'react-router-dom';
-import useToken from '../../../Hooks/useToken';
+import useToken from '../../Hooks/useToken';
 
 // components
 
 // UI elements
-import Button from '../../UI/shared/buttons/Button';
+import Button from '../UI/shared/buttons/Button';
 
 // scss
-import '../../UI/shared/_box.scss';
+import '../UI/shared/_box.scss';
 
-function DeleteUserBox(props) {
+function DeleteBox(props) {
   const user = useToken();
-  const navigate = useNavigate();
 
-  const { onDeleteUserBox } = props;
+  const { api, ID, endpoint, deleteOption, onDeleteBox } = props;
 
   const deleteConfirmApiCall = async () => {
+    const btn = document.getElementById('confirmBtn');
+    btn.textContent = 'Deleting...';
+
     const requestOptions = {
       method: 'DELETE',
       headers: {
@@ -28,19 +29,12 @@ function DeleteUserBox(props) {
     };
 
     try {
-      const response = await fetch(
-        `${props.api.ip}${props.api.userAccountDelete_email}${props.details.email}/`,
-        requestOptions
-      );
+      const response = await fetch(`${api.ip}${endpoint}${ID}/`, requestOptions);
 
       if (response.status === 204) {
-        alert('Succesfully account delete.');
-        sessionStorage.setItem('userDetails', '');
-        navigate(props.api.usersPage);
-      }
-
-      if (response.status === 404) {
-        alert(response.message);
+        onDeleteBox(false);
+        alert(`Succesfull ${deleteOption} deleted.`);
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
@@ -50,13 +44,13 @@ function DeleteUserBox(props) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h2>Are you sure you want to delete this user account?</h2>
+        <h2>Delete {deleteOption}?</h2>
         <div className='box-btns'>
           <Button
             className='btns-btn'
             color='yellow'
             type='button'
-            onClick={() => onDeleteUserBox(false)}
+            onClick={() => onDeleteBox(false)}
           >
             Back
           </Button>
@@ -74,4 +68,4 @@ function DeleteUserBox(props) {
   );
 }
 
-export default DeleteUserBox;
+export default DeleteBox;

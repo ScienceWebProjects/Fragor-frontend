@@ -9,49 +9,61 @@ import useWindowSize from '../../Hooks/useWindowSize';
 // components
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
+import DeleteBox from '../_shared/DeleteBox';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import CompanyItem from './CompanyItem';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
-import InfoType from '../Authorization/Signin/UI/InfoType';
-import StyledInput from '../UI/authorization/StyledInput';
 import StyledLabel from '../UI/authorization/StyledLabel';
+import StyledInput from '../UI/authorization/StyledInput';
 
 // scss
 
-function OwnersPage(props) {
+function ColorsOptions(props) {
   const user = useToken();
   const permission = usePermissions(user);
   const windowSize = useWindowSize();
 
-  const [companyNameEntered, setCompanyNameEntered] = useState('');
-  const [companies, setCompanies] = useState([]);
+  const [colorEntered, setColorEntered] = useState('');
 
-  const addCompanyHandler = async (e) => {
+  // properties for material delete
+  const [colors, setColors] = useState([]);
+  const [colorID, setColorID] = useState(0);
+  const [deleteBox, setDeleteBox] = useState(false);
+
+  const colorAddHandler = async (e) => {
     e.preventDefault();
 
-    const companyData = {
-      name: companyNameEntered,
+    const colorData = {
+      color: colorEntered.toUpperCase(),
     };
 
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
-      body: JSON.stringify(companyData),
+      body: JSON.stringify(colorData),
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.ownersCompanyAdd}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingFilamentColorAdd}`,
+        requestOptions
+      );
 
       if (response.status === 201) {
-        alert('Succesfully company added.');
+        alert('Succesfully color added.');
         window.location.reload();
+      }
+
+      if (response.status === 400) {
+        const res404 = await response.json();
+        return res404.message ? alert(res404.message) : alert('Something went bad.');
       }
     } catch (error) {
       console.log(error);
-      alert('An unpredictable problem has been encountered. \nPlease add company again.');
+      alert('An unpredictable problem has been encountered. \nPlease add color again.');
+      alert(error);
     }
   };
 
@@ -65,19 +77,19 @@ function OwnersPage(props) {
     };
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.ownersCompaniesGetAll}`,
+        `${props.api.ip}${props.api.filamentsColorsGet}`,
         requestOptions
       );
 
-      const companiesList = await response.json();
-      setCompanies(companiesList);
+      const colorsList = await response.json();
+      setColors(colorsList);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     makeAPICall();
-  });
+  }, []);
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
@@ -89,7 +101,7 @@ function OwnersPage(props) {
       <TopBar />
       {/* </ header> */}
 
-      <main>
+      <main className='App-header'>
         <InfiniteScroll
           dataLength={''}
           hasMore={false}
@@ -105,19 +117,15 @@ function OwnersPage(props) {
             margin: '10px',
           }}
         >
-          <InfoType text={'New company'} />
-          <form
-            onSubmit={addCompanyHandler}
-            className=''
-          >
-            <StyledLabel htmlFor='company-name'>Company name</StyledLabel>
+          <form onSubmit={colorAddHandler}>
+            <StyledLabel htmlFor='color-name'>Color name</StyledLabel>
             <StyledInput
-              name='company-name'
-              id='company-name'
+              name='color-name'
+              id='color-name'
               type='text'
-              value={companyNameEntered}
+              value={colorEntered}
               onChange={(event) => {
-                setCompanyNameEntered(event.target.value);
+                setColorEntered(event.target.value);
               }}
               required
             />
@@ -126,42 +134,46 @@ function OwnersPage(props) {
               color='yellow'
               type='submit'
             >
-              Add company
+              Add color
             </Button>
           </form>
 
-          <InfoType text={'All companies'} />
-          {companies.map((company) => (
-            <Button
-              key={`material-${company.id}`}
-              className='company-button'
-              color='blue'
+          {colors.map((color) => (
+            <div
+              key={`material-${color.id}`}
+              className='list-element'
             >
-              <CompanyItem
-                api={props.api}
-                company={company}
-                onCompanyDetailsSelect={(details) => {
-                  props.onCompanyDetailsSelect(details);
+              <div className='element-label'>{color.color}</div>
+              <Button
+                color='red'
+                className='element-delete'
+                onClick={() => {
+                  setColorID(color.id);
+                  setDeleteBox(true);
                 }}
-                onCompanyUsersSelect={(users) => {
-                  props.onCompanyUsersSelect(users);
-                }}
-              />
-            </Button>
+              >
+                Delete
+              </Button>
+            </div>
           ))}
         </InfiniteScroll>
       </main>
 
-      <StyledLink to={props.api.home}>
-        <Button
-          className=''
-          color='red'
-        >
-          Back
-        </Button>
+      <StyledLink to={props.api.settingsFilamentsOptions}>
+        <Button color='red'>Back</Button>
       </StyledLink>
+
+      {deleteBox && (
+        <DeleteBox
+          api={props.api}
+          ID={colorID}
+          endpoint={props.api.settingFilamentColorDelete_id}
+          deleteOption='color'
+          onDeleteBox={setDeleteBox}
+        />
+      )}
     </div>
   );
 }
 
-export default OwnersPage;
+export default ColorsOptions;

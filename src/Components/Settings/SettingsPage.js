@@ -50,6 +50,7 @@ function SettingsPage(props) {
       if (response.status === 204) {
         console.log('Successful logout');
         sessionStorage.setItem('token', '');
+        sessionStorage.clear();
         navigate(props.api.loginPage);
       }
 

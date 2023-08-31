@@ -16,9 +16,13 @@ import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
 import FilamentsOptions from './Components/Settings/FilamentsOptions';
+import MaterialsOptions from './Components/Settings/MaterialsOptions';
+import ColorsOptions from './Components/Settings/ColorsOptions';
+import BrandsOptions from './Components/Settings/BrandsOptions';
 import UsersPage from './Components/Users/UsersPage';
 import UserDetails from './Components/Users/UserDetails';
 import OwnersPage from './Components/Owners/OwnersPage';
+import CompanyDetails from './Components/Owners/CompanyDetails';
 
 // UI elements
 import './App.css';
@@ -27,6 +31,8 @@ function App() {
   const [printerDetails, setPrinterDetails] = useState([]);
   const [filamentDetails, setFilamentDetails] = useState([]);
   const [userDetails, setUserDetails] = useState([]);
+  const [companyDetails, setCompanyDetails] = useState([]);
+  const [companyUsers, setCompanyUsers] = useState([]);
 
   const printerDetailsHandler = (details) => {
     setPrinterDetails(details);
@@ -91,6 +97,18 @@ function App() {
       element: <FilamentsOptions api={endpoints} />,
     },
     {
+      path: endpoints.settingMaterialsOptions,
+      element: <MaterialsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingColorsOptions,
+      element: <ColorsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingBrandsOptions,
+      element: <BrandsOptions api={endpoints} />,
+    },
+    {
       path: endpoints.usersPage,
       element: (
         <UsersPage
@@ -110,7 +128,27 @@ function App() {
     },
     {
       path: `${endpoints.ownersPage}`,
-      element: <OwnersPage api={endpoints} />,
+      element: (
+        <OwnersPage
+          api={endpoints}
+          onCompanyDetailsSelect={(details) => {
+            setCompanyDetails(details);
+          }}
+          onCompanyUsersSelect={(users) => {
+            setCompanyUsers(users);
+          }}
+        />
+      ),
+    },
+    {
+      path: `${endpoints.ownersPage}/:companyName`,
+      element: (
+        <CompanyDetails
+          api={endpoints}
+          details={companyDetails}
+          users={companyUsers}
+        />
+      ),
     },
   ]);
 

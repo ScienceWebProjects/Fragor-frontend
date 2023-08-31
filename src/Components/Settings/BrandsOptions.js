@@ -10,48 +10,58 @@ import useWindowSize from '../../Hooks/useWindowSize';
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import CompanyItem from './CompanyItem';
+import DeleteBox from '../_shared/DeleteBox';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
-import InfoType from '../Authorization/Signin/UI/InfoType';
-import StyledInput from '../UI/authorization/StyledInput';
 import StyledLabel from '../UI/authorization/StyledLabel';
+import StyledInput from '../UI/authorization/StyledInput';
 
 // scss
 
-function OwnersPage(props) {
+function BrandsOptions(props) {
   const user = useToken();
   const permission = usePermissions(user);
   const windowSize = useWindowSize();
 
-  const [companyNameEntered, setCompanyNameEntered] = useState('');
-  const [companies, setCompanies] = useState([]);
+  const [brandEntered, setBrandEntered] = useState('');
 
-  const addCompanyHandler = async (e) => {
+  // properties for material delete
+  const [brands, setBrands] = useState([]);
+  const [brandID, setBrandID] = useState(0);
+  const [deleteBox, setDeleteBox] = useState(false);
+
+  const brandAddHandler = async (e) => {
     e.preventDefault();
 
-    const companyData = {
-      name: companyNameEntered,
+    const brandData = {
+      brand: brandEntered,
     };
 
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
-      body: JSON.stringify(companyData),
+      body: JSON.stringify(brandData),
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.ownersCompanyAdd}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingFilamentBrandAdd}`,
+        requestOptions
+      );
 
-      if (response.status === 201) {
-        alert('Succesfully company added.');
-        window.location.reload();
+      if (response.status === 200) {
+        return alert('Succesfully brand added.');
+      }
+
+      if (response.status === 404) {
+        const res404 = await response.json();
+        return res404.message ? alert(res404.message) : alert('Something went bad.');
       }
     } catch (error) {
       console.log(error);
-      alert('An unpredictable problem has been encountered. \nPlease add company again.');
+      alert('An unpredictable problem has been encountered. \nPlease add brand again.');
     }
   };
 
@@ -65,19 +75,19 @@ function OwnersPage(props) {
     };
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.ownersCompaniesGetAll}`,
+        `${props.api.ip}${props.api.filamentsBrandsGet}`,
         requestOptions
       );
 
-      const companiesList = await response.json();
-      setCompanies(companiesList);
+      const brandList = await response.json();
+      setBrands(brandList);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     makeAPICall();
-  });
+  }, []);
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
@@ -89,7 +99,7 @@ function OwnersPage(props) {
       <TopBar />
       {/* </ header> */}
 
-      <main>
+      <main className='App-header'>
         <InfiniteScroll
           dataLength={''}
           hasMore={false}
@@ -105,19 +115,15 @@ function OwnersPage(props) {
             margin: '10px',
           }}
         >
-          <InfoType text={'New company'} />
-          <form
-            onSubmit={addCompanyHandler}
-            className=''
-          >
-            <StyledLabel htmlFor='company-name'>Company name</StyledLabel>
+          <form onSubmit={brandAddHandler}>
+            <StyledLabel htmlFor='brand-name'>Brand name</StyledLabel>
             <StyledInput
-              name='company-name'
-              id='company-name'
+              name='brand-name'
+              id='brand-name'
               type='text'
-              value={companyNameEntered}
+              value={brandEntered}
               onChange={(event) => {
-                setCompanyNameEntered(event.target.value);
+                setBrandEntered(event.target.value);
               }}
               required
             />
@@ -126,42 +132,46 @@ function OwnersPage(props) {
               color='yellow'
               type='submit'
             >
-              Add company
+              Add brand
             </Button>
           </form>
 
-          <InfoType text={'All companies'} />
-          {companies.map((company) => (
-            <Button
-              key={`material-${company.id}`}
-              className='company-button'
-              color='blue'
+          {brands.map((brand) => (
+            <div
+              key={`material-${brand.id}`}
+              className='list-element'
             >
-              <CompanyItem
-                api={props.api}
-                company={company}
-                onCompanyDetailsSelect={(details) => {
-                  props.onCompanyDetailsSelect(details);
+              <div className='element-label'>{brand.brand}</div>
+              <Button
+                color='red'
+                className='element-delete'
+                onClick={() => {
+                  setBrandID(brand.id);
+                  setDeleteBox(true);
                 }}
-                onCompanyUsersSelect={(users) => {
-                  props.onCompanyUsersSelect(users);
-                }}
-              />
-            </Button>
+              >
+                Delete
+              </Button>
+            </div>
           ))}
         </InfiniteScroll>
       </main>
 
-      <StyledLink to={props.api.home}>
-        <Button
-          className=''
-          color='red'
-        >
-          Back
-        </Button>
+      <StyledLink to={props.api.settingsFilamentsOptions}>
+        <Button color='red'>Back</Button>
       </StyledLink>
+
+      {deleteBox && (
+        <DeleteBox
+          api={props.api}
+          ID={brandID}
+          endpoint={props.api.settingFilamentBrandDelete_id}
+          deleteOption='brand'
+          onDeleteBox={setDeleteBox}
+        />
+      )}
     </div>
   );
 }
 
-export default OwnersPage;
+export default BrandsOptions;
