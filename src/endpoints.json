@@ -49,7 +49,7 @@
   "settingFilamentMaterialAdd": "/api/filaments/material/add/",
   "settingFilamentMaterialDelete_id": "/api/filaments/material/delete/",
   "settingFilamentColorAdd": "/api/filaments/color/add/",
-  "settingFilamentColorDelete_id": "//api/filaments/color/delete/",
+  "settingFilamentColorDelete_id": "/api/filaments/color/delete/",
   "settingFilamentBrandAdd": "/api/filaments/brand/add/",
   "settingFilamentBrandDelete_id": "/api/filaments/brand/delete/",
 
@@ -57,7 +57,7 @@
   "userGetOne_id": "/api/companies/users/get/",
   "userGetPermissions": "/-/",
   "userSetPermissions": "/api/account/permission/set/",
-  "userAccountDelete_email": "/api/account/permission/delete/",
+  "userAccountDelete_email": "/api/account/delete/",
 
   "ownersCompanyAdd": "/owner/company/add/",
   "ownersCompaniesGetAll": "/api/companies/get/all/",

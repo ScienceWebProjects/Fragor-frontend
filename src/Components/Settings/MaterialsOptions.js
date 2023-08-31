@@ -10,7 +10,7 @@ import useWindowSize from '../../Hooks/useWindowSize';
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
 import InfiniteScroll from 'react-infinite-scroll-component'; // v6.1.0
-import DeleteMaterialBox from './Boxes/DeleteMaterialBox';
+import DeleteBox from './Boxes/DeleteBox';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
@@ -153,6 +153,7 @@ function MaterialsOptions(props) {
             ))}
 
             <InfoType text={'Add new material'} />
+
             <form
               onSubmit={materialAddHandler}
               className='filament-options'
@@ -313,9 +314,11 @@ function MaterialsOptions(props) {
         </StyledLink>
 
         {deleteBox && (
-          <DeleteMaterialBox
+          <DeleteBox
             api={props.api}
-            materialID={materialID}
+            ID={materialID}
+            endpoint={props.api.settingFilamentMaterialDelete_id}
+            deleteOption='material'
             onDeleteBox={setDeleteBox}
           />
         )}

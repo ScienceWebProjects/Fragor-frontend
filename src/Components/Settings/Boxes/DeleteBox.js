@@ -11,10 +11,10 @@ import Button from '../../UI/shared/buttons/Button';
 // scss
 import '../../UI/shared/_box.scss';
 
-function DeleteMaterialBox(props) {
+function DeleteBox(props) {
   const user = useToken();
 
-  const { onDeleteBox } = props;
+  const { api, ID, endpoint, deleteOption, onDeleteBox } = props;
 
   const deleteConfirmApiCall = async () => {
     const btn = document.getElementById('confirmBtn');
@@ -29,14 +29,11 @@ function DeleteMaterialBox(props) {
     };
 
     try {
-      const response = await fetch(
-        `${props.api.ip}${props.api.settingFilamentMaterialDelete_id}${props.materialID}/`,
-        requestOptions
-      );
+      const response = await fetch(`${api.ip}${endpoint}${ID}/`, requestOptions);
 
       if (response.status === 204) {
         onDeleteBox(false);
-        alert('Succesfull material deleted.');
+        alert(`Succesfull ${deleteOption} deleted.`);
         window.location.reload();
       }
     } catch (error) {
@@ -47,7 +44,7 @@ function DeleteMaterialBox(props) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h2>Delete filament?</h2>
+        <h2>Delete {deleteOption}?</h2>
         <div className='box-btns'>
           <Button
             className='btns-btn'
@@ -71,4 +68,4 @@ function DeleteMaterialBox(props) {
   );
 }
 
-export default DeleteMaterialBox;
+export default DeleteBox;

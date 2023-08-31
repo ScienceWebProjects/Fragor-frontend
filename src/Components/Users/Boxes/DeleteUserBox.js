@@ -34,7 +34,7 @@ function DeleteUserBox(props) {
       );
 
       if (response.status === 204) {
-        alert('Succesfully printer delete.');
+        alert('Succesfully account delete.');
         sessionStorage.setItem('userDetails', '');
         navigate(props.api.usersPage);
       }
