@@ -63,10 +63,11 @@ function FilamentDetails(props) {
 
         <div className='details-filament'>
           <section className='filament-data'>
+            <h3>Quantity: {details.quantity} g</h3>
             <div>Material: {details.material}</div>
             <div>Color: {details.color}</div>
-            <div>Quantity: {details.quantity} g</div>
             <div>Brand: {details.brand}</div>
+            <div>Diameter: {details.diameter}</div>
           </section>
         </div>
       </main>

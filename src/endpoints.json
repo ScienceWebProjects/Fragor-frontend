@@ -32,6 +32,7 @@
 
   "deviceAdd": "/api/device/connect/",
 
+  "filamentsFiltersGet": "/api/filaments/filter/get/all/",
   "filamentsFiltered": "/api/filaments/filter/",
   "filamentGet_id": "/api/filaments/get/",
   "filamentsMaterialsGet": "/api/filaments/material/get/all/",

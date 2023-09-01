@@ -1,7 +1,7 @@
 // libs
 
 // hooks
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useToken from '../../../Hooks/useToken';
 
 // components
@@ -10,24 +10,60 @@ import useToken from '../../../Hooks/useToken';
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
+import CustomSelect from '../UI/CustomSelect';
 
 // scss
 import '../../UI/shared/_box.scss';
 
 function FilamentEditBox(props) {
-  const { onFilamentEditBox } = props;
+  const { details, onFilamentEditBox } = props;
 
   const user = useToken();
 
-  const [materialEntered, setMaterialEntered] = useState('');
-  const [colorEntered, setColorEntered] = useState('');
+  const [filters, setFilters] = useState([
+    {
+      materials: ['materials no added', 'materials added', 'materials maybe added'],
+      colors: ['colors no added', 'colors added', 'colors maybe added'],
+      brands: ['brands no added', 'brands added', 'brands maybe added'],
+    },
+  ]);
+  const [materialSelected, setMaterialSelected] = useState(details.material);
+  const [colorSelected, setColorSelected] = useState(details.color);
+  const [brandSelected, setBrandSelected] = useState(details.brand);
+  const [diameterEntered, setDiameterEntered] = useState(details.diameter);
+
+  const filtersGetAPICall = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentsFiltersGet}`,
+        requestOptions
+      );
+
+      const filtersList = await response.json();
+      setFilters(filtersList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    filtersGetAPICall();
+  }, []);
 
   const confirmEditApiCall = async (e) => {
     e.preventDefault();
 
     const editData = {
-      material: materialEntered,
-      color: colorEntered,
+      material: materialSelected,
+      color: colorSelected,
+      brand: brandSelected,
+      diameter: diameterEntered,
     };
 
     const btn = document.getElementById('confirmBtn');
@@ -70,25 +106,42 @@ function FilamentEditBox(props) {
         <h2>Edit filament properties</h2>
 
         <form onSubmit={confirmEditApiCall}>
-          <StyledLabel htmlFor='material'>Material</StyledLabel>
+          {/* <StyledLabel htmlFor='material-select'>Material</StyledLabel> */}
+
+          {filters.map((filter) => (
+            <div>
+              <StyledLabel htmlFor='material-select'>Material</StyledLabel>
+              <CustomSelect
+                options={filter.materials}
+                defaultSelected={details.material}
+                onCustomSelect={setMaterialSelected}
+              />
+
+              <StyledLabel htmlFor='color-select'>Color</StyledLabel>
+              <CustomSelect
+                options={filter.colors}
+                defaultSelected={details.color}
+                onCustomSelect={setColorSelected}
+              />
+
+              <StyledLabel htmlFor='brand-select'>Brand</StyledLabel>
+              <CustomSelect
+                options={filter.brands}
+                defaultSelected={details.brand}
+                onCustomSelect={setBrandSelected}
+              />
+            </div>
+          ))}
+
+          <StyledLabel htmlFor='diameter'>Diameter</StyledLabel>
           <StyledInput
-            name='material'
-            id='material'
-            type='text'
-            value={materialEntered}
+            name='diameter'
+            id='diameter'
+            type='number'
+            step={0.01}
+            value={diameterEntered}
             onChange={(event) => {
-              setMaterialEntered(event.target.value);
-            }}
-            required
-          />
-          <StyledLabel htmlFor='color'>Color</StyledLabel>
-          <StyledInput
-            name='color'
-            id='color'
-            type='text'
-            value={colorEntered}
-            onChange={(event) => {
-              setColorEntered(event.target.value);
+              setDiameterEntered(event.target.value);
             }}
             required
           />

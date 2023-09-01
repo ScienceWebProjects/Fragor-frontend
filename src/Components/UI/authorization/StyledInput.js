@@ -15,7 +15,7 @@ const StyledInput = styled.input`
   transition: 0.3s;
 
   &::placeholder {
-    color: #005289;
+    color: #aaa;
   }
 
   &:focus {
