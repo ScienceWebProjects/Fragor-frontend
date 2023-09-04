@@ -20,17 +20,11 @@ function FilamentEditBox(props) {
 
   const user = useToken();
 
-  const [filters, setFilters] = useState([
-    {
-      materials: ['materials no added', 'materials added', 'materials maybe added'],
-      colors: ['colors no added', 'colors added', 'colors maybe added'],
-      brands: ['brands no added', 'brands added', 'brands maybe added'],
-    },
-  ]);
+  const [filters, setFilters] = useState([]);
   const [materialSelected, setMaterialSelected] = useState(details.material);
   const [colorSelected, setColorSelected] = useState(details.color);
   const [brandSelected, setBrandSelected] = useState(details.brand);
-  const [diameterEntered, setDiameterEntered] = useState(details.diameter);
+  const [diameterEntered, setDiameterEntered] = useState(1.75);
 
   const filtersGetAPICall = async () => {
     const requestOptions = {
@@ -106,10 +100,8 @@ function FilamentEditBox(props) {
         <h2>Edit filament properties</h2>
 
         <form onSubmit={confirmEditApiCall}>
-          {/* <StyledLabel htmlFor='material-select'>Material</StyledLabel> */}
-
           {filters.map((filter) => (
-            <div>
+            <div key='filters-wrapper'>
               <StyledLabel htmlFor='material-select'>Material</StyledLabel>
               <CustomSelect
                 options={filter.materials}

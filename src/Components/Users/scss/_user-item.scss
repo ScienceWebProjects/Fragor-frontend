@@ -1,0 +1,12 @@
+@import '../../UI/shared/functions';
+@import '../../UI/shared/variables';
+
+.user-item {
+  width: 100%;
+  height: inherit;
+  margin: 0.313rem 0;
+  opacity: 0.99;
+  @include flexCenter(row, center, center);
+
+  border-radius: 0.625rem;
+}

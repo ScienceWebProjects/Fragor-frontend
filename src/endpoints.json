@@ -1,6 +1,6 @@
 {
-  "ip-0": "http://127.0.0.1:8080",
-  "ip": "http://192.168.0.6:8080",
+  "ip": "http://127.0.0.1:8080",
+  "ip-0": "http://192.168.0.6:8080",
 
   "quotes": "https://type.fit/api/quotes",
 
@@ -29,6 +29,7 @@
   "printerAdd": "/api/printer/add/",
   "printerDelete": "/api/printer/delete/",
   "printerGet": "/api/printer/get/",
+  "printerEdit_id": "/-/",
 
   "deviceAdd": "/api/device/connect/",
 

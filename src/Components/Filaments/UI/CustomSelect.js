@@ -2,15 +2,19 @@
 
 // hooks
 import { useState } from 'react';
+import useWindowSize from '../../../Hooks/useWindowSize';
 
 // components
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
 
 // scss
 import '../scss/_custom-select.scss';
 
-function CustomSelect({ options, defaultSelected, onCustomSelect, isRequired }) {
+function CustomSelect({ options, defaultSelected, onCustomSelect }) {
+  const windowSize = useWindowSize();
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -30,15 +34,21 @@ function CustomSelect({ options, defaultSelected, onCustomSelect, isRequired }) 
         {selectedOption ? selectedOption : defaultSelected}
       </div>
       <ul className='options'>
-        {options.map((option) => (
-          <li
-            key={option}
-            className='option'
-            onClick={() => handleOptionClick(option)}
-          >
-            {option}
-          </li>
-        ))}
+        <InfiniteScroll
+          dataLength={options.length}
+          hasMore={false}
+          height={200}
+        >
+          {options.map((option) => (
+            <li
+              key={option}
+              className='option'
+              onClick={() => handleOptionClick(option)}
+            >
+              {option}
+            </li>
+          ))}
+        </InfiniteScroll>
       </ul>
     </div>
   );

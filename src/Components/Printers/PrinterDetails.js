@@ -7,6 +7,8 @@ import useToken from '../../Hooks/useToken';
 
 // components
 import TopBar from '../_shared/TopBar';
+import PrinterEditBox from './Boxes/PrinterEditBox';
+import DeleteBox from './Boxes/DeleteBox';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -18,10 +20,10 @@ import Button from '../UI/shared/buttons/Button';
 // scss
 import '../_shared/UI/_details-buttons.scss';
 import './scss/_details-printer.scss';
-import DeleteBox from './DeleteBox';
 
 function PrinterDetails(props) {
   const [details, setDetails] = useState(props.details);
+  const [editBox, setEditBox] = useState(false);
   const [deleteBox, setDeleteBox] = useState(false);
 
   const user = useToken();
@@ -91,6 +93,9 @@ function PrinterDetails(props) {
           <Button
             className='wrapper-btn'
             color='yellow'
+            onClick={() => {
+              setEditBox(true);
+            }}
           >
             Edit
           </Button>
@@ -109,14 +114,6 @@ function PrinterDetails(props) {
           >
             Delete
           </Button>
-          {deleteBox && (
-            <DeleteBox
-              setDeleteBox={setDeleteBox}
-              api={props.api}
-              printerName={details.name}
-              id={details.id}
-            />
-          )}
         </div>
 
         <div className='details-printer'>
@@ -158,6 +155,22 @@ function PrinterDetails(props) {
           </Button>
         </StyledLink>
       </main>
+
+      {editBox && (
+        <PrinterEditBox
+          api={props.api}
+          details={details}
+          onPrinterEditBox={setEditBox}
+        />
+      )}
+      {deleteBox && (
+        <DeleteBox
+          setDeleteBox={setDeleteBox}
+          api={props.api}
+          printerName={details.name}
+          id={details.id}
+        />
+      )}
     </div>
   );
 }
