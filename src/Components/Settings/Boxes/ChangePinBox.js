@@ -9,6 +9,8 @@ import Pin from '../../_shared/Pin';
 
 // UI elements
 import Button from '../../UI/shared/buttons/Button';
+import StyledLabel from '../../UI/authorization/StyledLabel';
+import StyledInput from '../../UI/authorization/StyledInput';
 
 // scss
 import '../../UI/shared/_box.scss';
@@ -17,15 +19,13 @@ function ChangePinBox(props) {
   const user = useToken();
 
   const { setChangePinBox } = props;
-  const [oldPinEntered, setOldPinEntered] = useState('');
+  const [passwordEntered, setPasswordEntered] = useState('');
   const [newPinEntered, setNewPinEntered] = useState('');
-  const [confirmPinEntered, setConfirmPinEntered] = useState('');
 
   const changePinApiCall = async () => {
     const pinData = {
-      oldPin: oldPinEntered,
-      newPin: newPinEntered,
-      newPin2: confirmPinEntered,
+      password: passwordEntered,
+      pin: newPinEntered,
     };
 
     const requestOptions = {
@@ -38,7 +38,11 @@ function ChangePinBox(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.settingPinChange}/`, requestOptions);
+      const response = await fetch(`${props.api.ip}${props.api.settingPinChange}`, requestOptions);
+
+      if (response.status === 200) {
+        return true;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,31 +59,31 @@ function ChangePinBox(props) {
       setChangePinBox(false);
       alert('Succesfull PIN changed.');
     }
+    btn.textContent = 'Confirm';
   };
 
   return (
     <div className='shadow'>
       <div className='box'>
         <form onSubmit={submitFormHandler}>
-          <Pin
-            text={'Old PIN:'}
-            length={4}
-            onPinEntered={(pin) => {
-              setOldPinEntered(pin);
+          <StyledLabel htmlFor='password'>Password</StyledLabel>
+          <StyledInput
+            name='password'
+            id='password'
+            type='password'
+            value={passwordEntered}
+            onChange={(event) => {
+              setPasswordEntered(event.target.value);
             }}
+            required
           />
+
           <Pin
             text={'New PIN:'}
             length={4}
+            style={{ width: '100%', margin: '0 auto' }}
             onPinEntered={(pin) => {
               setNewPinEntered(pin);
-            }}
-          />
-          <Pin
-            text={'Confirm new PIN:'}
-            length={4}
-            onPinEntered={(pin) => {
-              setConfirmPinEntered(pin);
             }}
           />
 
