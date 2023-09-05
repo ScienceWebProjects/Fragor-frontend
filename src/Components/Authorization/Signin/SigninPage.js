@@ -173,6 +173,7 @@ function SigninPage(props) {
             <Pin
               text={'PIN'}
               length={4}
+              style={{ width: '100%', margin: '0 auto' }}
               onPinEntered={(pin) => {
                 setPinEntered(pin);
               }}
