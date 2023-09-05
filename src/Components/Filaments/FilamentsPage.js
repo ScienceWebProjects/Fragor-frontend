@@ -25,7 +25,7 @@ function FilamentsPage(props) {
 
   const [filteredColor, setFilteredColor] = useState('all');
   const [filteredMaterial, setFilteredMaterial] = useState('all');
-  const [filteredBrand, setFilteredBrand] = useState('FraGor');
+  const [filteredBrand, setFilteredBrand] = useState('all');
   const [filteredStock, setFilteredStock] = useState('0');
   const [filaments, setFilaments] = useState([]);
 
@@ -81,8 +81,7 @@ function FilamentsPage(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredStock}/`,
-        // `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredBrand}/${filteredStock}/`,
+        `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredBrand}/${filteredStock}/`,
         requestOptions
       );
 

@@ -28,6 +28,10 @@ const StyledButton = styled.button`
   font-weight: 400;
   line-height: normal;
 
+  -webkit-transition: 250ms;
+  -o-transition: 250ms;
+  transition: 250ms;
+
   &:before {
     content: '';
     position: absolute;
@@ -48,6 +52,10 @@ const StyledButton = styled.button`
 
     border: 3px solid #000;
     cursor: pointer;
+
+    -webkit-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
   }
 
   @media (min-width: 768px) {
