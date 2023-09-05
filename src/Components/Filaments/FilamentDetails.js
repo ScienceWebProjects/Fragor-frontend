@@ -25,13 +25,15 @@ function FilamentDetails(props) {
   const user = useToken();
 
   useEffect(() => {
-    const storedFilament = sessionStorage.getItem('filamentDetails');
-    setDetails(JSON.parse(storedFilament));
+    setTimeout(() => {
+      const storedFilament = sessionStorage.getItem('filamentDetails');
+      setDetails(JSON.parse(storedFilament));
+    }, 50);
   }, []);
 
-  // if (!details) {
-  //   return <div>No filament selected.</div>;
-  // }
+  if (!details) {
+    return <div>No filament selected.</div>;
+  }
 
   return (
     <div>
@@ -63,10 +65,11 @@ function FilamentDetails(props) {
 
         <div className='details-filament'>
           <section className='filament-data'>
+            <h3>Quantity: {details.quantity} g</h3>
             <div>Material: {details.material}</div>
             <div>Color: {details.color}</div>
-            <div>Quantity: {details.quantity} g</div>
             <div>Brand: {details.brand}</div>
+            <div>Diameter: {details.diameter}</div>
           </section>
         </div>
       </main>

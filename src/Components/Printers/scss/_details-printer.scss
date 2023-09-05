@@ -10,17 +10,51 @@
 
   .printer-img {
     height: 9.375rem;
-    display: flex;
-    justify-content: center;
+    position: relative;
+
+    @include flexCenter(row, center, center);
+
     padding: 10px;
     margin: 10px;
 
-    img {
+    .printer-img {
       width: auto;
       height: 100%;
     }
-  }
 
-  .printer-data {
+    .icon-btn {
+      position: absolute;
+      bottom: 0.625rem;
+      right: 1rem;
+
+      @include flexCenter(row, center, center);
+
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: 50%;
+      background: none;
+
+      .icon-img {
+        width: auto;
+        height: 1.5rem;
+
+        background-color: $primary-color;
+        -webkit-transition: 500ms;
+        -o-transition: 500ms;
+        transition: 500ms;
+
+        padding: 0.313rem;
+        border-radius: 50%;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $green;
+          -webkit-transition: 500ms;
+          -o-transition: 500ms;
+          transition: 500ms;
+        }
+      }
+    }
   }
 }

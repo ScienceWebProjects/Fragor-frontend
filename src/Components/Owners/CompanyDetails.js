@@ -17,7 +17,7 @@ import Button from '../UI/shared/buttons/Button';
 import StyledLink from '../UI/shared/StyledLink';
 
 // scss
-import './scss/_user-item.scss';
+import './scss/_company_user-item.scss';
 import ChangePermissionBox from '../Users/Boxes/ChangePermissionBox';
 import DeleteUserBox from '../Users/Boxes/DeleteUserBox';
 
@@ -75,7 +75,7 @@ function CompanyDetails(props) {
 
           {users.map((user) => (
             <div
-              className='user-item'
+              className='company_user'
               key={`user-${user.id}`}
             >
               <div className='item-user_name'>

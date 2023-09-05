@@ -1,0 +1,57 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.custom-select {
+  position: relative;
+
+  width: 95%;
+  min-height: 2.5rem;
+  padding: 0 0.313rem;
+  margin: 0.625rem 0rem;
+
+  font-size: 1rem;
+
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+  background: #ffffff;
+
+  .selected-option {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  .options {
+    z-index: 3;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    list-style: none;
+
+    margin: 0;
+    padding: 0 0.313rem;
+
+    border: solid 2px #000;
+    border-radius: 0.625rem;
+    border-top: none;
+    background-color: #cccccc;
+    display: none;
+
+    .option {
+      padding: 0.438rem;
+      margin: 0.313rem 0;
+      border: 1px solid #fff;
+      border-radius: 0.625rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+}
+
+.custom-select.open .options {
+  display: block;
+}

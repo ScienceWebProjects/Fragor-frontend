@@ -29,9 +29,12 @@
   "printerAdd": "/api/printer/add/",
   "printerDelete": "/api/printer/delete/",
   "printerGet": "/api/printer/get/",
+  "printerEdit_id": "/-/",
+  "printerImageSend_id": "/api/printer/add/image/",
 
   "deviceAdd": "/api/device/connect/",
 
+  "filamentsFiltersGet": "/api/filaments/filter/get/all/",
   "filamentsFiltered": "/api/filaments/filter/",
   "filamentGet_id": "/api/filaments/get/",
   "filamentsMaterialsGet": "/api/filaments/material/get/all/",

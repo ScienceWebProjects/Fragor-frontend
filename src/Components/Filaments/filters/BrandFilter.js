@@ -59,9 +59,9 @@ function BrandFilter(props) {
           {brands.map((brand, index) => (
             <option
               key={`brand-${index}`}
-              value={brand.name}
+              value={brand.brand}
             >
-              {brand.name}
+              {brand.brand}
             </option>
           ))}
         </select>

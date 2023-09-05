@@ -8,6 +8,7 @@ import StyledLink from '../../UI/shared/StyledLink';
 // UI elements
 
 // scss
+import '../scss/_user-item.scss';
 
 function UserItem(props) {
   const userDetailsHandler = async () => {

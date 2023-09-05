@@ -1,5 +1,4 @@
 // hooks
-import React, { useState, useEffect } from 'react';
 import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
