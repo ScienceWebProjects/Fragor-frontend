@@ -25,7 +25,7 @@ function FilamentsPage(props) {
 
   const [filteredColor, setFilteredColor] = useState('all');
   const [filteredMaterial, setFilteredMaterial] = useState('all');
-  const [filteredBrand, setFilteredBrand] = useState('FraGor');
+  const [filteredBrand, setFilteredBrand] = useState('all');
   const [filteredStock, setFilteredStock] = useState('0');
   const [filaments, setFilaments] = useState([]);
 

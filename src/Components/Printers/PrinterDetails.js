@@ -28,8 +28,6 @@ function PrinterDetails(props) {
   const [editBox, setEditBox] = useState(false);
   const [deleteBox, setDeleteBox] = useState(false);
 
-  // const [fileSelected, setFileSelected] = useState(null);
-
   const user = useToken();
 
   useEffect(() => {
@@ -84,7 +82,8 @@ function PrinterDetails(props) {
 
   const fileUploadApiCall = (file) => {
     console.log('Uploading file...');
-    const API_ENDPOINT = `${props.api.ip}${props.api.printerImageSend}${details.id}/`;
+    console.log(file);
+    const API_ENDPOINT = `${props.api.ip}${props.api.printerImageSend_id}${details.id}/`;
     const request = new XMLHttpRequest();
     const formData = new FormData();
 

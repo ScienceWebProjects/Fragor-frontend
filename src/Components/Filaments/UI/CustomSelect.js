@@ -25,6 +25,9 @@ function CustomSelect({ options, defaultSelected, onCustomSelect }) {
     console.log(option);
   };
 
+  const minMaxHeight =
+    options.length <= 1 ? 45 : options.length <= 2 ? 90 : options.length <= 3 ? 130 : 165;
+
   return (
     <div className={`custom-select ${isOpen ? 'open' : ''}`}>
       <div
@@ -37,7 +40,7 @@ function CustomSelect({ options, defaultSelected, onCustomSelect }) {
         <InfiniteScroll
           dataLength={options.length}
           hasMore={false}
-          height={200}
+          height={minMaxHeight}
         >
           {options.map((option) => (
             <li

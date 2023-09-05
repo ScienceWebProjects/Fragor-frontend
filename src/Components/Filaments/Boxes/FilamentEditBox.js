@@ -42,6 +42,7 @@ function FilamentEditBox(props) {
 
       const filtersList = await response.json();
       setFilters(filtersList);
+      console.log(filtersList);
     } catch (error) {
       console.log(error);
     }
@@ -49,6 +50,34 @@ function FilamentEditBox(props) {
   useEffect(() => {
     filtersGetAPICall();
   }, []);
+
+  const getFilamentById = async () => {
+    const requestOptions = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentGet_id}${details.id}/`,
+        requestOptions
+      );
+
+      if (response.status === 200) {
+        const res200 = await response.json();
+        return res200;
+      }
+      if (response.status === 400 || response.status === 404) {
+        alert(response.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Somethint went bad getFilamentById.');
+    }
+  };
 
   const confirmEditApiCall = async (e) => {
     e.preventDefault();
@@ -81,6 +110,9 @@ function FilamentEditBox(props) {
       if (response.status === 200) {
         onFilamentEditBox(false);
         alert('Successfull edit filament properties.');
+        const newData = await getFilamentById();
+        // when API will be repaired next line uncomment
+        // sessionStorage.setItem('filamentDetails', newData);
         window.location.reload();
       }
       if (response.status === 400 || response.status === 404) {
@@ -100,30 +132,28 @@ function FilamentEditBox(props) {
         <h2>Edit filament properties</h2>
 
         <form onSubmit={confirmEditApiCall}>
-          {filters.map((filter) => (
-            <div key='filters-wrapper'>
-              <StyledLabel htmlFor='material-select'>Material</StyledLabel>
-              <CustomSelect
-                options={filter.materials}
-                defaultSelected={details.material}
-                onCustomSelect={setMaterialSelected}
-              />
+          <div key='filters-wrapper'>
+            <StyledLabel htmlFor='material-select'>Material</StyledLabel>
+            <CustomSelect
+              options={filters.material || []}
+              defaultSelected={details.material}
+              onCustomSelect={setMaterialSelected}
+            />
 
-              <StyledLabel htmlFor='color-select'>Color</StyledLabel>
-              <CustomSelect
-                options={filter.colors}
-                defaultSelected={details.color}
-                onCustomSelect={setColorSelected}
-              />
+            <StyledLabel htmlFor='color-select'>Color</StyledLabel>
+            <CustomSelect
+              options={filters.color || []}
+              defaultSelected={details.color}
+              onCustomSelect={setColorSelected}
+            />
 
-              <StyledLabel htmlFor='brand-select'>Brand</StyledLabel>
-              <CustomSelect
-                options={filter.brands}
-                defaultSelected={details.brand}
-                onCustomSelect={setBrandSelected}
-              />
-            </div>
-          ))}
+            <StyledLabel htmlFor='brand-select'>Brand</StyledLabel>
+            <CustomSelect
+              options={filters.brand || []}
+              defaultSelected={details.brand}
+              onCustomSelect={setBrandSelected}
+            />
+          </div>
 
           <StyledLabel htmlFor='diameter'>Diameter</StyledLabel>
           <StyledInput
