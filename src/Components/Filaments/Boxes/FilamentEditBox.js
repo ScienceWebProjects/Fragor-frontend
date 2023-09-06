@@ -53,7 +53,7 @@ function FilamentEditBox(props) {
 
   const getFilamentById = async () => {
     const requestOptions = {
-      method: 'PATCH',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
@@ -110,9 +110,8 @@ function FilamentEditBox(props) {
       if (response.status === 200) {
         onFilamentEditBox(false);
         alert('Successfull edit filament properties.');
-        const newData = await getFilamentById();
-        // when API will be repaired next line uncomment
-        // sessionStorage.setItem('filamentDetails', newData);
+        const newData = getFilamentById();
+        sessionStorage.setItem('filamentDetails', newData);
         window.location.reload();
       }
       if (response.status === 400 || response.status === 404) {

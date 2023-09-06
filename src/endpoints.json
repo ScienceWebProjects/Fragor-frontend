@@ -30,7 +30,8 @@
   "printerDelete": "/api/printer/delete/",
   "printerGet": "/api/printer/get/",
   "printerEdit_id": "/-/",
-  "printerImageSend_id": "/api/printer/add/image/",
+  "printerImageAdd_id": "/api/printer/image/",
+  "printerImageGet_id": "/api/printer/image/",
 
   "deviceAdd": "/api/device/connect/",
 
