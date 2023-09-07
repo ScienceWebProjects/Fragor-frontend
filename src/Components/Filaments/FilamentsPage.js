@@ -8,6 +8,7 @@ import usePermissions from '../../Hooks/usePermissions';
 
 // components
 import TopBar from '../_shared/TopBar';
+import FilamentAddBox from './Boxes/FilamentAddBox';
 
 // UI elements
 import FiltersBar from './FiltersBar';
@@ -17,17 +18,21 @@ import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
-import './scss/_bottom-buttons.scss';
+import './scss/_filaments_add-btns.scss';
 
 function FilamentsPage(props) {
   const user = useToken();
   const permission = usePermissions(user);
 
+  // variabels for filters
+  const [filaments, setFilaments] = useState([]);
   const [filteredColor, setFilteredColor] = useState('all');
   const [filteredMaterial, setFilteredMaterial] = useState('all');
   const [filteredBrand, setFilteredBrand] = useState('FraGor');
   const [filteredStock, setFilteredStock] = useState('0');
-  const [filaments, setFilaments] = useState([]);
+
+  // variabels for box showing
+  const [filamentAddBox, setFilamentAddBox] = useState(false);
 
   const filamentsRandomAddHandler = async () => {
     const requestOptions = {
@@ -81,8 +86,7 @@ function FilamentsPage(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredStock}/`,
-        // `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredBrand}/${filteredStock}/`,
+        `${props.api.ip}${props.api.filamentsFiltered}${filteredColor}/${filteredMaterial}/${filteredBrand}/${filteredStock}/`,
         requestOptions
       );
 
@@ -123,27 +127,48 @@ function FilamentsPage(props) {
             onFilamentSelect={filamentSelectionHandler}
           />
         </FilamentsWindow>
-
-        <div className='bottom-buttons'>
-          <StyledLink to={props.api.home}>
-            <Button
-              className=''
-              color='red'
-            >
-              Back
-            </Button>
-          </StyledLink>
-          {permission.owner && (
-            <Button
-              className=''
-              color='yellow'
-              onClick={filamentsRandomAddHandler}
-            >
-              Random filaments add
-            </Button>
-          )}
-        </div>
       </main>
+
+      <div className='btns-filaments_add'>
+        {permission.owner && (
+          <Button
+            className='filaments_add-btn'
+            color='blue'
+            onClick={filamentsRandomAddHandler}
+          >
+            Random 10
+          </Button>
+        )}
+
+        {/* everyone except common user */}
+        {permission.changer && (
+          <Button
+            className='filaments_add-btn'
+            color='yellow'
+            onClick={() => {
+              setFilamentAddBox(true);
+            }}
+          >
+            Add filament
+          </Button>
+        )}
+      </div>
+
+      <StyledLink to={props.api.home}>
+        <Button
+          className=''
+          color='red'
+        >
+          Back
+        </Button>
+      </StyledLink>
+
+      {filamentAddBox && (
+        <FilamentAddBox
+          api={props.api}
+          onFilamentAddBox={setFilamentAddBox}
+        />
+      )}
     </div>
   );
 }
