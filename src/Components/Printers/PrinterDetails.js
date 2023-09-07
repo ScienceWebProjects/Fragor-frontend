@@ -1,5 +1,6 @@
 // libs
 import React from 'react';
+import axios from 'axios'; // v 1.5.0
 
 // hooks
 import { useState, useEffect } from 'react';
@@ -21,12 +22,13 @@ import Button from '../UI/shared/buttons/Button';
 // scss
 import '../_shared/UI/_details-buttons.scss';
 import './scss/_details-printer.scss';
-import StyledInput from '../UI/authorization/StyledInput';
 
 function PrinterDetails(props) {
   const [details, setDetails] = useState(props.details);
   const [editBox, setEditBox] = useState(false);
   const [deleteBox, setDeleteBox] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const user = useToken();
 
@@ -80,26 +82,50 @@ function PrinterDetails(props) {
     setDeleteBox(true);
   };
 
-  const fileUploadApiCall = (file) => {
-    console.log('Uploading file...');
-    console.log(file);
-    const API_ENDPOINT = `${props.api.ip}${props.api.printerImageSend_id}${details.id}/`;
-    const request = new XMLHttpRequest();
-    const formData = new FormData();
-
-    request.open('POST', API_ENDPOINT, true);
-    request.onreadystatechange = () => {
-      if (request.readyState === 4 && request.status === 200) {
-        console.log(request.responseText);
-      }
-    };
-    formData.append('file', file);
-    request.send(formData);
-  };
-
   const fileChangeHandler = (event) => {
     const file = event.target.files[0];
-    fileUploadApiCall(file);
+    console.log(selectedFile);
+    setSelectedFile(file);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!selectedFile) {
+      alert('Nie wybrano pliku');
+      return;
+    }
+
+    console.log('Uploading file...');
+    const formData = new FormData();
+
+    formData.append('name', details.name);
+    formData.append('model', details.model);
+    formData.append('image', selectedFile);
+
+    for (var key of formData.entries()) {
+      console.log(key[0] + ', ' + key[1]);
+    }
+
+    try {
+      const response = await axios.patch(
+        `${props.api.ip}${props.api.printerImageAdd_id}${details.id}/`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Plik przesłany pomyślnie!', response.data);
+        alert('Successfull image send!');
+      }
+    } catch (error) {
+      console.error('Błąd przesyłania pliku', error);
+    }
   };
 
   if (!details) {
@@ -144,30 +170,45 @@ function PrinterDetails(props) {
           <div className='printer-img'>
             {details.image ? (
               <img
-                src={details.image}
-                className='printer-img'
+                src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
+                className='img-img'
               />
             ) : (
               'No image added yet.'
             )}
 
-            <button
-              className='icon-btn'
-              onClick={() => {
-                document.getElementById('fileInput').click();
-              }}
+            <form
+              encType='multipart/form-data'
+              onSubmit={handleSubmit}
+              className='form-new_image'
             >
-              <img
-                src={iconImg}
-                className='icon-img'
+              <button
+                className='new_image-btn'
+                type='button'
+                onClick={() => {
+                  document.getElementById('fileInput').click();
+                }}
+              >
+                <img
+                  src={iconImg}
+                  className='btn-icon'
+                />
+              </button>
+
+              <input
+                type='file'
+                name='file'
+                id='fileInput'
+                style={{ display: 'none' }}
+                onChange={fileChangeHandler}
               />
-            </button>
-            <input
-              type='file'
-              id='fileInput'
-              style={{ display: 'none' }}
-              onChange={fileChangeHandler}
-            />
+              <button
+                type='submit'
+                className='new_image-confirm'
+              >
+                Send
+              </button>
+            </form>
           </div>
 
           <div>

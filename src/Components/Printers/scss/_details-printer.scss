@@ -9,47 +9,87 @@
   border-radius: 0.625rem;
 
   .printer-img {
-    height: 9.375rem;
+    max-height: 9.375rem;
+    max-width: 85%;
     position: relative;
 
-    @include flexCenter(row, center, center);
-
     padding: 10px;
-    margin: 10px;
+    margin: 10px auto;
 
-    .printer-img {
-      width: auto;
-      height: 100%;
+    text-align: center;
+    vertical-align: middle;
+
+    .img-img {
+      max-width: 100%;
+      max-height: inherit;
+
+      border-radius: 0.625rem;
     }
 
-    .icon-btn {
+    .form-new_image {
       position: absolute;
-      bottom: 0.625rem;
+      bottom: 1rem;
       right: 1rem;
 
       @include flexCenter(row, center, center);
 
-      padding: 0;
-      margin: 0;
-      border: none;
-      border-radius: 50%;
-      background: none;
+      background-color: #000;
+      border-radius: 0.625rem;
+      padding: 0.313rem;
+      opacity: 0.8;
 
-      .icon-img {
-        width: auto;
-        height: 1.5rem;
+      .new_image-btn {
+        @include flexCenter(row, center, center);
 
-        background-color: $primary-color;
+        padding: 0;
+        margin: 0;
+        border: none;
+        border-radius: 50%;
+        background: none;
+
+        .btn-icon {
+          width: auto;
+          height: 1.5rem;
+
+          background-color: $primary-color;
+          -webkit-transition: 500ms;
+          -o-transition: 500ms;
+          transition: 500ms;
+
+          padding: 0.313rem;
+          border-radius: 50%;
+
+          &:hover {
+            cursor: pointer;
+            background-color: $green;
+            -webkit-transition: 500ms;
+            -o-transition: 500ms;
+            transition: 500ms;
+          }
+        }
+      }
+      .new_image-confirm {
+        @include flexCenter(row, center, center);
+
+        padding: 0.313rem;
+        margin: 0 0.313rem;
+        border: 1px solid #fff;
+        border-radius: 30%;
+        background: none;
+        color: #fff;
+
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1rem;
+
         -webkit-transition: 500ms;
         -o-transition: 500ms;
         transition: 500ms;
 
-        padding: 0.313rem;
-        border-radius: 50%;
-
         &:hover {
           cursor: pointer;
           background-color: $green;
+          color: $font-color;
           -webkit-transition: 500ms;
           -o-transition: 500ms;
           transition: 500ms;
