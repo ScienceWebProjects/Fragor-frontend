@@ -82,10 +82,9 @@ function PrinterDetails(props) {
     setDeleteBox(true);
   };
 
-
   const fileChangeHandler = (event) => {
     event.preventDefault();
-    
+
     const file = event.target.files[0];
     console.log(selectedFile);
     setSelectedFile(file);
@@ -131,7 +130,6 @@ function PrinterDetails(props) {
     }
   };
 
-
   if (!details) {
     return <div>No printer selected.</div>;
   }
@@ -175,8 +173,7 @@ function PrinterDetails(props) {
             {details.image ? (
               <img
                 src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
-                className='printer-img'
-
+                className='img-img'
               />
             ) : (
               'No image added yet.'

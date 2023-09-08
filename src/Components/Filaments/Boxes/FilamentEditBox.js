@@ -42,7 +42,7 @@ function FilamentEditBox(props) {
 
       const filtersList = await response.json();
       setFilters(filtersList);
-      console.log(filtersList);
+      // console.log(filtersList);
     } catch (error) {
       console.log(error);
     }

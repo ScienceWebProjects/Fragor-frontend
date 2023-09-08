@@ -64,7 +64,7 @@
   "userSetPermissions": "/api/account/permission/set/",
   "userAccountDelete_email": "/api/account/delete/",
 
-  "ownersCompanyAdd": "/owner/company/add/",
+  "ownersCompanyAdd": "/api/companies/add/",
   "ownersCompaniesGetAll": "/api/companies/get/all/",
   "ownersCompanyUsersGet_id": "/api/companies/users/get/"
 }

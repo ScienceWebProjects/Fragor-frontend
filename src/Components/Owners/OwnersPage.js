@@ -47,6 +47,8 @@ function OwnersPage(props) {
 
       if (response.status === 201) {
         alert('Succesfully company added.');
+        const responseLog = await response.json();
+        console.log(responseLog);
         window.location.reload();
       }
     } catch (error) {
