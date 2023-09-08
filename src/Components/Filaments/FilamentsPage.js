@@ -28,7 +28,7 @@ function FilamentsPage(props) {
   const [filaments, setFilaments] = useState([]);
   const [filteredColor, setFilteredColor] = useState('all');
   const [filteredMaterial, setFilteredMaterial] = useState('all');
-  const [filteredBrand, setFilteredBrand] = useState('FraGor');
+  const [filteredBrand, setFilteredBrand] = useState('all');
   const [filteredStock, setFilteredStock] = useState('0');
 
   // variabels for box showing

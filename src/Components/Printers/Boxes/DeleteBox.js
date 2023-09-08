@@ -2,13 +2,13 @@
 
 // hooks
 import { useNavigate } from 'react-router-dom';
-import useToken from '../../Hooks/useToken';
-
-// scss
-import '../UI/shared/_box.scss';
+import useToken from '../../../Hooks/useToken';
 
 // UI elements
-import Button from '../UI/shared/buttons/Button';
+import Button from '../../UI/shared/buttons/Button';
+
+// scss
+import '../../UI/shared/_box.scss';
 
 function DeleteBox(props) {
   const user = useToken();

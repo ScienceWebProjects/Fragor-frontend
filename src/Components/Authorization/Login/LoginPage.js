@@ -107,6 +107,7 @@ function LoginPage(props) {
             <Pin
               text={'PIN'}
               length={4}
+              style={{ width: '85%', margin: '0 auto' }}
               onPinEntered={(pin) => {
                 setPinEntered(pin);
               }}
