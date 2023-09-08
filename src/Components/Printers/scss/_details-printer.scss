@@ -23,6 +23,7 @@
       max-width: 100%;
       max-height: inherit;
 
+
       border-radius: 0.625rem;
     }
 
@@ -31,7 +32,11 @@
       bottom: 1rem;
       right: 1rem;
 
-      @include flexCenter(row, center, center);
+
+      z-index: 2;
+
+      .new_image-btn {
+        @include flexCenter(row, center, center);
 
       background-color: #000;
       border-radius: 0.625rem;
@@ -40,6 +45,7 @@
 
       .new_image-btn {
         @include flexCenter(row, center, center);
+
 
         padding: 0;
         margin: 0;
@@ -77,6 +83,7 @@
         border-radius: 30%;
         background: none;
         color: #fff;
+
 
         text-align: center;
         vertical-align: middle;

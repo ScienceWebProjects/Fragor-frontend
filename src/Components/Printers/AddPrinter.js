@@ -154,13 +154,12 @@ function AddPrinter(props) {
         <InfoType text={'Printer'} />
         <div className='printer-add-input'>
           <div className='add-input'>
-            {/* <StyledLabel htmlFor='printer-add'>Add printer model name</StyledLabel> */}
             <StyledInput
               name='printer-add'
               id='printer-add'
               type='text'
               value={printerNameEntered}
-              placeholder='Printer model name'
+              placeholder='Printer name'
               onChange={(event) => {
                 setprinterNameEntered(event.target.value);
               }}

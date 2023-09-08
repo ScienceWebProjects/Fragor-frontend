@@ -39,15 +39,15 @@
 
 .pin_heading {
   color: black;
-  font-size: 1.25rem;
+  font-size: 1rem;
   text-align: start;
   width: 80vw;
   margin: 0.625rem 0;
 }
 
 .pin_field {
-  width: 80vw;
-  margin: 0.625rem 0;
+  width: 90%;
+  margin: 0.625rem auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -57,7 +57,7 @@
   margin: 0.625rem 0;
   padding: 0.625rem;
   font-size: 1.125rem;
-  width: 2.5rem;
+  width: 15%;
   border-radius: 5px;
   border: 1px solid #000000;
   text-align: center;
@@ -82,5 +82,5 @@
 }
 
 .login_form {
-  min-height: 77vh;
+  min-height: 77vh !important;
 }

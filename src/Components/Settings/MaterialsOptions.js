@@ -35,7 +35,6 @@ function MaterialsOptions(props) {
   const [minHotendEntered, setMinHotendEntered] = useState('');
   const [maxHotendEntered, setMaxHotendEntered] = useState('');
   const [densityEntered, setDensityEntered] = useState(1.0);
-  const [diameterEntered, setDiameterEntered] = useState(1.75);
 
   // properties for material delete
   const [materials, setMaterials] = useState([]);
@@ -74,7 +73,6 @@ function MaterialsOptions(props) {
       hotbed: `${minHotbedEntered}-${maxHotbedEntered}`,
       hotend: `${minHotendEntered}-${maxHotendEntered}`,
       density: densityEntered,
-      diameter: diameterEntered,
     };
 
     const requestOptions = {
@@ -272,26 +270,6 @@ function MaterialsOptions(props) {
                     value={densityEntered}
                     onChange={(event) => {
                       setDensityEntered(event.target.value);
-                    }}
-                    required
-                  />
-                </div>
-                <div className='wrapper-max'>
-                  <StyledLabel
-                    htmlFor='diameter'
-                    className='max-label'
-                  >
-                    Diameter
-                  </StyledLabel>
-                  <StyledInput
-                    name='diameter'
-                    id='diameter'
-                    type='number'
-                    min='0.0'
-                    step='0.01'
-                    value={diameterEntered}
-                    onChange={(event) => {
-                      setDiameterEntered(event.target.value);
                     }}
                     required
                   />
