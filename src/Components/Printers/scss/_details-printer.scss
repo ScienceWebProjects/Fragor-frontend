@@ -9,33 +9,43 @@
   border-radius: 0.625rem;
 
   .printer-img {
-    height: 9.375rem;
-    width: fit-content;
+    max-height: 9.375rem;
+    max-width: 85%;
     position: relative;
 
-    @include flexCenter(row, center, center);
+    padding: 10px;
+    margin: 10px auto;
 
-    padding: 0;
-    margin: 20px auto;
+    text-align: center;
+    vertical-align: middle;
 
-    border-radius: 0.625rem;
+    .img-img {
+      max-width: 100%;
+      max-height: inherit;
 
-    .printer-img {
-      width: auto;
-      height: 100%;
+
+      border-radius: 0.625rem;
     }
 
     .form-new_image {
-      @include flexCenter(row, center, center);
-
       position: absolute;
-      bottom: 0.313rem;
-      right: 0rem;
+      bottom: 1rem;
+      right: 1rem;
+
 
       z-index: 2;
 
       .new_image-btn {
         @include flexCenter(row, center, center);
+
+      background-color: #000;
+      border-radius: 0.625rem;
+      padding: 0.313rem;
+      opacity: 0.8;
+
+      .new_image-btn {
+        @include flexCenter(row, center, center);
+
 
         padding: 0;
         margin: 0;
@@ -47,20 +57,17 @@
           width: auto;
           height: 1.5rem;
 
+          background-color: $primary-color;
           -webkit-transition: 500ms;
           -o-transition: 500ms;
           transition: 500ms;
 
           padding: 0.313rem;
-          border: 1px solid #000;
           border-radius: 50%;
 
-          filter: invert(1);
-
           &:hover {
-            filter: invert(0);
             cursor: pointer;
-            background-color: $yellow;
+            background-color: $green;
             -webkit-transition: 500ms;
             -o-transition: 500ms;
             transition: 500ms;
@@ -76,6 +83,7 @@
         border-radius: 30%;
         background: none;
         color: #fff;
+
 
         text-align: center;
         vertical-align: middle;

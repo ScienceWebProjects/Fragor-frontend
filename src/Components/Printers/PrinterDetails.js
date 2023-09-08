@@ -1,5 +1,6 @@
 // libs
 import React from 'react';
+import axios from 'axios'; // v 1.5.0
 
 // hooks
 import { useState, useEffect } from 'react';
@@ -21,7 +22,6 @@ import Button from '../UI/shared/buttons/Button';
 // scss
 import '../_shared/UI/_details-buttons.scss';
 import './scss/_details-printer.scss';
-import StyledInput from '../UI/authorization/StyledInput';
 
 function PrinterDetails(props) {
   const [details, setDetails] = useState(props.details);
@@ -82,53 +82,25 @@ function PrinterDetails(props) {
     setDeleteBox(true);
   };
 
-  // const fileUploadApiCall = (file) => {
-  //   console.log('Uploading file...');
-  //   console.log(file);
-  //   const API_ENDPOINT = `${props.api.ip}${props.api.printerImageSend_id}${details.id}/`;
-  //   const request = new XMLHttpRequest();
-  //   const formData = new FormData();
-
-  //   request.open('POST', API_ENDPOINT, true);
-  //   request.onreadystatechange = () => {
-  //     if (request.readyState === 4 && request.status === 200) {
-  //       console.log(request.responseText);
-  //     }
-  //   };
-  //   formData.append('file', file);
-  //   request.send(formData);
-  // };
-
-  // const fileChangeHandler = (event) => {
-  //   const file = event.target.files[0];
-  //   fileUploadApiCall(file);
-  // };
 
   const fileChangeHandler = (event) => {
     event.preventDefault();
-
+    
     const file = event.target.files[0];
     console.log(selectedFile);
     setSelectedFile(file);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!selectedFile) {
+      alert('Nie wybrano pliku');
+      return;
+    }
+
     console.log('Uploading file...');
-    const API_ENDPOINT = `${props.api.ip}${props.api.printerImageAdd_id}${details.id}/`;
-    const request = new XMLHttpRequest();
     const formData = new FormData();
-
-    request.open('PATCH', API_ENDPOINT, true);
-
-    request.setRequestHeader('Content-Type', 'multipart/form-data');
-    request.setRequestHeader('Authorization', `Bearer ${user.token}`);
-
-    request.onreadystatechange = () => {
-      if (request.readyState === 4 && request.status === 200) {
-        console.log(request.responseText);
-      }
-    };
 
     formData.append('name', details.name);
     formData.append('model', details.model);
@@ -137,11 +109,28 @@ function PrinterDetails(props) {
     for (var key of formData.entries()) {
       console.log(key[0] + ', ' + key[1]);
     }
-    request.send(formData);
+
+    try {
+      const response = await axios.patch(
+        `${props.api.ip}${props.api.printerImageAdd_id}${details.id}/`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log('Plik przesłany pomyślnie!', response.data);
+        alert('Successfull image send!');
+      }
+    } catch (error) {
+      console.error('Błąd przesyłania pliku', error);
+    }
   };
 
-  // console.log(`${props.api.ip}${props.api.printerImageGet_id}${details.id}/`);
-  // console.log(details);
 
   if (!details) {
     return <div>No printer selected.</div>;
@@ -187,6 +176,7 @@ function PrinterDetails(props) {
               <img
                 src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
                 className='printer-img'
+
               />
             ) : (
               'No image added yet.'
