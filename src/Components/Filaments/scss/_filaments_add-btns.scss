@@ -1,0 +1,13 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.btns-filaments_add {
+  @include flexCenter(row, space-between, center);
+  width: 85%;
+  margin: 0 auto;
+
+  .filaments_add-btn {
+    width: 49%;
+    font-size: 0.9rem;
+  }
+}
