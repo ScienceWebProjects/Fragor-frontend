@@ -25,6 +25,7 @@
 
   "printersList": "/api/printer/get/all/",
   "printerModelAdd": "/api/printer/model/add/",
+  "printerModelDelete_id": "/api/printer/model/delete/",
   "printersModelsGet": "/api/printer/model/get/all/",
   "printerAdd": "/api/printer/add/",
   "printerDelete": "/api/printer/delete/",

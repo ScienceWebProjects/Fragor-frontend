@@ -8,6 +8,7 @@ import usePermissions from '../../Hooks/usePermissions';
 // components
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
+import DeleteBox from '../_shared/DeleteBox';
 
 // UI elements
 import InfoType from '../Authorization/Signin/UI/InfoType';
@@ -23,10 +24,15 @@ function AddPrinter(props) {
   const user = useToken();
   const permission = usePermissions(user);
 
+  // variables for model
   const [modelEntered, setModelEntered] = useState('');
+  const [modelAdd, setModelAdd] = useState('');
+  const [modelDelete, setModelDelete] = useState('');
+  const [deleteBox, setDeleteBox] = useState(false);
+
+  // variables for printer
   const [printerNameEntered, setprinterNameEntered] = useState('');
   const [printersModels, setPrintersModels] = useState([]);
-  const [modelAdd, setModelAdd] = useState('');
 
   const getAddedPrinter = async () => {
     const requestOptions = {
@@ -46,6 +52,7 @@ function AddPrinter(props) {
       console.log(e);
     }
   };
+
   useEffect(() => {
     getAddedPrinter();
   }, []);
@@ -149,6 +156,43 @@ function AddPrinter(props) {
             >
               Add model
             </Button>
+
+            <div className='delete_model-select'>
+              <select
+                className='select-dropdown'
+                onChange={(event) => {
+                  const selectedValue = event.target.value;
+                  const [id, model] = selectedValue.split(',');
+                  setModelDelete({ id: id, model: model });
+                }}
+              >
+                <option
+                  value={''}
+                  select='true'
+                  hidden
+                >
+                  Model...
+                </option>
+                {printersModels.map((model) => (
+                  <option
+                    key={model.id}
+                    value={`${model.id},${model.model}`}
+                  >
+                    {model.model}
+                  </option>
+                ))}
+              </select>
+
+              <Button
+                className={`select-btn ${modelDelete.model ? '' : 'delete-inactive'}`}
+                color='red'
+                onClick={() => {
+                  setDeleteBox(true);
+                }}
+              >
+                Delete model
+              </Button>
+            </div>
           </div>
         )}
         <InfoType text={'Printer'} />
@@ -190,15 +234,26 @@ function AddPrinter(props) {
         >
           Add printer
         </Button>
-        <StyledLink to={props.api.printersPage}>
-          <Button
-            className=''
-            color='red'
-          >
-            Back
-          </Button>
-        </StyledLink>
       </main>
+
+      <StyledLink to={props.api.printersPage}>
+        <Button
+          className=''
+          color='red'
+        >
+          Back
+        </Button>
+      </StyledLink>
+
+      {deleteBox && (
+        <DeleteBox
+          api={props.api}
+          ID={modelDelete.id}
+          endpoint={props.api.printerModelDelete_id}
+          deleteOption={`model ${modelDelete.model}`}
+          onDeleteBox={setDeleteBox}
+        />
+      )}
     </div>
   );
 }

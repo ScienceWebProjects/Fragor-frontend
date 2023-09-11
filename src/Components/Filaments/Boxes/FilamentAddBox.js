@@ -77,7 +77,7 @@ function FilamentAddBox(props) {
     try {
       const response = await fetch(`${props.api.ip}${props.api.filamentAdd}`, requestOptions);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         onFilamentAddBox(false);
         alert('Successfull add filament.');
         window.location.reload();

@@ -36,6 +36,10 @@ function DeleteBox(props) {
         alert(`Succesfull ${deleteOption} deleted.`);
         window.location.reload();
       }
+      if (response.status === 409) {
+        const res = await response.json();
+        alert(res.message);
+      }
     } catch (error) {
       console.log(error);
     }
