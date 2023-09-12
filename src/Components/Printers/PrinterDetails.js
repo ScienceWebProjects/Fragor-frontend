@@ -59,7 +59,7 @@ function PrinterDetails(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.deviceAdd}${details.id}/`,
+        `${props.api.ip}${props.api.deviceConnect}${details.id}/`,
         requestOptions
       );
 

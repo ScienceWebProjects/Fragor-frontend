@@ -23,6 +23,7 @@ import UsersPage from './Components/Users/UsersPage';
 import UserDetails from './Components/Users/UserDetails';
 import OwnersPage from './Components/Owners/OwnersPage';
 import CompanyDetails from './Components/Owners/CompanyDetails';
+import DevicesPage from './Components/Devices/DevicesPage';
 
 // UI elements
 import './App.css';
@@ -149,6 +150,10 @@ function App() {
           users={companyUsers}
         />
       ),
+    },
+    {
+      path: endpoints.devicesPage,
+      element: <DevicesPage api={endpoints} />,
     },
   ]);
 

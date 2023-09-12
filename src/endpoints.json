@@ -1,6 +1,6 @@
 {
-  "ip": "http://127.0.0.1:8080",
-  "ip_": "http://192.168.0.9:8080",
+  "ip_": "http://127.0.0.1:8080",
+  "ip": "http://192.168.0.9:8080",
 
   "quotes": "https://type.fit/api/quotes",
 
@@ -17,6 +17,7 @@
   "settingBrandsOptions": "/brands-options",
   "usersPage": "/users",
   "ownersPage": "/owners",
+  "devicesPage": "/devices",
 
   "loginPin": "/api/account/login/pin/",
   "loginPassword": "/api/account/login/password/",
@@ -34,7 +35,7 @@
   "printerImageAdd_id": "/api/printer/image/",
   "printerImageGet_id": "/api/printer/image/",
 
-  "deviceAdd": "/api/device/connect/",
+  "deviceConnect": "/api/device/connect/",
 
   "filamentsFiltersGet": "/api/filaments/filter/get/all/",
   "filamentsFiltered": "/api/filaments/filter/",
@@ -58,6 +59,10 @@
   "settingFilamentColorDelete_id": "/api/filaments/color/delete/",
   "settingFilamentBrandAdd": "/api/filaments/brand/add/",
   "settingFilamentBrandDelete_id": "/api/filaments/brand/delete/",
+
+  "devicesList": "/-/",
+  "deviceDelete_id": "/-/",
+  "deviceNewAdd": "/-/",
 
   "usersGetAll": "/api/companies/users/get/",
   "userGetOne_id": "/api/companies/users/get/",

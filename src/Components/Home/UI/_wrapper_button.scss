@@ -5,7 +5,7 @@
   @include gridStart(
     50% 50%,
     5rem 5rem,
-    'printers filaments' 'settings users' 'owners owners',
+    'printers filaments' 'settings devices' 'users owners',
     0.625rem
   );
   justify-items: stretch;
@@ -24,6 +24,9 @@
   }
   .area-owners {
     grid-area: owners;
+  }
+  .area-devices {
+    grid-area: devices;
   }
 
   .wrapper_button {

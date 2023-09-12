@@ -1,0 +1,9 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.bottom_buttons {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+}
