@@ -62,7 +62,7 @@ function FiltersBar(props) {
           setStock(stock);
         }}
       />
-      <FiltersDropdownMenu />
+      {/* <FiltersDropdownMenu /> */}
     </div>
   );
 }

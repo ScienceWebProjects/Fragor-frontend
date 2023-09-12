@@ -45,6 +45,7 @@
   "filamentsBrandsGet": "/api/filaments/brand/get/all/",
   "filamentsRandomAdd_ammount": "/api/filaments/add/",
   "filamentAdd": "/api/filaments/add/",
+  "filamentFind": "/-/",
   "filamentEdit_id": "/api/filaments/update/",
   "filamentDelete_id": "/api/filaments/delete/",
 
