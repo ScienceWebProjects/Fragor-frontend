@@ -1,0 +1,9 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.select-disabled {
+  background-color: $primary-color;
+  cursor: not-allowed;
+  pointer-events: none;
+  z-index: 2;
+}

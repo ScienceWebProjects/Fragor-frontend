@@ -1,0 +1,76 @@
+{
+  "ip_": "http://127.0.0.1:8080",
+  "ip": "http://192.168.0.9:8080",
+
+  "quotes": "https://type.fit/api/quotes",
+
+  "loginPage": "/login",
+  "signinPage": "/signin",
+  "home": "/",
+  "printersPage": "/printers-list",
+  "printerAddPage": "/printer-add",
+  "filamentsPage": "/filaments-list",
+  "settingsPage": "/settings",
+  "settingsFilamentsOptions": "/filaments-options",
+  "settingMaterialsOptions": "/material-options",
+  "settingColorsOptions": "/colors-options",
+  "settingBrandsOptions": "/brands-options",
+  "usersPage": "/users",
+  "ownersPage": "/owners",
+  "devicesPage": "/devices",
+
+  "loginPin": "/api/account/login/pin/",
+  "loginPassword": "/api/account/login/password/",
+
+  "registration": "/api/account/registration/",
+
+  "printersList": "/api/printer/get/all/",
+  "printerModelAdd": "/api/printer/model/add/",
+  "printerModelDelete_id": "/api/printer/model/delete/",
+  "printersModelsGet": "/api/printer/model/get/all/",
+  "printerAdd": "/api/printer/add/",
+  "printerDelete": "/api/printer/delete/",
+  "printerGet": "/api/printer/get/",
+  "printerEdit_id": "/-/",
+  "printerImageAdd_id": "/api/printer/image/",
+  "printerImageGet_id": "/api/printer/image/",
+
+  "deviceConnect": "/api/device/connect/",
+
+  "filamentsFiltersGet": "/api/filaments/filter/get/all/",
+  "filamentsFiltered": "/api/filaments/filter/",
+  "filamentGet_id": "/api/filaments/get/",
+  "filamentsMaterialsGet": "/api/filaments/material/get/all/",
+  "filamentsColorsGet": "/api/filaments/color/get/all/",
+  "filamentsBrandsGet": "/api/filaments/brand/get/all/",
+  "filamentsRandomAdd_ammount": "/api/filaments/add/",
+  "filamentAdd": "/api/filaments/add/",
+  "filamentEdit_id": "/api/filaments/update/",
+  "filamentDelete_id": "/api/filaments/delete/",
+
+  "settingDeleteAccount": "/-/",
+  "settingLogout": "/api/account/logout/",
+  "settingPinChange": "/api/account/settings/pin/",
+  "settingPasswordChange": "/api/account/settings/password/",
+  "settingEmailChange": "/api/account/settings/email/",
+  "settingFilamentMaterialAdd": "/api/filaments/material/add/",
+  "settingFilamentMaterialDelete_id": "/api/filaments/material/delete/",
+  "settingFilamentColorAdd": "/api/filaments/color/add/",
+  "settingFilamentColorDelete_id": "/api/filaments/color/delete/",
+  "settingFilamentBrandAdd": "/api/filaments/brand/add/",
+  "settingFilamentBrandDelete_id": "/api/filaments/brand/delete/",
+
+  "devicesList": "/-/",
+  "deviceDelete_id": "/-/",
+  "deviceNewAdd": "/-/",
+
+  "usersGetAll": "/api/companies/users/get/",
+  "userGetOne_id": "/api/companies/users/get/",
+  "userGetPermissions": "/-/",
+  "userSetPermissions": "/api/account/permission/set/",
+  "userAccountDelete_email": "/api/account/delete/",
+
+  "ownersCompanyAdd": "/api/companies/add/",
+  "ownersCompaniesGetAll": "/api/companies/get/all/",
+  "ownersCompanyUsersGet_id": "/api/companies/users/get/"
+}
