@@ -10,7 +10,7 @@
 
 # production
 /build
-./src/endpoints.json
+src/endpoints.json
 
 # misc
 .DS_Store
