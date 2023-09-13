@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import './UI/_quotes.scss';
-import quotes from '../../quotes.json';
+import quotes from '../../JSONs/quotes.json';
 
 const Quotes = () => {
   const [quote, setQuote] = useState('A kto umarł ten nie żyje!');
@@ -14,8 +14,9 @@ const Quotes = () => {
 
     const number = getRandomInt(16);
 
-    localStorage.setItem('quote', quotes.eng[number].text);
-    localStorage.setItem('author', quotes.eng[number].author);
+    const lang = localStorage.getItem('language') || 'en';
+    localStorage.setItem('quote', quotes[lang][number].text);
+    localStorage.setItem('author', quotes[lang][number].author);
   };
 
   const currentQuote = () => {

@@ -141,7 +141,7 @@ function FilamentsPage(props) {
 
       btn.textContent = 'Find filament';
     } catch (error) {
-      // setFilamentFindBox(true);
+      setFilamentFindBox(true);
       console.log(error);
       setTimeout(() => {
         btn.textContent = 'Find filament';

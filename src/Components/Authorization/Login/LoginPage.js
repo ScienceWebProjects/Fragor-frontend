@@ -1,17 +1,20 @@
+// libs
+
 // hooks
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// components
+import { FormattedMessage } from 'react-intl';
+import Button from '../../UI/shared/buttons/Button';
+import Pin from '../../_shared/Pin';
+import SelectLanguage from './SelectLanguage';
+
 // UI elements
-// import Card from '../UI/shared/Card';
 import './LoginPage.scss';
 import logo from '../../../Images/logo-black.png';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
-
-// components
-import Button from '../../UI/shared/buttons/Button';
-import Pin from '../../_shared/Pin';
 import StyledLink from '../../UI/shared/StyledLink';
 
 function LoginPage(props) {
@@ -89,6 +92,7 @@ function LoginPage(props) {
       </header>
 
       <main className='App-header login_form'>
+        <SelectLanguage />
         <form onSubmit={submitFormHandler}>
           <div style={{ width: '85vw', margin: '0 auto' }}>
             <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
@@ -117,21 +121,37 @@ function LoginPage(props) {
             color='green'
             type='submit'
           >
-            Log in
+            <FormattedMessage
+              id='login.loginBtn'
+              defaultMessage='Log in'
+            />
           </Button>
         </form>
 
         <StyledLink to={props.api.signinPage}>
-          <Button color='yellow'>Sign in</Button>
+          <Button color='yellow'>
+            <FormattedMessage
+              id='login.signinBtn'
+              defaultMessage='Sign in'
+            />
+          </Button>
         </StyledLink>
         <div className='main_additionals'>
           <StyledLink
             to={'/'}
             className='additionals_reminder'
           >
-            Forget PIN?
+            <FormattedMessage
+              id='login.forgetPin'
+              defaultMessage='Forget PIN?'
+            />
           </StyledLink>
-          <StyledLink to={'/'}>Privacy</StyledLink>
+          <StyledLink to={'/'}>
+            <FormattedMessage
+              id='login.privacy'
+              defaultMessage='Privacy policy'
+            />
+          </StyledLink>
         </div>
       </main>
     </div>

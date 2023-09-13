@@ -1,5 +1,5 @@
 // REST API
-import endpoints from './endpoints.json';
+import endpoints from './JSONs/endpoints.json';
 
 // libs
 import { useState } from 'react';

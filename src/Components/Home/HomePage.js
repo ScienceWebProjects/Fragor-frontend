@@ -8,6 +8,7 @@ import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
 // components
+import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import ClockAndDate from './ClockAndDate';
 import Quotes from './Quotes';
@@ -59,7 +60,10 @@ function HomePage(props) {
                   className='wrapper_button '
                   color='red'
                 >
-                  Printers
+                  <FormattedMessage
+                    id='home.printers'
+                    defaultMessage='Printers'
+                  />
                 </Button>
               </StyledLink>
               <StyledLink
@@ -70,7 +74,10 @@ function HomePage(props) {
                   className='wrapper_button '
                   color='red'
                 >
-                  Filaments
+                  <FormattedMessage
+                    id='home.filaments'
+                    defaultMessage='Filaments'
+                  />
                 </Button>
               </StyledLink>
               <StyledLink
@@ -81,7 +88,10 @@ function HomePage(props) {
                   className='wrapper_button '
                   color='red'
                 >
-                  Settings
+                  <FormattedMessage
+                    id='home.settings'
+                    defaultMessage='Settings'
+                  />
                 </Button>
               </StyledLink>
               {(permission.owner || permission.master) && (
@@ -93,7 +103,10 @@ function HomePage(props) {
                     className='wrapper_button'
                     color='red'
                   >
-                    Users
+                    <FormattedMessage
+                      id='home.users'
+                      defaultMessage='Users'
+                    />
                   </Button>
                 </StyledLink>
               )}
@@ -106,7 +119,10 @@ function HomePage(props) {
                     className='wrapper_button'
                     color='red'
                   >
-                    Owners
+                    <FormattedMessage
+                      id='home.owners'
+                      defaultMessage='Owners'
+                    />
                   </Button>
                 </StyledLink>
               )}
@@ -120,7 +136,10 @@ function HomePage(props) {
                     className='wrapper_button'
                     color='red'
                   >
-                    Devices
+                    <FormattedMessage
+                      id='home.devices'
+                      defaultMessage='Devices'
+                    />
                   </Button>
                 </StyledLink>
               )}
