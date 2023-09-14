@@ -2,10 +2,12 @@
 
 // hooks
 import { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
 // components
+import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
 import DeleteBox from '../_shared/DeleteBox';
@@ -23,6 +25,7 @@ import './scss/_add-printer.scss';
 function AddPrinter(props) {
   const user = useToken();
   const permission = usePermissions(user);
+  const intl = useIntl();
 
   // variables for model
   const [modelEntered, setModelEntered] = useState('');
@@ -138,8 +141,20 @@ function AddPrinter(props) {
       <main className='App-header add-printer'>
         {(permission.owner || permission.master) && (
           <div>
-            <InfoType text={'Model'} />
-            <StyledLabel htmlFor='printer-model-add'>Add printer model name</StyledLabel>
+            <InfoType
+              text={
+                <FormattedMessage
+                  id='printers.model'
+                  defaultMessage='Model'
+                />
+              }
+            />
+            <StyledLabel htmlFor='printer-model-add'>
+              <FormattedMessage
+                id='printers.newmodelname'
+                defaultMessage='Add printer model name'
+              />
+            </StyledLabel>
             <StyledInput
               name='printer-model-add'
               id='printer-model-add'
@@ -154,7 +169,10 @@ function AddPrinter(props) {
               color='yellow'
               onClick={printerModelAddHandler}
             >
-              Add model
+              <FormattedMessage
+                id='printers.newmodel'
+                defaultMessage='Add model'
+              />
             </Button>
 
             <div className='delete_model-select'>
@@ -171,7 +189,11 @@ function AddPrinter(props) {
                   select='true'
                   hidden
                 >
-                  Model...
+                  <FormattedMessage
+                    id='printers.model'
+                    defaultMessage='Model'
+                  />
+                  ...
                 </option>
                 {printersModels.map((model) => (
                   <option
@@ -190,7 +212,10 @@ function AddPrinter(props) {
                   setDeleteBox(true);
                 }}
               >
-                Delete model
+                <FormattedMessage
+                  id='printers.deletemodel'
+                  defaultMessage='Delete model'
+                />
               </Button>
             </div>
           </div>
@@ -203,7 +228,11 @@ function AddPrinter(props) {
               id='printer-add'
               type='text'
               value={printerNameEntered}
-              placeholder='Printer name'
+              // placeholder='Printer name'
+              placeholder={intl.formatMessage({
+                id: 'printers.printername',
+                defaultMessage: 'Printer name',
+              })}
               onChange={(event) => {
                 setprinterNameEntered(event.target.value);
               }}
@@ -232,7 +261,10 @@ function AddPrinter(props) {
           color='yellow'
           onClick={printerAdd}
         >
-          Add printer
+          <FormattedMessage
+            id='printers.addprinter'
+            defaultMessage='Add printer'
+          />
         </Button>
       </main>
 
@@ -241,7 +273,10 @@ function AddPrinter(props) {
           className=''
           color='red'
         >
-          Back
+          <FormattedMessage
+            id='back'
+            defaultMessage='Back'
+          />
         </Button>
       </StyledLink>
 

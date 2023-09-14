@@ -3,6 +3,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 // components
+import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import Button from '../UI/shared/buttons/Button';
 
@@ -59,7 +60,10 @@ function PrintersList(props) {
             className=''
             color='yellow'
           >
-            Add Printer
+            <FormattedMessage
+              id='printers.addprinter'
+              defaultMessage='Add Printer'
+            />
           </Button>
         </StyledLink>
 
@@ -80,7 +84,10 @@ function PrintersList(props) {
             className=''
             color='red'
           >
-            Back
+            <FormattedMessage
+              id='back'
+              defaultMessage='Back'
+            />
           </Button>
         </StyledLink>
       </main>
