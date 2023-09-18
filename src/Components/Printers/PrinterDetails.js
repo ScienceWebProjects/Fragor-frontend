@@ -5,11 +5,13 @@ import axios from 'axios'; // v 1.5.0
 // hooks
 import { useState, useEffect } from 'react';
 import useToken from '../../Hooks/useToken';
+import { useIntl } from 'react-intl';
 
 // components
 import TopBar from '../_shared/TopBar';
 import PrinterEditBox from './Boxes/PrinterEditBox';
-import DeleteBox from './Boxes/DeleteBox';
+import DeletePrinterBox from './Boxes/DeleteBox';
+import { FormattedMessage } from 'react-intl';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -31,6 +33,7 @@ function PrinterDetails(props) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const user = useToken();
+  const intl = useIntl();
 
   useEffect(() => {
     const storedPrinter = sessionStorage.getItem('printerDetails');
@@ -47,7 +50,10 @@ function PrinterDetails(props) {
   const deviceAddHandler = async () => {
     const btn = document.getElementById('deviceAddBtn');
 
-    btn.textContent = 'Waiting...';
+    btn.textContent = intl.formatMessage({
+      id: 'waiting',
+      defaultMessage: 'Waiting...',
+    });
 
     const requestOptions = {
       method: 'GET',
@@ -64,14 +70,26 @@ function PrinterDetails(props) {
       );
 
       if (response.status === 201) {
-        alert('Succesfully added device.');
-        btn.textContent = 'Add device';
+        alert(
+          intl.formatMessage({
+            id: 'alert.addedDevice',
+            defaultMessage: 'Succesfully added device.',
+          })
+        );
+
+        btn.textContent = intl.formatMessage({
+          id: 'addDevice',
+          defaultMessage: 'Add device',
+        });
       }
 
       if (response.status === 400) {
         const res = await response.json();
         console.log(res);
-        btn.textContent = 'Add device';
+        btn.textContent = intl.formatMessage({
+          id: 'addDevice',
+          defaultMessage: 'Add device',
+        });
       }
     } catch (error) {
       console.log(error);
@@ -149,7 +167,10 @@ function PrinterDetails(props) {
               setEditBox(true);
             }}
           >
-            Edit
+            <FormattedMessage
+              id='edit'
+              defaultMessage='Edit'
+            />
           </Button>
           <Button
             className='wrapper-btn'
@@ -157,14 +178,20 @@ function PrinterDetails(props) {
             onClick={deviceAddHandler}
             id='deviceAddBtn'
           >
-            Add device
+            <FormattedMessage
+              id='addDevice'
+              defaultMessage='Add device'
+            />
           </Button>
           <Button
             className='wrapper-btn'
             color='red'
             onClick={deleteButtonHandler}
           >
-            Delete
+            <FormattedMessage
+              id='delete'
+              defaultMessage='Delete'
+            />
           </Button>
         </div>
 
@@ -174,6 +201,7 @@ function PrinterDetails(props) {
               <img
                 src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
                 className='img-img'
+                alt='Printer'
               />
             ) : (
               'No image added yet.'
@@ -194,6 +222,7 @@ function PrinterDetails(props) {
                 <img
                   src={iconImg}
                   className='btn-icon'
+                  alt='icon'
                 />
               </button>
 
@@ -221,13 +250,47 @@ function PrinterDetails(props) {
               // endMessage={'No more added filaments'}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
-              <div>Name: {details.name}</div>
-              <div>Model: {details.model}</div>
+              <div>
+                <FormattedMessage
+                  id='printers.name'
+                  defaultMessage='Name'
+                />
+                {': '}
+                {details.name}
+              </div>
+              <div>
+                <FormattedMessage
+                  id='printers.model'
+                  defaultMessage='Model'
+                />
+                {': '}
+                {details.model}
+              </div>
               <br />
-              <div>Work hours: {details.workHours} h</div>
+              <div>
+                <FormattedMessage
+                  id='printers.workHours'
+                  defaultMessage='Hours worked'
+                />
+                {': '}
+                {details.workHours} h
+              </div>
               <br />
-              <div>Printed Filements:</div>
-              <div>All: {filamentAllAmount} kg</div>
+              <div>
+                <FormattedMessage
+                  id='printers.printedFilaments'
+                  defaultMessage='Printed Filements'
+                />
+                {': '}
+              </div>
+              <div>
+                <FormattedMessage
+                  id='all'
+                  defaultMessage='All'
+                />
+                {': '}
+                {filamentAllAmount} kg
+              </div>
 
               {Array.isArray(details.filaments) &&
                 details.filaments.map((item, index) => (
@@ -243,7 +306,10 @@ function PrinterDetails(props) {
             className=''
             color='red'
           >
-            Back
+            <FormattedMessage
+              id='back'
+              defaultMessage='Back'
+            />
           </Button>
         </StyledLink>
       </main>
@@ -256,7 +322,7 @@ function PrinterDetails(props) {
         />
       )}
       {deleteBox && (
-        <DeleteBox
+        <DeletePrinterBox
           setDeleteBox={setDeleteBox}
           api={props.api}
           printerName={details.name}

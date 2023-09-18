@@ -58,7 +58,7 @@ function AddPrinter(props) {
 
   useEffect(() => {
     getAddedPrinter();
-  }, []);
+  });
 
   const printerModelAddHandler = async () => {
     if (modelEntered === '') {
@@ -151,7 +151,7 @@ function AddPrinter(props) {
             />
             <StyledLabel htmlFor='printer-model-add'>
               <FormattedMessage
-                id='printers.newmodelname'
+                id='printers.newModelName'
                 defaultMessage='Add printer model name'
               />
             </StyledLabel>
@@ -170,7 +170,7 @@ function AddPrinter(props) {
               onClick={printerModelAddHandler}
             >
               <FormattedMessage
-                id='printers.newmodel'
+                id='printers.newModel'
                 defaultMessage='Add model'
               />
             </Button>
@@ -213,14 +213,19 @@ function AddPrinter(props) {
                 }}
               >
                 <FormattedMessage
-                  id='printers.deletemodel'
+                  id='printers.deleteModel'
                   defaultMessage='Delete model'
                 />
               </Button>
             </div>
           </div>
         )}
-        <InfoType text={'Printer'} />
+        <InfoType
+          text={intl.formatMessage({
+            id: 'printers.printer',
+            defaultMessage: 'Printer',
+          })}
+        />
         <div className='printer-add-input'>
           <div className='add-input'>
             <StyledInput
@@ -230,7 +235,7 @@ function AddPrinter(props) {
               value={printerNameEntered}
               // placeholder='Printer name'
               placeholder={intl.formatMessage({
-                id: 'printers.printername',
+                id: 'printers.printerName',
                 defaultMessage: 'Printer name',
               })}
               onChange={(event) => {
@@ -262,7 +267,7 @@ function AddPrinter(props) {
           onClick={printerAdd}
         >
           <FormattedMessage
-            id='printers.addprinter'
+            id='printers.addPrinter'
             defaultMessage='Add printer'
           />
         </Button>

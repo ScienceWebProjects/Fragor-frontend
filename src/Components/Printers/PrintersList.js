@@ -61,7 +61,7 @@ function PrintersList(props) {
             color='yellow'
           >
             <FormattedMessage
-              id='printers.addprinter'
+              id='printers.addPrinter'
               defaultMessage='Add Printer'
             />
           </Button>
