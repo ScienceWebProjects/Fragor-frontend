@@ -8,13 +8,6 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(
-      60deg,
-      rgb(238, 238, 238) 30%,
-      rgb(210, 210, 210) 50%,
-      rgb(238, 238, 238) 70%
-    )
-    no-repeat fixed;
 }
 
 code {
