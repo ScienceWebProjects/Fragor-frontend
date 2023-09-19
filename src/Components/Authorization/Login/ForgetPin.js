@@ -6,27 +6,31 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import { FormattedMessage } from 'react-intl';
-import Pin from '../../_shared/Pin';
-import SelectLanguage from './SelectLanguage';
+import ChangePinBox from '../../Settings/Boxes/ChangePinBox';
 
 // UI elements
-import './LoginPage.scss';
 import logo from '../../../Images/logo-black.png';
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
 import StyledLink from '../../UI/shared/StyledLink';
 
-function LoginPage(props) {
+// scss
+
+function ForgetPin(props) {
+  // variables for login by password
   const [emailEntered, setEmailEntered] = useState('');
-  const [pinEntered, setPinEntered] = useState('');
+  const [passwordEntered, setPasswordEntered] = useState('');
+
+  // variables for change pin
+  const [changePinBox, setChangePinBox] = useState(false);
 
   const navigate = useNavigate();
 
   const makeAPIPost = async () => {
     const loginData = {
       email: emailEntered,
-      pin: pinEntered,
+      password: passwordEntered,
     };
 
     const requestOptions = {
@@ -36,7 +40,7 @@ function LoginPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.loginPin}`, requestOptions);
+      const response = await fetch(`${props.api.ip}${props.api.loginPassword}`, requestOptions);
 
       if (response.status === 404) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
@@ -66,7 +70,8 @@ function LoginPage(props) {
     const successful = await makeAPIPost();
 
     if (successful) {
-      navigate(props.api.home);
+      setChangePinBox(true);
+      // navigate(props.api.home);
     }
   };
 
@@ -91,8 +96,7 @@ function LoginPage(props) {
         </div>
       </header>
 
-      <main className='App-header login_form'>
-        <SelectLanguage />
+      <main className='App-header'>
         <form onSubmit={submitFormHandler}>
           <div style={{ width: '85vw', margin: '0 auto' }}>
             <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
@@ -107,16 +111,18 @@ function LoginPage(props) {
               required
             ></StyledInput>
           </div>
-          <div>
-            <Pin
-              text={'PIN'}
-              length={4}
-              style={{ width: '85%', margin: '0 auto' }}
-              onPinEntered={(pin) => {
-                setPinEntered(pin);
-              }}
-            />
-          </div>
+          <StyledLabel htmlFor='user-password'>Password</StyledLabel>
+          <StyledInput
+            name='user-password'
+            id='user-password'
+            type='password'
+            value={passwordEntered}
+            onChange={(event) => {
+              setPasswordEntered(event.target.value);
+            }}
+            required
+          />
+
           <Button
             color='green'
             type='submit'
@@ -128,34 +134,30 @@ function LoginPage(props) {
           </Button>
         </form>
 
-        <StyledLink to={props.api.signinPage}>
-          <Button color='yellow'>
+        <StyledLink to={props.api.home}>
+          <Button color='red'>
             <FormattedMessage
-              id='login.signinBtn'
-              defaultMessage='Sign in'
+              id='back'
+              defaultMessage='Back'
             />
           </Button>
         </StyledLink>
-        <div className='main_additionals'>
-          <StyledLink
-            to={props.api.forgetPin}
-            className='additionals_reminder'
-          >
-            <FormattedMessage
-              id='login.forgetPin'
-              defaultMessage='Forget PIN?'
-            />
-          </StyledLink>
-          <StyledLink to={'/'}>
-            <FormattedMessage
-              id='login.privacy'
-              defaultMessage='Privacy policy'
-            />
-          </StyledLink>
-        </div>
       </main>
+
+      {changePinBox && (
+        <ChangePinBox
+          api={props.api}
+          setChangePinBox={setChangePinBox}
+          hideCancelBtn={true}
+          onSuccess={() => {
+            setChangePinBox(false);
+            alert('Succesfull PIN changed.');
+            navigate(props.api.home);
+          }}
+        />
+      )}
     </div>
   );
 }
 
-export default LoginPage;
+export default ForgetPin;

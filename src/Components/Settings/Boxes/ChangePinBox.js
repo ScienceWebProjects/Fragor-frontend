@@ -18,7 +18,7 @@ import '../../UI/shared/_box.scss';
 function ChangePinBox(props) {
   const user = useToken();
 
-  const { setChangePinBox } = props;
+  const { setChangePinBox, onSuccess, hideCancelBtn } = props;
   const [passwordEntered, setPasswordEntered] = useState('');
   const [newPinEntered, setNewPinEntered] = useState('');
 
@@ -56,8 +56,9 @@ function ChangePinBox(props) {
     const successful = await changePinApiCall();
 
     if (successful) {
-      setChangePinBox(false);
-      alert('Succesfull PIN changed.');
+      // setChangePinBox(false);
+      // alert('Succesfull PIN changed.');
+      onSuccess();
     }
     btn.textContent = 'Confirm';
   };
@@ -88,15 +89,17 @@ function ChangePinBox(props) {
           />
 
           <section className='box-btns'>
-            <Button
-              className='btns-btn'
-              color='yellow'
-              id='cancelBtn'
-              type='button'
-              onClick={() => setChangePinBox(false)}
-            >
-              Back
-            </Button>
+            {!hideCancelBtn && (
+              <Button
+                className='btns-btn'
+                color='yellow'
+                id='cancelBtn'
+                type='button'
+                onClick={() => setChangePinBox(false)}
+              >
+                Back
+              </Button>
+            )}
             <Button
               className='btns-btn'
               color='green'

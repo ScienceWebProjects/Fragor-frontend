@@ -24,6 +24,7 @@ import UserDetails from './Components/Users/UserDetails';
 import OwnersPage from './Components/Owners/OwnersPage';
 import CompanyDetails from './Components/Owners/CompanyDetails';
 import DevicesPage from './Components/Devices/DevicesPage';
+import ForgetPin from './Components/Authorization/Login/ForgetPin';
 
 // UI elements
 import './App.css';
@@ -50,6 +51,7 @@ function App() {
   const router = createBrowserRouter([
     { path: endpoints.loginPage, element: <LoginPage api={endpoints} /> },
     { path: endpoints.signinPage, element: <SigninPage api={endpoints} /> },
+    { path: endpoints.forgetPin, element: <ForgetPin api={endpoints} /> },
     { path: endpoints.home, element: <HomePage api={endpoints} /> },
 
     {
