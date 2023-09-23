@@ -111,7 +111,12 @@ function ForgetPin(props) {
               required
             ></StyledInput>
           </div>
-          <StyledLabel htmlFor='user-password'>Password</StyledLabel>
+          <StyledLabel htmlFor='user-password'>
+            <FormattedMessage
+              id='login.password'
+              defaultMessage='Password'
+            />
+          </StyledLabel>
           <StyledInput
             name='user-password'
             id='user-password'
