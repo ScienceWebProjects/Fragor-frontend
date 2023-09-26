@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../Hooks/useWindowSize';
 
 // components
+import { FormattedMessage } from 'react-intl';
 import Pin from '../../_shared/Pin';
 
 // downloaded components
@@ -19,6 +20,11 @@ import InfoType from './UI/InfoType';
 import StyledLink from '../../UI/shared/StyledLink';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
+
+// scss
+import '../scss/_signin-page.scss';
+import '../../UI/shared/_media-queries.scss';
+import '../scss/_signin-media-queries.scss';
 
 function SigninPage(props) {
   const [firstNameEntered, setFirstNameEntered] = useState('');
@@ -90,150 +96,149 @@ function SigninPage(props) {
   };
 
   return (
-    <div className='App'>
-      <header className='header_logo'>
-        <h1 className='logo_txt'>
-          3D printing assistant
-          <br />
-          Project by:
-          <br />
-          Piotr Goraj & Dawid Franczak
-          <br />
-        </h1>
-        <div className='logo_img'>
-          <a href='https://github.com/ScienceWebProjects/filament-measurement'>
-            <img
-              src={logo}
-              alt='Logo'
-            />
-          </a>
-        </div>
-      </header>
+    <div className='media-background'>
+      <div className='App'>
+        <header className='header_logo'>
+          <h1 className='logo_txt'>
+            3D printing assistant
+            <br />
+            Project by:
+            <br />
+            Piotr Goraj & Dawid Franczak
+            <br />
+          </h1>
+          <div className='logo_img'>
+            <a href='https://github.com/ScienceWebProjects/filament-measurement'>
+              <img
+                src={logo}
+                alt='Logo'
+              />
+            </a>
+          </div>
+        </header>
 
-      <main
-        className='App-header'
-        style={{ minHeight: '77vh' }}
-      >
-        <form onSubmit={submitFormHandler}>
-          <InfiniteScroll
-            dataLength={''}
-            hasMore={false}
-            height={windowSize * 0.5}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              width: '85vw',
-              textAlign: 'center',
-              alignItems: 'center',
-              padding: '0px 15px 0 15px',
-              margin: '10px',
-            }}
+        <main
+          className='App-header'
+          style={{ minHeight: '77vh' }}
+        >
+          <form
+            onSubmit={submitFormHandler}
+            style={{ width: '100%' }}
           >
-            <InfoType text={'Personal information'} />
+            <InfiniteScroll
+              dataLength={''}
+              hasMore={false}
+              height={windowSize * 0.5}
+              className='infinite-scroll'
+            >
+              <InfoType text={'Personal information'} />
 
-            <StyledLabel htmlFor='first-name'>First Name</StyledLabel>
-            <StyledInput
-              name='first-name'
-              id='first-name'
-              type='text'
-              value={firstNameEntered}
-              onChange={(event) => {
-                setFirstNameEntered(event.target.value);
-              }}
-              required
-            ></StyledInput>
+              <StyledLabel htmlFor='first-name'>First Name</StyledLabel>
+              <StyledInput
+                name='first-name'
+                id='first-name'
+                type='text'
+                value={firstNameEntered}
+                onChange={(event) => {
+                  setFirstNameEntered(event.target.value);
+                }}
+                required
+              ></StyledInput>
 
-            <StyledLabel htmlFor='last-name'>Last Name</StyledLabel>
-            <StyledInput
-              name='last-name'
-              id='last-name'
-              type='text'
-              value={lastNameEntered}
-              onChange={(event) => {
-                setLastNameEntered(event.target.value);
-              }}
-              required
-            ></StyledInput>
+              <StyledLabel htmlFor='last-name'>Last Name</StyledLabel>
+              <StyledInput
+                name='last-name'
+                id='last-name'
+                type='text'
+                value={lastNameEntered}
+                onChange={(event) => {
+                  setLastNameEntered(event.target.value);
+                }}
+                required
+              ></StyledInput>
 
-            <InfoType text={'Account information'} />
+              <InfoType text={'Account information'} />
 
-            <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
-            <StyledInput
-              name='user-email'
-              id='user-email'
-              type='email'
-              value={emailEntered}
-              onChange={(event) => {
-                setEmailEntered(event.target.value);
-              }}
-              required
-            ></StyledInput>
+              <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
+              <StyledInput
+                name='user-email'
+                id='user-email'
+                type='email'
+                value={emailEntered}
+                onChange={(event) => {
+                  setEmailEntered(event.target.value);
+                }}
+                required
+              ></StyledInput>
 
-            <Pin
-              text={'PIN'}
-              length={4}
-              style={{ width: '100%', margin: '0 auto' }}
-              onPinEntered={(pin) => {
-                setPinEntered(pin);
-              }}
-            />
+              <Pin
+                text={'PIN'}
+                length={4}
+                style={{ width: '100%', margin: '0 auto' }}
+                onPinEntered={(pin) => {
+                  setPinEntered(pin);
+                }}
+              />
 
-            <StyledLabel htmlFor='user-password'>Password</StyledLabel>
-            <StyledInput
-              name='user-password'
-              id='user-password'
-              type='password'
-              value={passwordEntered}
-              onChange={(event) => {
-                setPasswordEntered(event.target.value);
-              }}
-              required
-            ></StyledInput>
+              <StyledLabel htmlFor='user-password'>Password</StyledLabel>
+              <StyledInput
+                name='user-password'
+                id='user-password'
+                type='password'
+                value={passwordEntered}
+                onChange={(event) => {
+                  setPasswordEntered(event.target.value);
+                }}
+                required
+              ></StyledInput>
 
-            <StyledLabel htmlFor='user-confirm-password'>Confirm password</StyledLabel>
-            <StyledInput
-              name='user-confirm-password'
-              id='user-confirm-password'
-              type='password'
-              value={passwordConfirmEntered}
-              onChange={(event) => {
-                setPasswordConfirmEntered(event.target.value);
-              }}
-              required
-            ></StyledInput>
+              <StyledLabel htmlFor='user-confirm-password'>Confirm password</StyledLabel>
+              <StyledInput
+                name='user-confirm-password'
+                id='user-confirm-password'
+                type='password'
+                value={passwordConfirmEntered}
+                onChange={(event) => {
+                  setPasswordConfirmEntered(event.target.value);
+                }}
+                required
+              ></StyledInput>
 
-            <InfoType text={'Product information'} />
+              <InfoType text={'Product information'} />
 
-            <StyledLabel htmlFor='product-key'>Product key</StyledLabel>
-            <StyledInput
-              name='product-key'
-              id='product-key'
-              type='text'
-              value={productInformationEntered}
-              onChange={(event) => {
-                setProductInformationEntered(event.target.value);
-              }}
-              required
-            ></StyledInput>
-          </InfiniteScroll>
-          <Button
-            className=''
-            color='yellow'
-            type='submit'
-          >
-            Sign in
-          </Button>
-        </form>
-        <StyledLink to={props.api.loginPage}>
-          <Button
-            className=''
-            color='red'
-          >
-            Back
-          </Button>
-        </StyledLink>
-      </main>
+              <StyledLabel htmlFor='product-key'>Product key</StyledLabel>
+              <StyledInput
+                name='product-key'
+                id='product-key'
+                type='text'
+                value={productInformationEntered}
+                onChange={(event) => {
+                  setProductInformationEntered(event.target.value);
+                }}
+                required
+              ></StyledInput>
+            </InfiniteScroll>
+            <Button
+              className='sign-btn'
+              color='yellow'
+              type='submit'
+            >
+              Sign in
+            </Button>
+          </form>
+          <StyledLink to={props.api.loginPage}>
+            <Button
+              className='sign-btn'
+              color='red'
+            >
+              <FormattedMessage
+                id='back'
+                defaultMessage='Back'
+              />
+            </Button>
+          </StyledLink>
+        </main>
+      </div>
     </div>
   );
 }

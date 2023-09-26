@@ -1,5 +1,5 @@
-@import './variables';
-@import './functions';
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
 
 @media (min-width: $breakpoint-desktop) {
   .media-background {
@@ -33,40 +33,6 @@
           height: 15rem;
           max-width: unset;
           max-height: unset;
-        }
-      }
-
-      .App-header {
-        min-height: unset;
-        width: 60%;
-
-        .lang-menu {
-          right: 12vw;
-          top: 14vh;
-        }
-
-        .styled-input {
-          width: 60% !important;
-          @include flexCenter(column, center, flex-start);
-        }
-
-        .styled-pin {
-          width: 60% !important;
-
-          .pin_heading {
-            width: 100%;
-          }
-        }
-
-        .log-btn {
-          width: 30vw;
-        }
-
-        .main_additionals {
-          position: absolute;
-          bottom: 15vh;
-          right: 13vw;
-          width: 7rem;
         }
       }
     }
