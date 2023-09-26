@@ -1,0 +1,10 @@
+<FormattedMessage
+                id=''
+                defaultMessage=''
+              />
+
+
+intl.formatMessage({
+      id: '',
+      defaultMessage: '',
+    })

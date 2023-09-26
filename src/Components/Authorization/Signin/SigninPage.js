@@ -5,6 +5,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../Hooks/useWindowSize';
+import { useIntl } from 'react-intl';
 
 // components
 import { FormattedMessage } from 'react-intl';
@@ -27,6 +28,8 @@ import '../../UI/shared/_media-queries.scss';
 import '../scss/_signin-media-queries.scss';
 
 function SigninPage(props) {
+  const intl = useIntl();
+
   const [firstNameEntered, setFirstNameEntered] = useState('');
   const [lastNameEntered, setLastNameEntered] = useState('');
   const [emailEntered, setEmailEntered] = useState('');
@@ -131,9 +134,20 @@ function SigninPage(props) {
               height={windowSize * 0.5}
               className='infinite-scroll'
             >
-              <InfoType text={'Personal information'} />
+              <InfoType
+                text={intl.formatMessage({
+                  id: 'signin.personalInfo',
+                  defaultMessage: 'Personal information',
+                })}
+              />
 
-              <StyledLabel htmlFor='first-name'>First Name</StyledLabel>
+              <StyledLabel htmlFor='first-name'>
+                {' '}
+                <FormattedMessage
+                  id='signin.firstName'
+                  defaultMessage='First Name'
+                />
+              </StyledLabel>
               <StyledInput
                 name='first-name'
                 id='first-name'
@@ -145,7 +159,12 @@ function SigninPage(props) {
                 required
               ></StyledInput>
 
-              <StyledLabel htmlFor='last-name'>Last Name</StyledLabel>
+              <StyledLabel htmlFor='last-name'>
+                <FormattedMessage
+                  id='signin.lastName'
+                  defaultMessage='Last Name'
+                />
+              </StyledLabel>
               <StyledInput
                 name='last-name'
                 id='last-name'
@@ -157,9 +176,19 @@ function SigninPage(props) {
                 required
               ></StyledInput>
 
-              <InfoType text={'Account information'} />
+              <InfoType
+                text={intl.formatMessage({
+                  id: 'signin.accountInfo',
+                  defaultMessage: 'Account information',
+                })}
+              />
 
-              <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
+              <StyledLabel htmlFor='user-email'>
+                <FormattedMessage
+                  id='email'
+                  defaultMessage='E-mail'
+                />
+              </StyledLabel>
               <StyledInput
                 name='user-email'
                 id='user-email'
@@ -180,7 +209,12 @@ function SigninPage(props) {
                 }}
               />
 
-              <StyledLabel htmlFor='user-password'>Password</StyledLabel>
+              <StyledLabel htmlFor='user-password'>
+                <FormattedMessage
+                  id='signin.password'
+                  defaultMessage='Password'
+                />
+              </StyledLabel>
               <StyledInput
                 name='user-password'
                 id='user-password'
@@ -192,7 +226,12 @@ function SigninPage(props) {
                 required
               ></StyledInput>
 
-              <StyledLabel htmlFor='user-confirm-password'>Confirm password</StyledLabel>
+              <StyledLabel htmlFor='user-confirm-password'>
+                <FormattedMessage
+                  id='signin.passwordConfirm'
+                  defaultMessage='Confirm password'
+                />
+              </StyledLabel>
               <StyledInput
                 name='user-confirm-password'
                 id='user-confirm-password'
@@ -204,9 +243,19 @@ function SigninPage(props) {
                 required
               ></StyledInput>
 
-              <InfoType text={'Product information'} />
+              <InfoType
+                text={intl.formatMessage({
+                  id: 'signin.productInfo',
+                  defaultMessage: 'Product information',
+                })}
+              />
 
-              <StyledLabel htmlFor='product-key'>Product key</StyledLabel>
+              <StyledLabel htmlFor='product-key'>
+                <FormattedMessage
+                  id='signin.productKey'
+                  defaultMessage='Product key'
+                />
+              </StyledLabel>
               <StyledInput
                 name='product-key'
                 id='product-key'
@@ -223,7 +272,10 @@ function SigninPage(props) {
               color='yellow'
               type='submit'
             >
-              Sign in
+              <FormattedMessage
+                id='login.signinBtn'
+                defaultMessage='Sign in'
+              />
             </Button>
           </form>
           <StyledLink to={props.api.loginPage}>
