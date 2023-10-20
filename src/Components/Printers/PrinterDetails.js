@@ -10,11 +10,13 @@ import useToken from '../../Hooks/useToken';
 import TopBar from '../_shared/TopBar';
 import PrinterEditBox from './Boxes/PrinterEditBox';
 import DeleteBox from './Boxes/DeleteBox';
+import NotesBox from './Boxes/NotesBox';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
+import iconNotes from '../../Images/note.png';
 import iconImg from '../../Images/image-icon.png';
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
@@ -27,6 +29,7 @@ function PrinterDetails(props) {
   const [details, setDetails] = useState(props.details);
   const [editBox, setEditBox] = useState(false);
   const [deleteBox, setDeleteBox] = useState(false);
+  const [notesBox, setNotesBox] = useState(false);
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -173,6 +176,7 @@ function PrinterDetails(props) {
             {details.image ? (
               <img
                 src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
+                alt='Printer img'
                 className='img-img'
               />
             ) : (
@@ -193,6 +197,7 @@ function PrinterDetails(props) {
               >
                 <img
                   src={iconImg}
+                  alt='icon-img'
                   className='btn-icon'
                 />
               </button>
@@ -213,13 +218,30 @@ function PrinterDetails(props) {
             </form>
           </div>
 
-          <div>
+          <div className='printer-info'>
+            <button
+              className='info-notes'
+              type='button'
+              onClick={() => {
+                setNotesBox(true);
+              }}
+            >
+              <img
+                src={iconNotes}
+                alt='Notes'
+                className='info-notes__button'
+              />
+            </button>
             <InfiniteScroll
               dataLength={''}
               hasMore={false}
               height={'30vh'}
               // endMessage={'No more added filaments'}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
             >
               <div>Name: {details.name}</div>
               <div>Model: {details.model}</div>
@@ -261,6 +283,13 @@ function PrinterDetails(props) {
           api={props.api}
           printerName={details.name}
           id={details.id}
+        />
+      )}
+      {notesBox && (
+        <NotesBox
+          api={props.api}
+          id={details.id}
+          onNotesBox={setNotesBox}
         />
       )}
     </div>

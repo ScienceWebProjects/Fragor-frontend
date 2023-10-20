@@ -78,7 +78,10 @@ function PrinterEditBox(props) {
       },
     };
     try {
-      const response = await fetch(`${props.api.ip}${props.api.printersModelsGet}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.printersModelsGet}`,
+        requestOptions
+      );
 
       const modelsList = await response.json();
       const modelsNames = [];
@@ -94,7 +97,7 @@ function PrinterEditBox(props) {
   };
   useEffect(() => {
     modelsGetAPICall();
-  }, []);
+  });
 
   return (
     <div className='shadow'>

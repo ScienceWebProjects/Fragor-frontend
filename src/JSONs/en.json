@@ -1,0 +1,35 @@
+{
+  "back": "Back",
+  "confirm": "Confirm",
+  "waiting": "Waiting...",
+  "deleting": "Deleting...",
+  "delete": "Delete",
+  "addDevice": "Add device",
+  "edit": "Edit",
+  "all": "All",
+
+  "alert.addedDevice": "Succesfully added device.",
+
+  "login.loginBtn": "Log in",
+  "login.signinBtn": "Sign in",
+  "login.forgetPin": "Forget PIN?",
+  "login.privacy": "Privacy policy",
+
+  "home.printers": "Printers",
+  "home.filaments": "Filaments",
+  "home.settings": "Settings",
+  "home.devices": "Devices",
+  "home.users": "Users",
+  "home.owners": "Owners",
+
+  "printers.addPrinter": "Add printer",
+  "printers.model": "Model",
+  "printers.name": "Nazwa",
+  "printers.printer": "Printer",
+  "printers.workHours": "Hours worked",
+  "printers.printedFilaments": "Filaments printed",
+  "printers.newModelName": "Add printer model name",
+  "printers.newModel": "Add model",
+  "printers.deleteModel": "Delete model",
+  "printers.printerName": "Printer name"
+}
