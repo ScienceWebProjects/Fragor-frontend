@@ -40,12 +40,13 @@ $icon-style: (
 
       width: 1.5rem;
       margin: 0 auto;
+      font-size: 1.25rem;
 
       cursor: pointer;
 
-      .save-ico {
-        width: 100%;
-        height: auto;
+      &:hover {
+        color: $blue;
+        transition: 400ms;
       }
     }
   }
@@ -68,29 +69,28 @@ $icon-style: (
       width: 20%;
 
       .btn__delete {
+        font-size: 1.25rem;
+
         @each $property, $value in $icon-style {
           #{$property}: $value;
         }
 
         &:hover {
-          background-color: transparent;
-          color: red;
-          filter: brightness(0) invert(1);
-        }
-
-        .delete-ico {
-          width: 100%;
-          height: auto;
+          color: $red;
+          transition: 400ms;
         }
       }
 
       .btn__edit {
+        font-size: 1.25rem;
+
         @each $property, $value in $icon-style {
           #{$property}: $value;
         }
-        .edit-ico {
-          width: 100%;
-          height: auto;
+
+        &:hover {
+          color: $yellow;
+          transition: 400ms;
         }
       }
     }

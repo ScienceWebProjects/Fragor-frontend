@@ -7,13 +7,24 @@
   "addDevice": "Add device",
   "edit": "Edit",
   "all": "All",
+  "email": "E-mail",
 
   "alert.addedDevice": "Succesfully added device.",
 
+  "login.password": "Password",
   "login.loginBtn": "Log in",
   "login.signinBtn": "Sign in",
   "login.forgetPin": "Forget PIN?",
   "login.privacy": "Privacy policy",
+
+  "signin.personalInfo": "Personal information",
+  "signin.firstName": "First name",
+  "signin.lastName": "Last name",
+  "signin.accountInfo": "Account information",
+  "signin.password": "Password",
+  "signin.passwordConfirm": "Confirm password",
+  "signin.productInfo": "Product information",
+  "signin.productKey": "Product key",
 
   "home.printers": "Printers",
   "home.filaments": "Filaments",
