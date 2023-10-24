@@ -1,24 +1,33 @@
 // libs
 
 // hooks
-import { useState, useEffect } from 'react';
-import useToken from '../../../Hooks/useToken';
-import usePermissions from '../../../Hooks/usePermissions';
+import { useState, useEffect, useRef } from 'react';
+import useToken from '../../Hooks/useToken';
+import usePermissions from '../../Hooks/usePermissions';
 
 // components
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
-import '../../../Fonts/fontello-notes/css/fontello.css';
-import Button from '../../UI/shared/buttons/Button';
+import '../../Fonts/fontello/css/fragor.css';
+import Button from '../UI/shared/buttons/Button';
 
 // scss
-import '../../UI/shared/_box.scss';
-import '../scss/_details-printer-notes.scss';
+import '../UI/shared/_box.scss';
+import './UI/_details-notes.scss';
 
 function NotesBox({ api, object, id, onNotesBox }) {
   const user = useToken();
   const permission = usePermissions(user);
+  const lastNoteRef = useRef(null);
+
+  // check the object for which the note is to be changed
+  const objectApi =
+    object === 'printer'
+      ? api.printerAPI
+      : object === 'filament'
+      ? api.filamentAPI
+      : null;
 
   // if authorization >= changer = true
   const changerUser = permission.changer;
@@ -28,24 +37,22 @@ function NotesBox({ api, object, id, onNotesBox }) {
   const newNoteBtn = changerUser ? true : false;
 
   const [notes, setNotes] = useState([
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
-    'No added note yet.',
+    {
+      id: 1,
+      note: 'Note 1',
+    },
+    {
+      id: 2,
+      note: 'Note 2',
+    },
+    {
+      id: 3,
+      note: 'Note 3',
+    },
   ]);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editedNote, setEditedNote] = useState('');
+  const [isAddingNewNote, setIsAddingNewNote] = useState(false);
 
   const getNoteApiCall = async () => {
     const requestOptions = {
@@ -57,13 +64,13 @@ function NotesBox({ api, object, id, onNotesBox }) {
     };
     try {
       const response = await fetch(
-        `${api.ip}${api.shareNotesGet}${object}/${id}/`,
+        `${api.ip}${objectApi}${api.printerNotesGet_printerId}${id}/`,
         requestOptions
       );
 
-      const notesArray = await response.json();
+      const notes = await response.json();
 
-      setNotes(notesArray);
+      setNotes(notes);
     } catch (error) {
       console.log(error);
     }
@@ -72,17 +79,14 @@ function NotesBox({ api, object, id, onNotesBox }) {
     getNoteApiCall();
   });
 
-  const newEditNoteApiCall = async () => {
-    // e.preventDefault();
-
+  const newEditNoteApiCall = async (noteId, note = null) => {
     const editData = {
-      object: object,
-      id: id,
-      notes: notes,
+      id: noteId,
+      note: note,
     };
 
     const requestOptions = {
-      method: 'PUT',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
@@ -92,7 +96,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
     try {
       const response = await fetch(
-        `${api.ip}${api.shareNotesUpdate}${object}/${id}/`,
+        `${api.ip}${objectApi}${api.printerNoteUpdate_printerId}${id}/`,
         requestOptions
       );
 
@@ -111,51 +115,100 @@ function NotesBox({ api, object, id, onNotesBox }) {
     }
   };
 
+  const noteError = () => {
+    // If you try to add a new note before saving the current note
+    const editingNote = document.querySelector('.save-text');
+    editingNote.classList.toggle('warning');
+
+    setTimeout(() => {
+      editingNote.classList.toggle('warning');
+    }, 300);
+  };
+
   const editHandler = (index) => {
+    if (isAddingNewNote) {
+      noteError();
+      return;
+    }
+
+    setIsAddingNewNote(true);
     setEditingIndex(index);
     setEditedNote(notes[index]);
   };
 
-  const saveHandler = (index) => {
-    const newNotes = [...notes];
-    newNotes[index] = editedNote;
+  const saveHandler = (noteId, note) => {
+    console.log(noteId, note);
 
-    const success = newEditNoteApiCall();
+    const success = newEditNoteApiCall(noteId, note);
+
     if (success === true) {
-      setNotes(newNotes);
+      setEditingIndex(-1);
+      setIsAddingNewNote(false);
     }
-
-    setEditingIndex(-1);
   };
 
-  const deleteHandler = (index) => {
-    const newNotes = [...notes];
-    newNotes.splice(index, 1);
+  const deleteHandler = async (noteId) => {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
 
-    const success = newEditNoteApiCall();
+    try {
+      const response = await fetch(
+        `${api.ip}${objectApi}${id}/${api.printerNoteDelete_id}${noteId}/`,
+        requestOptions
+      );
 
-    if (success === true) {
-      setNotes(newNotes);
+      if (response.status === 204) {
+        return console.log('Delete note.');
+      }
+
+      if (response.status === 400 || response.status === 404) {
+        alert(response.message);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Something went wrong.');
+      return;
     }
   };
 
   const addNewNoteHandler = () => {
-    const success = newEditNoteApiCall();
-
-    if (success === true) {
-      // create new note
-      const newNote = 'New note';
-
-      // Add a new note to an existing note list
-      const newNotes = [...notes, newNote];
-
-      // Set the index of a new note in edit mode
-      const newIndex = newNotes.length - 1;
-
-      setNotes(newNotes);
-      setEditingIndex(newIndex);
-      setEditedNote(newNote);
+    if (isAddingNewNote) {
+      noteError();
+      return;
     }
+
+    setIsAddingNewNote(true);
+
+    // creating new note
+    const newNote = {
+      id: notes.length + 1,
+      note: 'New note',
+    };
+
+    // Add a new note to an existing note list
+    const newNotes = [...notes, newNote];
+
+    // Set the index of a new note in edit mode
+    const newIndex = newNotes.length - 1;
+
+    setNotes(newNotes);
+    setEditingIndex(newIndex);
+    setEditedNote(newNote);
+
+    setTimeout(() => {
+      if (lastNoteRef.current) {
+        lastNoteRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
+      }
+    }, 100);
   };
 
   return (
@@ -169,20 +222,23 @@ function NotesBox({ api, object, id, onNotesBox }) {
             // endMessage={'No more added filaments'}
           >
             {notes.map((note, index) => (
-              <div key={index}>
+              <div
+                key={note.id}
+                ref={index === notes.length - 1 ? lastNoteRef : null}
+              >
                 {index === editingIndex ? (
-                  <div className='note-edit'>
+                  <div className='note-save'>
                     <textarea
                       rows={'4'}
-                      value={editedNote}
-                      className='edit-text'
+                      value={editedNote.note}
+                      className='save-text'
                       onChange={(e) => setEditedNote(e.target.value)}
                     />
                     {saveBtn && (
                       <button
-                        className='edit-btn'
+                        className='save-btn'
                         onClick={() => {
-                          saveHandler(index);
+                          saveHandler(note.id, editedNote);
                         }}
                       >
                         <i className='icon-floppy'></i>
@@ -191,13 +247,13 @@ function NotesBox({ api, object, id, onNotesBox }) {
                   </div>
                 ) : (
                   <section className='note-wrapper'>
-                    <div className='wrapper-text'>{note}</div>
+                    <div className='wrapper-text'>{note.note}</div>
                     <div className='wrapper-btns'>
                       {deleteBtn && (
                         <button
                           className='btn__delete'
                           onClick={() => {
-                            deleteHandler(index);
+                            deleteHandler(note.id);
                           }}
                         >
                           <i className='icon-trash'></i>

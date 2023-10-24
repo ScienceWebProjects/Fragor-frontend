@@ -10,6 +10,12 @@ $icon-style: (
   cursor: pointer,
 );
 
+.warning {
+  // transition: 100ms;
+  border: 3px lighten($red, 15%) dashed !important;
+  background-color: $secondary-color !important;
+}
+
 .notes-container {
   width: 105%;
   min-height: 22rem;
@@ -17,10 +23,12 @@ $icon-style: (
 
   border-radius: $corners;
 
-  .note-edit {
+  .note-save {
     @include flexCenter(row, space-between, center);
-
-    .edit-text {
+    .save-text {
+      -webkit-transition: 300ms;
+      -o-transition: 300ms;
+      transition: 300ms;
       width: 75%;
       padding: 0.313rem;
 
@@ -33,7 +41,7 @@ $icon-style: (
       border-radius: 0.625rem;
     }
 
-    .edit-btn {
+    .save-btn {
       @each $property, $value in $button-style-remove {
         #{$property}: $value;
       }
@@ -46,6 +54,8 @@ $icon-style: (
 
       &:hover {
         color: $blue;
+        -webkit-transition: 400ms;
+        -o-transition: 400ms;
         transition: 400ms;
       }
     }
@@ -77,6 +87,8 @@ $icon-style: (
 
         &:hover {
           color: $red;
+          -webkit-transition: 400ms;
+          -o-transition: 400ms;
           transition: 400ms;
         }
       }
@@ -90,6 +102,8 @@ $icon-style: (
 
         &:hover {
           color: $yellow;
+          -webkit-transition: 400ms;
+          -o-transition: 400ms;
           transition: 400ms;
         }
       }

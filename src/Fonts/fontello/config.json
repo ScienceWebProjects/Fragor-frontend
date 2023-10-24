@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "fragor",
   "css_prefix_text": "icon-",
   "css_use_suffix": false,
   "hinting": true,
@@ -29,6 +29,12 @@
       "css": "edit-1",
       "code": 59396,
       "src": "elusive"
+    },
+    {
+      "uid": "3def559c3c39b8500882e02892b7daa8",
+      "css": "picture-1",
+      "code": 59397,
+      "src": "entypo"
     }
   ]
 }

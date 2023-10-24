@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'fontello';
-  src: url('../font/fontello.eot?56333048');
-  src: url('../font/fontello.eot?56333048#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?56333048') format('woff2'),
-       url('../font/fontello.woff?56333048') format('woff'),
-       url('../font/fontello.ttf?56333048') format('truetype'),
-       url('../font/fontello.svg?56333048#fontello') format('svg');
+  font-family: 'fragor';
+  src: url('../font/fragor.eot?13081626');
+  src: url('../font/fragor.eot?13081626#iefix') format('embedded-opentype'),
+       url('../font/fragor.woff2?13081626') format('woff2'),
+       url('../font/fragor.woff?13081626') format('woff'),
+       url('../font/fragor.ttf?13081626') format('truetype'),
+       url('../font/fragor.svg?13081626#fragor') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,13 +14,13 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'fontello';
-    src: url('../font/fontello.svg?56333048#fontello') format('svg');
+    font-family: 'fragor';
+    src: url('../font/fragor.svg?13081626#fragor') format('svg');
   }
 }
 */
 [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "fontello";
+  font-family: "fragor";
   font-style: normal;
   font-weight: normal;
   speak: never;
@@ -58,3 +58,4 @@
 .icon-trash:before { content: '\e801'; } /* '' */
 .icon-pencil:before { content: '\e802'; } /* '' */
 .icon-edit-1:before { content: '\e804'; } /* '' */
+.icon-picture-1:before { content: '\e805'; } /* '' */

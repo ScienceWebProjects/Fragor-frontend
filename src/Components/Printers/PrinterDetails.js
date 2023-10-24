@@ -10,14 +10,13 @@ import useToken from '../../Hooks/useToken';
 import TopBar from '../_shared/TopBar';
 import PrinterEditBox from './Boxes/PrinterEditBox';
 import DeleteBox from './Boxes/DeleteBox';
-import NotesBox from './Boxes/NotesBox';
+import NotesBox from '../_shared/NotesBox';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
-import iconNotes from '../../Images/note.png';
-import iconImg from '../../Images/image-icon.png';
+import '../../Fonts/fontello/css/fragor.css';
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
@@ -195,11 +194,7 @@ function PrinterDetails(props) {
                   document.getElementById('fileInput').click();
                 }}
               >
-                <img
-                  src={iconImg}
-                  alt='icon-img'
-                  className='btn-icon'
-                />
+                <i className='icon-picture-1'></i>
               </button>
 
               <input
@@ -226,11 +221,7 @@ function PrinterDetails(props) {
                 setNotesBox(true);
               }}
             >
-              <img
-                src={iconNotes}
-                alt='Notes'
-                className='info-notes__button'
-              />
+              <i className='icon-edit-1'></i>
             </button>
             <InfiniteScroll
               dataLength={''}
@@ -288,6 +279,7 @@ function PrinterDetails(props) {
       {notesBox && (
         <NotesBox
           api={props.api}
+          object='printer'
           id={details.id}
           onNotesBox={setNotesBox}
         />

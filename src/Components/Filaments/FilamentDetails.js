@@ -2,12 +2,12 @@
 
 // hooks
 import { useState, useEffect } from 'react';
-import useToken from '../../Hooks/useToken';
 
 // components
 import TopBar from '../_shared/TopBar';
 import FilamentEditBox from './Boxes/FilamentEditBox';
 import FilamentDeleteBox from './Boxes/FilamentDeleteBox';
+import NotesBox from '../_shared/NotesBox';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
@@ -21,8 +21,7 @@ function FilamentDetails(props) {
   const [details, setDetails] = useState(props.details);
   const [editBox, setEditBox] = useState(false);
   const [deleteBox, setDeleteBox] = useState(false);
-
-  const user = useToken();
+  const [notesBox, setNotesBox] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -64,6 +63,16 @@ function FilamentDetails(props) {
         </div>
 
         <div className='details-filament'>
+          <button
+            className='info-notes'
+            type='button'
+            onClick={() => {
+              setNotesBox(true);
+            }}
+          >
+            <i className='icon-edit-1'></i>
+          </button>
+
           <section className='filament-data'>
             <h3>Quantity: {details.quantity} g</h3>
             <div>Material: {details.material}</div>
@@ -95,6 +104,14 @@ function FilamentDetails(props) {
           api={props.api}
           details={details}
           onFilamentDeleteBox={setDeleteBox}
+        />
+      )}
+      {notesBox && (
+        <NotesBox
+          api={props.api}
+          object='filament'
+          id={details.id}
+          onNotesBox={setNotesBox}
         />
       )}
     </div>

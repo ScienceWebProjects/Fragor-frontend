@@ -1,6 +1,6 @@
 {
   "ip_": "http://127.0.0.1:8080",
-  "ip": "http://192.168.0.4:8080",
+  "ip": "http://192.168.0.6:8080",
 
   "quotes": "https://type.fit/api/quotes",
 
@@ -25,6 +25,7 @@
 
   "registration": "/api/account/registration/",
 
+  "printerAPI": "/api/printer/",
   "printersList": "/api/printer/get/all/",
   "printerModelAdd": "/api/printer/model/add/",
   "printerModelDelete_id": "/api/printer/model/delete/",
@@ -35,9 +36,13 @@
   "printerEdit_id": "/-/",
   "printerImageAdd_id": "/api/printer/image/",
   "printerImageGet_id": "/api/printer/image/",
+  "printerNotesGet_printerId": "notes/get/all/",
+  "printerNoteUpdate_printerId": "notes/update/",
+  "printerNoteDelete_id": "notes/delete/",
 
   "deviceConnect": "/api/device/connect/",
 
+  "filamentAPI": "/api/filaments/",
   "filamentsFiltersGet": "/api/filaments/filter/get/all/",
   "filamentsFiltered": "/api/filaments/filter/",
   "filamentGet_id": "/api/filaments/get/",
