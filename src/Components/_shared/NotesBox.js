@@ -81,7 +81,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
   const newEditNoteApiCall = async (noteId, note = null) => {
     const editData = {
-      id: noteId,
+      noteID: noteId,
       note: note,
     };
 

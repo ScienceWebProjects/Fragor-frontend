@@ -1,0 +1,78 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+$panel-btns-style: (
+  font-size: 1.125rem,
+  border: 1px solid $font-color,
+  border-radius: 50%,
+  text-align: center,
+  padding: 0.125rem,
+  margin: 0.125rem,
+  cursor: pointer,
+  transition: 300ms,
+);
+
+.ininite-scroll {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 85vw;
+  text-align: center;
+  align-items: center;
+  padding: 0px 15px 0 15px;
+  margin: 10px;
+
+  .new-tariff {
+    position: relative;
+    transition: 300ms;
+
+    width: 100%;
+    min-height: 8rem;
+    color: $font-color;
+
+    background-color: rgba($primary-color, 0.3);
+    border-radius: $corners;
+
+    @include flexCenter(column, center, center);
+
+    .tarrif-close-btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      @each $property, $value in $button-style-remove {
+        #{$property}: $value;
+      }
+      @each $property, $value in $panel-btns-style {
+        #{$property}: $value;
+      }
+
+      &:hover {
+        background-color: $red;
+        color: white;
+        border: 1px solid white;
+      }
+    }
+
+    .tariff-panels {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      .panel-btn {
+        @each $property, $value in $button-style-remove {
+          #{$property}: $value;
+        }
+        @each $property, $value in $panel-btns-style {
+          #{$property}: $value;
+        }
+
+        &:hover {
+          background-color: $blue;
+          color: white;
+          border: 1px solid white;
+        }
+      }
+    }
+  }
+}

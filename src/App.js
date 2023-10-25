@@ -16,6 +16,7 @@ import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
 import FilamentsOptions from './Components/Settings/FilamentsOptions';
+import ElectricityTariff from './Components/Settings/ElectricityTariff';
 import MaterialsOptions from './Components/Settings/MaterialsOptions';
 import ColorsOptions from './Components/Settings/ColorsOptions';
 import BrandsOptions from './Components/Settings/BrandsOptions';
@@ -111,6 +112,10 @@ function App() {
     {
       path: endpoints.settingBrandsOptions,
       element: <BrandsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingsElectricityTariff,
+      element: <ElectricityTariff api={endpoints} />,
     },
     {
       path: endpoints.usersPage,

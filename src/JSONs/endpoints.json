@@ -13,6 +13,7 @@
   "filamentsPage": "/filaments-list",
   "settingsPage": "/settings",
   "settingsFilamentsOptions": "/filaments-options",
+  "settingsElectricityTariff": "/electricity-tariff",
   "settingMaterialsOptions": "/material-options",
   "settingColorsOptions": "/colors-options",
   "settingBrandsOptions": "/brands-options",

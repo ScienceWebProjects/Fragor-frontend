@@ -11,10 +11,8 @@ import Button from '../UI/shared/buttons/Button';
 // scss
 import '../UI/shared/_box.scss';
 
-function DeleteBox(props) {
+function DeleteBox({ api, ID, endpoint, deleteOption, onDeleteBox }) {
   const user = useToken();
-
-  const { api, ID, endpoint, deleteOption, onDeleteBox } = props;
 
   const deleteConfirmApiCall = async () => {
     const btn = document.getElementById('confirmBtn');
@@ -29,7 +27,10 @@ function DeleteBox(props) {
     };
 
     try {
-      const response = await fetch(`${api.ip}${endpoint}${ID}/`, requestOptions);
+      const response = await fetch(
+        `${api.ip}${endpoint}${ID}/`,
+        requestOptions
+      );
 
       if (response.status === 204) {
         onDeleteBox(false);
