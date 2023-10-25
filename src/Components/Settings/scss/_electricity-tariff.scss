@@ -23,6 +23,7 @@ $panel-btns-style: (
   margin: 10px;
 
   .new-tariff {
+    overflow: hidden;
     position: relative;
     transition: 300ms;
 
@@ -34,6 +35,39 @@ $panel-btns-style: (
     border-radius: $corners;
 
     @include flexCenter(column, center, center);
+
+    .panel {
+      display: flex;
+      width: 100%; // Set the width for one panel
+      transition: transform 0.3s ease-in-out;
+
+      .panel-week {
+        .active {
+          background-color: $blue !important;
+        }
+
+        .week-day {
+          @each $property, $value in $button-style-remove {
+            #{$property}: $value;
+          }
+
+          font-size: 1rem;
+          margin: 0.125rem;
+          padding: 0.313rem;
+
+          border: 1px solid #000;
+          border-radius: $corners;
+        }
+      }
+    }
+
+    .panel div {
+      flex: 0 0 100%; // Ensures that all div children have the same width
+    }
+
+    .panel.active {
+      transform: translateX(0%);
+    }
 
     .tarrif-close-btn {
       position: absolute;

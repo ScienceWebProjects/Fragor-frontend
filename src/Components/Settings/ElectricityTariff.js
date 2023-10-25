@@ -48,20 +48,20 @@ function ElectricityTariff({ api }) {
           from: 6,
           to: 21,
         },
-        Wednesday: {
+        wednesday: {
           from: 6,
           to: 21,
         },
-        Thursday: {
+        thursday: {
           from: 6,
           to: 21,
         },
-        Friday: {
+        friday: {
           from: 6,
           to: 21,
         },
-        Saturday: null,
-        Sunday: null,
+        saturday: null,
+        sunday: null,
       },
       price: 1.03,
     },
