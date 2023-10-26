@@ -40,28 +40,12 @@ function ElectricityTariff({ api }) {
       tarriffID: 1,
       name: 'Tarrif A1',
       weekDay: {
-        monday: {
+        hours: {
           from: 6,
           to: 21,
         },
-        tuesday: {
-          from: 6,
-          to: 21,
-        },
-        wednesday: {
-          from: 6,
-          to: 21,
-        },
-        thursday: {
-          from: 6,
-          to: 21,
-        },
-        friday: {
-          from: 6,
-          to: 21,
-        },
-        saturday: null,
-        sunday: null,
+        workingDays: true,
+        weekend: false,
       },
       price: 1.03,
     },
@@ -69,28 +53,12 @@ function ElectricityTariff({ api }) {
       tarriffID: 2,
       name: 'Tarrif A2',
       weekDay: {
-        monday: {
-          from: 21,
-          to: 6,
+        hours: {
+          from: 0,
+          to: 0,
         },
-        tuesday: {
-          from: 21,
-          to: 6,
-        },
-        Wednesday: {
-          from: 21,
-          to: 6,
-        },
-        Thursday: {
-          from: 21,
-          to: 6,
-        },
-        Friday: {
-          from: 21,
-          to: 24,
-        },
-        Saturday: 'allDay',
-        Sunday: 'allDay',
+        workingDays: false,
+        weekend: true,
       },
       price: 0.94,
     },

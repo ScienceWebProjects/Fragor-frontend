@@ -56,6 +56,7 @@
   "filamentEdit_id": "/api/filaments/update/",
   "filamentDelete_id": "/api/filaments/delete/",
 
+  "settingTariffs": "/api/settings/eletricty/tariff/update/",
   "settingDeleteAccount": "/-/",
   "settingLogout": "/api/account/logout/",
   "settingPinChange": "/api/account/settings/pin/",

@@ -12,6 +12,30 @@ $panel-btns-style: (
   transition: 300ms,
 );
 
+.input-style {
+  text-align: center;
+  width: 50%;
+  height: 1.5rem;
+  padding: 0 0.313rem;
+  margin: 0.125rem 0rem;
+
+  font-size: 1rem;
+
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+  background: #ffffff;
+
+  transition: 0.3s;
+
+  &::placeholder {
+    color: #aaa;
+  }
+
+  &:focus {
+    outline-offset: 3px;
+  }
+}
+
 .ininite-scroll {
   display: flex;
   flex-direction: column;
@@ -40,10 +64,19 @@ $panel-btns-style: (
       display: flex;
       width: 100%; // Set the width for one panel
       transition: transform 0.3s ease-in-out;
+      height: 100%;
+
+      .panel-name {
+        .name-input {
+          @include flexCenter(column, center, center);
+        }
+      }
 
       .panel-week {
         .active {
           background-color: $blue !important;
+          color: #fff;
+          border: none !important;
         }
 
         .week-day {
@@ -57,6 +90,28 @@ $panel-btns-style: (
 
           border: 1px solid #000;
           border-radius: $corners;
+        }
+      }
+
+      .panel-hours {
+        .hours-inputs {
+          width: 40%;
+          margin: 0 auto;
+          @include flexCenter(row, center, center);
+
+          .hour-input {
+            @include flexCenter(column, center, center);
+          }
+        }
+      }
+
+      .panel-price {
+        .price-input {
+          @include flexCenter(column, center, center);
+
+          .price-value {
+            width: 35%;
+          }
         }
       }
     }
@@ -103,6 +158,14 @@ $panel-btns-style: (
 
         &:hover {
           background-color: $blue;
+          color: white;
+          border: 1px solid white;
+        }
+      }
+
+      .save-btn {
+        &:hover {
+          background-color: $green;
           color: white;
           border: 1px solid white;
         }
