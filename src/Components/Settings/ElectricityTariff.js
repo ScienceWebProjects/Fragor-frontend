@@ -25,47 +25,62 @@ function ElectricityTariff({ api }) {
   const permission = usePermissions(user);
   const windowSize = useWindowSize();
 
-  // useState & useEffect
-  // tariff should have attributes:
-  // tariff id
-  // tariff name
-  // from (hour)
-  // to (hour)
-  // week days
-  // price (kWh)
-  // currency
-
   const [tariffs, setTariffs] = useState([
     {
-      tarriffID: 1,
+      id: 1,
       name: 'Tarrif A1',
-      weekDay: {
-        hours: {
-          from: 6,
-          to: 21,
-        },
-        workingDays: true,
-        weekend: false,
-      },
+      hourFrom: '06:00',
+      hourTo: '21:00',
+      workingDays: true,
+      weekend: false,
       price: 1.03,
     },
     {
-      tarriffID: 2,
+      id: 2,
       name: 'Tarrif A2',
-      weekDay: {
-        hours: {
-          from: 0,
-          to: 0,
-        },
-        workingDays: false,
-        weekend: true,
-      },
+      hourFrom: '21:00',
+      hourTo: '06:00',
+      workingDays: true,
+      weekend: false,
+      price: 0.94,
+    },
+    {
+      id: 3,
+      name: 'Tarrif B3',
+      hourFrom: '00:00',
+      hourTo: '00:00',
+      workingDays: false,
+      weekend: true,
       price: 0.94,
     },
   ]);
-  const [newTariff, setNewTariff] = useState({});
-
   const [isAdding, setIsAdding] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(-1);
+
+  const tariffsGetApiCall = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        `${api.ip}${api.settingTariffsGet}`,
+        requestOptions
+      );
+
+      const tariffsList = await response.json();
+      setTariffs(tariffsList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    tariffsGetApiCall();
+  });
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={api} />;
@@ -86,25 +101,66 @@ function ElectricityTariff({ api }) {
         >
           <InfoType text={'Electricity tariff'} />
 
+          {tariffs.map((tariff, index) => (
+            <div>
+              {index === editingIndex ? (
+                <NewTariff
+                  api={api}
+                  isAdding={() => setEditingIndex(-1)}
+                  id={tariff.id}
+                  name={tariff.name}
+                  hourFrom={tariff.hourFrom}
+                  hourTo={tariff.hourTo}
+                  workingDays={tariff.workingDays}
+                  weekend={tariff.weekend}
+                  price={tariff.price}
+                />
+              ) : (
+                <div className='tariff-details'>
+                  <b className='name'>{tariff.name}</b>
+                  <div className='hour'>Tariff hours</div>
+                  <div className='hourFrom'>From: {tariff.hourFrom}</div>
+                  <div className='hourTo'>To: {tariff.hourTo}</div>
+                  <div className='price'>
+                    Tariff price: <b>{tariff.price}</b> PLN
+                  </div>
+                  <button
+                    className='details-edit'
+                    onClick={() => setEditingIndex(index)}
+                  >
+                    <i className='icon-edit-1' />
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+
           {isAdding && (
             <NewTariff
               api={api}
-              onNewTariff={setNewTariff}
               isAdding={setIsAdding}
             />
           )}
-          <Button
-            color='yellow'
-            onClick={() => setIsAdding(true)}
-          >
-            Add new tariff
-          </Button>
         </InfiniteScroll>
       </main>
 
-      <StyledLink to={api.settingsPage}>
-        <Button color='red'>Back</Button>
-      </StyledLink>
+      <div className='buttons-area'>
+        <StyledLink to={api.settingsPage}>
+          <Button
+            color='red'
+            className='area-btn'
+          >
+            Back
+          </Button>
+        </StyledLink>
+        <Button
+          className='area-btn'
+          color='yellow'
+          onClick={() => setIsAdding(true)}
+        >
+          Add new tariff
+        </Button>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 {
-  "ip_": "http://127.0.0.1:8080",
-  "ip": "http://192.168.0.6:8080",
+  "ip": "http://127.0.0.1:8080",
+  "ip_": "http://192.168.0.6:8080",
 
   "quotes": "https://type.fit/api/quotes",
 
@@ -56,7 +56,6 @@
   "filamentEdit_id": "/api/filaments/update/",
   "filamentDelete_id": "/api/filaments/delete/",
 
-  "settingTariffs": "/api/settings/eletricty/tariff/update/",
   "settingDeleteAccount": "/-/",
   "settingLogout": "/api/account/logout/",
   "settingPinChange": "/api/account/settings/pin/",
@@ -68,6 +67,8 @@
   "settingFilamentColorDelete_id": "/api/filaments/color/delete/",
   "settingFilamentBrandAdd": "/api/filaments/brand/add/",
   "settingFilamentBrandDelete_id": "/api/filaments/brand/delete/",
+  "settingTariffsGet": "/api/companies/settings/electricity/tariff/get/all/",
+  "settingTariffs": "/api/companies/settings/electricity/tariff/update/",
 
   "devicesList": "/-/",
   "deviceDelete_id": "/-/",

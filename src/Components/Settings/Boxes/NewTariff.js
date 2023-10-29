@@ -12,20 +12,30 @@ import StyledInput from '../../UI/authorization/StyledInput';
 
 // scss
 
-function NewTariff({ api, onNewTariff, isAdding }) {
+function NewTariff({
+  api,
+  isAdding,
+  id,
+  name,
+  hourFrom,
+  hourTo,
+  workingDays,
+  weekend,
+  price,
+}) {
   const user = useToken();
 
   const [index, setIndex] = useState(0);
   const PANEL_NUMBERS = 3;
   const isSaveBtn = index < PANEL_NUMBERS ? false : true;
-  const [tariffName, setTariffName] = useState('');
+  const [tariffName, setTariffName] = useState(name || '');
   const [isActiveDay, setIsActiveDay] = useState({
-    workingDays: false,
-    weekend: false,
+    workingDays: workingDays || false,
+    weekend: weekend || false,
   });
-  const [fromHour, setFromHour] = useState(0);
-  const [toHour, setToHour] = useState(24);
-  const [tariffPrice, setTariffPrice] = useState(0.0);
+  const [fromHour, setFromHour] = useState(hourFrom || '00:00');
+  const [toHour, setToHour] = useState(hourTo || '23:59');
+  const [tariffPrice, setTariffPrice] = useState(price || 0);
   const [errors, setErrors] = useState({});
 
   const activeDayHandler = (day) => {
@@ -40,16 +50,12 @@ function NewTariff({ api, onNewTariff, isAdding }) {
 
   const saveTariffApiCall = async (tarriffID = null) => {
     const tariffData = {
-      tarriffID: tarriffID,
+      id: tarriffID,
       name: tariffName,
-      weekDay: {
-        hours: {
-          from: fromHour,
-          to: toHour,
-        },
-        workingDays: isActiveDay.workingDays,
-        weekend: isActiveDay.weekend,
-      },
+      hourFrom: fromHour,
+      hourTo: toHour,
+      workingDays: isActiveDay.workingDays,
+      weekend: isActiveDay.weekend,
       price: tariffPrice,
     };
 
@@ -101,12 +107,15 @@ function NewTariff({ api, onNewTariff, isAdding }) {
       newErrors.days = 'You must choose tariff days!';
     }
 
-    if (fromHour < 0) {
+    // time errors:
+    const fromHourInt = parseInt(fromHour.substring(0, 2), 10); // Convert the starting hour to a number
+    const toHourInt = parseInt(toHour.substring(0, 2), 10); // Convert the final hour to a number
+    if (fromHourInt < 0) {
       newErrors.hours = 'Start hour must be greater or equal 0!';
-    } else if (toHour > 24) {
+    } else if (toHourInt > 24) {
       newErrors.hours = 'End hour must be smaller or equal 24!';
-    } else if (parseInt(fromHour, 10) >= parseInt(toHour, 10)) {
-      newErrors.hours = 'Start hour must be smaller than end hour!';
+    } else if (fromHourInt >= toHourInt) {
+      newErrors.hours = 'Start hour must be earlier than end hour!';
     }
 
     if (tariffPrice <= 0) {
@@ -119,7 +128,7 @@ function NewTariff({ api, onNewTariff, isAdding }) {
     ); // create alert box
 
     if (Object.keys(newErrors).length === 0) {
-      saveTariffApiCall();
+      saveTariffApiCall(id);
     }
   };
 
@@ -176,10 +185,11 @@ function NewTariff({ api, onNewTariff, isAdding }) {
                 className='input-style'
                 name='from-hour'
                 id='from-hour'
-                type='number'
+                type='time'
                 value={fromHour}
                 onChange={(event) => {
                   setFromHour(event.target.value);
+                  console.log(fromHour);
                 }}
               />
             </div>
@@ -190,7 +200,7 @@ function NewTariff({ api, onNewTariff, isAdding }) {
                 className='input-style'
                 name='to-hour'
                 id='to-hour'
-                type='number'
+                type='time'
                 value={toHour}
                 onChange={(event) => {
                   setToHour(event.target.value);

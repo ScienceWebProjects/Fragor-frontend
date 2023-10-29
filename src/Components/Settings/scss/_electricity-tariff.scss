@@ -14,7 +14,7 @@ $panel-btns-style: (
 
 .input-style {
   text-align: center;
-  width: 50%;
+  width: 88%;
   height: 1.5rem;
   padding: 0 0.313rem;
   margin: 0.125rem 0rem;
@@ -46,13 +46,72 @@ $panel-btns-style: (
   padding: 0px 15px 0 15px;
   margin: 10px;
 
+  .tariff-details {
+    position: relative;
+
+    width: 85vw;
+    min-height: 8rem;
+    margin: 0.313rem 0;
+    color: $font-color;
+
+    background-color: rgba($primary-color, 0.3);
+    border-radius: $corners;
+
+    @include gridStart(
+      1fr 33% 33%,
+      30% 30% 30%,
+      'name hour hour' 'name hourFrom hourTo' 'name price price',
+      2px
+    );
+
+    .name {
+      grid-area: name;
+      display: inline-grid;
+      place-content: center;
+    }
+    .hour {
+      grid-area: hour;
+      display: inline-grid;
+      align-items: end;
+      justify-content: center;
+    }
+    .hourFrom {
+      grid-area: hourFrom;
+    }
+    .hourTo {
+      grid-area: hourTo;
+    }
+    .price {
+      grid-area: price;
+    }
+
+    .details-edit {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      font-size: 1.5rem;
+
+      @each $property, $value in $button-style-remove {
+        #{$property}: $value;
+      }
+      transition: 1s;
+
+      &:hover {
+        color: $yellow;
+        transition: 300ms;
+      }
+    }
+  }
+
   .new-tariff {
     overflow: hidden;
     position: relative;
     transition: 300ms;
 
-    width: 100%;
+    width: 85vw;
     min-height: 8rem;
+    margin: 0.313rem 0;
     color: $font-color;
 
     background-color: rgba($primary-color, 0.3);
@@ -69,6 +128,10 @@ $panel-btns-style: (
       .panel-name {
         .name-input {
           @include flexCenter(column, center, center);
+
+          .name-value {
+            width: 50%;
+          }
         }
       }
 
@@ -171,5 +234,15 @@ $panel-btns-style: (
         }
       }
     }
+  }
+}
+
+.buttons-area {
+  width: 90vw;
+  margin: auto;
+  @include flexCenter(row, center, center);
+
+  .area-btn {
+    width: 45vw;
   }
 }
