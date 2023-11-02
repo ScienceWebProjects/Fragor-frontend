@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import useToken from '../../../Hooks/useToken';
 
 // components
-import CustomSelect from '../../Filaments/UI/CustomSelect';
+import CustomSelect from '../../_shared/CustomSelect';
 
 // UI elements
 import Button from '../../UI/shared/buttons/Button';

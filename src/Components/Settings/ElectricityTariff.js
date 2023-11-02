@@ -29,8 +29,8 @@ function ElectricityTariff({ api }) {
     {
       id: 1,
       name: 'Tarrif A1',
-      hourFrom: '06:00',
-      hourTo: '21:00',
+      hourFrom: 6,
+      hourTo: 21,
       workingDays: true,
       weekend: false,
       price: 1.03,
@@ -38,18 +38,18 @@ function ElectricityTariff({ api }) {
     {
       id: 2,
       name: 'Tarrif A2',
-      hourFrom: '21:00',
-      hourTo: '06:00',
-      workingDays: true,
-      weekend: false,
+      hourFrom: 21,
+      hourTo: 6,
+      workingDays: false,
+      weekend: true,
       price: 0.94,
     },
     {
       id: 3,
       name: 'Tarrif B3',
-      hourFrom: '00:00',
-      hourTo: '00:00',
-      workingDays: false,
+      hourFrom: 0,
+      hourTo: 0,
+      workingDays: true,
       weekend: true,
       price: 0.94,
     },
@@ -119,10 +119,33 @@ function ElectricityTariff({ api }) {
                 <div className='tariff-details'>
                   <b className='name'>{tariff.name}</b>
                   <div className='hour'>Tariff hours</div>
-                  <div className='hourFrom'>From: {tariff.hourFrom}</div>
-                  <div className='hourTo'>To: {tariff.hourTo}</div>
+                  <div className='hourFrom'>
+                    {`From: ${
+                      (tariff.hourFrom < 10 ? '0' : '') +
+                      tariff.hourFrom +
+                      ':00'
+                    }`}
+                  </div>
+                  <div className='hourTo'>
+                    {`To: ${
+                      (tariff.hourTo < 10 ? '0' : '') + tariff.hourTo + ':00'
+                    }`}
+                  </div>
                   <div className='price'>
                     Tariff price: <b>{tariff.price}</b> PLN
+                  </div>
+                  <div className='days'>
+                    <i>
+                      <u>
+                        {tariff.workingDays && tariff.weekend
+                          ? 'All week'
+                          : tariff.weekend
+                          ? 'Weekend'
+                          : tariff.workingDays
+                          ? 'Working days'
+                          : 'Error'}
+                      </u>
+                    </i>
                   </div>
                   <button
                     className='details-edit'

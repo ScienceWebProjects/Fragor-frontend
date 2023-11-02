@@ -2,7 +2,7 @@
 
 // hooks
 import { useState } from 'react';
-import useWindowSize from '../../../Hooks/useWindowSize';
+import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -10,7 +10,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 // UI elements
 
 // scss
-import '../scss/_custom-select.scss';
+import './UI/_custom-select.scss';
 
 function CustomSelect({ options, defaultSelected, onCustomSelect }) {
   const windowSize = useWindowSize();
@@ -26,7 +26,13 @@ function CustomSelect({ options, defaultSelected, onCustomSelect }) {
   };
 
   const minMaxHeight =
-    options.length <= 1 ? 45 : options.length <= 2 ? 90 : options.length <= 3 ? 130 : 165;
+    options.length <= 1
+      ? 45
+      : options.length <= 2
+      ? 90
+      : options.length <= 3
+      ? 130
+      : 165;
 
   return (
     <div className={`custom-select ${isOpen ? 'open' : ''}`}>

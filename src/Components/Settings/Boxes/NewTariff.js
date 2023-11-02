@@ -5,6 +5,7 @@ import { useState } from 'react';
 import useToken from '../../../Hooks/useToken';
 
 // components
+import HourInput from './HourInput';
 
 // UI elements
 import InfoType from '../../Authorization/Signin/UI/InfoType';
@@ -33,10 +34,14 @@ function NewTariff({
     workingDays: workingDays || false,
     weekend: weekend || false,
   });
-  const [fromHour, setFromHour] = useState(hourFrom || '00:00');
-  const [toHour, setToHour] = useState(hourTo || '23:59');
+  const [fromHour, setFromHour] = useState(hourFrom || 0);
+  const [toHour, setToHour] = useState(hourTo || 0);
   const [tariffPrice, setTariffPrice] = useState(price || 0);
   const [errors, setErrors] = useState({});
+
+  // hour set values options
+  const [onHourInput, setOnHourInput] = useState(false);
+  const [whatHour, setWhatHour] = useState('');
 
   const activeDayHandler = (day) => {
     setIsActiveDay((prevState) => ({
@@ -108,15 +113,15 @@ function NewTariff({
     }
 
     // time errors:
-    const fromHourInt = parseInt(fromHour.substring(0, 2), 10); // Convert the starting hour to a number
-    const toHourInt = parseInt(toHour.substring(0, 2), 10); // Convert the final hour to a number
-    if (fromHourInt < 0) {
-      newErrors.hours = 'Start hour must be greater or equal 0!';
-    } else if (toHourInt > 24) {
-      newErrors.hours = 'End hour must be smaller or equal 24!';
-    } else if (fromHourInt >= toHourInt) {
-      newErrors.hours = 'Start hour must be earlier than end hour!';
-    }
+    // const fromHourInt = parseInt(fromHour.substring(0, 2), 10); // Convert the starting hour to a number
+    // const toHourInt = parseInt(toHour.substring(0, 2), 10); // Convert the final hour to a number
+    // if (fromHourInt < 0) {
+    //   newErrors.hours = 'Start hour must be greater or equal 0!';
+    // } else if (toHourInt > 24) {
+    //   newErrors.hours = 'End hour must be smaller or equal 24!';
+    // } else if (fromHourInt >= toHourInt) {
+    //   newErrors.hours = 'Start hour must be earlier than end hour!';
+    // }
 
     if (tariffPrice <= 0) {
       newErrors.price = 'Price value must be greater than 0!';
@@ -181,31 +186,32 @@ function NewTariff({
           <div className='hours-inputs'>
             <div className='hour-input'>
               <label htmlFor='from-hour'>From hour</label>
-              <input
-                className='input-style'
-                name='from-hour'
-                id='from-hour'
-                type='time'
-                value={fromHour}
-                onChange={(event) => {
-                  setFromHour(event.target.value);
-                  console.log(fromHour);
+              <button
+                className='hour-select'
+                type='button'
+                onClick={(e) => {
+                  e.preventDefault();
+                  setWhatHour('from hour');
+                  setOnHourInput(true);
                 }}
-              />
+              >
+                {(fromHour < 10 ? '0' : '') + fromHour + ':00'}
+              </button>
             </div>
 
             <div className='hour-input'>
               <label htmlFor='to-hour'>To hour</label>
-              <input
-                className='input-style'
-                name='to-hour'
-                id='to-hour'
-                type='time'
-                value={toHour}
-                onChange={(event) => {
-                  setToHour(event.target.value);
+              <button
+                className='hour-select'
+                type='button'
+                onClick={(e) => {
+                  e.preventDefault();
+                  setWhatHour('to hour');
+                  setOnHourInput(true);
                 }}
-              />
+              >
+                {(toHour < 10 ? '0' : '') + toHour + ':00'}
+              </button>
             </div>
           </div>
         </div>
@@ -277,6 +283,15 @@ function NewTariff({
           </button>
         )}
       </div>
+
+      {onHourInput && (
+        <HourInput
+          onHourInput={setOnHourInput}
+          whatHour={whatHour}
+          fromHourSelected={setFromHour}
+          toHourSelected={setToHour}
+        />
+      )}
     </form>
   );
 }

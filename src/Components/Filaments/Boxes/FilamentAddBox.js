@@ -10,7 +10,7 @@ import useToken from '../../../Hooks/useToken';
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
-import CustomSelect from '../UI/CustomSelect';
+import CustomSelect from '../../_shared/CustomSelect';
 
 // scss
 import '../../UI/shared/_box.scss';
@@ -75,7 +75,10 @@ function FilamentAddBox(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.filamentAdd}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentAdd}`,
+        requestOptions
+      );
 
       if (response.status === 201) {
         onFilamentAddBox(false);
