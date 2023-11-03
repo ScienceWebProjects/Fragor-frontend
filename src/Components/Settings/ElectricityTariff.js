@@ -54,6 +54,7 @@ function ElectricityTariff({ api }) {
       price: 0.94,
     },
   ]);
+  const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [editingIndex, setEditingIndex] = useState(-1);
 
@@ -94,8 +95,8 @@ function ElectricityTariff({ api }) {
 
       <main className='App-header'>
         <InfiniteScroll
-          dataLength={''}
-          hasMore={false}
+          dataLength={tariffs.length}
+          hasMore={true}
           height={windowSize * 0.7}
           className='ininite-scroll'
         >
@@ -107,6 +108,8 @@ function ElectricityTariff({ api }) {
                 <NewTariff
                   api={api}
                   isAdding={() => setEditingIndex(-1)}
+                  isEditing={setIsEditing}
+                  isNew={false}
                   id={tariff.id}
                   name={tariff.name}
                   hourFrom={tariff.hourFrom}
@@ -149,7 +152,14 @@ function ElectricityTariff({ api }) {
                   </div>
                   <button
                     className='details-edit'
-                    onClick={() => setEditingIndex(index)}
+                    onClick={() => {
+                      if (!isEditing) {
+                        setEditingIndex(index);
+                        setIsEditing(true);
+                      } else {
+                        alert('You editing tariff now!');
+                      }
+                    }}
                   >
                     <i className='icon-edit-1' />
                   </button>
@@ -162,6 +172,8 @@ function ElectricityTariff({ api }) {
             <NewTariff
               api={api}
               isAdding={setIsAdding}
+              isEditing={setIsEditing}
+              isNew={true}
             />
           )}
         </InfiniteScroll>
@@ -179,7 +191,25 @@ function ElectricityTariff({ api }) {
         <Button
           className='area-btn'
           color='yellow'
-          onClick={() => setIsAdding(true)}
+          onClick={() => {
+            if (!isEditing) {
+              setTimeout(() => {
+                const newTariffPanel = document.querySelector(
+                  '#root > div > main > div > div > form > div.panel > div.panel-name'
+                );
+
+                newTariffPanel.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'end',
+                  inline: 'nearest',
+                });
+              }, 10);
+              setIsAdding(true);
+              setIsEditing(true);
+            } else {
+              alert('You editing tariff now!');
+            }
+          }}
         >
           Add new tariff
         </Button>

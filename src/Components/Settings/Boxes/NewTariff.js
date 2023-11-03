@@ -16,6 +16,8 @@ import StyledInput from '../../UI/authorization/StyledInput';
 function NewTariff({
   api,
   isAdding,
+  isEditing,
+  isNew,
   id,
   name,
   hourFrom,
@@ -77,7 +79,7 @@ function NewTariff({
 
     try {
       const response = await fetch(
-        `${api.ip}${api.settingTariffs}`,
+        `${api.ip}${api.settingTariffUpdate}`,
         requestOptions
       );
 
@@ -134,6 +136,40 @@ function NewTariff({
 
     if (Object.keys(newErrors).length === 0) {
       saveTariffApiCall(id);
+    }
+  };
+
+  const deleteTariffHandler = async () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${api.ip}${api.settingTariffDelete_id}${id}`,
+        requestOptions
+      );
+
+      if (response.status === 201) {
+        isEditing(false);
+        return alert('Succesfully tariff deleted.');
+      }
+
+      if (response.status === 404) {
+        const res404 = await response.json();
+        return res404.message
+          ? alert(res404.message)
+          : alert('Something went bad.');
+      }
+    } catch (error) {
+      console.log(error);
+      alert(
+        'An unpredictable problem has been encountered. \nPlease delete tariff later.'
+      );
     }
   };
 
@@ -249,10 +285,26 @@ function NewTariff({
       <button
         type='button'
         className='tarrif-close-btn'
-        onClick={() => isAdding(false)}
+        onClick={() => {
+          isEditing(false);
+          isAdding(false);
+        }}
       >
         <i className='icon-cancel' />
       </button>
+
+      {!isNew && (
+        <button
+          type='button'
+          className='tarrif-trash-btn'
+          onClick={() => {
+            deleteTariffHandler();
+          }}
+        >
+          <i className='icon-trash' />
+        </button>
+      )}
+
       <div className='tariff-panels'>
         <button
           type='button'

@@ -68,7 +68,8 @@
   "settingFilamentBrandAdd": "/api/filaments/brand/add/",
   "settingFilamentBrandDelete_id": "/api/filaments/brand/delete/",
   "settingTariffsGet": "/api/companies/settings/electricity/tariff/get/all/",
-  "settingTariffs": "/api/companies/settings/electricity/tariff/update/",
+  "settingTariffUpdate": "/api/companies/settings/electricity/tariff/update/",
+  "settingTariffDelete_id": "/api/companies/settings/electricity/tariff/delete/",
 
   "devicesList": "/-/",
   "deviceDelete_id": "/-/",

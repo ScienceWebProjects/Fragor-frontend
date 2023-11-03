@@ -231,6 +231,25 @@ $panel-btns-style: (
       }
     }
 
+    .tarrif-trash-btn {
+      position: absolute;
+      bottom: 0;
+      left: 2.25rem;
+
+      @each $property, $value in $button-style-remove {
+        #{$property}: $value;
+      }
+      @each $property, $value in $panel-btns-style {
+        #{$property}: $value;
+      }
+
+      &:hover {
+        background-color: $red;
+        color: white;
+        border: 1px solid white;
+      }
+    }
+
     .tariff-panels {
       position: absolute;
       bottom: 0;
