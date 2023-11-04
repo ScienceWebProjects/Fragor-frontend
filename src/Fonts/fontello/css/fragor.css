@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fragor';
-  src: url('../font/fragor.eot?2487120');
-  src: url('../font/fragor.eot?2487120#iefix') format('embedded-opentype'),
-       url('../font/fragor.woff2?2487120') format('woff2'),
-       url('../font/fragor.woff?2487120') format('woff'),
-       url('../font/fragor.ttf?2487120') format('truetype'),
-       url('../font/fragor.svg?2487120#fragor') format('svg');
+  src: url('../font/fragor.eot?74914785');
+  src: url('../font/fragor.eot?74914785#iefix') format('embedded-opentype'),
+       url('../font/fragor.woff2?74914785') format('woff2'),
+       url('../font/fragor.woff?74914785') format('woff'),
+       url('../font/fragor.ttf?74914785') format('truetype'),
+       url('../font/fragor.svg?74914785#fragor') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fragor';
-    src: url('../font/fragor.svg?2487120#fragor') format('svg');
+    src: url('../font/fragor.svg?74914785#fragor') format('svg');
   }
 }
 */
@@ -63,3 +63,13 @@
 .icon-ok:before { content: '\e806'; } /* '' */
 .icon-right-open:before { content: '\e807'; } /* '' */
 .icon-left-open:before { content: '\e808'; } /* '' */
+.icon-users:before { content: '\e809'; } /* '' */
+.icon-printer:before { content: '\e80a'; } /* '' */
+.icon-settings:before { content: '\e80b'; } /* '' */
+.icon-home:before { content: '\e80c'; } /* '' */
+.icon-shop:before { content: '\e80d'; } /* '' */
+.icon-logout:before { content: '\e80e'; } /* '' */
+.icon-signal:before { content: '\e80f'; } /* '' */
+.icon-devices:before { content: '\e810'; } /* '' */
+.icon-load:before { content: '\e839'; } /* '' */
+.icon-owner:before { content: '\f21b'; } /* '' */

@@ -6,6 +6,7 @@ import useToken from '../../../Hooks/useToken';
 
 // components
 import HourInput from './HourInput';
+import CustomError from '../../_shared/CustomError';
 
 // UI elements
 import InfoType from '../../Authorization/Signin/UI/InfoType';
@@ -44,6 +45,10 @@ function NewTariff({
   // hour set values options
   const [onHourInput, setOnHourInput] = useState(false);
   const [whatHour, setWhatHour] = useState('');
+
+  // custom error
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const activeDayHandler = (day) => {
     setIsActiveDay((prevState) => ({
@@ -84,20 +89,23 @@ function NewTariff({
       );
 
       if (response.status === 200) {
-        return alert('Succesfully tariff added.');
+        setErrorMessage('Succesfully tariff added.');
+        setIsError(true);
       }
 
       if (response.status === 404) {
         const res404 = await response.json();
-        return res404.message
-          ? alert(res404.message)
-          : alert('Something went bad.');
+        res404.message
+          ? setErrorMessage(res404.message)
+          : setErrorMessage('Something went bad.');
+        setIsError(true);
       }
     } catch (error) {
       console.log(error);
-      alert(
+      setErrorMessage(
         'An unpredictable problem has been encountered. \nPlease add tariff again.'
       );
+      setIsError(true);
     }
   };
 
@@ -130,9 +138,14 @@ function NewTariff({
     }
 
     setErrors(newErrors);
-    alert(
-      `${newErrors.name}\n${newErrors.days}\n${newErrors.hours}\n${newErrors.price}`
-    ); // create alert box
+    setErrorMessage(
+      `${newErrors.name ? newErrors.name + '\n' : ''}${
+        newErrors.days ? newErrors.days + '\n' : ''
+      }${newErrors.hours ? newErrors.hours + '\n' : ''}${
+        newErrors.price ? newErrors.price + '\n' : ''
+      }`
+    );
+    setIsError(true);
 
     if (Object.keys(newErrors).length === 0) {
       saveTariffApiCall(id);
@@ -156,20 +169,23 @@ function NewTariff({
 
       if (response.status === 201) {
         isEditing(false);
-        return alert('Succesfully tariff deleted.');
+        setErrorMessage('Succesfully tariff deleted.');
+        setIsError(true);
       }
 
       if (response.status === 404) {
         const res404 = await response.json();
-        return res404.message
-          ? alert(res404.message)
-          : alert('Something went bad.');
+        res404.message
+          ? setErrorMessage(res404.message)
+          : setErrorMessage('Something went bad.');
+        setIsError(true);
       }
     } catch (error) {
       console.log(error);
-      alert(
+      setErrorMessage(
         'An unpredictable problem has been encountered. \nPlease delete tariff later.'
       );
+      setIsError(true);
     }
   };
 
@@ -342,6 +358,13 @@ function NewTariff({
           whatHour={whatHour}
           fromHourSelected={setFromHour}
           toHourSelected={setToHour}
+        />
+      )}
+
+      {isError && (
+        <CustomError
+          message={errorMessage}
+          onErrorBox={setIsError}
         />
       )}
     </form>
