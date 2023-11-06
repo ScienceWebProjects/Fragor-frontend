@@ -11,6 +11,9 @@
 
   "alert.addedDevice": "Succesfully added device.",
 
+  "menu.menu": "Menu",
+  "menu.home": "Home",
+
   "login.password": "Password",
   "login.loginBtn": "Log in",
   "login.signinBtn": "Sign in",

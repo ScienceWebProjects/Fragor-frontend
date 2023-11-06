@@ -11,6 +11,9 @@
 
   "alert.addedDevice": "Poprawnie dodano urządzenie",
 
+  "menu.menu": "Menu",
+  "menu.home": "Start",
+
   "login.password": "Hasło",
   "login.loginBtn": "Zaloguj się",
   "login.signinBtn": "Zarejestruj się",

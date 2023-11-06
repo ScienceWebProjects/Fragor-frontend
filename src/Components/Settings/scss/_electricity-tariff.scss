@@ -47,6 +47,11 @@ $panel-btns-style: (
   margin: 10px;
   transition: 300ms;
 
+  .tariff-warning {
+    color: $red;
+    margin: 0 0 0.625rem 0;
+  }
+
   .tariff-details {
     position: relative;
 

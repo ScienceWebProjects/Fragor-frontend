@@ -54,6 +54,7 @@ function ElectricityTariff({ api }) {
       price: 0.94,
     },
   ]);
+  const [correctTime, setCorrectTime] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [editingIndex, setEditingIndex] = useState(-1);
@@ -79,7 +80,29 @@ function ElectricityTariff({ api }) {
     }
   };
 
+  const correctTimeApiCall = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        `${api.ip}${api.settingTariffCorrectTime}`,
+        requestOptions
+      );
+
+      const tariffSetTimes = await response;
+      setCorrectTime(tariffSetTimes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    correctTimeApiCall();
     tariffsGetApiCall();
   });
 
@@ -101,6 +124,11 @@ function ElectricityTariff({ api }) {
           className='ininite-scroll'
         >
           <InfoType text={'Electricity tariff'} />
+          {!correctTime && (
+            <h4 className='tariff-warning'>
+              Incorrect times entered. Costs may be incorrectly calculated.
+            </h4>
+          )}
 
           {tariffs.map((tariff, index) => (
             <div>

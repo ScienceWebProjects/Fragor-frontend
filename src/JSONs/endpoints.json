@@ -70,6 +70,7 @@
   "settingTariffsGet": "/api/companies/settings/electricity/tariff/get/all/",
   "settingTariffUpdate": "/api/companies/settings/electricity/tariff/update/",
   "settingTariffDelete_id": "/api/companies/settings/electricity/tariff/delete/",
+  "settingTariffCorrectTime": "/api/companies/settings/electricity/tariff/correct/time/",
 
   "devicesList": "/-/",
   "deviceDelete_id": "/-/",

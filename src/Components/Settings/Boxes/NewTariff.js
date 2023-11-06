@@ -10,7 +10,6 @@ import CustomError from '../../_shared/CustomError';
 
 // UI elements
 import InfoType from '../../Authorization/Signin/UI/InfoType';
-import StyledInput from '../../UI/authorization/StyledInput';
 
 // scss
 
@@ -123,15 +122,15 @@ function NewTariff({
     }
 
     // time errors:
-    // const fromHourInt = parseInt(fromHour.substring(0, 2), 10); // Convert the starting hour to a number
-    // const toHourInt = parseInt(toHour.substring(0, 2), 10); // Convert the final hour to a number
-    // if (fromHourInt < 0) {
-    //   newErrors.hours = 'Start hour must be greater or equal 0!';
-    // } else if (toHourInt > 24) {
-    //   newErrors.hours = 'End hour must be smaller or equal 24!';
-    // } else if (fromHourInt >= toHourInt) {
-    //   newErrors.hours = 'Start hour must be earlier than end hour!';
-    // }
+    if (fromHour < 0) {
+      newErrors.hours = 'Start hour must be greater or equal 0!';
+    } else if (toHour > 24) {
+      newErrors.hours = 'End hour must be smaller or equal 24!';
+    } else if (fromHour === 0 && toHour === 0) {
+      // exception - do nothing
+    } else if (fromHour >= toHour) {
+      newErrors.hours = 'Start hour must be earlier than end hour!';
+    }
 
     if (tariffPrice <= 0) {
       newErrors.price = 'Price value must be greater than 0!';
@@ -218,7 +217,7 @@ function NewTariff({
           <button
             type='button'
             id='workingDays'
-            className='week-day'
+            className={`week-day ${workingDays ? 'active' : ''}`}
             onClick={() => activeDayHandler('workingDays')}
           >
             Monday - Friday
@@ -226,7 +225,7 @@ function NewTariff({
           <button
             type='button'
             id='weekend'
-            className='week-day'
+            className={`week-day ${weekend ? 'active' : ''}`}
             onClick={() => activeDayHandler('weekend')}
           >
             Saturday - Sunday
