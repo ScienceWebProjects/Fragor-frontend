@@ -13,6 +13,13 @@ $dropdown-style: (
   transition: 0.3s,
 );
 
+.printer-power-warning {
+  margin: 0 0 0.625rem 0;
+  padding: 0.313rem;
+  text-align: center;
+  color: $red;
+}
+
 .add-printer {
   // @include flexCenter(column, flex-start, center);
 

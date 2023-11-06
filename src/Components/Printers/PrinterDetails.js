@@ -236,6 +236,14 @@ function PrinterDetails(props) {
             >
               <div>Name: {details.name}</div>
               <div>Model: {details.model}</div>
+              {details.power ? (
+                <div>Power: {details.power} W</div>
+              ) : (
+                <h4 className='printer-power-warning'>
+                  No Providing the printer power value may result in errors in
+                  the calculation of material consumption costs.
+                </h4>
+              )}
               <br />
               <div>Work hours: {details.workHours} h</div>
               <br />

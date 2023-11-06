@@ -25,35 +25,7 @@ function ElectricityTariff({ api }) {
   const permission = usePermissions(user);
   const windowSize = useWindowSize();
 
-  const [tariffs, setTariffs] = useState([
-    {
-      id: 1,
-      name: 'Tarrif A1',
-      hourFrom: 6,
-      hourTo: 21,
-      workingDays: true,
-      weekend: false,
-      price: 1.03,
-    },
-    {
-      id: 2,
-      name: 'Tarrif A2',
-      hourFrom: 21,
-      hourTo: 6,
-      workingDays: false,
-      weekend: true,
-      price: 0.94,
-    },
-    {
-      id: 3,
-      name: 'Tarrif B3',
-      hourFrom: 0,
-      hourTo: 0,
-      workingDays: true,
-      weekend: true,
-      price: 0.94,
-    },
-  ]);
+  const [tariffs, setTariffs] = useState([]);
   const [correctTime, setCorrectTime] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isAdding, setIsAdding] = useState(false);

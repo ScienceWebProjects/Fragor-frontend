@@ -11,7 +11,7 @@ import Button from '../UI/shared/buttons/Button';
 // scss
 import '../UI/shared/_box.scss';
 
-function CustomError({ message, onErrorBox }) {
+function CustomError({ message, callback, onErrorBox }) {
   const formattedMessage = message.split('\n').map((item, index) => (
     <React.Fragment key={index}>
       {item}
@@ -29,7 +29,12 @@ function CustomError({ message, onErrorBox }) {
             className='btns-btn'
             color='yellow'
             type='button'
-            onClick={() => onErrorBox(false)}
+            onClick={() => {
+              onErrorBox(false);
+              if (typeof callback === 'function') {
+                callback();
+              }
+            }}
           >
             Back
           </Button>

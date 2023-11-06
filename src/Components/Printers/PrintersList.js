@@ -2,20 +2,24 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+// hooks
+import useToken from '../../Hooks/useToken';
+import useWindowSize from '../../Hooks/useWindowSize';
+
 // components
 import TopBar from '../_shared/TopBar';
 import Button from '../UI/shared/buttons/Button';
 
-// custom hooks
-import useToken from '../../Hooks/useToken';
-
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
 import PrinterItem from './PrinterItem';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // scss
 
 function PrintersList(props) {
+  const windowSize = useWindowSize();
+
   const [printers, setPrinters] = useState([]);
 
   const printerSelectionHandler = (printer) => {
@@ -34,7 +38,10 @@ function PrintersList(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.printersList}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.printersList}`,
+        requestOptions
+      );
 
       const data = await response.json();
       setPrinters(data);
@@ -45,7 +52,7 @@ function PrintersList(props) {
 
   useEffect(() => {
     makeAPICall();
-  }, []);
+  });
 
   return (
     <div>
@@ -63,18 +70,24 @@ function PrintersList(props) {
           </Button>
         </StyledLink>
 
-        {printers.map((printer) => (
-          <Button
-            color='blue'
-            key={printer.id}
-          >
-            <PrinterItem
-              printer={printer}
-              api={props.api}
-              onPrinterSelect={printerSelectionHandler}
-            />
-          </Button>
-        ))}
+        <InfiniteScroll
+          dataLength={''}
+          hasMore={false}
+          height={windowSize * 0.6}
+        >
+          {printers.map((printer) => (
+            <Button
+              color='blue'
+              key={printer.id}
+            >
+              <PrinterItem
+                printer={printer}
+                api={props.api}
+                onPrinterSelect={printerSelectionHandler}
+              />
+            </Button>
+          ))}
+        </InfiniteScroll>
         <StyledLink to={props.api.home}>
           <Button
             className=''
