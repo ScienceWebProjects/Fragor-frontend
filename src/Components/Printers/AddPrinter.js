@@ -77,7 +77,6 @@ function AddPrinter(props) {
 
     const modelData = {
       model: modelEntered,
-      power: printerPowerEntered,
     };
 
     const requestOptions = {
@@ -124,6 +123,7 @@ function AddPrinter(props) {
     const printerData = {
       name: printerNameEntered,
       model: modelAdd,
+      power: printerPowerEntered,
     };
 
     const requestOptions = {
@@ -190,24 +190,7 @@ function AddPrinter(props) {
                   setModelEntered(event.target.value);
                 }}
               />
-              <StyledInput
-                name='printer-power'
-                id='printer-power'
-                type='number'
-                min={0}
-                step={1}
-                value={printerPowerEntered === 0 ? '' : printerPowerEntered}
-                placeholder='Printer power'
-                onChange={(event) => {
-                  setPrinterPowerEntered(event.target.value);
-                }}
-              />
-              {printerPowerEntered <= 0 && (
-                <h4 className='printer-power-warning'>
-                  No Providing the printer power value may result in errors in
-                  the calculation of material consumption costs.
-                </h4>
-              )}
+
               <Button
                 className='add-btn'
                 color='yellow'
@@ -256,22 +239,22 @@ function AddPrinter(props) {
               </div>
             </div>
           )}
+
           <InfoType text={'Printer'} />
-          <div className='printer-add-input'>
-            <div className='add-input'>
-              <StyledInput
-                name='printer-add'
-                id='printer-add'
-                type='text'
-                value={printerNameEntered}
-                placeholder='Printer name'
-                onChange={(event) => {
-                  setPrinterNameEntered(event.target.value);
-                }}
-              />
-            </div>
+          <div className='form-printer-add'>
+            <StyledInput
+              className='printer-name'
+              name='printer-add'
+              id='printer-add'
+              type='text'
+              value={printerNameEntered}
+              placeholder='Name'
+              onChange={(event) => {
+                setPrinterNameEntered(event.target.value);
+              }}
+            />
             <select
-              className='add-select'
+              className='printer-model'
               onChange={(event) => {
                 console.log(modelAdd);
                 setModelAdd(event.target.value);
@@ -286,15 +269,33 @@ function AddPrinter(props) {
                 </option>
               ))}
             </select>
+            <StyledInput
+              className='printer-power'
+              name='printer-power'
+              id='printer-power'
+              type='number'
+              min={0}
+              step={1}
+              value={printerPowerEntered === 0 ? '' : printerPowerEntered}
+              placeholder='Power [W]'
+              onChange={(event) => {
+                setPrinterPowerEntered(event.target.value);
+              }}
+            />
+            <Button
+              className='printer-add-btn'
+              color='yellow'
+              onClick={printerAddHandler}
+            >
+              Add printer
+            </Button>
+            {printerPowerEntered <= 0 && (
+              <h4 className='printer-add-power-warning'>
+                No Providing the printer power value may result in errors in the
+                calculation of material consumption costs.
+              </h4>
+            )}
           </div>
-
-          <Button
-            className='add-btn'
-            color='yellow'
-            onClick={printerAddHandler}
-          >
-            Add printer
-          </Button>
         </InfiniteScroll>
       </main>
 

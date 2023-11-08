@@ -103,6 +103,12 @@
   .printer-info {
     position: relative;
 
+    .printer-power-warning {
+      color: $red;
+      text-align: center;
+      margin: 0.313rem 0 0 0;
+    }
+
     .info-notes {
       position: absolute;
       bottom: 0;
