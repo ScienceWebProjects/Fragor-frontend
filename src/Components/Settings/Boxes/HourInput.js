@@ -63,7 +63,7 @@ function HourInput({
               ))}
             </div>
             <div className='PM'>
-              {hours.slice(13).map((hour) => (
+              {hours.slice(12).map((hour) => (
                 <Button
                   className='hour-btn'
                   key={hour}

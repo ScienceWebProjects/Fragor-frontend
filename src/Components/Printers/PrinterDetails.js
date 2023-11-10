@@ -41,9 +41,11 @@ function PrinterDetails(props) {
 
   // sum all printed material filaments to one variable
   let filamentAllAmount = 0;
-  const filamentsAll = details ? details.filaments : '';
+  let filamentAllPrice = 0;
+  const filamentsAll = details ? details.filaments : null;
   for (const key in filamentsAll) {
     filamentAllAmount += filamentsAll[key].amount;
+    filamentAllPrice += filamentsAll[key].price;
   }
 
   const deviceAddHandler = async () => {
@@ -245,15 +247,15 @@ function PrinterDetails(props) {
                 </h4>
               )}
               <br />
-              <div>Work hours: {details.workHours} h</div>
+              <div>{`Work hours: ${details.workHours} h`}</div>
               <br />
               <div>Printed Filements:</div>
-              <div>All: {filamentAllAmount} kg</div>
+              <div>{`All: ${filamentAllAmount} kg - ${filamentAllPrice} PLN`}</div>
 
               {Array.isArray(details.filaments) &&
                 details.filaments.map((item, index) => (
                   <div key={index}>
-                    {item.type}: {item.amount} kg
+                    {`${item.type}: ${item.amount} kg - ${item.price} PLN`}
                   </div>
                 ))}
             </InfiniteScroll>

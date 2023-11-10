@@ -40,7 +40,7 @@ function CustomSelect({ options, defaultSelected, onCustomSelect }) {
         className='selected-option'
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedOption ? selectedOption : defaultSelected}
+        {selectedOption ? selectedOption : defaultSelected || 'Click to choose'}
       </div>
       <ul className='options'>
         <InfiniteScroll
