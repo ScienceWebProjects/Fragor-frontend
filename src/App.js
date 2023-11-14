@@ -28,6 +28,7 @@ import DevicesPage from './Components/Devices/DevicesPage';
 
 // UI elements
 import './App.css';
+import Charts from './Components/Charts/Charts';
 
 function App() {
   const [printerDetails, setPrinterDetails] = useState([]);
@@ -74,6 +75,10 @@ function App() {
     {
       path: `${endpoints.printerAddPage}`,
       element: <AddPrinter api={endpoints} />,
+    },
+    {
+      path: endpoints.chartsPage,
+      element: <Charts api={endpoints} />,
     },
     {
       path: endpoints.filamentsPage,

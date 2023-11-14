@@ -16,6 +16,7 @@ import PrinterItem from './PrinterItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // scss
+import './scss/_printers-list-btns.scss';
 
 function PrintersList(props) {
   const windowSize = useWindowSize();
@@ -61,14 +62,24 @@ function PrintersList(props) {
       {/* </ header> */}
 
       <main className='App-header'>
-        <StyledLink to={props.api.printerAddPage}>
-          <Button
-            className=''
-            color='yellow'
-          >
-            Add Printer
-          </Button>
-        </StyledLink>
+        <div className='printers-list-btns'>
+          <StyledLink to={props.api.printerAddPage}>
+            <Button
+              className='printers-list-btn'
+              color='yellow'
+            >
+              Add Printer
+            </Button>
+          </StyledLink>
+          <StyledLink to={props.api.chartsPage}>
+            <Button
+              className='printers-list-btn'
+              color='green'
+            >
+              Charts
+            </Button>
+          </StyledLink>
+        </div>
 
         <InfiniteScroll
           dataLength={''}
@@ -88,15 +99,15 @@ function PrintersList(props) {
             </Button>
           ))}
         </InfiniteScroll>
-        <StyledLink to={props.api.home}>
-          <Button
-            className=''
-            color='red'
-          >
-            Back
-          </Button>
-        </StyledLink>
       </main>
+      <StyledLink to={props.api.home}>
+        <Button
+          className=''
+          color='red'
+        >
+          Back
+        </Button>
+      </StyledLink>
     </div>
   );
 }

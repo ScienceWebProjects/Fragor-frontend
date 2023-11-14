@@ -10,6 +10,7 @@
   "home": "/",
   "printersPage": "/printers-list",
   "printerAddPage": "/printer-add",
+  "chartsPage": "/charts",
   "filamentsPage": "/filaments-list",
   "settingsPage": "/settings",
   "settingsFilamentsOptions": "/filaments-options",
