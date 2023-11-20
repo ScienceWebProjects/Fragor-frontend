@@ -2,7 +2,7 @@
 @import './functions';
 
 .styled-input {
-  @include flexCenter(row, center, center);
+  @include flexCenter(column, center, center);
 
   .input-label {
     height: 20px;

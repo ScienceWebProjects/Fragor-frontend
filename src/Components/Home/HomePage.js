@@ -1,5 +1,4 @@
 // libs
-import React from 'react';
 
 // hooks
 import { useEffect } from 'react';
@@ -40,7 +39,7 @@ function HomePage(props) {
     return (
       <div>
         {/* <header> */}
-        <TopBar />
+        <TopBar api={props.api} />
         {/* </ header> */}
 
         <main

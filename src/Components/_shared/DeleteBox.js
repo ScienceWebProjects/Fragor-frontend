@@ -2,8 +2,10 @@
 
 // hooks
 import useToken from '../../Hooks/useToken';
+import { useIntl } from 'react-intl';
 
 // components
+import { FormattedMessage } from 'react-intl';
 
 // UI elements
 import Button from '../UI/shared/buttons/Button';
@@ -13,10 +15,15 @@ import '../UI/shared/_box.scss';
 
 function DeleteBox({ api, ID, endpoint, deleteOption, onDeleteBox }) {
   const user = useToken();
+  const intl = useIntl();
 
   const deleteConfirmApiCall = async () => {
     const btn = document.getElementById('confirmBtn');
-    btn.textContent = 'Deleting...';
+
+    btn.textContent = intl.formatMessage({
+      id: 'deleting',
+      defaultMessage: 'Deleting...',
+    });
 
     const requestOptions = {
       method: 'DELETE',
@@ -49,7 +56,13 @@ function DeleteBox({ api, ID, endpoint, deleteOption, onDeleteBox }) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h2>Delete {deleteOption}?</h2>
+        <h2>
+          <FormattedMessage
+            id='delete'
+            defaultMessage='Delete'
+          />{' '}
+          {deleteOption}?
+        </h2>
         <div className='box-btns'>
           <Button
             className='btns-btn'
@@ -57,7 +70,10 @@ function DeleteBox({ api, ID, endpoint, deleteOption, onDeleteBox }) {
             type='button'
             onClick={() => onDeleteBox(false)}
           >
-            Back
+            <FormattedMessage
+              id='back'
+              defaultMessage='Back'
+            />
           </Button>
           <Button
             className='btns-btn'
@@ -65,7 +81,10 @@ function DeleteBox({ api, ID, endpoint, deleteOption, onDeleteBox }) {
             onClick={deleteConfirmApiCall}
             id='confirmBtn'
           >
-            Confirm
+            <FormattedMessage
+              id='confirm'
+              defaultMessage='Confirm'
+            />
           </Button>
         </div>
       </div>

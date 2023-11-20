@@ -1,0 +1,35 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+@media (min-width: $breakpoint-desktop) {
+  .media-background {
+    .App {
+      .App-header {
+        min-height: unset;
+        width: 60%;
+
+        .infinite-scroll {
+          width: 85%;
+          @include flexCenter(column, flex-start, flex-start);
+          margin: auto;
+        }
+
+        .styled-pin {
+          width: 60% !important;
+
+          .pin_heading {
+            width: 100%;
+          }
+        }
+
+        .log-btn {
+          width: 30vw;
+        }
+      }
+    }
+  }
+}
+
+.sign-btn {
+  width: 35vw !important;
+}

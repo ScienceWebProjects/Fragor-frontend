@@ -5,11 +5,14 @@ import axios from 'axios'; // v 1.5.0
 // hooks
 import { useState, useEffect } from 'react';
 import useToken from '../../Hooks/useToken';
+import { useIntl } from 'react-intl';
 
 // components
 import TopBar from '../_shared/TopBar';
 import PrinterEditBox from './Boxes/PrinterEditBox';
-import DeleteBox from './Boxes/DeleteBox';
+// import DeleteBox from './Boxes/DeleteBox';
+import { FormattedMessage } from 'react-intl';
+import DeletePrinterBox from './Boxes/DeleteBox';
 import NotesBox from '../_shared/NotesBox';
 
 // downloaded components
@@ -17,6 +20,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
 import '../../Fonts/fontello/css/fragor.css';
+import iconImg from '../../Images/icon-black.png';
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
@@ -33,6 +37,7 @@ function PrinterDetails(props) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const user = useToken();
+  const intl = useIntl();
 
   useEffect(() => {
     const storedPrinter = sessionStorage.getItem('printerDetails');
@@ -51,7 +56,10 @@ function PrinterDetails(props) {
   const deviceAddHandler = async () => {
     const btn = document.getElementById('deviceAddBtn');
 
-    btn.textContent = 'Waiting...';
+    btn.textContent = intl.formatMessage({
+      id: 'waiting',
+      defaultMessage: 'Waiting...',
+    });
 
     const requestOptions = {
       method: 'GET',
@@ -68,14 +76,26 @@ function PrinterDetails(props) {
       );
 
       if (response.status === 201) {
-        alert('Succesfully added device.');
-        btn.textContent = 'Add device';
+        alert(
+          intl.formatMessage({
+            id: 'alert.addedDevice',
+            defaultMessage: 'Succesfully added device.',
+          })
+        );
+
+        btn.textContent = intl.formatMessage({
+          id: 'addDevice',
+          defaultMessage: 'Add device',
+        });
       }
 
       if (response.status === 400) {
         const res = await response.json();
         console.log(res);
-        btn.textContent = 'Add device';
+        btn.textContent = intl.formatMessage({
+          id: 'addDevice',
+          defaultMessage: 'Add device',
+        });
       }
     } catch (error) {
       console.log(error);
@@ -153,7 +173,10 @@ function PrinterDetails(props) {
               setEditBox(true);
             }}
           >
-            Edit
+            <FormattedMessage
+              id='edit'
+              defaultMessage='Edit'
+            />
           </Button>
           <Button
             className='wrapper-btn'
@@ -161,14 +184,20 @@ function PrinterDetails(props) {
             onClick={deviceAddHandler}
             id='deviceAddBtn'
           >
-            Add device
+            <FormattedMessage
+              id='addDevice'
+              defaultMessage='Add device'
+            />
           </Button>
           <Button
             className='wrapper-btn'
             color='red'
             onClick={deleteButtonHandler}
           >
-            Delete
+            <FormattedMessage
+              id='delete'
+              defaultMessage='Delete'
+            />
           </Button>
         </div>
 
@@ -177,8 +206,8 @@ function PrinterDetails(props) {
             {details.image ? (
               <img
                 src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
-                alt='Printer img'
                 className='img-img'
+                alt='Printer'
               />
             ) : (
               'No image added yet.'
@@ -196,7 +225,11 @@ function PrinterDetails(props) {
                   document.getElementById('fileInput').click();
                 }}
               >
-                <i className='icon-picture-1'></i>
+                <img
+                  src={iconImg}
+                  className='btn-icon'
+                  alt='new-img-button'
+                />
               </button>
 
               <input
@@ -238,19 +271,11 @@ function PrinterDetails(props) {
             >
               <div>Name: {details.name}</div>
               <div>Model: {details.model}</div>
-              {details.power ? (
-                <div>Power: {details.power} W</div>
-              ) : (
-                <h4 className='printer-power-warning'>
-                  No Providing the printer power value may result in errors in
-                  the calculation of material consumption costs.
-                </h4>
-              )}
               <br />
-              <div>{`Work hours: ${details.workHours} h`}</div>
+              <div>Work hours: {details.workHours} h</div>
               <br />
               <div>Printed Filements:</div>
-              <div>{`All: ${filamentAllAmount} kg - ${filamentAllPrice} PLN`}</div>
+              <div>All: {filamentAllAmount} kg</div>
 
               {Array.isArray(details.filaments) &&
                 details.filaments.map((item, index) => (
@@ -266,7 +291,10 @@ function PrinterDetails(props) {
             className=''
             color='red'
           >
-            Back
+            <FormattedMessage
+              id='back'
+              defaultMessage='Back'
+            />
           </Button>
         </StyledLink>
       </main>
@@ -279,7 +307,7 @@ function PrinterDetails(props) {
         />
       )}
       {deleteBox && (
-        <DeleteBox
+        <DeletePrinterBox
           setDeleteBox={setDeleteBox}
           api={props.api}
           printerName={details.name}

@@ -8,19 +8,26 @@ const Dot = styled.div`
   height: 100%;
 `;
 
-function TopBarButton() {
+function TopBarButton({ isMenuActive, onTopBarButton }) {
+  const dots = [];
+  for (let i = 0; i < 9; i++) {
+    dots.push(
+      <Dot
+        key={i}
+        className='rotated-dots'
+      />
+    );
+  }
+
   return (
     <div className='menu_button'>
-      <button>
-        <Dot />
-        <Dot />
-        <Dot />
-        <Dot />
-        <Dot />
-        <Dot />
-        <Dot />
-        <Dot />
-        <Dot />
+      <button
+        onClick={() => {
+          isMenuActive ? onTopBarButton(false) : onTopBarButton(true);
+        }}
+        className={isMenuActive ? 'rotated' : ''}
+      >
+        {dots}
       </button>
     </div>
   );

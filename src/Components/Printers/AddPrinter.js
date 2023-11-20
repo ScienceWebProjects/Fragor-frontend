@@ -2,11 +2,13 @@
 
 // hooks
 import { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
+import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
 import DeleteBox from '../_shared/DeleteBox';
@@ -16,7 +18,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 // UI elements
 import InfoType from '../Authorization/Signin/UI/InfoType';
 import StyledInput from '../UI/authorization/StyledInput';
-import StyledLink from '../UI/shared/StyledLink';
+import StyledLabel from '../UI/authorization/StyledLabel';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
@@ -25,6 +27,7 @@ import './scss/_add-printer.scss';
 function AddPrinter(props) {
   const user = useToken();
   const permission = usePermissions(user);
+  const intl = useIntl();
   const windowSize = useWindowSize();
 
   const [isError, setIsError] = useState(false);
@@ -171,6 +174,44 @@ function AddPrinter(props) {
       {/* </ header> */}
 
       <main className='App-header add-printer'>
+        {(permission.owner || permission.master) && (
+          <div>
+            <InfoType
+              text={
+                <FormattedMessage
+                  id='printers.model'
+                  defaultMessage='Model'
+                />
+              }
+            />
+            <StyledLabel htmlFor='printer-model-add'>
+              <FormattedMessage
+                id='printers.newModelName'
+                defaultMessage='Add printer model name'
+              />
+            </StyledLabel>
+            <StyledInput
+              name='printer-model-add'
+              id='printer-model-add'
+              type='text'
+              value={modelEntered}
+              onChange={(event) => {
+                setModelEntered(event.target.value);
+              }}
+            />
+            <Button
+              className='add-btn'
+              color='yellow'
+              onClick={printerModelAddHandler}
+            >
+              <FormattedMessage
+                id='printers.newModel'
+                defaultMessage='Add model'
+              />
+            </Button>
+          </div>
+        )}
+
         <InfiniteScroll
           dataLength={''}
           hasMore={false}
@@ -190,12 +231,35 @@ function AddPrinter(props) {
                   setModelEntered(event.target.value);
                 }}
               />
+              <option
+                value={''}
+                select='true'
+                hidden
+              >
+                <FormattedMessage
+                  id='printers.model'
+                  defaultMessage='Model'
+                />
+                ...
+              </option>
+              {printersModels.map((model) => (
+                <option
+                  key={model.id}
+                  value={`${model.id},${model.model}`}
+                >
+                  {model.model}
+                </option>
+              ))}
 
               <Button
                 className='add-btn'
                 color='yellow'
                 onClick={printerModelAddHandler}
               >
+                <FormattedMessage
+                  id='printers.deleteModel'
+                  defaultMessage='Delete model'
+                />
                 Add model
               </Button>
 
@@ -240,21 +304,75 @@ function AddPrinter(props) {
             </div>
           )}
 
-          <InfoType text={'Printer'} />
-          <div className='form-printer-add'>
-            <StyledInput
-              className='printer-name'
-              name='printer-add'
-              id='printer-add'
-              type='text'
-              value={printerNameEntered}
-              placeholder='Name'
-              onChange={(event) => {
-                setPrinterNameEntered(event.target.value);
-              }}
-            />
+          <InfoType
+            text={intl.formatMessage({
+              id: 'printers.printer',
+              defaultMessage: 'Printer',
+            })}
+          />
+          <div className='printer-add-input'>
+            <div className='add-input'>
+              <StyledInput
+                className='printer-name'
+                name='printer-add'
+                id='printer-add'
+                type='text'
+                value={printerNameEntered}
+                // placeholder='Printer name'
+                placeholder={intl.formatMessage({
+                  id: 'printers.printerName',
+                  defaultMessage: 'Printer name',
+                })}
+                onChange={(event) => {
+                  setPrinterNameEntered(event.target.value);
+                }}
+              />
+              <select
+                className='printer-model'
+                onChange={(event) => {
+                  console.log(modelAdd);
+                  setModelAdd(event.target.value);
+                }}
+              >
+                {printersModels.map((model) => (
+                  <option
+                    key={model.id}
+                    value={model.model}
+                  >
+                    {model.model}
+                  </option>
+                ))}
+              </select>
+              <StyledInput
+                className='printer-power'
+                name='printer-power'
+                id='printer-power'
+                type='number'
+                min={0}
+                step={1}
+                value={printerPowerEntered === 0 ? '' : printerPowerEntered}
+                placeholder='Power [W]'
+                onChange={(event) => {
+                  setPrinterPowerEntered(event.target.value);
+                }}
+              />
+              <Button
+                className='printer-add-btn'
+                color='yellow'
+                onClick={printerAddHandler}
+              >
+                Add printer
+              </Button>
+              {printerPowerEntered <= 0 && (
+                <h4 className='printer-add-power-warning'>
+                  No Providing the printer power value may result in errors in
+                  the calculation of material consumption costs.
+                </h4>
+              )}
+            </div>
+
             <select
-              className='printer-model'
+              className='add-select'
               onChange={(event) => {
                 console.log(modelAdd);
                 setModelAdd(event.target.value);
@@ -269,44 +387,20 @@ function AddPrinter(props) {
                 </option>
               ))}
             </select>
-            <StyledInput
-              className='printer-power'
-              name='printer-power'
-              id='printer-power'
-              type='number'
-              min={0}
-              step={1}
-              value={printerPowerEntered === 0 ? '' : printerPowerEntered}
-              placeholder='Power [W]'
-              onChange={(event) => {
-                setPrinterPowerEntered(event.target.value);
-              }}
-            />
+
             <Button
-              className='printer-add-btn'
+              className='add-btn'
               color='yellow'
               onClick={printerAddHandler}
             >
-              Add printer
+              <FormattedMessage
+                id='printers.addPrinter'
+                defaultMessage='Add printer'
+              />
             </Button>
-            {printerPowerEntered <= 0 && (
-              <h4 className='printer-add-power-warning'>
-                No Providing the printer power value may result in errors in the
-                calculation of material consumption costs.
-              </h4>
-            )}
           </div>
         </InfiniteScroll>
       </main>
-
-      <StyledLink to={props.api.printersPage}>
-        <Button
-          className=''
-          color='red'
-        >
-          Back
-        </Button>
-      </StyledLink>
 
       {deleteBox && (
         <DeleteBox
