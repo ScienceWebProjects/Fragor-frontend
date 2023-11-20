@@ -5,6 +5,7 @@ const Text = styled.div`
   width: 100%;
   margin: 1rem auto 0.625rem auto;
   font-weight: 700;
+  text-align: center;
 `;
 
 const Underline = styled.div`

@@ -1,25 +1,21 @@
 import { useState, useEffect } from 'react';
 
 import './UI/_quotes.scss';
+import quotes from '../../quotes.json';
 
 const Quotes = () => {
   const [quote, setQuote] = useState('A kto umarł ten nie żyje!');
   const [author, setAuthor] = useState('Rak Pieseł');
 
-  const makeAPICall = async () => {
-    const quoteFetch = await fetch('https://type.fit/api/quotes');
-    const data = await quoteFetch.json();
-
+  const randomQuote = () => {
     const getRandomInt = (max) => {
       return Math.floor(Math.random() * max);
     };
 
     const number = getRandomInt(16);
 
-    if (data) {
-      localStorage.setItem('quote', data[number].text);
-      localStorage.setItem('author', data[number].author);
-    }
+    localStorage.setItem('quote', quotes.eng[number].text);
+    localStorage.setItem('author', quotes.eng[number].author);
   };
 
   const currentQuote = () => {
@@ -50,7 +46,7 @@ const Quotes = () => {
         localStorage.getItem('rememberedHour') !== localStorage.getItem('currentHour')
       ) {
         rememberedHour();
-        makeAPICall();
+        randomQuote();
         currentQuote();
       } else {
         currentQuote();

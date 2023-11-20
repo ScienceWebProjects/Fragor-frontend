@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import useToken from '../../../Hooks/useToken';
 
 // components
-import CustomSelect from '../../Filaments/UI/CustomSelect';
+import CustomSelect from '../../_shared/CustomSelect';
 
 // UI elements
 import Button from '../../UI/shared/buttons/Button';
@@ -27,12 +27,17 @@ function PrinterEditBox(props) {
   const [nameEntered, setNameEntered] = useState(details.name);
   const [modelSelected, setModelSelected] = useState(details.model);
 
+  const [printerPowerEntered, setPrinterPowerEntered] = useState(
+    details.power || 0
+  );
+
   const confirmEditApiCall = async (e) => {
     e.preventDefault();
 
     const editData = {
       name: nameEntered,
       model: modelSelected,
+      power: printerPowerEntered,
     };
 
     const btn = document.getElementById('confirmBtn');
@@ -78,7 +83,10 @@ function PrinterEditBox(props) {
       },
     };
     try {
-      const response = await fetch(`${props.api.ip}${props.api.printersModelsGet}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.printersModelsGet}`,
+        requestOptions
+      );
 
       const modelsList = await response.json();
       const modelsNames = [];
@@ -94,7 +102,7 @@ function PrinterEditBox(props) {
   };
   useEffect(() => {
     modelsGetAPICall();
-  }, []);
+  });
 
   return (
     <div className='shadow'>
@@ -120,6 +128,27 @@ function PrinterEditBox(props) {
             defaultSelected={details.model}
             onCustomSelect={setModelSelected}
           />
+
+          <StyledLabel htmlFor='model-select'>Power</StyledLabel>
+          <StyledInput
+            className='printer-power'
+            name='printer-power'
+            id='printer-power'
+            type='number'
+            min={0}
+            step={1}
+            value={printerPowerEntered === 0 ? '' : printerPowerEntered}
+            placeholder='Power [W]'
+            onChange={(event) => {
+              setPrinterPowerEntered(event.target.value);
+            }}
+          />
+          {printerPowerEntered <= 0 && (
+            <h4 className='printer-power-warning__box'>
+              No Providing the printer power value may result in errors in the
+              calculation of material consumption costs.
+            </h4>
+          )}
 
           <div className='box-btns'>
             <Button

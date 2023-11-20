@@ -9,6 +9,7 @@ import usePermissions from '../../Hooks/usePermissions';
 // components
 import TopBar from '../_shared/TopBar';
 import FilamentAddBox from './Boxes/FilamentAddBox';
+import LogoutUser from '../_shared/LogoutUser';
 
 // UI elements
 import FiltersBar from './FiltersBar';
@@ -107,6 +108,10 @@ function FilamentsPage(props) {
   useEffect(() => {
     makeAPICall();
   }, [filteredMaterial, filteredColor, filteredBrand, filteredStock]);
+
+  if (permission.logged === 'logout') {
+    return <LogoutUser api={props.api} />;
+  }
 
   return (
     <div>

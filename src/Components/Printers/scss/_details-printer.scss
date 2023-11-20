@@ -28,10 +28,10 @@
 
     .form-new_image {
       position: absolute;
-      bottom: 0rem;
-      left: 1rem;
-      right: 1rem;
-      margin: 0 auto;
+      top: 0rem;
+      left: 0rem;
+      // right: 1rem;
+      // margin: 0 auto;
       width: 6rem;
 
       z-index: 2;
@@ -52,25 +52,22 @@
         border-radius: 50%;
         background: none;
 
-        .btn-icon {
-          width: auto;
-          height: 1.5rem;
+        font-size: 1.1rem;
 
-          background-color: $primary-color;
+        background-color: $primary-color;
+        -webkit-transition: 500ms;
+        -o-transition: 500ms;
+        transition: 500ms;
+
+        padding: 0.313rem;
+        border-radius: 50%;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $yellow;
           -webkit-transition: 500ms;
           -o-transition: 500ms;
           transition: 500ms;
-
-          padding: 0.313rem;
-          border-radius: 50%;
-
-          &:hover {
-            cursor: pointer;
-            background-color: $yellow;
-            -webkit-transition: 500ms;
-            -o-transition: 500ms;
-            transition: 500ms;
-          }
         }
       }
       .new_image-confirm {
@@ -99,6 +96,47 @@
           -o-transition: 500ms;
           transition: 500ms;
         }
+      }
+    }
+  }
+
+  .printer-info {
+    position: relative;
+
+    .printer-power-warning {
+      color: $red;
+      text-align: center;
+      margin: 0.313rem 0 0 0;
+    }
+
+    .info-notes {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+
+      -webkit-transition: 400ms;
+      -o-transition: 400ms;
+      transition: 400ms;
+
+      @include flexCenter(row, center, center);
+
+      padding: 0;
+      margin: 0;
+      border: none;
+      background: none;
+
+      cursor: pointer;
+
+      font-size: 2rem;
+
+      &:hover {
+        color: $yellow;
+        -webkit-transition: 400ms;
+        -o-transition: 400ms;
+        transition: 400ms;
       }
     }
   }

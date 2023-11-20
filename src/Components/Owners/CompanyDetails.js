@@ -75,7 +75,7 @@ function CompanyDetails(props) {
 
           {users.map((user) => (
             <div
-              className='company_user'
+              className='company_user-item'
               key={`user-${user.id}`}
             >
               <div className='item-user_name'>

@@ -1,0 +1,112 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+$icon-style: (
+  width: 1.25rem,
+  margin: 0 0.125rem,
+  padding: 0,
+  border: none,
+  background: none,
+  cursor: pointer,
+);
+
+.warning {
+  // transition: 100ms;
+  border: 3px lighten($red, 15%) dashed !important;
+  background-color: $secondary-color !important;
+}
+
+.notes-container {
+  width: 105%;
+  min-height: 22rem;
+  max-height: 70vh;
+
+  border-radius: $corners;
+
+  .note-save {
+    @include flexCenter(row, space-between, center);
+    .save-text {
+      -webkit-transition: 300ms;
+      -o-transition: 300ms;
+      transition: 300ms;
+      width: 75%;
+      padding: 0.313rem;
+
+      background: $primary-color;
+      color: #fff;
+
+      border: 1px #000 dashed;
+      outline: none;
+
+      border-radius: 0.625rem;
+    }
+
+    .save-btn {
+      @each $property, $value in $button-style-remove {
+        #{$property}: $value;
+      }
+
+      width: 1.5rem;
+      margin: 0 auto;
+      font-size: 1.25rem;
+
+      cursor: pointer;
+
+      &:hover {
+        color: $blue;
+        -webkit-transition: 400ms;
+        -o-transition: 400ms;
+        transition: 400ms;
+      }
+    }
+  }
+
+  .note-wrapper {
+    @include flexCenter(row, center, center);
+
+    min-height: 3.5rem;
+    padding: 0.313rem 0;
+    margin-bottom: 0.313rem;
+
+    border-bottom: 3px dashed $primary-color;
+
+    .wrapper-text {
+      width: 80%;
+      font-size: 1rem;
+    }
+
+    .wrapper-btns {
+      width: 20%;
+
+      .btn__delete {
+        font-size: 1.25rem;
+
+        @each $property, $value in $icon-style {
+          #{$property}: $value;
+        }
+
+        &:hover {
+          color: $red;
+          -webkit-transition: 400ms;
+          -o-transition: 400ms;
+          transition: 400ms;
+        }
+      }
+
+      .btn__edit {
+        font-size: 1.25rem;
+
+        @each $property, $value in $icon-style {
+          #{$property}: $value;
+        }
+
+        &:hover {
+          color: $yellow;
+          -webkit-transition: 400ms;
+          -o-transition: 400ms;
+          transition: 400ms;
+        }
+      }
+    }
+  }
+}

@@ -31,6 +31,10 @@ function HomePage(props) {
     }
   }, []);
 
+  if (permission.logged === 'logout') {
+    return <LogoutUser api={props.api} />;
+  }
+
   if (permission.logged === 'logged') {
     return (
       <div>
@@ -103,6 +107,20 @@ function HomePage(props) {
                     color='red'
                   >
                     Owners
+                  </Button>
+                </StyledLink>
+              )}
+
+              {permission.changer && (
+                <StyledLink
+                  to={props.api.devicesPage}
+                  className='area-devices'
+                >
+                  <Button
+                    className='wrapper_button'
+                    color='red'
+                  >
+                    Devices
                   </Button>
                 </StyledLink>
               )}
