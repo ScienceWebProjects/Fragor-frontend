@@ -40,7 +40,10 @@ function LoginPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.loginPin}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.loginPin}`,
+        requestOptions
+      );
 
       if (response.status === 404) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
@@ -137,32 +140,34 @@ function LoginPage(props) {
             </Button>
           </form>
 
-        <StyledLink to={props.api.signinPage}>
-          <Button color='yellow'>
-            <FormattedMessage
-              id='login.signinBtn'
-              defaultMessage='Sign in'
-            />
-          </Button>
-        </StyledLink>
-        <div className='main_additionals'>
-          <StyledLink
-            to={props.api.forgetPin}
-            className='additionals_reminder'
-          >
-            <FormattedMessage
-              id='login.forgetPin'
-              defaultMessage='Forget PIN?'
-            />
+          <StyledLink to={props.api.signinPage}>
+            <Button color='yellow'>
+              <FormattedMessage
+                id='login.signinBtn'
+                defaultMessage='Sign in'
+              />
+            </Button>
           </StyledLink>
-          <StyledLink to={'/'}>
-            <FormattedMessage
-              id='login.privacy'
-              defaultMessage='Privacy policy'
-            />
-          </StyledLink>
-        </div>
-      </main>
+
+          <div className='main_additionals'>
+            <StyledLink
+              to={props.api.forgetPin}
+              className='additionals_reminder'
+            >
+              <FormattedMessage
+                id='login.forgetPin'
+                defaultMessage='Forget PIN?'
+              />
+            </StyledLink>
+            <StyledLink to={'/'}>
+              <FormattedMessage
+                id='login.privacy'
+                defaultMessage='Privacy policy'
+              />
+            </StyledLink>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
