@@ -10,7 +10,7 @@
 
 # production
 /build
-src/JSONs/
+/src/JSONs/
 
 # misc
 .DS_Store
