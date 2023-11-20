@@ -1,0 +1,70 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.lang-menu {
+  position: fixed;
+  right: 1rem;
+  top: 24vh;
+
+  color: $font-color;
+  width: 5.625rem;
+  padding: 0.313rem;
+  background-color: rgba($secondary-color, 0.5);
+  border: 1px solid #000;
+  border-radius: 0.625rem;
+
+  .selected-lang {
+    cursor: pointer;
+
+    @include flexCenter(row, space-between, center);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    // background-color: #fff;
+    border-radius: 0.625rem;
+    -webkit-box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+
+    li {
+      list-style: none;
+      @include flexCenter(row, space-between, center);
+
+      a {
+        text-decoration: none;
+        color: $font-color;
+
+        width: 5rem;
+        @include flexCenter(row, space-around, center);
+        margin: 0 auto;
+        padding: 0.313rem 0;
+
+        border-radius: 0.625rem;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $secondary-color;
+        }
+
+        &::before {
+          content: '';
+          width: 1.563rem;
+          height: 1.563rem;
+
+          display: inline-block;
+          text-align: center;
+          vertical-align: middle;
+        }
+      }
+
+      .en:before {
+        background-image: url('https://flagsapi.com/US/flat/32.png');
+      }
+      .pl:before {
+        background-image: url('https://flagsapi.com/PL/flat/32.png');
+      }
+    }
+  }
+}

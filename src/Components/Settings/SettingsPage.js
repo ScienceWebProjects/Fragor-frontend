@@ -172,6 +172,11 @@ function SettingsPage(props) {
           <ChangePinBox
             api={props.api}
             setChangePinBox={setChangePinBox}
+            hideCancelBtn={false}
+            onSuccess={() => {
+              setChangePinBox(false);
+              alert('Succesfull PIN changed.');
+            }}
           />
         )}
         {changePasswordBox && (

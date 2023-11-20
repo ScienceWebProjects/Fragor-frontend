@@ -12,7 +12,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 // scss
 import './UI/_custom-select.scss';
 
-function CustomSelect({ options, defaultSelected, onCustomSelect }) {
+function CustomSelect({ options, defaultSelected, onCustomSelect, selectClass }) {
   const windowSize = useWindowSize();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +35,7 @@ function CustomSelect({ options, defaultSelected, onCustomSelect }) {
       : 165;
 
   return (
-    <div className={`custom-select ${isOpen ? 'open' : ''}`}>
+    <div className={`custom-select ${selectClass} ${isOpen ? 'open' : ''}`}>
       <div
         className='selected-option'
         onClick={() => setIsOpen(!isOpen)}
