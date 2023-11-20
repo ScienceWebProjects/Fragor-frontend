@@ -103,8 +103,16 @@ function FilamentAddBox(props) {
     devicesListApiCall();
   });
 
-  const confirmAddApiCall = async (e) => {
+  const setFilamentUID = async () => {
+    setUidScanned(null);
+
+    // add some logic about scan filament spool
+  };
+
+  const confirmAddSubmitHandler = async (e) => {
     e.preventDefault();
+
+    setFilamentUID();
 
     const addData = {
       device: deviceSelected,
@@ -163,7 +171,7 @@ function FilamentAddBox(props) {
       <div className='box'>
         <h2>Add new filament</h2>
 
-        <form onSubmit={confirmAddApiCall}>
+        <form onSubmit={confirmAddSubmitHandler}>
           <StyledLabel htmlFor='device-select'>Device</StyledLabel>
           <CustomSelect
             options={devicesOptions || []}

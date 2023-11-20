@@ -112,7 +112,7 @@ function FilamentsPage(props) {
 
   useEffect(() => {
     makeAPICall();
-  }, [filteredMaterial, filteredColor, filteredBrand, filteredStock]);
+  });
 
   const filamentFindApiCall = async () => {
     const btn = document.getElementById('findBtn');
@@ -127,7 +127,10 @@ function FilamentsPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.filamentFind}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentFind}`,
+        requestOptions
+      );
 
       if (response.status === 200) {
         const resData = await response.json();

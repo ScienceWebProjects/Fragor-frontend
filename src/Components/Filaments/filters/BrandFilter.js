@@ -39,7 +39,7 @@ function BrandFilter(props) {
   };
   useEffect(() => {
     makeAPICall();
-  }, []);
+  });
 
   return (
     <SelectBox>

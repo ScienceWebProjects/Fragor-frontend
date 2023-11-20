@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Electrolize';
-  src: url('./fonts/Electrolize-Regular-PL.ttf') format('truetype');
+  src: url('./Fonts/Electrolize-Regular-PL.ttf') format('truetype');
 }
 
 body {
@@ -14,5 +14,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }

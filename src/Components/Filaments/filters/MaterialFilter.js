@@ -39,7 +39,7 @@ const MaterialFilter = (props) => {
   };
   useEffect(() => {
     makeAPICall();
-  }, []);
+  });
 
   return (
     <SelectBox>

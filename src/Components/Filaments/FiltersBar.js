@@ -8,10 +8,8 @@ import MaterialFilter from './filters/MaterialFilter';
 import ColorFilter from './filters/ColorFilter';
 import BrandFilter from './filters/BrandFilter';
 import StockFilter from './filters/StockFilter';
-import FiltersDropdownMenu from './filters/FiltersDropdownMenu';
 
 // UI elements
-// import Card from '../UI/shared/Card';
 
 // scss
 import './scss/_bar-container.scss';
@@ -30,7 +28,7 @@ function FiltersBar(props) {
       stock: stock,
     };
     props.onFilterChange(filters);
-  }, [color, material, brand, stock]);
+  });
 
   return (
     <div className='container_bar'>
@@ -62,7 +60,6 @@ function FiltersBar(props) {
           setStock(stock);
         }}
       />
-      {/* <FiltersDropdownMenu /> */}
     </div>
   );
 }

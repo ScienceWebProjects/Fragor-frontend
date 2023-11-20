@@ -39,7 +39,6 @@ function NewTariff({
   const [fromHour, setFromHour] = useState(hourFrom || 0);
   const [toHour, setToHour] = useState(hourTo || 0);
   const [tariffPrice, setTariffPrice] = useState(price || 0);
-  const [errors, setErrors] = useState({});
 
   // hour set values options
   const [onHourInput, setOnHourInput] = useState(false);
@@ -135,8 +134,6 @@ function NewTariff({
     if (tariffPrice <= 0) {
       newErrors.price = 'Price value must be greater than 0!';
     }
-
-    setErrors(newErrors);
     setErrorMessage(
       `${newErrors.name ? newErrors.name + '\n' : ''}${
         newErrors.days ? newErrors.days + '\n' : ''
