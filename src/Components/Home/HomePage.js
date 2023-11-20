@@ -1,5 +1,4 @@
 // libs
-import React from 'react';
 
 // hooks
 import { useEffect } from 'react';
@@ -30,7 +29,7 @@ function HomePage(props) {
     if (permission.logged === 'logout') {
       navigate(props.api.loginPage);
     }
-  }, []);
+  });
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
@@ -40,7 +39,7 @@ function HomePage(props) {
     return (
       <div>
         {/* <header> */}
-        <TopBar />
+        <TopBar api={props.api} />
         {/* </ header> */}
 
         <main

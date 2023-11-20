@@ -10,7 +10,7 @@ import Button from '../../UI/shared/buttons/Button';
 // scss
 import '../../UI/shared/_box.scss';
 
-function DeleteBox(props) {
+function DeletePrinterBox(props) {
   const user = useToken();
   const navigate = useNavigate();
 
@@ -71,4 +71,4 @@ function DeleteBox(props) {
   );
 }
 
-export default DeleteBox;
+export default DeletePrinterBox;

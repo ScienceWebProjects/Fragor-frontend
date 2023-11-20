@@ -17,6 +17,10 @@ import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
 import StyledLink from '../../UI/shared/StyledLink';
 
+// scss
+import '../../UI/shared/_media-queries.scss';
+import '../scss/_login-media-queries.scss';
+
 function LoginPage(props) {
   const [emailEntered, setEmailEntered] = useState('');
   const [pinEntered, setPinEntered] = useState('');
@@ -71,62 +75,67 @@ function LoginPage(props) {
   };
 
   return (
-    <div className='App'>
-      <header className='header_logo'>
-        <h1 className='logo_txt'>
-          3D printing assistant
-          <br />
-          Project by:
-          <br />
-          Piotr Goraj & Dawid Franczak
-          <br />
-        </h1>
-        <div className='logo_img'>
-          <a href='https://github.com/ScienceWebProjects/filament-measurement'>
-            <img
-              src={logo}
-              alt='Logo'
-            />
-          </a>
-        </div>
-      </header>
-
-      <main className='App-header login_form'>
-        <SelectLanguage />
-        <form onSubmit={submitFormHandler}>
-          <div style={{ width: '85vw', margin: '0 auto' }}>
-            <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
-            <StyledInput
-              name='user-email'
-              id='user-email'
-              type='email'
-              value={emailEntered}
-              onChange={(event) => {
-                setEmailEntered(event.target.value);
-              }}
-              required
-            ></StyledInput>
+    <div className='media-background'>
+      <div className='App'>
+        <header className='header_logo'>
+          <h1 className='logo_txt'>
+            3D printing assistant
+            <br />
+            Project by:
+            <br />
+            Piotr Goraj & Dawid Franczak
+            <br />
+          </h1>
+          <div className='logo_img'>
+            <a href='https://github.com/ScienceWebProjects/filament-measurement'>
+              <img
+                src={logo}
+                alt='Logo'
+              />
+            </a>
           </div>
-          <div>
+        </header>
+
+        <main className='App-header login_form'>
+          <SelectLanguage />
+          <form onSubmit={submitFormHandler}>
+            <div
+              style={{ width: '85vw', margin: '0 auto' }}
+              className='styled-input'
+            >
+              <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
+              <StyledInput
+                name='user-email'
+                id='user-email'
+                type='email'
+                value={emailEntered}
+                onChange={(event) => {
+                  setEmailEntered(event.target.value);
+                }}
+                required
+              ></StyledInput>
+            </div>
+
             <Pin
               text={'PIN'}
               length={4}
               style={{ width: '85%', margin: '0 auto' }}
+              className='styled-pin'
               onPinEntered={(pin) => {
                 setPinEntered(pin);
               }}
             />
-          </div>
-          <Button
-            color='green'
-            type='submit'
-          >
-            <FormattedMessage
-              id='login.loginBtn'
-              defaultMessage='Log in'
-            />
-          </Button>
-        </form>
+            <Button
+              className='log-btn'
+              color='green'
+              type='submit'
+            >
+              <FormattedMessage
+                id='login.loginBtn'
+                defaultMessage='Log in'
+              />
+            </Button>
+          </form>
 
         <StyledLink to={props.api.signinPage}>
           <Button color='yellow'>

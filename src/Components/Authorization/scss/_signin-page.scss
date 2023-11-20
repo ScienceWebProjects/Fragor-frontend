@@ -1,0 +1,18 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.media-background {
+  .App {
+    .App-header {
+      .infinite-scroll {
+        @include flexCenter(column, center, flex-start);
+
+        width: 85vw;
+        text-align: center;
+        align-items: center;
+        padding: 0px 15px 0 15px;
+        margin: 10px;
+      }
+    }
+  }
+}

@@ -1,6 +1,9 @@
 // libs
 import { useEffect, useState } from 'react';
 
+// components
+import { FormattedDate } from 'react-intl';
+
 // UI elemnts
 import ClockCard from './UI/ClockCard';
 
@@ -32,7 +35,14 @@ const ClockAndDate = (props) => {
 
   return (
     <ClockCard className='date'>
-      <div>{date}</div>
+      <div>
+        <FormattedDate
+          value={date}
+          year='numeric'
+          month='long'
+          day='numeric'
+        />
+      </div>
       <div>{clockState}</div>
     </ClockCard>
   );

@@ -1,0 +1,40 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+@media (min-width: $breakpoint-desktop) {
+  .media-background {
+    min-height: 80vh;
+
+    background: $bcg-color--desktop;
+    padding: 10vh 10vw;
+
+    .App {
+      opacity: 0.99;
+      @include flexCenter(row, space-between, center);
+      margin: auto;
+
+      border-radius: 3rem;
+
+      .header_logo {
+        max-width: 40%;
+        @include flexCenter(column, center, center);
+
+        background: none;
+        color: $font-color;
+
+        .logo_txt {
+          font-size: 1.8rem;
+          width: 90%;
+          text-align: center;
+        }
+
+        .logo_img {
+          width: 15rem;
+          height: 15rem;
+          max-width: unset;
+          max-height: unset;
+        }
+      }
+    }
+  }
+}
