@@ -10,6 +10,39 @@
 
   @include flexCenter(column, center, center);
 
+  position: relative;
+
+  .info-notes {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+    -webkit-transition: 400ms;
+    -o-transition: 400ms;
+    transition: 400ms;
+
+    @include flexCenter(row, center, center);
+
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+
+    cursor: pointer;
+
+    font-size: 2rem;
+
+    &:hover {
+      color: $yellow;
+      -webkit-transition: 400ms;
+      -o-transition: 400ms;
+      transition: 400ms;
+    }
+  }
+
   .filament-data {
     @include flexCenter(column, center, center);
 

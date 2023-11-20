@@ -1,0 +1,49 @@
+{
+  "back": "Back",
+  "confirm": "Confirm",
+  "waiting": "Waiting...",
+  "deleting": "Deleting...",
+  "delete": "Delete",
+  "addDevice": "Add device",
+  "edit": "Edit",
+  "all": "All",
+  "email": "E-mail",
+
+  "alert.addedDevice": "Succesfully added device.",
+
+  "menu.menu": "Menu",
+  "menu.home": "Home",
+
+  "login.password": "Password",
+  "login.loginBtn": "Log in",
+  "login.signinBtn": "Sign in",
+  "login.forgetPin": "Forget PIN?",
+  "login.privacy": "Privacy policy",
+
+  "signin.personalInfo": "Personal information",
+  "signin.firstName": "First name",
+  "signin.lastName": "Last name",
+  "signin.accountInfo": "Account information",
+  "signin.password": "Password",
+  "signin.passwordConfirm": "Confirm password",
+  "signin.productInfo": "Product information",
+  "signin.productKey": "Product key",
+
+  "home.printers": "Printers",
+  "home.filaments": "Filaments",
+  "home.settings": "Settings",
+  "home.devices": "Devices",
+  "home.users": "Users",
+  "home.owners": "Owners",
+
+  "printers.addPrinter": "Add printer",
+  "printers.model": "Model",
+  "printers.name": "Nazwa",
+  "printers.printer": "Printer",
+  "printers.workHours": "Hours worked",
+  "printers.printedFilaments": "Filaments printed",
+  "printers.newModelName": "Add printer model name",
+  "printers.newModel": "Add model",
+  "printers.deleteModel": "Delete model",
+  "printers.printerName": "Printer name"
+}

@@ -16,6 +16,7 @@ import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
 import FilamentsOptions from './Components/Settings/FilamentsOptions';
+import ElectricityTariff from './Components/Settings/ElectricityTariff';
 import MaterialsOptions from './Components/Settings/MaterialsOptions';
 import ColorsOptions from './Components/Settings/ColorsOptions';
 import BrandsOptions from './Components/Settings/BrandsOptions';
@@ -28,6 +29,7 @@ import ForgetPin from './Components/Authorization/Login/ForgetPin';
 
 // UI elements
 import './App.css';
+import Charts from './Components/Charts/Charts';
 
 function App() {
   const [printerDetails, setPrinterDetails] = useState([]);
@@ -72,7 +74,14 @@ function App() {
         />
       ),
     },
-    { path: `${endpoints.printerAddPage}`, element: <AddPrinter api={endpoints} /> },
+    {
+      path: `${endpoints.printerAddPage}`,
+      element: <AddPrinter api={endpoints} />,
+    },
+    {
+      path: endpoints.chartsPage,
+      element: <Charts api={endpoints} />,
+    },
     {
       path: endpoints.filamentsPage,
       element: (
@@ -110,6 +119,10 @@ function App() {
     {
       path: endpoints.settingBrandsOptions,
       element: <BrandsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingsElectricityTariff,
+      element: <ElectricityTariff api={endpoints} />,
     },
     {
       path: endpoints.usersPage,

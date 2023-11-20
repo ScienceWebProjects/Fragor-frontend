@@ -10,7 +10,7 @@ import useToken from '../../../Hooks/useToken';
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
-import CustomSelect from '../UI/CustomSelect';
+import CustomSelect from '../../_shared/CustomSelect';
 
 // scss
 import '../../UI/shared/_box.scss';

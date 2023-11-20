@@ -10,17 +10,19 @@ import useToken from '../../../Hooks/useToken';
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
-import CustomSelect from '../UI/CustomSelect';
+import CustomSelect from '../../_shared/CustomSelect';
 
 // scss
 import '../../UI/shared/_box.scss';
 import '../scss/_select--disabled.scss';
+import '../scss/_filament-add-box.scss';
 
 function FilamentAddBox(props) {
   const { onFilamentAddBox } = props;
 
   const user = useToken();
 
+  // variables for filters
   const [filters, setFilters] = useState([]);
   const [devicesList, setDevicesList] = useState([
     {
@@ -38,7 +40,10 @@ function FilamentAddBox(props) {
   const [materialSelected, setMaterialSelected] = useState('');
   const [colorSelected, setColorSelected] = useState('');
   const [brandSelected, setBrandSelected] = useState('');
+
+  // variables for new filament
   const [diameterEntered, setDiameterEntered] = useState(1.75);
+  const [priceEntered, setPriceEntered] = useState(0);
   const [uidScanned, setUidScanned] = useState(0);
 
   const filtersGetAPICall = async () => {
@@ -73,7 +78,10 @@ function FilamentAddBox(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.devicesList}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.devicesList}`,
+        requestOptions
+      );
 
       if (response.status === 200) {
         const responseData = await response.json();
@@ -93,7 +101,7 @@ function FilamentAddBox(props) {
   useEffect(() => {
     filtersGetAPICall();
     devicesListApiCall();
-  }, []);
+  });
 
   const confirmAddApiCall = async (e) => {
     e.preventDefault();
@@ -104,6 +112,7 @@ function FilamentAddBox(props) {
       color: colorSelected,
       brand: brandSelected,
       diameter: diameterEntered,
+      price: priceEntered,
       uid: uidScanned,
     };
 
@@ -120,7 +129,10 @@ function FilamentAddBox(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.filamentAdd}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentAdd}`,
+        requestOptions
+      );
 
       if (response.status === 201) {
         onFilamentAddBox(false);
@@ -179,21 +191,42 @@ function FilamentAddBox(props) {
             onCustomSelect={setBrandSelected}
           />
 
-          <StyledLabel htmlFor='material'>Diameter</StyledLabel>
-          <StyledInput
-            name='material'
-            id='material'
-            type='number'
-            min='1'
-            max='4'
-            step='0.01'
-            value={diameterEntered}
-            className={deviceSelected ? '' : 'select-disabled'}
-            onChange={(event) => {
-              setDiameterEntered(event.target.value);
-            }}
-            required
-          />
+          <div className='number-inputs'>
+            <div className='input-number'>
+              <StyledLabel htmlFor='diameter'>Diameter</StyledLabel>
+              <StyledInput
+                style={{ textAlign: 'center' }}
+                name='diameter'
+                id='diameter'
+                type='number'
+                min='1'
+                max='4'
+                step='0.01'
+                value={diameterEntered}
+                onChange={(event) => {
+                  setDiameterEntered(event.target.value);
+                }}
+                required
+              />
+            </div>
+
+            <div className='input-number'>
+              <StyledLabel htmlFor='price'>Price per kilogram</StyledLabel>
+              <StyledInput
+                style={{ textAlign: 'center' }}
+                name='price'
+                id='price'
+                type='number'
+                min='1'
+                step='0.01'
+                value={priceEntered}
+                onChange={(event) => {
+                  setPriceEntered(event.target.value);
+                }}
+                required
+              />
+            </div>
+          </div>
 
           <div className='box-btns'>
             <Button

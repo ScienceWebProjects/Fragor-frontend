@@ -1,0 +1,12 @@
+@import '../../UI/shared/functions';
+@import '../../UI/shared/variables';
+
+.printers-list-btns {
+  width: 85vw;
+  margin: 0 auto;
+  @include flexCenter(row, space-between, center);
+
+  .printers-list-btn {
+    width: 40vw;
+  }
+}

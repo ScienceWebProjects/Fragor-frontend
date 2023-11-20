@@ -45,7 +45,10 @@ function SettingsPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.settingLogout}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingLogout}`,
+        requestOptions
+      );
 
       if (response.status === 204) {
         console.log('Successful logout');
@@ -113,6 +116,16 @@ function SettingsPage(props) {
                   color='blue'
                 >
                   Filaments options
+                </Button>
+              </StyledLink>
+            )}
+            {(permission.owner || permission.master) && (
+              <StyledLink to={props.api.settingsElectricityTariff}>
+                <Button
+                  className=''
+                  color='blue'
+                >
+                  Electricity tariffs
                 </Button>
               </StyledLink>
             )}

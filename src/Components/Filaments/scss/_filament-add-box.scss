@@ -1,0 +1,16 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.shadow {
+  .box {
+    .number-inputs {
+      width: 75vw;
+      margin: 0 auto;
+      @include flexCenter(row, space-between, center);
+
+      .input-number {
+        width: 47%;
+      }
+    }
+  }
+}
