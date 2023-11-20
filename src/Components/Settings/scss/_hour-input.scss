@@ -1,0 +1,28 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.hour-btn {
+  width: 100% !important;
+}
+
+.shadow {
+  .box {
+    .hours {
+      width: 75vw;
+
+      .two-columns {
+        @include gridStart(1fr 1fr, auto, 'AM PM', 2px);
+
+        .AM {
+          grid-area: AM;
+          place-content: center;
+        }
+
+        .PM {
+          grid-area: PM;
+          place-content: center;
+        }
+      }
+    }
+  }
+}

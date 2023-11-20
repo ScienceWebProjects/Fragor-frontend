@@ -2,21 +2,26 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+// hooks
+import useToken from '../../Hooks/useToken';
+// import useWindowSize from '../../Hooks/useWindowSize';
+
 // components
 import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import Button from '../UI/shared/buttons/Button';
 
-// custom hooks
-import useToken from '../../Hooks/useToken';
-
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
 import PrinterItem from './PrinterItem';
+// import InfiniteScroll from 'react-infinite-scroll-component';
 
 // scss
+import './scss/_printers-list-btns.scss';
 
 function PrintersList(props) {
+  // const windowSize = useWindowSize();
+
   const [printers, setPrinters] = useState([]);
 
   const printerSelectionHandler = (printer) => {
@@ -35,7 +40,10 @@ function PrintersList(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.printersList}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.printersList}`,
+        requestOptions
+      );
 
       const data = await response.json();
       setPrinters(data);
@@ -46,7 +54,7 @@ function PrintersList(props) {
 
   useEffect(() => {
     makeAPICall();
-  }, []);
+  });
 
   return (
     <div>
@@ -91,6 +99,14 @@ function PrintersList(props) {
           </Button>
         </StyledLink>
       </main>
+      <StyledLink to={props.api.home}>
+        <Button
+          className=''
+          color='red'
+        >
+          Back
+        </Button>
+      </StyledLink>
     </div>
   );
 }

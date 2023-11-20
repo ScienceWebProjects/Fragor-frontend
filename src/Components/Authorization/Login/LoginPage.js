@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import { FormattedMessage } from 'react-intl';
-import Button from '../../UI/shared/buttons/Button';
 import Pin from '../../_shared/Pin';
 import SelectLanguage from './SelectLanguage';
 
 // UI elements
 import './LoginPage.scss';
 import logo from '../../../Images/logo-black.png';
+import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';
 import StyledLink from '../../UI/shared/StyledLink';
@@ -137,36 +137,32 @@ function LoginPage(props) {
             </Button>
           </form>
 
-          <StyledLink to={props.api.signinPage}>
-            <Button
-              color='yellow'
-              className='log-btn'
-            >
-              <FormattedMessage
-                id='login.signinBtn'
-                defaultMessage='Sign in'
-              />
-            </Button>
+        <StyledLink to={props.api.signinPage}>
+          <Button color='yellow'>
+            <FormattedMessage
+              id='login.signinBtn'
+              defaultMessage='Sign in'
+            />
+          </Button>
+        </StyledLink>
+        <div className='main_additionals'>
+          <StyledLink
+            to={props.api.forgetPin}
+            className='additionals_reminder'
+          >
+            <FormattedMessage
+              id='login.forgetPin'
+              defaultMessage='Forget PIN?'
+            />
           </StyledLink>
-          <div className='main_additionals'>
-            <StyledLink
-              to={'/'}
-              className='additionals_reminder'
-            >
-              <FormattedMessage
-                id='login.forgetPin'
-                defaultMessage='Forget PIN?'
-              />
-            </StyledLink>
-            <StyledLink to={'/'}>
-              <FormattedMessage
-                id='login.privacy'
-                defaultMessage='Privacy policy'
-              />
-            </StyledLink>
-          </div>
-        </main>
-      </div>
+          <StyledLink to={'/'}>
+            <FormattedMessage
+              id='login.privacy'
+              defaultMessage='Privacy policy'
+            />
+          </StyledLink>
+        </div>
+      </main>
     </div>
   );
 }

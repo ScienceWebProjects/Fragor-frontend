@@ -1,0 +1,297 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+$panel-btns-style: (
+  font-size: 1.125rem,
+  border: 1px solid $font-color,
+  border-radius: 50%,
+  text-align: center,
+  padding: 0.125rem,
+  margin: 0.125rem,
+  cursor: pointer,
+  transition: 300ms,
+);
+
+.input-style {
+  text-align: center;
+  width: 88%;
+  height: 1.5rem;
+  padding: 0 0.313rem;
+  margin: 0.125rem 0rem;
+
+  font-size: 1rem;
+
+  border-radius: 0.625rem;
+  border: 1px solid #000;
+  background: #ffffff;
+
+  transition: 0.3s;
+
+  &::placeholder {
+    color: #aaa;
+  }
+
+  &:focus {
+    outline-offset: 3px;
+  }
+}
+
+.ininite-scroll {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 85vw;
+  text-align: center;
+  align-items: center;
+  padding: 0px 15px 0 15px;
+  margin: 10px;
+  transition: 300ms;
+
+  .tariff-warning {
+    color: $red;
+    margin: 0 0 0.625rem 0;
+  }
+
+  .tariff-details {
+    position: relative;
+
+    width: 85vw;
+    min-height: 8rem;
+    margin: 0.313rem 0;
+    color: $font-color;
+
+    background-color: rgba($primary-color, 0.3);
+    border-radius: $corners;
+
+    @include gridStart(
+      1fr 33% 33%,
+      25% 25% 25% 25%,
+      'name hour hour' 'name hourFrom hourTo' 'name days days'
+        'name price price',
+      2px
+    );
+
+    .name {
+      grid-area: name;
+      display: inline-grid;
+      place-content: center;
+    }
+    .hour {
+      grid-area: hour;
+      display: inline-grid;
+      align-items: end;
+      justify-content: center;
+    }
+    .hourFrom {
+      grid-area: hourFrom;
+    }
+    .hourTo {
+      grid-area: hourTo;
+    }
+    .price {
+      grid-area: price;
+    }
+    .days {
+      grid-area: days;
+    }
+
+    .details-edit {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      font-size: 1.5rem;
+
+      @each $property, $value in $button-style-remove {
+        #{$property}: $value;
+      }
+      transition: 1s;
+
+      &:hover {
+        color: $yellow;
+        transition: 300ms;
+      }
+    }
+  }
+
+  .new-tariff {
+    overflow: hidden;
+    position: relative;
+
+    width: 85vw;
+    min-height: 10rem;
+    margin: 0.313rem 0;
+    color: $font-color;
+
+    background-color: rgba($primary-color, 0.3);
+    border-radius: $corners;
+
+    @include flexCenter(column, center, center);
+
+    .panel {
+      display: flex;
+      width: 100%; // Set the width for one panel
+      transition: transform 0.3s ease-in-out;
+      height: 100%;
+
+      .panel-name {
+        .name-input {
+          @include flexCenter(column, center, center);
+
+          .name-value {
+            width: 50%;
+          }
+        }
+      }
+
+      .panel-week {
+        .active {
+          background-color: $blue !important;
+          color: #fff;
+          border: none !important;
+        }
+
+        .week-day {
+          @each $property, $value in $button-style-remove {
+            #{$property}: $value;
+          }
+
+          font-size: 1rem;
+          margin: 0.125rem;
+          padding: 0.313rem;
+
+          border: 1px solid #000;
+          border-radius: $corners;
+        }
+      }
+
+      .panel-hours {
+        .hours-inputs {
+          width: 40%;
+          margin: 0 auto;
+          @include flexCenter(row, center, center);
+
+          .hour-input {
+            @include flexCenter(column, center, center);
+
+            .hour-select {
+              @each $property, $value in $button-style-remove {
+                #{$property}: $value;
+
+                transition: 300ms;
+
+                font-size: 1rem;
+                margin: 0.125rem;
+                padding: 0.313rem;
+
+                border: 1px solid #000;
+                border-radius: $corners;
+
+                &:hover {
+                  background-color: $blue;
+                  color: #fff;
+                  transition: 300ms;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .panel-price {
+        .price-input {
+          @include flexCenter(column, center, center);
+
+          .price-value {
+            width: 35%;
+          }
+        }
+      }
+    }
+
+    .panel div {
+      flex: 0 0 100%; // Ensures that all div children have the same width
+    }
+
+    .panel.active {
+      transform: translateX(0%);
+    }
+
+    .tarrif-close-btn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      @each $property, $value in $button-style-remove {
+        #{$property}: $value;
+      }
+      @each $property, $value in $panel-btns-style {
+        #{$property}: $value;
+      }
+
+      &:hover {
+        background-color: $red;
+        color: white;
+        border: 1px solid white;
+      }
+    }
+
+    .tarrif-trash-btn {
+      position: absolute;
+      bottom: 0;
+      left: 2.25rem;
+
+      @each $property, $value in $button-style-remove {
+        #{$property}: $value;
+      }
+      @each $property, $value in $panel-btns-style {
+        #{$property}: $value;
+      }
+
+      &:hover {
+        background-color: $red;
+        color: white;
+        border: 1px solid white;
+      }
+    }
+
+    .tariff-panels {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      .panel-btn {
+        @each $property, $value in $button-style-remove {
+          #{$property}: $value;
+        }
+        @each $property, $value in $panel-btns-style {
+          #{$property}: $value;
+        }
+
+        &:hover {
+          background-color: $blue;
+          color: white;
+          border: 1px solid white;
+        }
+      }
+
+      .save-btn {
+        &:hover {
+          background-color: $green;
+          color: white;
+          border: 1px solid white;
+        }
+      }
+    }
+  }
+}
+
+.buttons-area {
+  width: 90vw;
+  margin: auto;
+  @include flexCenter(row, center, center);
+
+  .area-btn {
+    width: 45vw;
+  }
+}

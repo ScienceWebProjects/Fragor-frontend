@@ -16,6 +16,7 @@ import SigninPage from './Components/Authorization/Signin/SigninPage';
 import AddPrinter from './Components/Printers/AddPrinter';
 import SettingsPage from './Components/Settings/SettingsPage';
 import FilamentsOptions from './Components/Settings/FilamentsOptions';
+import ElectricityTariff from './Components/Settings/ElectricityTariff';
 import MaterialsOptions from './Components/Settings/MaterialsOptions';
 import ColorsOptions from './Components/Settings/ColorsOptions';
 import BrandsOptions from './Components/Settings/BrandsOptions';
@@ -24,9 +25,11 @@ import UserDetails from './Components/Users/UserDetails';
 import OwnersPage from './Components/Owners/OwnersPage';
 import CompanyDetails from './Components/Owners/CompanyDetails';
 import DevicesPage from './Components/Devices/DevicesPage';
+import ForgetPin from './Components/Authorization/Login/ForgetPin';
 
 // UI elements
 import './App.css';
+import Charts from './Components/Charts/Charts';
 
 function App() {
   const [printerDetails, setPrinterDetails] = useState([]);
@@ -50,6 +53,7 @@ function App() {
   const router = createBrowserRouter([
     { path: endpoints.loginPage, element: <LoginPage api={endpoints} /> },
     { path: endpoints.signinPage, element: <SigninPage api={endpoints} /> },
+    { path: endpoints.forgetPin, element: <ForgetPin api={endpoints} /> },
     { path: endpoints.home, element: <HomePage api={endpoints} /> },
 
     {
@@ -70,7 +74,14 @@ function App() {
         />
       ),
     },
-    { path: `${endpoints.printerAddPage}`, element: <AddPrinter api={endpoints} /> },
+    {
+      path: `${endpoints.printerAddPage}`,
+      element: <AddPrinter api={endpoints} />,
+    },
+    {
+      path: endpoints.chartsPage,
+      element: <Charts api={endpoints} />,
+    },
     {
       path: endpoints.filamentsPage,
       element: (
@@ -108,6 +119,10 @@ function App() {
     {
       path: endpoints.settingBrandsOptions,
       element: <BrandsOptions api={endpoints} />,
+    },
+    {
+      path: endpoints.settingsElectricityTariff,
+      element: <ElectricityTariff api={endpoints} />,
     },
     {
       path: endpoints.usersPage,

@@ -45,7 +45,10 @@ function SettingsPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.settingLogout}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingLogout}`,
+        requestOptions
+      );
 
       if (response.status === 204) {
         console.log('Successful logout');
@@ -116,6 +119,16 @@ function SettingsPage(props) {
                 </Button>
               </StyledLink>
             )}
+            {(permission.owner || permission.master) && (
+              <StyledLink to={props.api.settingsElectricityTariff}>
+                <Button
+                  className=''
+                  color='blue'
+                >
+                  Electricity tariffs
+                </Button>
+              </StyledLink>
+            )}
             <Button
               className=''
               color='yellow'
@@ -159,6 +172,11 @@ function SettingsPage(props) {
           <ChangePinBox
             api={props.api}
             setChangePinBox={setChangePinBox}
+            hideCancelBtn={false}
+            onSuccess={() => {
+              setChangePinBox(false);
+              alert('Succesfull PIN changed.');
+            }}
           />
         )}
         {changePasswordBox && (

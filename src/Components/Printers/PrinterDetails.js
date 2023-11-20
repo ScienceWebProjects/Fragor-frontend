@@ -10,14 +10,17 @@ import { useIntl } from 'react-intl';
 // components
 import TopBar from '../_shared/TopBar';
 import PrinterEditBox from './Boxes/PrinterEditBox';
-import DeletePrinterBox from './Boxes/DeleteBox';
+// import DeleteBox from './Boxes/DeleteBox';
 import { FormattedMessage } from 'react-intl';
+import DeletePrinterBox from './Boxes/DeleteBox';
+import NotesBox from '../_shared/NotesBox';
 
 // downloaded components
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
-import iconImg from '../../Images/image-icon.png';
+import '../../Fonts/fontello/css/fragor.css';
+import iconImg from '../../Images/icon-black.png';
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
@@ -29,6 +32,7 @@ function PrinterDetails(props) {
   const [details, setDetails] = useState(props.details);
   const [editBox, setEditBox] = useState(false);
   const [deleteBox, setDeleteBox] = useState(false);
+  const [notesBox, setNotesBox] = useState(false);
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -42,9 +46,11 @@ function PrinterDetails(props) {
 
   // sum all printed material filaments to one variable
   let filamentAllAmount = 0;
-  const filamentsAll = details ? details.filaments : '';
+  let filamentAllPrice = 0;
+  const filamentsAll = details ? details.filaments : null;
   for (const key in filamentsAll) {
     filamentAllAmount += filamentsAll[key].amount;
+    filamentAllPrice += filamentsAll[key].price;
   }
 
   const deviceAddHandler = async () => {
@@ -222,7 +228,7 @@ function PrinterDetails(props) {
                 <img
                   src={iconImg}
                   className='btn-icon'
-                  alt='icon'
+                  alt='new-img-button'
                 />
               </button>
 
@@ -242,60 +248,39 @@ function PrinterDetails(props) {
             </form>
           </div>
 
-          <div>
+          <div className='printer-info'>
+            <button
+              className='info-notes'
+              type='button'
+              onClick={() => {
+                setNotesBox(true);
+              }}
+            >
+              <i className='icon-edit-1'></i>
+            </button>
             <InfiniteScroll
               dataLength={''}
               hasMore={false}
               height={'30vh'}
               // endMessage={'No more added filaments'}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
             >
-              <div>
-                <FormattedMessage
-                  id='printers.name'
-                  defaultMessage='Name'
-                />
-                {': '}
-                {details.name}
-              </div>
-              <div>
-                <FormattedMessage
-                  id='printers.model'
-                  defaultMessage='Model'
-                />
-                {': '}
-                {details.model}
-              </div>
+              <div>Name: {details.name}</div>
+              <div>Model: {details.model}</div>
               <br />
-              <div>
-                <FormattedMessage
-                  id='printers.workHours'
-                  defaultMessage='Hours worked'
-                />
-                {': '}
-                {details.workHours} h
-              </div>
+              <div>Work hours: {details.workHours} h</div>
               <br />
-              <div>
-                <FormattedMessage
-                  id='printers.printedFilaments'
-                  defaultMessage='Printed Filements'
-                />
-                {': '}
-              </div>
-              <div>
-                <FormattedMessage
-                  id='all'
-                  defaultMessage='All'
-                />
-                {': '}
-                {filamentAllAmount} kg
-              </div>
+              <div>Printed Filements:</div>
+              <div>All: {filamentAllAmount} kg</div>
 
               {Array.isArray(details.filaments) &&
                 details.filaments.map((item, index) => (
                   <div key={index}>
-                    {item.type}: {item.amount} kg
+                    {`${item.type}: ${item.amount} kg - ${item.price} PLN`}
                   </div>
                 ))}
             </InfiniteScroll>
@@ -327,6 +312,14 @@ function PrinterDetails(props) {
           api={props.api}
           printerName={details.name}
           id={details.id}
+        />
+      )}
+      {notesBox && (
+        <NotesBox
+          api={props.api}
+          object='printer'
+          id={details.id}
+          onNotesBox={setNotesBox}
         />
       )}
     </div>

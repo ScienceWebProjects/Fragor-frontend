@@ -2,7 +2,6 @@
 @import '../../UI/shared/functions';
 
 $dropdown-style: (
-  width: 35%,
   min-height: 2.5rem,
   padding: 0 0.313rem,
   margin: 0.625rem 0rem,
@@ -35,12 +34,24 @@ $dropdown-style: (
     width: 65vw;
   }
 
-  .printer-add-input {
-    width: 100%;
-    @include flexCenter(row, space-around, center);
+  .form-printer-add {
+    width: 80vw;
 
-    .add-input {
-      width: 55%;
+    @include gridStart(
+      30% 30% 40%,
+      2.5rem 2.5rem 5rem,
+      'printer-name printer-name printer-model'
+        'printer-power printer-add-btn printer-add-btn'
+        'printer-add-power-warning printer-add-power-warning printer-add-power-warning',
+      0.625rem 0
+    );
+
+    justify-items: baseline;
+    align-items: center;
+
+    .printer-name {
+      width: 90%;
+      grid-area: printer-name;
 
       input::placeholder {
         opacity: 0.5;
@@ -48,10 +59,28 @@ $dropdown-style: (
       }
     }
 
-    .add-select {
+    .printer-model {
+      width: 90%;
+      grid-area: printer-model;
       @each $property, $value in $dropdown-style {
         #{$property}: $value;
       }
+    }
+
+    .printer-power {
+      width: 85%;
+      grid-area: printer-power;
+      text-align: center;
+    }
+
+    .printer-add-btn {
+      width: 90%;
+      grid-area: printer-add-btn;
+    }
+
+    .printer-add-power-warning {
+      color: $red;
+      grid-area: printer-add-power-warning;
     }
   }
 }
@@ -62,6 +91,7 @@ $dropdown-style: (
   margin: auto;
 
   .select-dropdown {
+    width: 35%;
     @each $property, $value in $dropdown-style {
       #{$property}: $value;
     }
