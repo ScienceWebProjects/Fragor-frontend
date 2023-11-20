@@ -39,8 +39,7 @@ function SelectLanguage() {
       </LanguageSelectedStyle>
       <ul style={{ display: isOpen ? 'block' : 'none' }}>
         <li>
-          <a
-            href='#'
+          <button
             className='en'
             onClick={() => {
               context.selectLang('en');
@@ -50,11 +49,10 @@ function SelectLanguage() {
             }}
           >
             English
-          </a>
+          </button>
         </li>
         <li>
-          <a
-            href='#'
+          <button
             className='pl'
             onClick={() => {
               context.selectLang('pl');
@@ -64,7 +62,7 @@ function SelectLanguage() {
             }}
           >
             Polski
-          </a>
+          </button>
         </li>
       </ul>
     </div>

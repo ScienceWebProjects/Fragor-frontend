@@ -31,9 +31,9 @@ function FilamentDetails(props) {
   const [notesBox, setNotesBox] = useState(false);
 
   // variables for error message
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [errorCallback, setErrorCallback] = useState(() => {});
+  // const [isError, setIsError] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState('');
+  // const [errorCallback, setErrorCallback] = useState(() => {});
 
   useEffect(() => {
     setTimeout(() => {

@@ -2,7 +2,6 @@
 
 // hooks
 import { useState } from 'react';
-import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -12,9 +11,12 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 // scss
 import './UI/_custom-select.scss';
 
-function CustomSelect({ options, defaultSelected, onCustomSelect, selectClass }) {
-  const windowSize = useWindowSize();
-
+function CustomSelect({
+  options,
+  defaultSelected,
+  onCustomSelect,
+  selectClass,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 

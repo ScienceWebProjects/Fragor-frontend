@@ -1,7 +1,7 @@
 // libs
 
 // hooks
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 

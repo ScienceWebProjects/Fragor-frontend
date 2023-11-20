@@ -63,7 +63,7 @@ function MaterialsOptions(props) {
   };
   useEffect(() => {
     makeAPICall();
-  }, []);
+  });
 
   const materialAddHandler = async (e) => {
     e.preventDefault();
@@ -77,7 +77,10 @@ function MaterialsOptions(props) {
 
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
       body: JSON.stringify(materialData),
     };
 
@@ -94,11 +97,15 @@ function MaterialsOptions(props) {
 
       if (response.status === 400) {
         const res404 = await response.json();
-        return res404.message ? alert(res404.message) : alert('Something went bad.');
+        return res404.message
+          ? alert(res404.message)
+          : alert('Something went bad.');
       }
     } catch (error) {
       console.log(error);
-      alert('An unpredictable problem has been encountered. \nPlease add material again.');
+      alert(
+        'An unpredictable problem has been encountered. \nPlease add material again.'
+      );
     }
   };
 

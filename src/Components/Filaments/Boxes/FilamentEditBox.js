@@ -49,7 +49,7 @@ function FilamentEditBox(props) {
   };
   useEffect(() => {
     filtersGetAPICall();
-  }, []);
+  });
 
   const getFilamentById = async () => {
     const requestOptions = {

@@ -32,7 +32,11 @@
       list-style: none;
       @include flexCenter(row, space-between, center);
 
-      a {
+      button {
+        @each $property, $value in $button-style-remove {
+          #{$property}: $value;
+        }
+
         text-decoration: none;
         color: $font-color;
 

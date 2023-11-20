@@ -39,7 +39,7 @@ function ColorFilter(props) {
   };
   useEffect(() => {
     makeAPICall();
-  }, []);
+  });
 
   return (
     <SelectBox>

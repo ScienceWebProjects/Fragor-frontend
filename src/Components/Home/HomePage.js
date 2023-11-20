@@ -30,7 +30,7 @@ function HomePage(props) {
     if (permission.logged === 'logout') {
       navigate(props.api.loginPage);
     }
-  }, []);
+  });
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;

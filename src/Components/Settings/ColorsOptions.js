@@ -41,7 +41,10 @@ function ColorsOptions(props) {
 
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
       body: JSON.stringify(colorData),
     };
 
@@ -58,11 +61,15 @@ function ColorsOptions(props) {
 
       if (response.status === 400) {
         const res404 = await response.json();
-        return res404.message ? alert(res404.message) : alert('Something went bad.');
+        return res404.message
+          ? alert(res404.message)
+          : alert('Something went bad.');
       }
     } catch (error) {
       console.log(error);
-      alert('An unpredictable problem has been encountered. \nPlease add color again.');
+      alert(
+        'An unpredictable problem has been encountered. \nPlease add color again.'
+      );
       alert(error);
     }
   };
@@ -89,7 +96,7 @@ function ColorsOptions(props) {
   };
   useEffect(() => {
     makeAPICall();
-  }, []);
+  });
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
