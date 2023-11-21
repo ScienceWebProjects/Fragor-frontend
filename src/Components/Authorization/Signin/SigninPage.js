@@ -36,7 +36,8 @@ function SigninPage(props) {
   const [pinEntered, setPinEntered] = useState('');
   const [passwordEntered, setPasswordEntered] = useState('');
   const [passwordConfirmEntered, setPasswordConfirmEntered] = useState('');
-  const [productInformationEntered, setProductInformationEntered] = useState('');
+  const [productInformationEntered, setProductInformationEntered] =
+    useState('');
 
   const windowSize = useWindowSize();
   const navigate = useNavigate();
@@ -59,7 +60,10 @@ function SigninPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.registration}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.registration}`,
+        requestOptions
+      );
 
       if (response.status === 201) {
         return true;
@@ -70,7 +74,8 @@ function SigninPage(props) {
         console.log(res400);
 
         // get elements value from json server response
-        let errorMessage = 'Unable to register.\nPlease check your input data and try again.\n\n';
+        let errorMessage =
+          'Unable to register.\nPlease check your input data and try again.\n\n';
         for (const key in res400) {
           errorMessage += `${res400[key]}\n`;
         }

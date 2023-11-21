@@ -16,6 +16,9 @@ import StyledInput from '../../UI/authorization/StyledInput';
 import StyledLink from '../../UI/shared/StyledLink';
 
 // scss
+import '../scss/_forget-pin.scss';
+import '../../_shared/UI/_media-queries.scss';
+import '../scss/_forget-media-queries.scss';
 
 function ForgetPin(props) {
   // variables for login by password
@@ -40,7 +43,10 @@ function ForgetPin(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.loginPassword}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.loginPassword}`,
+        requestOptions
+      );
 
       if (response.status === 404) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
@@ -76,31 +82,35 @@ function ForgetPin(props) {
   };
 
   return (
-    <div className='App'>
-      <header className='header_logo'>
-        <h1 className='logo_txt'>
-          3D printing assistant
-          <br />
-          Project by:
-          <br />
-          Piotr Goraj & Dawid Franczak
-          <br />
-        </h1>
-        <div className='logo_img'>
-          <a href='https://github.com/ScienceWebProjects/filament-measurement'>
-            <img
-              src={logo}
-              alt='Logo'
-            />
-          </a>
-        </div>
-      </header>
+    <div className='media-background'>
+      <div className='App'>
+        <header className='header_logo'>
+          <h1 className='logo_txt'>
+            3D printing assistant
+            <br />
+            Project by:
+            <br />
+            Piotr Goraj & Dawid Franczak
+            <br />
+          </h1>
+          <div className='logo_img'>
+            <a href='https://github.com/ScienceWebProjects/filament-measurement'>
+              <img
+                src={logo}
+                alt='Logo'
+              />
+            </a>
+          </div>
+        </header>
 
-      <main className='App-header'>
-        <form onSubmit={submitFormHandler}>
-          <div style={{ width: '85vw', margin: '0 auto' }}>
+        <main className='App-header'>
+          <form
+            onSubmit={submitFormHandler}
+            className='forget-form'
+          >
             <StyledLabel htmlFor='user-email'>E-mail</StyledLabel>
             <StyledInput
+              className='form-input'
               name='user-email'
               id='user-email'
               type='email'
@@ -108,59 +118,67 @@ function ForgetPin(props) {
               onChange={(event) => {
                 setEmailEntered(event.target.value);
               }}
-              required
+              isRequired={true}
             ></StyledInput>
-          </div>
-          <StyledLabel htmlFor='user-password'>
-            <FormattedMessage
-              id='login.password'
-              defaultMessage='Password'
+
+            <StyledLabel htmlFor='user-password'>
+              <FormattedMessage
+                id='login.password'
+                defaultMessage='Password'
+              />
+            </StyledLabel>
+
+            <StyledInput
+              className='form-input'
+              name='user-password'
+              id='user-password'
+              type='password'
+              value={passwordEntered}
+              onChange={(event) => {
+                setPasswordEntered(event.target.value);
+              }}
+              isRequired={true}
             />
-          </StyledLabel>
-          <StyledInput
-            name='user-password'
-            id='user-password'
-            type='password'
-            value={passwordEntered}
-            onChange={(event) => {
-              setPasswordEntered(event.target.value);
+
+            <Button
+              color='green'
+              type='submit'
+              className='form-btn'
+            >
+              <FormattedMessage
+                id='login.loginBtn'
+                defaultMessage='Log in'
+              />
+            </Button>
+
+            <StyledLink to={props.api.loginPage}>
+              <Button
+                color='red'
+                type='button'
+                className='form-btn'
+              >
+                <FormattedMessage
+                  id='back'
+                  defaultMessage='Back'
+                />
+              </Button>
+            </StyledLink>
+          </form>
+        </main>
+
+        {changePinBox && (
+          <ChangePinBox
+            api={props.api}
+            setChangePinBox={setChangePinBox}
+            hideCancelBtn={true}
+            onSuccess={() => {
+              setChangePinBox(false);
+              alert('Succesfull PIN changed.');
+              navigate(props.api.home);
             }}
-            required
           />
-
-          <Button
-            color='green'
-            type='submit'
-          >
-            <FormattedMessage
-              id='login.loginBtn'
-              defaultMessage='Log in'
-            />
-          </Button>
-        </form>
-
-        <StyledLink to={props.api.home}>
-          <Button color='red'>
-            <FormattedMessage
-              id='back'
-              defaultMessage='Back'
-            />
-          </Button>
-        </StyledLink>
-      </main>
-
-      {changePinBox && (
-        <ChangePinBox
-          api={props.api}
-          setChangePinBox={setChangePinBox}
-          hideCancelBtn={true}
-          onSuccess={() => {
-            setChangePinBox(false);
-            alert('Succesfull PIN changed.');
-            navigate(props.api.home);
-          }}
-        />
-      )}
+        )}
+      </div>
     </div>
   );
 }

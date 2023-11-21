@@ -10,7 +10,6 @@ import Pin from '../../_shared/Pin';
 import SelectLanguage from './SelectLanguage';
 
 // UI elements
-import './LoginPage.scss';
 import logo from '../../../Images/logo-black.png';
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
@@ -19,7 +18,9 @@ import StyledLink from '../../UI/shared/StyledLink';
 
 // scss
 import '../../UI/shared/_media-queries.scss';
+import '../scss/LoginPage.scss';
 import '../scss/_login-media-queries.scss';
+import '../../_shared/UI/_media-queries.scss';
 
 function LoginPage(props) {
   const [emailEntered, setEmailEntered] = useState('');
@@ -141,7 +142,10 @@ function LoginPage(props) {
           </form>
 
           <StyledLink to={props.api.signinPage}>
-            <Button color='yellow'>
+            <Button
+              color='yellow'
+              className='signin-button'
+            >
               <FormattedMessage
                 id='login.signinBtn'
                 defaultMessage='Sign in'

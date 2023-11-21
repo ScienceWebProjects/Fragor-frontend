@@ -1,0 +1,25 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+@media (min-width: $breakpoint-desktop) {
+  .media-background {
+    .App {
+      .App-header {
+        .forget-form {
+          width: 40vw;
+          height: 50vh;
+          @include flexCenter(column, center, center);
+
+          .form-input {
+            width: 30vw;
+            margin: 0.625rem 0 1rem 0;
+          }
+
+          .form-btn {
+            width: 25vw;
+          }
+        }
+      }
+    }
+  }
+}

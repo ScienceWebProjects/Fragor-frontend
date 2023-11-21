@@ -3,24 +3,10 @@
 
 @media (min-width: $breakpoint-desktop) {
   .media-background {
-    min-height: 90vh;
-    width: 90vw;
-    padding: 5vh 5vw;
-    margin: auto;
-
     .App {
       height: 90vh;
 
       .App-header {
-        min-height: unset;
-        height: 80vh;
-        width: 60%;
-
-        .lang-menu {
-          right: 12vw;
-          top: 14vh;
-        }
-
         .styled-input {
           width: 60% !important;
           @include flexCenter(column, center, flex-start);
@@ -43,6 +29,10 @@
           bottom: 15vh;
           right: 13vw;
           width: 10rem;
+        }
+
+        .signin-button {
+          width: 30vw;
         }
       }
     }
