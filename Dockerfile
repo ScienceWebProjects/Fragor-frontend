@@ -22,4 +22,3 @@ VOLUME ["/app"]
 
 # Określ polecenie startowe
 CMD ["npm","start"]
-
