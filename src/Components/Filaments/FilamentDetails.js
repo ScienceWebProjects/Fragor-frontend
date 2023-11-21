@@ -40,7 +40,9 @@ function FilamentDetails(props) {
       const storedFilament = sessionStorage.getItem('filamentDetails');
       setDetails(JSON.parse(storedFilament));
     }, 50);
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renewDelete = async () => {
     const requestOptions = {

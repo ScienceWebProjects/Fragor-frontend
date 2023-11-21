@@ -112,7 +112,9 @@ function FilamentsPage(props) {
 
   useEffect(() => {
     makeAPICall();
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filamentFindApiCall = async () => {
     const btn = document.getElementById('findBtn');

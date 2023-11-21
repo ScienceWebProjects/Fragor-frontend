@@ -116,7 +116,7 @@ function LoginPage(props) {
                 onChange={(event) => {
                   setEmailEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
             </div>
 

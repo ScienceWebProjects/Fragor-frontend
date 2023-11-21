@@ -6,9 +6,9 @@
     .App {
       .App-header {
         .forget-form {
-          width: 40vw;
+          width: 31vw;
           height: 50vh;
-          @include flexCenter(column, center, center);
+          @include flexCenter(column, center, flex-start);
 
           .form-input {
             width: 30vw;
@@ -16,6 +16,7 @@
           }
 
           .form-btn {
+            margin: inherit auto;
             width: 25vw;
           }
         }

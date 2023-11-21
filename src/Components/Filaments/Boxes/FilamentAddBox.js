@@ -27,12 +27,12 @@ function FilamentAddBox(props) {
   const [devicesList, setDevicesList] = useState([
     {
       id: 0,
-      name: 'A 07-23',
+      name: 'A 07-15',
       model: 'FG-a1',
     },
     {
       id: 1,
-      name: 'A 08-23',
+      name: 'A 08-27',
       model: 'FG-a1',
     },
   ]);
@@ -101,7 +101,9 @@ function FilamentAddBox(props) {
   useEffect(() => {
     filtersGetAPICall();
     devicesListApiCall();
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const setFilamentUID = async () => {
     setUidScanned(null);

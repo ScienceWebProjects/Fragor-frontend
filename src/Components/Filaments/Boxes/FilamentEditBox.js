@@ -72,10 +72,12 @@ function FilamentEditBox(props) {
       }
       if (response.status === 400 || response.status === 404) {
         alert(response.message);
+        return null;
       }
     } catch (error) {
-      console.log(error);
-      alert('Somethint went bad getFilamentById.');
+      console.error(error);
+      alert('Something went bad getFilamentById.');
+      return null;
     }
   };
 
@@ -110,8 +112,10 @@ function FilamentEditBox(props) {
       if (response.status === 200) {
         onFilamentEditBox(false);
         alert('Successfull edit filament properties.');
-        const newData = getFilamentById();
-        sessionStorage.setItem('filamentDetails', newData);
+        const newData = await getFilamentById();
+        if (newData !== null) {
+          sessionStorage.setItem('filamentDetails', JSON.stringify(newData));
+        }
         window.location.reload();
       }
       if (response.status === 400 || response.status === 404) {
