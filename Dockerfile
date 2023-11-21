@@ -1,5 +1,5 @@
 # Obraz bazowy
-FROM node
+FROM node:20-slim
 
 # Utwórz katalog roboczy w kontenerze
 WORKDIR /app
