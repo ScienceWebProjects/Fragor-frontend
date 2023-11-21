@@ -5,8 +5,7 @@ FROM node:20-slim
 WORKDIR /app
 
 # Skopiuj pliki package.json i package-lock.json
-COPY package*.json ./
-
+COPY package.json yarn.lock ./
 
 # Zainstaluj zależności
 RUN npm install yarn
@@ -21,4 +20,5 @@ EXPOSE 3000
 VOLUME ["/app"]
 
 # Określ polecenie startowe
-CMD ["npm","start"]
+CMD ["yarn","start"]
+

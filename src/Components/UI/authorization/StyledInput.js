@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledInput = styled.input`
+const Input = styled.input`
   width: 95%;
   min-height: 2.5rem;
   padding: 0 0.313rem;
@@ -22,5 +22,21 @@ const StyledInput = styled.input`
     outline-offset: 5px;
   }
 `;
+
+const StyledInput = (props) => {
+  return (
+    <Input
+      className={props.className}
+      name={props.name}
+      id={props.id}
+      type={props.type}
+      value={props.value}
+      onChange={props.onChange}
+      required={props.isRequired}
+    >
+      {props.children}
+    </Input>
+  );
+};
 
 export default StyledInput;

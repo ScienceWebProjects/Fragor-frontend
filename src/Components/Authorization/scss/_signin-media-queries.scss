@@ -9,6 +9,7 @@
         width: 60%;
 
         .infinite-scroll {
+          height: 70vh !important;
           width: 85%;
           @include flexCenter(column, flex-start, flex-start);
           margin: auto;
@@ -28,8 +29,7 @@
       }
     }
   }
-}
-
-.sign-btn {
-  width: 35vw !important;
+  .sign-btn {
+    width: 35vw !important;
+  }
 }

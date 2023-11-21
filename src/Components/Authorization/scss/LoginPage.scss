@@ -1,9 +1,9 @@
 @import '../../UI/shared/variables';
 @import '../../UI/shared/variables';
 
-@import '../scss/_header_logo.scss';
-@import '../scss/_pin.scss';
-@import '../scss/additionals';
+@import './_header_logo.scss';
+@import './_pin.scss';
+@import './additionals';
 
 .login_form {
   min-height: 77vh !important;

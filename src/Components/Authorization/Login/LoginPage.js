@@ -10,7 +10,6 @@ import Pin from '../../_shared/Pin';
 import SelectLanguage from './SelectLanguage';
 
 // UI elements
-import './LoginPage.scss';
 import logo from '../../../Images/logo-black.png';
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
@@ -19,7 +18,9 @@ import StyledLink from '../../UI/shared/StyledLink';
 
 // scss
 import '../../UI/shared/_media-queries.scss';
+import '../scss/LoginPage.scss';
 import '../scss/_login-media-queries.scss';
+import '../../_shared/UI/_media-queries.scss';
 
 function LoginPage(props) {
   const [emailEntered, setEmailEntered] = useState('');
@@ -40,7 +41,10 @@ function LoginPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.loginPin}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.loginPin}`,
+        requestOptions
+      );
 
       if (response.status === 404) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
@@ -137,32 +141,37 @@ function LoginPage(props) {
             </Button>
           </form>
 
-        <StyledLink to={props.api.signinPage}>
-          <Button color='yellow'>
-            <FormattedMessage
-              id='login.signinBtn'
-              defaultMessage='Sign in'
-            />
-          </Button>
-        </StyledLink>
-        <div className='main_additionals'>
-          <StyledLink
-            to={props.api.forgetPin}
-            className='additionals_reminder'
-          >
-            <FormattedMessage
-              id='login.forgetPin'
-              defaultMessage='Forget PIN?'
-            />
+          <StyledLink to={props.api.signinPage}>
+            <Button
+              color='yellow'
+              className='signin-button'
+            >
+              <FormattedMessage
+                id='login.signinBtn'
+                defaultMessage='Sign in'
+              />
+            </Button>
           </StyledLink>
-          <StyledLink to={'/'}>
-            <FormattedMessage
-              id='login.privacy'
-              defaultMessage='Privacy policy'
-            />
-          </StyledLink>
-        </div>
-      </main>
+
+          <div className='main_additionals'>
+            <StyledLink
+              to={props.api.forgetPin}
+              className='additionals_reminder'
+            >
+              <FormattedMessage
+                id='login.forgetPin'
+                defaultMessage='Forget PIN?'
+              />
+            </StyledLink>
+            <StyledLink to={'/'}>
+              <FormattedMessage
+                id='login.privacy'
+                defaultMessage='Privacy policy'
+              />
+            </StyledLink>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
