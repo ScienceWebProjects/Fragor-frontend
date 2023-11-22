@@ -62,7 +62,10 @@ function DevicesPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.devicesList}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.devicesList}`,
+        requestOptions
+      );
 
       if (response.status === 200) {
         const responseData = await response.json();
@@ -90,7 +93,7 @@ function DevicesPage(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <main className='App-header'>

@@ -41,7 +41,7 @@ function UserDetails(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <div className='btns-wrapper'>

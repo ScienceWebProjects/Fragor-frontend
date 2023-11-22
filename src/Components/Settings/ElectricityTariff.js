@@ -85,7 +85,7 @@ function ElectricityTariff({ api }) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={api} />
       {/* </ header> */}
 
       <main className='App-header'>

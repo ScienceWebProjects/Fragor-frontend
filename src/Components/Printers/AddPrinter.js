@@ -170,7 +170,7 @@ function AddPrinter(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <main className='App-header add-printer'>

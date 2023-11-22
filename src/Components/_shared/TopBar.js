@@ -13,10 +13,10 @@ import Button from '../UI/shared/buttons/Button';
 // UI elements
 import logo from '../../Images/icon-white.png';
 import StyledLink from '../UI/shared/StyledLink';
+import TopBarButton from './UI/TopBarButton';
 
 // scss
 import './UI/_topbar.scss';
-import TopBarButton from './UI/TopBarButton';
 
 function TopBar({ api }) {
   const user = useToken();

@@ -26,7 +26,7 @@ function FilamentsOptions(props) {
     return (
       <div>
         {/* <header> */}
-        <TopBar />
+        <TopBar api={props.api} />
         {/* </ header> */}
 
         <main className='App-header'>
