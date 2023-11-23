@@ -2,6 +2,7 @@
 
 // hooks
 import { useState } from 'react';
+import { useIntl } from 'react-intl';
 
 // components
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -17,6 +18,8 @@ function CustomSelect({
   onCustomSelect,
   selectClass,
 }) {
+  const intl = useIntl();
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -42,7 +45,13 @@ function CustomSelect({
         className='selected-option'
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedOption ? selectedOption : defaultSelected || 'Click to choose'}
+        {selectedOption
+          ? selectedOption
+          : defaultSelected ||
+            intl.formatMessage({
+              id: 'customSelect',
+              defaultMessage: 'Click to choose',
+            })}
       </div>
       <ul className='options'>
         <InfiniteScroll

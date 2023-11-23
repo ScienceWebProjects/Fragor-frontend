@@ -2,9 +2,14 @@
 
 // hooks
 import { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import useToken from '../../../Hooks/useToken';
+import useWindowSize from '../../../Hooks/useWindowSize';
 
 // components
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { FormattedMessage } from 'react-intl';
+import CustomError from '../../_shared/CustomError';
 
 // UI elements
 import Button from '../../UI/shared/buttons/Button';
@@ -21,19 +26,21 @@ function FilamentAddBox(props) {
   const { onFilamentAddBox } = props;
 
   const user = useToken();
+  const windowSize = useWindowSize();
+  const intl = useIntl();
 
   // variables for filters
   const [filters, setFilters] = useState([]);
   const [devicesList, setDevicesList] = useState([
     {
       id: 0,
-      name: 'A 07-15',
-      model: 'FG-a1',
+      name: 'test-name-1',
+      model: 'test-model-1',
     },
     {
       id: 1,
-      name: 'A 08-27',
-      model: 'FG-a1',
+      name: 'test-name-2',
+      model: 'test-model-2',
     },
   ]);
   const [deviceSelected, setDeviceSelected] = useState('');
@@ -42,9 +49,13 @@ function FilamentAddBox(props) {
   const [brandSelected, setBrandSelected] = useState('');
 
   // variables for new filament
+  const [quantityEntered, setQuantityEntered] = useState(0);
   const [diameterEntered, setDiameterEntered] = useState(1.75);
   const [priceEntered, setPriceEntered] = useState(0);
-  const [uidScanned, setUidScanned] = useState(0);
+
+  // custom error
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const filtersGetAPICall = async () => {
     const requestOptions = {
@@ -105,17 +116,7 @@ function FilamentAddBox(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setFilamentUID = async () => {
-    setUidScanned(null);
-
-    // add some logic about scan filament spool
-  };
-
-  const confirmAddSubmitHandler = async (e) => {
-    e.preventDefault();
-
-    setFilamentUID();
-
+  const filamentAddApiCall = async () => {
     const addData = {
       device: deviceSelected,
       material: materialSelected,
@@ -123,7 +124,7 @@ function FilamentAddBox(props) {
       brand: brandSelected,
       diameter: diameterEntered,
       price: priceEntered,
-      uid: uidScanned,
+      quantity: quantityEntered,
     };
 
     const btn = document.getElementById('confirmBtn');
@@ -160,6 +161,76 @@ function FilamentAddBox(props) {
     }
   };
 
+  const confirmAddSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    const newErrors = {};
+
+    if (deviceSelected === '') {
+      newErrors.device = intl.formatMessage({
+        id: 'errors.deviceSelected',
+        defaultMessage: 'Adding device must be selected!',
+      });
+    }
+
+    if (materialSelected === '') {
+      newErrors.material = intl.formatMessage({
+        id: 'errors.materialSelected',
+        defaultMessage: 'Material must be selected!',
+      });
+    }
+
+    if (colorSelected === '') {
+      newErrors.color = intl.formatMessage({
+        id: 'errors.colorSelected',
+        defaultMessage: 'Color must be selected!',
+      });
+    }
+
+    if (brandSelected === '') {
+      newErrors.brand = intl.formatMessage({
+        id: 'errors.brandSelected',
+        defaultMessage: 'Brand must be selected!',
+      });
+    }
+
+    if (quantityEntered <= 0) {
+      newErrors.quantity = intl.formatMessage({
+        id: 'errors.quantityEntered',
+        defaultMessage: 'Quantity must be grater than 0!',
+      });
+    }
+
+    if (diameterEntered <= 1) {
+      newErrors.diameter = intl.formatMessage({
+        id: 'errors.diameterEntered',
+        defaultMessage: 'Diameter must be grater than 1!',
+      });
+    }
+
+    if (priceEntered <= 0) {
+      newErrors.diameter = intl.formatMessage({
+        id: 'errors.priceEntered',
+        defaultMessage: 'Price must be grater than 0!',
+      });
+    }
+
+    setErrorMessage(
+      `${newErrors.device ? newErrors.device + '\n' : ''}${
+        newErrors.material ? newErrors.material + '\n' : ''
+      }${newErrors.color ? newErrors.color + '\n' : ''}${
+        newErrors.brand ? newErrors.brand + '\n' : ''
+      }${newErrors.quantity ? newErrors.quantity + '\n' : ''}${
+        newErrors.diameter ? newErrors.diameter + '\n' : ''
+      }${newErrors.price ? newErrors.price + '\n' : ''}`
+    );
+    setIsError(true);
+
+    if (Object.keys(newErrors).length === 0) {
+      filamentAddApiCall();
+    }
+  };
+
   // devices options conditions for CustomSelect
   const devicesOptions = [];
   for (const option of devicesList) {
@@ -171,93 +242,172 @@ function FilamentAddBox(props) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h2>Add new filament</h2>
-
-        <form onSubmit={confirmAddSubmitHandler}>
-          <StyledLabel htmlFor='device-select'>Device</StyledLabel>
-          <CustomSelect
-            options={devicesOptions || []}
-            onCustomSelect={setDeviceSelected}
+        <h2>
+          <FormattedMessage
+            id='filaments.addNewFilament'
+            defaultMessage='Add new filament'
           />
+        </h2>
 
-          <StyledLabel htmlFor='material-select'>Material</StyledLabel>
-          <CustomSelect
-            selectClass={deviceSelected ? '' : 'select-disabled'}
-            options={filters.material || []}
-            onCustomSelect={setMaterialSelected}
-          />
-
-          <StyledLabel htmlFor='color-select'>Color</StyledLabel>
-          <CustomSelect
-            selectClass={deviceSelected ? '' : 'select-disabled'}
-            options={filters.color || []}
-            onCustomSelect={setColorSelected}
-          />
-
-          <StyledLabel htmlFor='brand-select'>Brand</StyledLabel>
-          <CustomSelect
-            selectClass={deviceSelected ? '' : 'select-disabled'}
-            options={filters.brand || []}
-            onCustomSelect={setBrandSelected}
-          />
-
-          <div className='number-inputs'>
-            <div className='input-number'>
-              <StyledLabel htmlFor='diameter'>Diameter</StyledLabel>
-              <StyledInput
-                style={{ textAlign: 'center' }}
-                name='diameter'
-                id='diameter'
-                type='number'
-                min='1'
-                max='4'
-                step='0.01'
-                value={diameterEntered}
-                onChange={(event) => {
-                  setDiameterEntered(event.target.value);
-                }}
-                required
+        <InfiniteScroll
+          className='form-filament-add'
+          dataLength={1}
+          hasMore={false}
+          height={windowSize * 0.6}
+        >
+          <form onSubmit={confirmAddSubmitHandler}>
+            <StyledLabel htmlFor='device-select'>
+              <FormattedMessage
+                id='filaments.device'
+                defaultMessage='Adding device'
               />
+            </StyledLabel>
+            <CustomSelect
+              options={devicesOptions || []}
+              onCustomSelect={setDeviceSelected}
+            />
+
+            <StyledLabel htmlFor='material-select'>
+              <FormattedMessage
+                id='filaments.material'
+                defaultMessage='Material'
+              />
+            </StyledLabel>
+            <CustomSelect
+              selectClass={deviceSelected ? '' : 'select-disabled'}
+              options={filters.material || []}
+              onCustomSelect={setMaterialSelected}
+            />
+
+            <StyledLabel htmlFor='color-select'>
+              <FormattedMessage
+                id='filaments.color'
+                defaultMessage='Color'
+              />
+            </StyledLabel>
+            <CustomSelect
+              selectClass={deviceSelected ? '' : 'select-disabled'}
+              options={filters.color || []}
+              onCustomSelect={setColorSelected}
+            />
+
+            <StyledLabel htmlFor='brand-select'>
+              <FormattedMessage
+                id='filaments.brand'
+                defaultMessage='Brand'
+              />
+            </StyledLabel>
+            <CustomSelect
+              selectClass={deviceSelected ? '' : 'select-disabled'}
+              options={filters.brand || []}
+              onCustomSelect={setBrandSelected}
+            />
+
+            <StyledLabel htmlFor='quantity-set'>
+              <FormattedMessage
+                id='filaments.quantity'
+                defaultMessage='Quantity'
+              />
+            </StyledLabel>
+            <StyledInput
+              name='quantity-set'
+              id='quantity-set'
+              type='number'
+              min='1'
+              max='5000'
+              step='0.01'
+              value={quantityEntered}
+              onChange={(event) => {
+                setQuantityEntered(event.target.value);
+              }}
+              isRequired={true}
+            />
+
+            <div className='number-inputs'>
+              <div className='input-number'>
+                <label
+                  htmlFor='diameter'
+                  className='input-label'
+                >
+                  <FormattedMessage
+                    id='filaments.diameter'
+                    defaultMessage='Diameter'
+                  />
+                </label>
+                <StyledInput
+                  name='diameter'
+                  id='diameter'
+                  type='number'
+                  min='1'
+                  max='4'
+                  step='0.01'
+                  value={diameterEntered}
+                  onChange={(event) => {
+                    setDiameterEntered(event.target.value);
+                  }}
+                  isRequired={true}
+                />
+              </div>
+
+              <div className='input-number'>
+                <label
+                  htmlFor='price'
+                  className='input-label'
+                >
+                  <FormattedMessage
+                    id='filaments.pricePerKg'
+                    defaultMessage='Price per 1 kg'
+                  />
+                </label>
+                <StyledInput
+                  name='price'
+                  id='price'
+                  type='number'
+                  min='1'
+                  step='0.01'
+                  value={priceEntered}
+                  onChange={(event) => {
+                    setPriceEntered(event.target.value);
+                  }}
+                  isRequired={true}
+                />
+              </div>
             </div>
 
-            <div className='input-number'>
-              <StyledLabel htmlFor='price'>Price per kilogram</StyledLabel>
-              <StyledInput
-                style={{ textAlign: 'center' }}
-                name='price'
-                id='price'
-                type='number'
-                min='1'
-                step='0.01'
-                value={priceEntered}
-                onChange={(event) => {
-                  setPriceEntered(event.target.value);
-                }}
-                required
-              />
+            <div className='box-btns'>
+              <Button
+                className='btns-btn'
+                color='yellow'
+                type='button'
+                onClick={() => onFilamentAddBox(false)}
+              >
+                <FormattedMessage
+                  id='back'
+                  defaultMessage='Back'
+                />
+              </Button>
+              <Button
+                id='confirmBtn'
+                className='btns-btn'
+                color='green'
+                type='submit'
+              >
+                <FormattedMessage
+                  id='confirm'
+                  defaultMessage='Confirm'
+                />
+              </Button>
             </div>
-          </div>
-
-          <div className='box-btns'>
-            <Button
-              className='btns-btn'
-              color='yellow'
-              type='button'
-              onClick={() => onFilamentAddBox(false)}
-            >
-              Back
-            </Button>
-            <Button
-              id='confirmBtn'
-              className='btns-btn'
-              color='green'
-              type='submit'
-            >
-              Confirm
-            </Button>
-          </div>
-        </form>
+          </form>
+        </InfiniteScroll>
       </div>
+
+      {isError && (
+        <CustomError
+          message={errorMessage}
+          onErrorBox={setIsError}
+        />
+      )}
     </div>
   );
 }

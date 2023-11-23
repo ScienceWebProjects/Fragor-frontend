@@ -1,11 +1,13 @@
+// libs
+
 // hooks
 import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
+import InfiniteScroll from 'react-infinite-scroll-component';
 import FilamentItem from './UI/FilamentItem';
 
-// downloaded components
-import InfiniteScroll from 'react-infinite-scroll-component';
+// UI elements
 import Button from '../UI/shared/buttons/Button';
 
 // scss
