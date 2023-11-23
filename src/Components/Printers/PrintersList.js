@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 // hooks
 import useToken from '../../Hooks/useToken';
+import usePermissions from '../../Hooks/usePermissions';
 import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
@@ -20,6 +21,8 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import './scss/_printers-list-btns.scss';
 
 function PrintersList(props) {
+  const user = useToken();
+  const permission = usePermissions(user);
   const windowSize = useWindowSize();
 
   const [printers, setPrinters] = useState([]);
@@ -27,8 +30,6 @@ function PrintersList(props) {
   const printerSelectionHandler = (printer) => {
     props.onPrinterSelect(printer);
   };
-
-  const user = useToken();
 
   const makeAPICall = async () => {
     const requestOptions = {
@@ -68,17 +69,19 @@ function PrintersList(props) {
           hasMore={false}
           height={windowSize * 0.6}
         >
-          <StyledLink to={props.api.printerAddPage}>
-            <Button
-              className=''
-              color='yellow'
-            >
-              <FormattedMessage
-                id='printers.addPrinter'
-                defaultMessage='Add Printer'
-              />
-            </Button>
-          </StyledLink>
+          {permission.changer && (
+            <StyledLink to={props.api.printerAddPage}>
+              <Button
+                className=''
+                color='yellow'
+              >
+                <FormattedMessage
+                  id='printers.addPrinter'
+                  defaultMessage='Add Printer'
+                />
+              </Button>
+            </StyledLink>
+          )}
 
           {printers.map((printer) => (
             <Button

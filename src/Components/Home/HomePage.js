@@ -100,7 +100,7 @@ function HomePage(props) {
                 >
                   <Button
                     className='wrapper_button'
-                    color='red'
+                    color='blue'
                   >
                     <FormattedMessage
                       id='home.users'
@@ -116,7 +116,7 @@ function HomePage(props) {
                 >
                   <Button
                     className='wrapper_button'
-                    color='red'
+                    color='blue'
                   >
                     <FormattedMessage
                       id='home.owners'

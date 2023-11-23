@@ -38,7 +38,7 @@ $dropdown-style: (
     width: 80vw;
 
     @include gridStart(
-      30% 30% 40%,
+      32% 32% 36%,
       2.5rem 2.5rem 5rem,
       'printer-name printer-name printer-model'
         'printer-power printer-add-btn printer-add-btn'
@@ -49,7 +49,7 @@ $dropdown-style: (
     justify-items: baseline;
     align-items: center;
 
-    .printer-name {
+    .add-name {
       width: 90%;
       grid-area: printer-name;
 
@@ -59,7 +59,7 @@ $dropdown-style: (
       }
     }
 
-    .printer-model {
+    .add-model {
       width: 90%;
       grid-area: printer-model;
       @each $property, $value in $dropdown-style {
@@ -67,13 +67,13 @@ $dropdown-style: (
       }
     }
 
-    .printer-power {
+    .add-power {
       width: 85%;
       grid-area: printer-power;
       text-align: center;
     }
 
-    .printer-add-btn {
+    .add-btn {
       width: 90%;
       grid-area: printer-add-btn;
     }
