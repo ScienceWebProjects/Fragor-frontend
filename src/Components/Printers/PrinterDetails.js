@@ -20,7 +20,6 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 // UI elements
 import '../../Fonts/fontello/css/fragor.css';
-import iconImg from '../../Images/icon-black.png';
 import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
@@ -180,7 +179,7 @@ function PrinterDetails(props) {
           </Button>
           <Button
             className='wrapper-btn'
-            color='yellow'
+            color='blue'
             onClick={deviceAddHandler}
             id='deviceAddBtn'
           >
@@ -225,11 +224,7 @@ function PrinterDetails(props) {
                   document.getElementById('fileInput').click();
                 }}
               >
-                <img
-                  src={iconImg}
-                  className='btn-icon'
-                  alt='new-img-button'
-                />
+                <i className='icon-picture-1'></i>
               </button>
 
               <input
@@ -271,6 +266,7 @@ function PrinterDetails(props) {
             >
               <div>Name: {details.name}</div>
               <div>Model: {details.model}</div>
+              <div>Power: {details.power}</div>
               <br />
               <div>Work hours: {details.workHours} h</div>
               <br />
