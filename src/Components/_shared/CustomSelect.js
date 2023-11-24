@@ -1,7 +1,5 @@
 // libs
-
-// hooks
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useIntl } from 'react-intl';
 
 // components
@@ -17,6 +15,8 @@ function CustomSelect({
   defaultSelected,
   onCustomSelect,
   selectClass,
+  labelKey, // Dodane: klucz używany do pobierania nazwy z obiektu
+  valueKey, // Dodane: klucz używany do pobierania wartości z obiektu
 }) {
   const intl = useIntl();
 
@@ -26,8 +26,8 @@ function CustomSelect({
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    onCustomSelect(option);
-    console.log(option);
+    onCustomSelect(option[valueKey]); // Zwracamy wartość z obiektu przy wywoływaniu callbacka
+    console.log(option[valueKey]); // Logujemy wartość z obiektu
   };
 
   const minMaxHeight =
@@ -46,7 +46,7 @@ function CustomSelect({
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedOption
-          ? selectedOption
+          ? selectedOption[labelKey] // Zwracamy nazwę z obiektu
           : defaultSelected ||
             intl.formatMessage({
               id: 'customSelect',
@@ -61,11 +61,11 @@ function CustomSelect({
         >
           {options.map((option) => (
             <li
-              key={option}
+              key={option[valueKey]} // Używamy wartości z obiektu jako klucza
               className='option'
               onClick={() => handleOptionClick(option)}
             >
-              {option}
+              {option[labelKey]} {/* Zwracamy nazwę z obiektu */}
             </li>
           ))}
         </InfiniteScroll>

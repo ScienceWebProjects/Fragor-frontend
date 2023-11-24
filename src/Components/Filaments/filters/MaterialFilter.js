@@ -2,8 +2,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-// custom hooks
+// hooks
 import useToken from '../../../Hooks/useToken';
+
+// components
+import { FormattedMessage } from 'react-intl';
 
 // UI elements
 import SelectBox from '../../UI/shared/SelectBox';
@@ -44,7 +47,12 @@ const MaterialFilter = (props) => {
   return (
     <SelectBox>
       <div className='SelectBox_border-gradient'>
-        <label htmlFor='materials'>Material</label>
+        <label htmlFor='materials'>
+          <FormattedMessage
+            id='filaments.material'
+            defaultMessage='Material'
+          />
+        </label>
         <select
           name='materials'
           value={props.selected}

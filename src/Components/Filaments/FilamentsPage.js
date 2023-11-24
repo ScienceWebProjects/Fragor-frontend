@@ -3,10 +3,12 @@ import React from 'react';
 
 // hooks
 import { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
 // components
+import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import FilamentAddBox from './Boxes/FilamentAddBox';
 import LogoutUser from '../_shared/LogoutUser';
@@ -25,6 +27,7 @@ import './scss/_filaments_add-btns.scss';
 function FilamentsPage(props) {
   const user = useToken();
   const permission = usePermissions(user);
+  const intl = useIntl();
 
   // variabels for filters
   const [filaments, setFilaments] = useState([]);
@@ -32,9 +35,6 @@ function FilamentsPage(props) {
   const [filteredMaterial, setFilteredMaterial] = useState('all');
   const [filteredBrand, setFilteredBrand] = useState('all');
   const [filteredStock, setFilteredStock] = useState('0');
-
-  // variabels for filament find
-  const [filamentFindData, setFilamentFindData] = useState([]);
 
   // variabels for box showing
   const [filamentAddBox, setFilamentAddBox] = useState(false);
@@ -116,44 +116,6 @@ function FilamentsPage(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const filamentFindApiCall = async () => {
-    const btn = document.getElementById('findBtn');
-    btn.textContent = 'Wait...';
-
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
-      },
-    };
-
-    try {
-      const response = await fetch(
-        `${props.api.ip}${props.api.filamentFind}`,
-        requestOptions
-      );
-
-      if (response.status === 200) {
-        const resData = await response.json();
-        setFilamentFindData(resData);
-        setFilamentFindBox(true);
-      }
-
-      if (response.status === 404) {
-        alert(response.message);
-      }
-
-      btn.textContent = 'Find filament';
-    } catch (error) {
-      setFilamentFindBox(true);
-      console.log(error);
-      setTimeout(() => {
-        btn.textContent = 'Find filament';
-      }, 1000);
-    }
-  };
-
   if (permission.logged === 'logout') {
     return <LogoutUser api={props.api} />;
   }
@@ -192,11 +154,15 @@ function FilamentsPage(props) {
 
         <Button
           className='filaments_add-btn'
-          id='findBtn'
           color='blue'
-          onClick={filamentFindApiCall}
+          onClick={() => {
+            setFilamentFindBox(true);
+          }}
         >
-          Find filament
+          <FormattedMessage
+            id='filaments.findFilament'
+            defaultMessage='Find filament'
+          />
         </Button>
 
         {/* everyone except common user */}
@@ -208,7 +174,10 @@ function FilamentsPage(props) {
               setFilamentAddBox(true);
             }}
           >
-            Add filament
+            <FormattedMessage
+              id='filaments.addFilament'
+              defaultMessage='Add filament'
+            />
           </Button>
         )}
       </div>
@@ -218,13 +187,16 @@ function FilamentsPage(props) {
           className=''
           color='red'
         >
-          Back
+          <FormattedMessage
+            id='back'
+            defaultMessage='Back'
+          />
         </Button>
       </StyledLink>
 
       {filamentFindBox && (
         <FilamentFindBox
-          filamentData={filamentFindData}
+          api={props.api}
           onFilamentFindBox={setFilamentFindBox}
         />
       )}
