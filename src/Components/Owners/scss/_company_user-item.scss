@@ -3,6 +3,30 @@
 
 .company-name {
   text-align: center;
+  font-size: 1.5rem;
+}
+
+.token-wrapper {
+  @include flexCenter(column, center, center);
+
+  .clipboard-btn {
+    @each $property, $value in $button-style-remove {
+      #{$property}: $value;
+    }
+
+    border: 1px solid #000;
+    border-radius: $corners;
+    padding: 0.125rem 0.313rem;
+    cursor: pointer;
+    transition: 500ms;
+
+    &:hover {
+      transition: 500ms;
+      background-color: $blue;
+      color: #fff;
+      border: 1px solid $blue;
+    }
+  }
 }
 
 .company_user-item {

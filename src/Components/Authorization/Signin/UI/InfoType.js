@@ -21,7 +21,7 @@ function InfoType(props) {
 
   return (
     <Text>
-      <div style={{ color: '#000' }}>{text}</div>
+      <div className={props.className}>{text}</div>
       <Underline />
     </Text>
   );

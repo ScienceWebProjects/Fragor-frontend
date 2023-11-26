@@ -32,6 +32,23 @@ function CompanyDetails(props) {
   const [permissionBox, setPermissionBox] = useState(false);
   const [deleteUserBox, setDeleteUserBox] = useState(false);
 
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboardHandler = () => {
+    const { token } = details;
+
+    // Twój kod do skopiowania wartości tokena do schowka
+    navigator.clipboard
+      .writeText(token)
+      .then(() => setCopied(true))
+      .catch((error) => console.error('Błąd kopiowania do schowka:', error))
+      .then(() =>
+        setTimeout(() => {
+          setCopied(false);
+        }, 1000)
+      );
+  };
+
   useEffect(() => {
     setTimeout(() => {
       const storedCompanyUsers = sessionStorage.getItem('companyUsers');
@@ -39,7 +56,7 @@ function CompanyDetails(props) {
 
       const storedCompanyDetails = sessionStorage.getItem('companyDetails');
       setDetails(JSON.parse(storedCompanyDetails));
-    }, 50);
+    }, 500);
   }, []);
 
   if (permission.logged === 'logout') {
@@ -51,6 +68,21 @@ function CompanyDetails(props) {
       {/* <header> */}
       <TopBar api={props.api} />
       {/* </ header> */}
+
+      <InfoType
+        text={details.company}
+        className='company-name'
+      />
+
+      <div className='token-wrapper'>
+        <h3>{`Token: ${details.token}`}</h3>
+        <button
+          className='clipboard-btn'
+          onClick={copyToClipboardHandler}
+        >
+          {copied ? 'Skopiowano!' : 'Skopiuj do schowka'}
+        </button>
+      </div>
 
       <main className='App-header'>
         <InfiniteScroll
@@ -68,11 +100,6 @@ function CompanyDetails(props) {
             margin: '10px',
           }}
         >
-          <InfoType
-            text={details.company}
-            className='company-name'
-          />
-
           {users.map((user) => (
             <div
               className='company_user-item'
