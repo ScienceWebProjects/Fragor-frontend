@@ -29,6 +29,20 @@
   }
 }
 
+.company-details {
+  min-height: unset !important;
+  height: 50vh;
+
+  .users-list {
+    @include flexCenter(column, flex-start, center);
+    width: $maxAppWidth;
+    text-align: center;
+    align-items: center;
+    padding: 0 0.938rem 0 0.938rem;
+    margin: 0.625rem;
+  }
+}
+
 .company_user-item {
   width: 100%;
   height: 3rem;

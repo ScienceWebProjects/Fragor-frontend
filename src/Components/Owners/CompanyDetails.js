@@ -84,21 +84,12 @@ function CompanyDetails(props) {
         </button>
       </div>
 
-      <main className='App-header'>
+      <main className='App-header company-details'>
         <InfiniteScroll
           dataLength={''}
           hasMore={false}
-          height={windowSize * 0.7}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            width: '85vw',
-            textAlign: 'center',
-            alignItems: 'center',
-            padding: '0px 15px 0 15px',
-            margin: '10px',
-          }}
+          height={windowSize * 0.4}
+          className='users-list'
         >
           {users.map((user) => (
             <div
