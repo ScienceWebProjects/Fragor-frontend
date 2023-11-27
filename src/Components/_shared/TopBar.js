@@ -59,11 +59,16 @@ function TopBar({ api }) {
   return (
     <header className='topbar'>
       <div className='topbar_logo-wrapper'>
-        <div className='logo-wrapper_txt '>FraGor StartUp</div>
-        <img
-          src={logo}
-          alt='Logo'
-        />
+        <StyledLink
+          to={api.home}
+          className='logo-link'
+        >
+          <div className='logo-wrapper_txt '>FraGor StartUp</div>
+          <img
+            src={logo}
+            alt='Logo'
+          />
+        </StyledLink>
       </div>
       <div className='topbar_menu'>
         <TopBarButton

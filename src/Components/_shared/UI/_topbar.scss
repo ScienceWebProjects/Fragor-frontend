@@ -24,11 +24,8 @@
     margin: 0 1.25rem;
     border-radius: 10px;
 
-    @include flexCenter(row, space-between, center);
-
     font-size: 1.25rem;
     white-space: nowrap;
-    padding-left: 0.625rem;
 
     .logo-wrapper_txt {
       background-image: -o-linear-gradient(30deg, $blue 20%, $red 50%);
@@ -39,11 +36,17 @@
       -webkit-text-fill-color: transparent;
       -moz-text-fill-color: transparent;
     }
-  }
+    .logo-link {
+      padding-left: 0.625rem;
+      height: 100%;
+      width: 100%;
+      @include flexCenter(row, space-between, center);
 
-  img {
-    height: 100%;
-    border-radius: 0 10px 10px 0;
+      img {
+        height: 100%;
+        border-radius: 0 $corners $corners 0;
+      }
+    }
   }
 
   //better font look for larger mobile
