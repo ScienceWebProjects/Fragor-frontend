@@ -350,8 +350,11 @@ function AddPrinter(props) {
 
               {printerPowerEntered <= 0 && (
                 <h4 className='printer-add-power-warning'>
-                  No Providing the printer power value may result in errors in
-                  the calculation of material consumption costs.
+                  <FormattedMessage
+                    id='errors.printerTariffWarning'
+                    defaultMessage='No Providing the printer power value may result in errors in
+            the calculation of material consumption costs.'
+                  />
                 </h4>
               )}
             </div>

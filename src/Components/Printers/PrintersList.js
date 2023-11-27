@@ -63,26 +63,43 @@ function PrintersList(props) {
       <TopBar api={props.api} />
       {/* </ header> */}
 
-      <main className='App-header'>
+      <div className='printers-list-btns'>
+        {permission.changer && (
+          <StyledLink to={props.api.printerAddPage}>
+            <Button
+              className='printers-list-btn'
+              color='yellow'
+            >
+              <FormattedMessage
+                id='printers.addPrinter'
+                defaultMessage='Add Printer'
+              />
+            </Button>
+          </StyledLink>
+        )}
+
+        <StyledLink to={props.api.chartsPage}>
+          <Button
+            className='printers-list-btn'
+            color='green'
+          >
+            <FormattedMessage
+              id='charts'
+              defaultMessage='Charts'
+            />
+          </Button>
+        </StyledLink>
+      </div>
+
+      <main
+        className='App-header'
+        style={{ minHeight: 'unset' }}
+      >
         <InfiniteScroll
           dataLength={printers.length}
           hasMore={false}
           height={windowSize * 0.6}
         >
-          {permission.changer && (
-            <StyledLink to={props.api.printerAddPage}>
-              <Button
-                className=''
-                color='yellow'
-              >
-                <FormattedMessage
-                  id='printers.addPrinter'
-                  defaultMessage='Add Printer'
-                />
-              </Button>
-            </StyledLink>
-          )}
-
           {printers.map((printer) => (
             <Button
               color='blue'
