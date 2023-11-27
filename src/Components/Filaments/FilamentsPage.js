@@ -180,6 +180,20 @@ function FilamentsPage(props) {
             />
           </Button>
         )}
+        <StyledLink
+          to={props.api.chartsPage}
+          className='filaments_add-btn'
+        >
+          <Button
+            color='green'
+            style={{ width: '100%' }}
+          >
+            <FormattedMessage
+              id='charts'
+              defaultMessage='Charts'
+            />
+          </Button>
+        </StyledLink>
       </div>
 
       <StyledLink to={props.api.home}>
