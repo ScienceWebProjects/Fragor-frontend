@@ -89,20 +89,16 @@ function PrinterEditBox(props) {
       );
 
       const modelsList = await response.json();
-      const modelsNames = [];
-
-      for (const element of modelsList) {
-        modelsNames.push(element.model);
-      }
-
-      setModels(modelsNames);
+      setModels(modelsList);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     modelsGetAPICall();
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className='shadow'>
@@ -127,6 +123,8 @@ function PrinterEditBox(props) {
             options={models}
             defaultSelected={details.model}
             onCustomSelect={setModelSelected}
+            labelKey='model'
+            valueKey='model'
           />
 
           <StyledLabel htmlFor='model-select'>Power</StyledLabel>

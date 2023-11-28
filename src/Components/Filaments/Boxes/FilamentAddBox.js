@@ -49,9 +49,9 @@ function FilamentAddBox(props) {
   const [brandSelected, setBrandSelected] = useState('');
 
   // variables for new filament
-  const [quantityEntered, setQuantityEntered] = useState(0);
+  const [quantityEntered, setQuantityEntered] = useState('');
   const [diameterEntered, setDiameterEntered] = useState(1.75);
-  const [priceEntered, setPriceEntered] = useState(0);
+  const [priceEntered, setPriceEntered] = useState('');
 
   // custom error
   const [isError, setIsError] = useState(false);
@@ -72,7 +72,17 @@ function FilamentAddBox(props) {
       );
 
       const filtersList = await response.json();
-      setFilters(filtersList);
+      const filtersLists = {};
+
+      for (const key in filtersList) {
+        filtersLists[key] = filtersList[key].map((value, index) => ({
+          id: index,
+          name: value,
+        }));
+      }
+
+      setFilters(filtersLists);
+
       console.log(filtersList);
     } catch (error) {
       console.log(error);
@@ -231,14 +241,6 @@ function FilamentAddBox(props) {
     }
   };
 
-  // devices options conditions for CustomSelect
-  const devicesOptions = [];
-  for (const option of devicesList) {
-    if (option.hasOwnProperty('name')) {
-      devicesOptions.push(option.name);
-    }
-  }
-
   return (
     <div className='shadow'>
       <div className='box'>
@@ -263,8 +265,10 @@ function FilamentAddBox(props) {
               />
             </StyledLabel>
             <CustomSelect
-              options={devicesOptions || []}
+              options={devicesList || []}
               onCustomSelect={setDeviceSelected}
+              labelKey='name'
+              valueKey='id'
             />
 
             <StyledLabel htmlFor='material-select'>
@@ -277,6 +281,8 @@ function FilamentAddBox(props) {
               selectClass={deviceSelected ? '' : 'select-disabled'}
               options={filters.material || []}
               onCustomSelect={setMaterialSelected}
+              labelKey='name'
+              valueKey='name'
             />
 
             <StyledLabel htmlFor='color-select'>
@@ -289,6 +295,8 @@ function FilamentAddBox(props) {
               selectClass={deviceSelected ? '' : 'select-disabled'}
               options={filters.color || []}
               onCustomSelect={setColorSelected}
+              labelKey='name'
+              valueKey='name'
             />
 
             <StyledLabel htmlFor='brand-select'>
@@ -301,6 +309,8 @@ function FilamentAddBox(props) {
               selectClass={deviceSelected ? '' : 'select-disabled'}
               options={filters.brand || []}
               onCustomSelect={setBrandSelected}
+              labelKey='name'
+              valueKey='name'
             />
 
             <StyledLabel htmlFor='quantity-set'>
@@ -308,6 +318,7 @@ function FilamentAddBox(props) {
                 id='filaments.quantity'
                 defaultMessage='Quantity'
               />
+              {' [g]'}
             </StyledLabel>
             <StyledInput
               name='quantity-set'
