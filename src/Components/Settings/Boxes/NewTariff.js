@@ -88,14 +88,19 @@ function NewTariff({
       );
 
       if (response.status === 201) {
-        setErrorMessage('Succesfully tariff added.');
+        setErrorMessage(
+          id ? 'Succesfully edited data.' : 'Succesfully tariff added.'
+        );
         setIsError(true);
-      }
-
-      if (response.status === 404) {
-        const res404 = await response.json();
-        res404.message
-          ? setErrorMessage(res404.message)
+        setErrorCallback(() => {
+          return () => {
+            window.location.reload();
+          };
+        });
+      } else {
+        const resMessage = await response.json();
+        resMessage.message
+          ? setErrorMessage(resMessage.message)
           : setErrorMessage('Something went bad.');
         setIsError(true);
       }
