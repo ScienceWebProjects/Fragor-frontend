@@ -28,8 +28,8 @@ function CustomError({ message, callback, onErrorBox }) {
       <div className='box'>
         <h2>
           {intl.formatMessage({
-            id: 'errors.message',
-            defaultMessage: 'Something went bad!',
+            id: 'errors.warning',
+            defaultMessage: 'Warning!',
           })}
         </h2>
         <section style={{ lineHeight: 2 }}>{formattedMessage}</section>

@@ -47,6 +47,7 @@ function NewTariff({
   // custom error
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorCallback, setErrorCallback] = useState(() => {});
 
   const activeDayHandler = (day) => {
     setIsActiveDay((prevState) => ({
@@ -86,7 +87,7 @@ function NewTariff({
         requestOptions
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setErrorMessage('Succesfully tariff added.');
         setIsError(true);
       }
@@ -124,7 +125,7 @@ function NewTariff({
     if (fromHour < 0) {
       newErrors.hours = 'Start hour must be greater or equal 0!';
     } else if (toHour > 24) {
-      newErrors.hours = 'End hour must be smaller or equal 24!';
+      newErrors.hours = 'End hour must be smaller or equal 23!';
     } else if (fromHour === 0 && toHour === 0) {
       // exception - do nothing
     } else if (fromHour >= toHour) {
@@ -134,14 +135,22 @@ function NewTariff({
     if (tariffPrice <= 0) {
       newErrors.price = 'Price value must be greater than 0!';
     }
-    setErrorMessage(
-      `${newErrors.name ? newErrors.name + '\n' : ''}${
-        newErrors.days ? newErrors.days + '\n' : ''
-      }${newErrors.hours ? newErrors.hours + '\n' : ''}${
-        newErrors.price ? newErrors.price + '\n' : ''
-      }`
-    );
-    setIsError(true);
+
+    if (
+      newErrors.name ||
+      newErrors.days ||
+      newErrors.hours ||
+      newErrors.price
+    ) {
+      setErrorMessage(
+        `${newErrors.name ? newErrors.name + '\n' : ''}${
+          newErrors.days ? newErrors.days + '\n' : ''
+        }${newErrors.hours ? newErrors.hours + '\n' : ''}${
+          newErrors.price ? newErrors.price + '\n' : ''
+        }`
+      );
+      setIsError(true);
+    }
 
     if (Object.keys(newErrors).length === 0) {
       saveTariffApiCall(id);
@@ -150,7 +159,7 @@ function NewTariff({
 
   const deleteTariffHandler = async () => {
     const requestOptions = {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
@@ -159,14 +168,19 @@ function NewTariff({
 
     try {
       const response = await fetch(
-        `${api.ip}${api.settingTariffDelete_id}${id}`,
+        `${api.ip}${api.settingTariffDelete_id}${id}/`,
         requestOptions
       );
 
-      if (response.status === 201) {
+      if (response.status === 204) {
         isEditing(false);
         setErrorMessage('Succesfully tariff deleted.');
         setIsError(true);
+        setErrorCallback(() => {
+          return () => {
+            window.location.reload();
+          };
+        });
       }
 
       if (response.status === 404) {
@@ -361,6 +375,7 @@ function NewTariff({
         <CustomError
           message={errorMessage}
           onErrorBox={setIsError}
+          callback={errorCallback}
         />
       )}
     </form>

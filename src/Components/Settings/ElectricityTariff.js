@@ -47,6 +47,7 @@ function ElectricityTariff({ api }) {
 
       const tariffsList = await response.json();
       setTariffs(tariffsList);
+      console.log(tariffsList);
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +77,9 @@ function ElectricityTariff({ api }) {
   useEffect(() => {
     correctTimeApiCall();
     tariffsGetApiCall();
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (permission.logged === 'logout') {
     return <LogoutUser api={api} />;
@@ -96,14 +99,14 @@ function ElectricityTariff({ api }) {
           className='ininite-scroll'
         >
           <InfoType text={'Electricity tariff'} />
-          {!correctTime && (
+          {correctTime && (
             <h4 className='tariff-warning'>
               Incorrect times entered. Costs may be incorrectly calculated.
             </h4>
           )}
 
           {tariffs.map((tariff, index) => (
-            <div>
+            <div key={`tariff-${index}`}>
               {index === editingIndex ? (
                 <NewTariff
                   api={api}
