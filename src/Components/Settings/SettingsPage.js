@@ -3,7 +3,6 @@
 // hooks
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useIntl } from 'react-intl';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 

@@ -36,20 +36,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
   const saveBtn = changerUser ? true : false;
   const newNoteBtn = changerUser ? true : false;
 
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      note: 'Note 1',
-    },
-    {
-      id: 2,
-      note: 'Note 2',
-    },
-    {
-      id: 3,
-      note: 'Note 3',
-    },
-  ]);
+  const [notes, setNotes] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editedNote, setEditedNote] = useState('');
   const [isAddingNewNote, setIsAddingNewNote] = useState(false);
@@ -77,9 +64,13 @@ function NotesBox({ api, object, id, onNotesBox }) {
   };
   useEffect(() => {
     getNoteApiCall();
-  });
 
-  const newEditNoteApiCall = async (noteId, note = null) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const newEditNoteApiCall = async (noteId = null, note) => {
+    console.log('note Id: ', noteId, 'Note obj: ', note);
+
     const editData = {
       noteID: noteId,
       note: note,
@@ -100,7 +91,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
         requestOptions
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         return true;
       }
 
@@ -137,8 +128,6 @@ function NotesBox({ api, object, id, onNotesBox }) {
   };
 
   const saveHandler = (noteId, note) => {
-    console.log(noteId, note);
-
     const success = newEditNoteApiCall(noteId, note);
 
     if (success === true) {
@@ -187,7 +176,8 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
     // creating new note
     const newNote = {
-      id: notes.length + 1,
+      // id: notes.length + 1,
+      id: null,
       note: 'New note',
     };
 
