@@ -2,6 +2,7 @@
 
 // hooks
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToken from '../../../Hooks/useToken';
 
 // components
@@ -16,9 +17,41 @@ import '../../UI/shared/_box.scss';
 
 function ChangeEmailBox(props) {
   const user = useToken();
+  const navigate = useNavigate();
 
   const { setChangeEmailBox } = props;
   const [newEmailEntered, setNewEmailEntered] = useState('');
+
+  const logoutApiCall = async () => {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingLogout}`,
+        requestOptions
+      );
+
+      if (response.status === 204) {
+        console.log('Successful logout');
+        sessionStorage.setItem('token', '');
+        sessionStorage.clear();
+        navigate(props.api.loginPage);
+      }
+
+      if (response.status === 404) {
+        const res = await response.json();
+        console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const changeEmailApiCall = async (e) => {
     e.preventDefault();
@@ -48,6 +81,7 @@ function ChangeEmailBox(props) {
       if (response.status === 200) {
         setChangeEmailBox(false);
         alert('Successful email change');
+        logoutApiCall();
       }
       if (response.status === 400) {
         const res400 = await response.json();

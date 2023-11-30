@@ -3,10 +3,12 @@
 // hooks
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
 // components
+import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import LogoutUser from '../_shared/LogoutUser';
 import DeleteAccountBox from './Boxes/DeleteAccountBox';
@@ -91,14 +93,22 @@ function SettingsPage(props) {
 
         <main className='App-header'>
           <div className='content'>
-            <h1>Settings</h1>
+            <h1>
+              <FormattedMessage
+                id='settings'
+                defaultMessage='Settings'
+              />
+            </h1>
             {!permission.owner && !permission.master && (
               <Button
                 className='content-delete'
                 color='red'
                 onClick={deleteAccountHandler}
               >
-                Delete account
+                <FormattedMessage
+                  id='settings.deleteAccount'
+                  defaultMessage='Delete account'
+                />
               </Button>
             )}
 
@@ -107,7 +117,10 @@ function SettingsPage(props) {
               color='red'
               onClick={logoutHandler}
             >
-              Log out
+              <FormattedMessage
+                id='settings.logout'
+                defaultMessage='Log out'
+              />
             </Button>
             {(permission.owner || permission.master) && (
               <StyledLink to={props.api.settingsFilamentsOptions}>
@@ -115,7 +128,10 @@ function SettingsPage(props) {
                   className=''
                   color='blue'
                 >
-                  Filaments options
+                  <FormattedMessage
+                    id='settings.filamentsOptions'
+                    defaultMessage='Filaments options'
+                  />
                 </Button>
               </StyledLink>
             )}
@@ -125,7 +141,10 @@ function SettingsPage(props) {
                   className=''
                   color='blue'
                 >
-                  Electricity tariffs
+                  <FormattedMessage
+                    id='settings.electricityTariffs'
+                    defaultMessage='Electricity tariffs'
+                  />
                 </Button>
               </StyledLink>
             )}
@@ -134,14 +153,20 @@ function SettingsPage(props) {
               color='yellow'
               onClick={changePinHandler}
             >
-              Change pin
+              <FormattedMessage
+                id='settings.changePin'
+                defaultMessage='Change pin'
+              />
             </Button>
             <Button
               className=''
               color='yellow'
               onClick={changePasswordHandler}
             >
-              Change password
+              <FormattedMessage
+                id='settings.changePassword'
+                defaultMessage='Change password'
+              />
             </Button>
 
             <Button
@@ -149,7 +174,10 @@ function SettingsPage(props) {
               color='yellow'
               onClick={changeEmailHandler}
             >
-              Change e-mail
+              <FormattedMessage
+                id='settings.changeEmail'
+                defaultMessage='Change e-mail'
+              />
             </Button>
           </div>
 
@@ -158,7 +186,10 @@ function SettingsPage(props) {
               className=''
               color='red'
             >
-              Back
+              <FormattedMessage
+                id='back'
+                defaultMessage='Back'
+              />
             </Button>
           </StyledLink>
         </main>

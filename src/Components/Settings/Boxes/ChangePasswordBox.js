@@ -2,6 +2,7 @@
 
 // hooks
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToken from '../../../Hooks/useToken';
 
 // components
@@ -16,11 +17,43 @@ import '../../UI/shared/_box.scss';
 
 function ChangePasswordBox(props) {
   const user = useToken();
+  const navigate = useNavigate();
 
   const { setChangePasswordBox } = props;
   const [oldPasswordEntered, setOldPasswordEntered] = useState('');
   const [newPasswordEntered, setNewPasswordEntered] = useState('');
   const [confirmPasswordEntered, setConfirmPasswordEntered] = useState('');
+
+  const logoutApiCall = async () => {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingLogout}`,
+        requestOptions
+      );
+
+      if (response.status === 204) {
+        console.log('Successful logout');
+        sessionStorage.setItem('token', '');
+        sessionStorage.clear();
+        navigate(props.api.loginPage);
+      }
+
+      if (response.status === 404) {
+        const res = await response.json();
+        console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const changePasswordApiCall = async (e) => {
     e.preventDefault();
@@ -52,6 +85,7 @@ function ChangePasswordBox(props) {
       if (response.status === 200) {
         setChangePasswordBox(false);
         alert('Successful password change');
+        logoutApiCall();
       }
       if (response.status === 400) {
         const res400 = await response.json();
@@ -91,7 +125,9 @@ function ChangePasswordBox(props) {
             required
           />
 
-          <StyledLabel htmlFor='confirm-password'>Confirm new password</StyledLabel>
+          <StyledLabel htmlFor='confirm-password'>
+            Confirm new password
+          </StyledLabel>
           <StyledInput
             name='confirm-password'
             id='confirm-password'
