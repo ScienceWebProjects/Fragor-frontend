@@ -35,6 +35,7 @@ function PrinterEditBox(props) {
     e.preventDefault();
 
     const editData = {
+      id: details.id,
       name: nameEntered,
       model: modelSelected,
       power: printerPowerEntered,
@@ -42,6 +43,8 @@ function PrinterEditBox(props) {
 
     const btn = document.getElementById('confirmBtn');
     btn.textContent = 'Wait...';
+
+    console.log('Edit data:', editData);
 
     const requestOptions = {
       method: 'PUT',
@@ -54,7 +57,7 @@ function PrinterEditBox(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.printerEdit_id}${details.id}/`,
+        `${props.api.ip}${props.api.printerEdit_id}`,
         requestOptions
       );
 
@@ -71,6 +74,7 @@ function PrinterEditBox(props) {
     } catch (error) {
       console.log(error);
       alert('Something went wrong.');
+      btn.textContent = 'Confirm';
     }
   };
 
