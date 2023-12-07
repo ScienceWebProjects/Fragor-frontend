@@ -58,23 +58,34 @@ function NotesBox({ api, object, id, onNotesBox }) {
       const notes = await response.json();
 
       setNotes(notes);
+
+      setEditingIndex(-1);
+      setIsAddingNewNote(false);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getNoteApiCall();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const newEditNoteApiCall = async (noteId = null, note) => {
-    console.log('note Id: ', noteId, 'Note obj: ', note);
-
+  const saveHandler = async (noteId = null, note) => {
     const editData = {
       noteID: noteId,
       note: note,
     };
+
+    console.log(
+      'note Id: ',
+      noteId,
+      'Note txt: ',
+      note,
+      'editData: ',
+      editData
+    );
 
     const requestOptions = {
       method: 'POST',
@@ -85,6 +96,13 @@ function NotesBox({ api, object, id, onNotesBox }) {
       body: JSON.stringify(editData),
     };
 
+    console.log(
+      'endpoint: ',
+      `${api.ip}${objectApi}${api.printerNoteUpdate_printerId}${id}/`,
+      'json sent: ',
+      editData
+    );
+
     try {
       const response = await fetch(
         `${api.ip}${objectApi}${api.printerNoteUpdate_printerId}${id}/`,
@@ -92,7 +110,10 @@ function NotesBox({ api, object, id, onNotesBox }) {
       );
 
       if (response.status === 201) {
-        return true;
+        setEditingIndex(-1);
+        setIsAddingNewNote(false);
+        getNoteApiCall();
+        return;
       }
 
       if (response.status === 400 || response.status === 404) {
@@ -124,16 +145,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
     setIsAddingNewNote(true);
     setEditingIndex(index);
-    setEditedNote(notes[index]);
-  };
-
-  const saveHandler = (noteId, note) => {
-    const success = newEditNoteApiCall(noteId, note);
-
-    if (success === true) {
-      setEditingIndex(-1);
-      setIsAddingNewNote(false);
-    }
+    setEditedNote(notes[index].note);
   };
 
   const deleteHandler = async (noteId) => {
@@ -152,6 +164,9 @@ function NotesBox({ api, object, id, onNotesBox }) {
       );
 
       if (response.status === 204) {
+        setEditingIndex(-1);
+        setIsAddingNewNote(false);
+        getNoteApiCall();
         return console.log('Delete note.');
       }
 
@@ -189,7 +204,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
     setNotes(newNotes);
     setEditingIndex(newIndex);
-    setEditedNote(newNote);
+    setEditedNote(newNote.note);
 
     setTimeout(() => {
       if (lastNoteRef.current) {
@@ -209,7 +224,6 @@ function NotesBox({ api, object, id, onNotesBox }) {
             dataLength={''}
             hasMore={true}
             height={'50vh'}
-            // endMessage={'No more added filaments'}
           >
             {notes.map((note, index) => (
               <div
@@ -220,13 +234,13 @@ function NotesBox({ api, object, id, onNotesBox }) {
                   <div className='note-save'>
                     <textarea
                       rows={'4'}
-                      value={editedNote.note}
+                      value={editedNote}
                       className='save-text'
                       onChange={(e) => setEditedNote(e.target.value)}
                     />
                     {saveBtn && (
                       <button
-                        className='save-btn'
+                        className='save-btns save-btn'
                         onClick={() => {
                           saveHandler(note.id, editedNote);
                         }}
@@ -234,6 +248,16 @@ function NotesBox({ api, object, id, onNotesBox }) {
                         <i className='icon-floppy'></i>
                       </button>
                     )}
+                    <button
+                      className='save-btns cancel-btn'
+                      onClick={() => {
+                        setEditingIndex(-1);
+                        setIsAddingNewNote(false);
+                        getNoteApiCall();
+                      }}
+                    >
+                      <i className='icon-cancel'></i>
+                    </button>
                   </div>
                 ) : (
                   <section className='note-wrapper'>

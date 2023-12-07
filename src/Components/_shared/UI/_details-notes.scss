@@ -41,7 +41,7 @@ $icon-style: (
       border-radius: 0.625rem;
     }
 
-    .save-btn {
+    .save-btns {
       @each $property, $value in $button-style-remove {
         #{$property}: $value;
       }
@@ -57,6 +57,17 @@ $icon-style: (
         -webkit-transition: 400ms;
         -o-transition: 400ms;
         transition: 400ms;
+      }
+    }
+    .save-btn {
+      &:hover {
+        color: $blue;
+      }
+    }
+
+    .cancel-btn {
+      &:hover {
+        color: $red;
       }
     }
   }

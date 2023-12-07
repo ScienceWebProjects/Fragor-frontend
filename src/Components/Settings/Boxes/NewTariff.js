@@ -87,6 +87,13 @@ function NewTariff({
         requestOptions
       );
 
+      console.log(
+        'request :',
+        `${api.ip}${api.settingTariffUpdate}`,
+        'json: ',
+        tariffData
+      );
+
       if (response.status === 201) {
         setErrorMessage(
           id ? 'Succesfully edited data.' : 'Succesfully tariff added.'
@@ -99,8 +106,8 @@ function NewTariff({
         });
       } else {
         const resMessage = await response.json();
-        resMessage.message
-          ? setErrorMessage(resMessage.message)
+        resMessage
+          ? console.error(resMessage)
           : setErrorMessage('Something went bad.');
         setIsError(true);
       }
