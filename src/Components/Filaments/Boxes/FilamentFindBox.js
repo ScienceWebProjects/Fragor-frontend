@@ -20,16 +20,7 @@ function FilamentFindBox({ api, onFilamentFindBox }) {
   const intl = useIntl();
 
   // variabels for filament find
-  const [findingDevices, setFindingDevices] = useState([
-    {
-      id: 0,
-      name: 'Device name 1',
-    },
-    {
-      id: 1,
-      name: 'Device name 2',
-    },
-  ]);
+  const [findingDevices, setFindingDevices] = useState([]);
   const [findingDeviceSelected, setFindingDeviceSelected] = useState('');
   const [filamentFindData, setFilamentFindData] = useState([]);
 
