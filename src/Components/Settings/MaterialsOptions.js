@@ -266,7 +266,7 @@ function MaterialsOptions(props) {
                     htmlFor='density'
                     className='min-label'
                   >
-                    Density
+                    Density [g/cm<sup>3</sup>]
                   </StyledLabel>
                   <StyledInput
                     name='density'
