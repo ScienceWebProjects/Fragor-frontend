@@ -43,7 +43,7 @@ function FilamentAddBox(props) {
       model: 'test-model-2',
     },
   ]);
-  const [deviceSelected, setDeviceSelected] = useState('');
+  const [deviceSelected, setDeviceSelected] = useState(undefined);
   const [materialSelected, setMaterialSelected] = useState('');
   const [colorSelected, setColorSelected] = useState('');
   const [brandSelected, setBrandSelected] = useState('');
@@ -278,7 +278,9 @@ function FilamentAddBox(props) {
               />
             </StyledLabel>
             <CustomSelect
-              selectClass={deviceSelected ? '' : 'select-disabled'}
+              selectClass={
+                deviceSelected !== undefined ? '' : 'select-disabled'
+              }
               options={filters.material || []}
               onCustomSelect={setMaterialSelected}
               labelKey='name'
@@ -292,7 +294,9 @@ function FilamentAddBox(props) {
               />
             </StyledLabel>
             <CustomSelect
-              selectClass={deviceSelected ? '' : 'select-disabled'}
+              selectClass={
+                deviceSelected !== undefined ? '' : 'select-disabled'
+              }
               options={filters.color || []}
               onCustomSelect={setColorSelected}
               labelKey='name'
@@ -306,7 +310,9 @@ function FilamentAddBox(props) {
               />
             </StyledLabel>
             <CustomSelect
-              selectClass={deviceSelected ? '' : 'select-disabled'}
+              selectClass={
+                deviceSelected !== undefined ? '' : 'select-disabled'
+              }
               options={filters.brand || []}
               onCustomSelect={setBrandSelected}
               labelKey='name'
@@ -321,6 +327,7 @@ function FilamentAddBox(props) {
               {' [g]'}
             </StyledLabel>
             <StyledInput
+              className={deviceSelected !== undefined ? '' : 'select-disabled'}
               name='quantity-set'
               id='quantity-set'
               type='number'
@@ -346,6 +353,9 @@ function FilamentAddBox(props) {
                   />
                 </label>
                 <StyledInput
+                  className={
+                    deviceSelected !== undefined ? '' : 'select-disabled'
+                  }
                   name='diameter'
                   id='diameter'
                   type='number'
@@ -371,6 +381,9 @@ function FilamentAddBox(props) {
                   />
                 </label>
                 <StyledInput
+                  className={
+                    deviceSelected !== undefined ? '' : 'select-disabled'
+                  }
                   name='price'
                   id='price'
                   type='number'
