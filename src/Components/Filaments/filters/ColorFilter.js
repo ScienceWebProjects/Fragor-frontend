@@ -5,6 +5,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import useToken from '../../../Hooks/useToken';
 
+// components
+import { FormattedMessage } from 'react-intl';
+
 // UI elements
 import SelectBox from '../../UI/shared/SelectBox';
 
@@ -44,7 +47,12 @@ function ColorFilter(props) {
   return (
     <SelectBox>
       <div className='SelectBox_border-gradient'>
-        <label htmlFor='colors'>Color</label>
+        <label htmlFor='colors'>
+          <FormattedMessage
+            id='filaments.color'
+            defaultMessage='Color'
+          />
+        </label>
         <select
           name='colors'
           value={props.selected}

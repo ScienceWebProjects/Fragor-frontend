@@ -151,18 +151,18 @@ function ForgetPin(props) {
               />
             </Button>
 
-            <StyledLink to={props.api.loginPage}>
-              <Button
-                color='red'
-                type='button'
-                className='form-btn'
-              >
+            <Button
+              color='red'
+              type='button'
+              className='form-btn'
+            >
+              <StyledLink to={props.api.loginPage}>
                 <FormattedMessage
                   id='back'
                   defaultMessage='Back'
                 />
-              </Button>
-            </StyledLink>
+              </StyledLink>
+            </Button>
           </form>
         </main>
 

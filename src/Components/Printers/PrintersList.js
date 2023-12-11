@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 
 // hooks
 import useToken from '../../Hooks/useToken';
-// import useWindowSize from '../../Hooks/useWindowSize';
+import usePermissions from '../../Hooks/usePermissions';
+import useWindowSize from '../../Hooks/useWindowSize';
 
 // components
 import { FormattedMessage } from 'react-intl';
@@ -14,21 +15,21 @@ import Button from '../UI/shared/buttons/Button';
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
 import PrinterItem from './PrinterItem';
-// import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // scss
 import './scss/_printers-list-btns.scss';
 
 function PrintersList(props) {
-  // const windowSize = useWindowSize();
+  const user = useToken();
+  const permission = usePermissions(user);
+  const windowSize = useWindowSize();
 
   const [printers, setPrinters] = useState([]);
 
   const printerSelectionHandler = (printer) => {
     props.onPrinterSelect(printer);
   };
-
-  const user = useToken();
 
   const makeAPICall = async () => {
     const requestOptions = {
@@ -59,52 +60,70 @@ function PrintersList(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
-      <main className='App-header'>
-        <StyledLink to={props.api.printerAddPage}>
-          <Button
-            className=''
-            color='yellow'
-          >
-            <FormattedMessage
-              id='printers.addPrinter'
-              defaultMessage='Add Printer'
-            />
-          </Button>
-        </StyledLink>
+      <div className='printers-list-btns'>
+        {permission.changer && (
+          <StyledLink to={props.api.printerAddPage}>
+            <Button
+              className='printers-list-btn'
+              color='yellow'
+            >
+              <FormattedMessage
+                id='printers.addPrinter'
+                defaultMessage='Add Printer'
+              />
+            </Button>
+          </StyledLink>
+        )}
 
-        {printers.map((printer) => (
+        <StyledLink to={props.api.chartsPage}>
           <Button
-            color='blue'
-            key={printer.id}
-          >
-            <PrinterItem
-              printer={printer}
-              api={props.api}
-              onPrinterSelect={printerSelectionHandler}
-            />
-          </Button>
-        ))}
-        <StyledLink to={props.api.home}>
-          <Button
-            className=''
-            color='red'
+            className='printers-list-btn'
+            color='green'
           >
             <FormattedMessage
-              id='back'
-              defaultMessage='Back'
+              id='charts'
+              defaultMessage='Charts'
             />
           </Button>
         </StyledLink>
+      </div>
+
+      <main
+        className='App-header'
+        style={{ minHeight: 'unset' }}
+      >
+        <InfiniteScroll
+          dataLength={printers.length}
+          hasMore={false}
+          height={windowSize * 0.6}
+        >
+          {printers.map((printer) => (
+            <Button
+              color='blue'
+              key={printer.id}
+            >
+              <PrinterItem
+                printer={printer}
+                api={props.api}
+                onPrinterSelect={printerSelectionHandler}
+              />
+            </Button>
+          ))}
+        </InfiniteScroll>
       </main>
+
       <StyledLink to={props.api.home}>
         <Button
           className=''
           color='red'
         >
-          Back
+          <FormattedMessage
+            id='back'
+            defaultMessage='Back'
+          />
         </Button>
       </StyledLink>
     </div>

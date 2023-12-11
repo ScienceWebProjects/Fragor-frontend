@@ -3,6 +3,7 @@
 
 .container_bar {
   position: fixed;
+  z-index: 1;
   top: calc(10vh + 0.625rem);
 
   width: 95vw;
@@ -12,8 +13,6 @@
   border-radius: $corners;
 
   @include flexCenter(row, space-around, center);
-
-  z-index: 2;
 
   .bar_filter {
     border-radius: $corners;

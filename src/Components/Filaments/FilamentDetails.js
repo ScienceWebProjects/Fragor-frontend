@@ -39,8 +39,10 @@ function FilamentDetails(props) {
     setTimeout(() => {
       const storedFilament = sessionStorage.getItem('filamentDetails');
       setDetails(JSON.parse(storedFilament));
-    }, 50);
-  });
+    }, 500);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renewDelete = async () => {
     const requestOptions = {
@@ -115,7 +117,7 @@ function FilamentDetails(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <main className='App-header'>

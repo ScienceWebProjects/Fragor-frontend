@@ -2,6 +2,7 @@
 
 // hooks
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToken from '../../../Hooks/useToken';
 
 // components
@@ -17,10 +18,42 @@ import '../../UI/shared/_box.scss';
 
 function ChangePinBox(props) {
   const user = useToken();
+  const navigate = useNavigate();
 
   const { setChangePinBox, onSuccess, hideCancelBtn } = props;
   const [passwordEntered, setPasswordEntered] = useState('');
   const [newPinEntered, setNewPinEntered] = useState('');
+
+  const logoutApiCall = async () => {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingLogout}`,
+        requestOptions
+      );
+
+      if (response.status === 204) {
+        console.log('Successful logout');
+        sessionStorage.setItem('token', '');
+        sessionStorage.clear();
+        navigate(props.api.loginPage);
+      }
+
+      if (response.status === 404) {
+        const res = await response.json();
+        console.log(res);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const changePinApiCall = async () => {
     const pinData = {
@@ -38,7 +71,10 @@ function ChangePinBox(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.settingPinChange}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.settingPinChange}`,
+        requestOptions
+      );
 
       if (response.status === 200) {
         return true;
@@ -59,6 +95,7 @@ function ChangePinBox(props) {
       // setChangePinBox(false);
       // alert('Succesfull PIN changed.');
       onSuccess();
+      logoutApiCall();
     }
     btn.textContent = 'Confirm';
   };

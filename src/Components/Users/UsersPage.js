@@ -36,7 +36,10 @@ function UsersPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.usersGetAll}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.usersGetAll}`,
+        requestOptions
+      );
 
       if (response.status === 200) {
         const users = await response.json();
@@ -63,7 +66,7 @@ function UsersPage(props) {
     return (
       <div>
         {/* <header> */}
-        <TopBar />
+        <TopBar api={props.api} />
         {/* </ header> */}
 
         <main className='App-header'>
@@ -74,7 +77,11 @@ function UsersPage(props) {
               dataLength={0}
               hasMore={true}
               height={windowSize * 0.6}
-              style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              }}
             >
               {usersList.map((user) => (
                 <Button

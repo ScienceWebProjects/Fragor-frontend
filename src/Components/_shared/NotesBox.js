@@ -36,20 +36,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
   const saveBtn = changerUser ? true : false;
   const newNoteBtn = changerUser ? true : false;
 
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      note: 'Note 1',
-    },
-    {
-      id: 2,
-      note: 'Note 2',
-    },
-    {
-      id: 3,
-      note: 'Note 3',
-    },
-  ]);
+  const [notes, setNotes] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editedNote, setEditedNote] = useState('');
   const [isAddingNewNote, setIsAddingNewNote] = useState(false);
@@ -71,19 +58,34 @@ function NotesBox({ api, object, id, onNotesBox }) {
       const notes = await response.json();
 
       setNotes(notes);
+
+      setEditingIndex(-1);
+      setIsAddingNewNote(false);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getNoteApiCall();
-  });
 
-  const newEditNoteApiCall = async (noteId, note = null) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const saveHandler = async (noteId = null, note) => {
     const editData = {
       noteID: noteId,
       note: note,
     };
+
+    console.log(
+      'note Id: ',
+      noteId,
+      'Note txt: ',
+      note,
+      'editData: ',
+      editData
+    );
 
     const requestOptions = {
       method: 'POST',
@@ -94,14 +96,24 @@ function NotesBox({ api, object, id, onNotesBox }) {
       body: JSON.stringify(editData),
     };
 
+    console.log(
+      'endpoint: ',
+      `${api.ip}${objectApi}${api.printerNoteUpdate_printerId}${id}/`,
+      'json sent: ',
+      editData
+    );
+
     try {
       const response = await fetch(
         `${api.ip}${objectApi}${api.printerNoteUpdate_printerId}${id}/`,
         requestOptions
       );
 
-      if (response.status === 200) {
-        return true;
+      if (response.status === 201) {
+        setEditingIndex(-1);
+        setIsAddingNewNote(false);
+        getNoteApiCall();
+        return;
       }
 
       if (response.status === 400 || response.status === 404) {
@@ -133,18 +145,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
     setIsAddingNewNote(true);
     setEditingIndex(index);
-    setEditedNote(notes[index]);
-  };
-
-  const saveHandler = (noteId, note) => {
-    console.log(noteId, note);
-
-    const success = newEditNoteApiCall(noteId, note);
-
-    if (success === true) {
-      setEditingIndex(-1);
-      setIsAddingNewNote(false);
-    }
+    setEditedNote(notes[index].note);
   };
 
   const deleteHandler = async (noteId) => {
@@ -163,6 +164,9 @@ function NotesBox({ api, object, id, onNotesBox }) {
       );
 
       if (response.status === 204) {
+        setEditingIndex(-1);
+        setIsAddingNewNote(false);
+        getNoteApiCall();
         return console.log('Delete note.');
       }
 
@@ -187,7 +191,8 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
     // creating new note
     const newNote = {
-      id: notes.length + 1,
+      // id: notes.length + 1,
+      id: null,
       note: 'New note',
     };
 
@@ -199,7 +204,7 @@ function NotesBox({ api, object, id, onNotesBox }) {
 
     setNotes(newNotes);
     setEditingIndex(newIndex);
-    setEditedNote(newNote);
+    setEditedNote(newNote.note);
 
     setTimeout(() => {
       if (lastNoteRef.current) {
@@ -219,7 +224,6 @@ function NotesBox({ api, object, id, onNotesBox }) {
             dataLength={''}
             hasMore={true}
             height={'50vh'}
-            // endMessage={'No more added filaments'}
           >
             {notes.map((note, index) => (
               <div
@@ -230,13 +234,13 @@ function NotesBox({ api, object, id, onNotesBox }) {
                   <div className='note-save'>
                     <textarea
                       rows={'4'}
-                      value={editedNote.note}
+                      value={editedNote}
                       className='save-text'
                       onChange={(e) => setEditedNote(e.target.value)}
                     />
                     {saveBtn && (
                       <button
-                        className='save-btn'
+                        className='save-btns save-btn'
                         onClick={() => {
                           saveHandler(note.id, editedNote);
                         }}
@@ -244,6 +248,16 @@ function NotesBox({ api, object, id, onNotesBox }) {
                         <i className='icon-floppy'></i>
                       </button>
                     )}
+                    <button
+                      className='save-btns cancel-btn'
+                      onClick={() => {
+                        setEditingIndex(-1);
+                        setIsAddingNewNote(false);
+                        getNoteApiCall();
+                      }}
+                    >
+                      <i className='icon-cancel'></i>
+                    </button>
                   </div>
                 ) : (
                   <section className='note-wrapper'>

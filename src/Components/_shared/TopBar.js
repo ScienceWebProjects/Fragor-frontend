@@ -13,10 +13,10 @@ import Button from '../UI/shared/buttons/Button';
 // UI elements
 import logo from '../../Images/icon-white.png';
 import StyledLink from '../UI/shared/StyledLink';
+import TopBarButton from './UI/TopBarButton';
 
 // scss
 import './UI/_topbar.scss';
-import TopBarButton from './UI/TopBarButton';
 
 function TopBar({ api }) {
   const user = useToken();
@@ -59,11 +59,16 @@ function TopBar({ api }) {
   return (
     <header className='topbar'>
       <div className='topbar_logo-wrapper'>
-        <div className='logo-wrapper_txt '>FraGor StartUp</div>
-        <img
-          src={logo}
-          alt='Logo'
-        />
+        <StyledLink
+          to={api.home}
+          className='logo-link'
+        >
+          <div className='logo-wrapper_txt '>FraGor StartUp</div>
+          <img
+            src={logo}
+            alt='Logo'
+          />
+        </StyledLink>
       </div>
       <div className='topbar_menu'>
         <TopBarButton

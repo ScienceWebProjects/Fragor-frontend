@@ -2,7 +2,7 @@
 @import '../../UI/shared/functions';
 
 .select-disabled {
-  background-color: $primary-color;
+  background-color: $primary-color !important;
   cursor: not-allowed;
   pointer-events: none;
   z-index: 2;

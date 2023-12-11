@@ -117,7 +117,7 @@ function MaterialsOptions(props) {
     return (
       <div>
         {/* <header> */}
-        <TopBar />
+        <TopBar api={props.api} />
         {/* </ header> */}
 
         <main className='App-header'>
@@ -143,7 +143,14 @@ function MaterialsOptions(props) {
                 key={`material-${material.id}`}
                 className='list-element'
               >
-                <div className='element-label'>{material.material}</div>
+                <div className='element-labels'>
+                  <div className='label-name'>
+                    <b>{material.material}</b>
+                  </div>
+                  <div className='label-name'>{`Hotbed [°C]: ${material.hotbed}`}</div>
+                  <div className='label-name'>{`Hotend [°C]: ${material.hotend}`}</div>
+                  <div className='label-name'>{`Density: ${material.density}`}</div>
+                </div>
                 <Button
                   color='red'
                   className='element-delete'
@@ -266,7 +273,7 @@ function MaterialsOptions(props) {
                     htmlFor='density'
                     className='min-label'
                   >
-                    Density
+                    Density [g/cm<sup>3</sup>]
                   </StyledLabel>
                   <StyledInput
                     name='density'

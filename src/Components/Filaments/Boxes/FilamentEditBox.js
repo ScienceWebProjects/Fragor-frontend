@@ -41,15 +41,25 @@ function FilamentEditBox(props) {
       );
 
       const filtersList = await response.json();
-      setFilters(filtersList);
-      // console.log(filtersList);
+      const filtersLists = {};
+
+      for (const key in filtersList) {
+        filtersLists[key] = filtersList[key].map((value, index) => ({
+          id: index,
+          name: value,
+        }));
+      }
+
+      setFilters(filtersLists);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     filtersGetAPICall();
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getFilamentById = async () => {
     const requestOptions = {
@@ -72,10 +82,12 @@ function FilamentEditBox(props) {
       }
       if (response.status === 400 || response.status === 404) {
         alert(response.message);
+        return null;
       }
     } catch (error) {
-      console.log(error);
-      alert('Somethint went bad getFilamentById.');
+      console.error(error);
+      alert('Something went bad getFilamentById.');
+      return null;
     }
   };
 
@@ -110,8 +122,10 @@ function FilamentEditBox(props) {
       if (response.status === 200) {
         onFilamentEditBox(false);
         alert('Successfull edit filament properties.');
-        const newData = getFilamentById();
-        sessionStorage.setItem('filamentDetails', newData);
+        const newData = await getFilamentById();
+        if (newData !== null) {
+          sessionStorage.setItem('filamentDetails', JSON.stringify(newData));
+        }
         window.location.reload();
       }
       if (response.status === 400 || response.status === 404) {
@@ -137,6 +151,8 @@ function FilamentEditBox(props) {
               options={filters.material || []}
               defaultSelected={details.material}
               onCustomSelect={setMaterialSelected}
+              labelKey='name'
+              valueKey='name'
             />
 
             <StyledLabel htmlFor='color-select'>Color</StyledLabel>
@@ -144,6 +160,8 @@ function FilamentEditBox(props) {
               options={filters.color || []}
               defaultSelected={details.color}
               onCustomSelect={setColorSelected}
+              labelKey='name'
+              valueKey='name'
             />
 
             <StyledLabel htmlFor='brand-select'>Brand</StyledLabel>
@@ -151,6 +169,8 @@ function FilamentEditBox(props) {
               options={filters.brand || []}
               defaultSelected={details.brand}
               onCustomSelect={setBrandSelected}
+              labelKey='name'
+              valueKey='name'
             />
           </div>
 

@@ -31,7 +31,11 @@ const StyledInput = (props) => {
       id={props.id}
       type={props.type}
       value={props.value}
+      min={props.min}
+      max={props.max}
+      step={props.step}
       onChange={props.onChange}
+      placeholder={props.placeholder}
       required={props.isRequired}
     >
       {props.children}

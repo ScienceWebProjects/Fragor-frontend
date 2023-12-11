@@ -2,8 +2,10 @@
 import React from 'react';
 
 // hooks
+import { useIntl } from 'react-intl';
 
 // components
+import { FormattedMessage } from 'react-intl';
 
 // UI elements
 import Button from '../UI/shared/buttons/Button';
@@ -12,6 +14,8 @@ import Button from '../UI/shared/buttons/Button';
 import '../UI/shared/_box.scss';
 
 function CustomError({ message, callback, onErrorBox }) {
+  const intl = useIntl();
+
   const formattedMessage = message.split('\n').map((item, index) => (
     <React.Fragment key={index}>
       {item}
@@ -22,7 +26,12 @@ function CustomError({ message, callback, onErrorBox }) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <h2>Something went bad!</h2>
+        <h2>
+          {intl.formatMessage({
+            id: 'errors.warning',
+            defaultMessage: 'Warning!',
+          })}
+        </h2>
         <section style={{ lineHeight: 2 }}>{formattedMessage}</section>
         <div className='box-btns'>
           <Button
@@ -36,7 +45,10 @@ function CustomError({ message, callback, onErrorBox }) {
               }
             }}
           >
-            Back
+            <FormattedMessage
+              id='back'
+              defaultMessage='Back'
+            />
           </Button>
         </div>
       </div>

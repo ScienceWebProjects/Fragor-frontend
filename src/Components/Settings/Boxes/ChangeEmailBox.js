@@ -2,6 +2,7 @@
 
 // hooks
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useToken from '../../../Hooks/useToken';
 
 // components
@@ -16,6 +17,7 @@ import '../../UI/shared/_box.scss';
 
 function ChangeEmailBox(props) {
   const user = useToken();
+  const navigate = useNavigate();
 
   const { setChangeEmailBox } = props;
   const [newEmailEntered, setNewEmailEntered] = useState('');
@@ -48,6 +50,11 @@ function ChangeEmailBox(props) {
       if (response.status === 200) {
         setChangeEmailBox(false);
         alert('Successful email change');
+        // delete token from local storage
+        // navigate to login page
+        sessionStorage.setItem('token', '');
+        sessionStorage.clear();
+        navigate(props.api.loginPage);
       }
       if (response.status === 400) {
         const res400 = await response.json();

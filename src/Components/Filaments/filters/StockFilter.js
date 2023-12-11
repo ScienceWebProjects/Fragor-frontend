@@ -3,6 +3,9 @@ import React from 'react';
 
 // hooks
 
+// components
+import { FormattedMessage } from 'react-intl';
+
 // UI elements
 import SelectBox from '../../UI/shared/SelectBox';
 
@@ -14,7 +17,12 @@ function StockFilter(props) {
   return (
     <SelectBox>
       <div className='SelectBox_border-gradient'>
-        <label htmlFor='stock'>Stock</label>
+        <label htmlFor='stock'>
+          <FormattedMessage
+            id='filaments.stock'
+            defaultMessage='Stock'
+          />
+        </label>
         <select
           name='stock'
           value={props.selected}

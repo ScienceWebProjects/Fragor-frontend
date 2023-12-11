@@ -26,10 +26,10 @@ import OwnersPage from './Components/Owners/OwnersPage';
 import CompanyDetails from './Components/Owners/CompanyDetails';
 import DevicesPage from './Components/Devices/DevicesPage';
 import ForgetPin from './Components/Authorization/Login/ForgetPin';
+import Charts from './Components/Charts/Charts';
 
 // UI elements
 import './App.css';
-import Charts from './Components/Charts/Charts';
 
 function App() {
   const [printerDetails, setPrinterDetails] = useState([]);

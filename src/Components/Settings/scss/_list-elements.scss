@@ -3,7 +3,7 @@
 
 .list-element {
   width: inherit;
-  @include flexCenter(row, center, center);
+  @include flexCenter(row, space-between, center);
   opacity: 0.99;
   margin: 0.313rem auto;
 
@@ -11,11 +11,17 @@
 
   background-color: $secondary-color;
 
-  .element-label {
-    width: 50%;
+  .element-labels {
+    @include flexCenter(column, center, flex-start);
+    margin: 0.313rem 0 0.313rem 0;
+
+    .label-name {
+      margin: 0 0 0 0.625rem;
+    }
   }
 
   .element-delete {
     width: 30%;
+    margin: 0;
   }
 }

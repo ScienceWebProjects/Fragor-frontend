@@ -38,12 +38,18 @@ function OwnersPage(props) {
 
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${user.token}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
       body: JSON.stringify(companyData),
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.ownersCompanyAdd}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.ownersCompanyAdd}`,
+        requestOptions
+      );
 
       if (response.status === 201) {
         alert('Succesfully company added.');
@@ -53,7 +59,9 @@ function OwnersPage(props) {
       }
     } catch (error) {
       console.log(error);
-      alert('An unpredictable problem has been encountered. \nPlease add company again.');
+      alert(
+        'An unpredictable problem has been encountered. \nPlease add company again.'
+      );
     }
   };
 
@@ -88,7 +96,7 @@ function OwnersPage(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <main>

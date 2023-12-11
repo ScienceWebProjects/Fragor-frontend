@@ -43,9 +43,9 @@
       "last 1 safari version"
     ]
   },
-  "description": "Package use to build data processing app.",
+  "description": "Package use to build FraGor app.",
   "main": "index.js",
   "repository": "https://github.com/ScienceWebProjects/filament-measurement",
   "author": "PiotrGoraj",
-  "license": "MIT"
+  "license": ""
 }

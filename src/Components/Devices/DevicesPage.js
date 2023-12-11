@@ -28,18 +28,7 @@ function DevicesPage(props) {
   const windowSize = useWindowSize();
 
   // variables for show devices
-  const [devicesList, setDevicesList] = useState([
-    {
-      id: 0,
-      name: 'A 07-23',
-      model: 'FG-a1',
-    },
-    {
-      id: 1,
-      name: 'A 08-23',
-      model: 'FG-a1',
-    },
-  ]);
+  const [devicesList, setDevicesList] = useState([]);
 
   // variables for add device
   const [addDeviceBox, setAddDeviceBox] = useState(false);
@@ -62,7 +51,10 @@ function DevicesPage(props) {
     };
 
     try {
-      const response = await fetch(`${props.api.ip}${props.api.devicesList}`, requestOptions);
+      const response = await fetch(
+        `${props.api.ip}${props.api.devicesList}`,
+        requestOptions
+      );
 
       if (response.status === 200) {
         const responseData = await response.json();
@@ -72,7 +64,6 @@ function DevicesPage(props) {
       if (response.status === 404) {
         const res = await response.json();
         console.log(res);
-        alert(res.message);
       }
     } catch (error) {
       console.log(error);
@@ -90,7 +81,7 @@ function DevicesPage(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <main className='App-header'>
@@ -111,7 +102,7 @@ function DevicesPage(props) {
         >
           <InfoType
             text={'Adding devices'}
-            className=''
+            style={{ color: '#000' }}
           />
 
           {devicesList.map((device) => (
@@ -174,7 +165,7 @@ function DevicesPage(props) {
           api={props.api}
           ID={device.id}
           endpoint={props.api.deviceDelete_id}
-          deleteOption={`device ${device.name}`}
+          deleteOption={`${device.name}`}
           onDeleteBox={setDeleteDeviceBox}
         />
       )}

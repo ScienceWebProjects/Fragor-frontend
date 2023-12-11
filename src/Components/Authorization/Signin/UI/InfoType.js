@@ -16,12 +16,15 @@ const Underline = styled.div`
   margin: 0.313rem auto;
 `;
 
-function InfoType(props) {
-  const { text } = props;
-
+function InfoType({ text, className, style }) {
   return (
     <Text>
-      <div style={{ color: '#000' }}>{text}</div>
+      <div
+        className={className}
+        style={style}
+      >
+        {text}
+      </div>
       <Underline />
     </Text>
   );

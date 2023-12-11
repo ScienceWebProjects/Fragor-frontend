@@ -25,10 +25,15 @@ import '../../_shared/UI/_media-queries.scss';
 function LoginPage(props) {
   const [emailEntered, setEmailEntered] = useState('');
   const [pinEntered, setPinEntered] = useState('');
+  const [loginIsCorrect, setLoginIsCorrect] = useState(true);
+  const [pinIsCorrect, setPinIsCorrect] = useState(true);
 
   const navigate = useNavigate();
 
   const makeAPIPost = async () => {
+    setLoginIsCorrect(true);
+    setPinIsCorrect(true);
+
     const loginData = {
       email: emailEntered,
       pin: pinEntered,
@@ -50,8 +55,14 @@ function LoginPage(props) {
         console.log(`error ${response.status} fetch POST SigninPage.js`);
         return false;
       }
+
       if (response.status === 400) {
-        console.log('Unable to login'); // in this line must add some UI info about failure
+        const eMess = await response.json();
+        if (eMess.message === 'Login incorrect') {
+          setLoginIsCorrect(false);
+        } else if (eMess.message === 'Pin incorrect') {
+          setPinIsCorrect(false);
+        }
         return false;
       }
 
@@ -116,8 +127,11 @@ function LoginPage(props) {
                 onChange={(event) => {
                   setEmailEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
+              {!loginIsCorrect && (
+                <div className='login-error'>Login is incorrect</div>
+              )}
             </div>
 
             <Pin
@@ -129,6 +143,9 @@ function LoginPage(props) {
                 setPinEntered(pin);
               }}
             />
+            {!pinIsCorrect && (
+              <div className='login-error'>Pin is incorrect</div>
+            )}
             <Button
               className='log-btn'
               color='green'

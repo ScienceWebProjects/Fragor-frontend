@@ -8,3 +8,9 @@
 .login_form {
   min-height: 77vh !important;
 }
+
+.login-error {
+  color: $red;
+  font-size: 1.1rem;
+  margin: 0 auto;
+}

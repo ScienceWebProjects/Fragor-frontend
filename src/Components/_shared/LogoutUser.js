@@ -13,7 +13,7 @@ function LogoutUser(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <main
@@ -21,7 +21,8 @@ function LogoutUser(props) {
         style={{ color: '#000' }}
       >
         <div>
-          You don't have accsess to this page. Please <a href={props.api.loginPage}>login</a>.
+          You don't have accsess to this page. Please{' '}
+          <a href={props.api.loginPage}>login</a>.
         </div>
       </main>
     </div>

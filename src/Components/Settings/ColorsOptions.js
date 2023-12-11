@@ -60,10 +60,15 @@ function ColorsOptions(props) {
       }
 
       if (response.status === 400) {
-        const res404 = await response.json();
-        return res404.message
-          ? alert(res404.message)
-          : alert('Something went bad.');
+        const resMessage = await response.json();
+
+        let value;
+        for (const key in resMessage) {
+          value = resMessage[key];
+          alert(`${value}`);
+        }
+
+        return resMessage ? console.error(value) : alert('Something went bad.');
       }
     } catch (error) {
       console.log(error);
@@ -105,7 +110,7 @@ function ColorsOptions(props) {
   return (
     <div>
       {/* <header> */}
-      <TopBar />
+      <TopBar api={props.api} />
       {/* </ header> */}
 
       <main className='App-header'>

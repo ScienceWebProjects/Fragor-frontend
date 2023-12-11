@@ -44,7 +44,7 @@ function DeleteBox({ api, ID, endpoint, deleteOption, onDeleteBox }) {
         alert(`Succesfull ${deleteOption} deleted.`);
         window.location.reload();
       }
-      if (response.status === 409) {
+      if (response.status === 409 || response.status === 404) {
         const res = await response.json();
         alert(res.message);
       }

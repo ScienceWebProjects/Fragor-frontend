@@ -147,7 +147,6 @@ function SigninPage(props) {
               />
 
               <StyledLabel htmlFor='first-name'>
-                {' '}
                 <FormattedMessage
                   id='signin.firstName'
                   defaultMessage='First Name'
@@ -161,7 +160,7 @@ function SigninPage(props) {
                 onChange={(event) => {
                   setFirstNameEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
 
               <StyledLabel htmlFor='last-name'>
@@ -178,7 +177,7 @@ function SigninPage(props) {
                 onChange={(event) => {
                   setLastNameEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
 
               <InfoType
@@ -202,7 +201,7 @@ function SigninPage(props) {
                 onChange={(event) => {
                   setEmailEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
 
               <Pin
@@ -228,7 +227,7 @@ function SigninPage(props) {
                 onChange={(event) => {
                   setPasswordEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
 
               <StyledLabel htmlFor='user-confirm-password'>
@@ -245,7 +244,7 @@ function SigninPage(props) {
                 onChange={(event) => {
                   setPasswordConfirmEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
 
               <InfoType
@@ -269,7 +268,7 @@ function SigninPage(props) {
                 onChange={(event) => {
                   setProductInformationEntered(event.target.value);
                 }}
-                required
+                isRequired={true}
               ></StyledInput>
             </InfiniteScroll>
             <Button
