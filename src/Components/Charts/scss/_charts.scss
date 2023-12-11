@@ -1,12 +1,24 @@
 @import '../../UI/shared/variables';
 @import '../../UI/shared/functions';
 
-.charts-container {
+.container-charts {
   width: 85vw;
 
-  .chart-loss {
+  @include flexCenter(column, center, center);
+
+  .chart-filters {
+    @include flexCenter(row, center, center);
   }
 
-  .chart-prediction {
+  .chart-graph {
+    width: 100%;
+  }
+}
+
+.chart-btns {
+  @include flexCenter(row, center, center);
+
+  .chart-btn {
+    width: 45vw !important;
   }
 }

@@ -40,34 +40,34 @@ function FilamentsPage(props) {
   const [filamentAddBox, setFilamentAddBox] = useState(false);
   const [filamentFindBox, setFilamentFindBox] = useState(false);
 
-  // const filamentsRandomAddHandler = async () => {
-  //   const requestOptions = {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: `Bearer ${user.token}`,
-  //     },
-  //   };
+  const filamentsRandomAddHandler = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
 
-  //   try {
-  //     const response = await fetch(
-  //       `${props.api.ip}${props.api.filamentsRandomAdd_ammount}10/`,
-  //       requestOptions
-  //     );
+    try {
+      const response = await fetch(
+        `${props.api.ip}${props.api.filamentsRandomAdd_ammount}10/`,
+        requestOptions
+      );
 
-  //     if (response.status === 404) {
-  //       setFilaments([]);
-  //       return;
-  //     }
+      if (response.status === 404) {
+        setFilaments([]);
+        return;
+      }
 
-  //     if (response.status === 200) {
-  //       window.location.reload();
-  //       return;
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      if (response.status === 200) {
+        window.location.reload();
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const filamentSelectionHandler = (filament) => {
     props.onFilamentSelect(filament);
@@ -142,7 +142,7 @@ function FilamentsPage(props) {
       </main>
 
       <div className='btns-filaments_add'>
-        {/* {permission.owner && (
+        {permission.owner && (
           <Button
             className='filaments_add-btn'
             color='blue'
@@ -150,7 +150,7 @@ function FilamentsPage(props) {
           >
             Random 10
           </Button>
-        )} */}
+        )}
 
         <Button
           className='filaments_add-btn'
