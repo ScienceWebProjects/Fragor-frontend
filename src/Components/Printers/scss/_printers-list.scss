@@ -1,0 +1,65 @@
+@import '../../UI/shared/functions';
+@import '../../UI/shared/variables';
+
+.printer__list {
+  .list__main {
+    .list__btns {
+      width: 85vw;
+      margin: 0 auto;
+      @include flexCenter(row, space-between, center);
+
+      .list--btn {
+        width: 40vw;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .media-background {
+    .printer__list {
+      text-align: center;
+
+      background: linear-gradient(
+          60deg,
+          rgb(238, 238, 238) 30%,
+          rgb(210, 210, 210) 50%,
+          rgb(238, 238, 238) 70%
+        )
+        no-repeat fixed;
+
+      height: 90vh;
+
+      opacity: 0.99;
+      @include flexCenter(row, flex-start, center);
+      margin: auto;
+
+      border-radius: 3rem;
+
+      .list__main {
+        width: 70vw;
+        .list__btns {
+          @include flexCenter(row, space-evenly, center);
+
+          .list--btn {
+            width: 30vw;
+            height: 7vh;
+          }
+        }
+      }
+    }
+  }
+
+  .list__items {
+    width: 80vw;
+
+    .printer__details-btn {
+      width: 40% !important;
+      height: 7vh !important;
+    }
+  }
+
+  .list__back {
+    display: none !important;
+  }
+}

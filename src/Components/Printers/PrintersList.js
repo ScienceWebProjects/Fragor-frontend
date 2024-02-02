@@ -11,6 +11,7 @@ import useWindowSize from '../../Hooks/useWindowSize';
 import { FormattedMessage } from 'react-intl';
 import TopBar from '../_shared/TopBar';
 import Button from '../UI/shared/buttons/Button';
+import NavBar from '../_shared/NavBar';
 
 // UI elements
 import StyledLink from '../UI/shared/StyledLink';
@@ -18,7 +19,9 @@ import PrinterItem from './PrinterItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 // scss
-import './scss/_printers-list-btns.scss';
+import '../../App.css';
+import '../UI/shared/_media-queries.scss';
+import './scss/_printers-list.scss';
 
 function PrintersList(props) {
   const user = useToken();
@@ -63,69 +66,82 @@ function PrintersList(props) {
       <TopBar api={props.api} />
       {/* </ header> */}
 
-      <div className='printers-list-btns'>
-        {permission.changer && (
-          <StyledLink to={props.api.printerAddPage}>
-            <Button
-              className='printers-list-btn'
-              color='yellow'
-            >
-              <FormattedMessage
-                id='printers.addPrinter'
-                defaultMessage='Add Printer'
-              />
-            </Button>
-          </StyledLink>
-        )}
-
-        <StyledLink to={props.api.chartsPage}>
-          <Button
-            className='printers-list-btn'
-            color='green'
-          >
-            <FormattedMessage
-              id='charts'
-              defaultMessage='Charts'
-            />
-          </Button>
-        </StyledLink>
-      </div>
-
-      <main
-        className='App-header'
-        style={{ minHeight: 'unset' }}
-      >
-        <InfiniteScroll
-          dataLength={printers.length}
-          hasMore={false}
-          height={windowSize * 0.6}
-        >
-          {printers.map((printer) => (
-            <Button
-              color='blue'
-              key={printer.id}
-            >
-              <PrinterItem
-                printer={printer}
-                api={props.api}
-                onPrinterSelect={printerSelectionHandler}
-              />
-            </Button>
-          ))}
-        </InfiniteScroll>
-      </main>
-
-      <StyledLink to={props.api.home}>
-        <Button
-          className=''
-          color='red'
-        >
-          <FormattedMessage
-            id='back'
-            defaultMessage='Back'
+      <div className='media-background'>
+        <div className='printer__list'>
+          <NavBar
+            api={props.api}
+            backBtnLink={props.api.home}
           />
-        </Button>
-      </StyledLink>
+
+          <div className='list__main'>
+            <div className='list__btns'>
+              {permission.changer && (
+                <StyledLink to={props.api.printerAddPage}>
+                  <Button
+                    className='list--btn'
+                    color='yellow'
+                  >
+                    <FormattedMessage
+                      id='printers.addPrinter'
+                      defaultMessage='Add Printer'
+                    />
+                  </Button>
+                </StyledLink>
+              )}
+
+              <StyledLink to={props.api.chartsPage}>
+                <Button
+                  className='list--btn'
+                  color='green'
+                >
+                  <FormattedMessage
+                    id='charts'
+                    defaultMessage='Charts'
+                  />
+                </Button>
+              </StyledLink>
+            </div>
+
+            <main
+              className='App-header'
+              style={{ minHeight: 'unset' }}
+            >
+              <InfiniteScroll
+                dataLength={printers.length}
+                hasMore={false}
+                height={windowSize * 0.6}
+                className='list__items'
+              >
+                {printers.map((printer) => (
+                  <Button
+                    color='blue'
+                    key={printer.id}
+                    className='printer__details-btn'
+                  >
+                    <PrinterItem
+                      printer={printer}
+                      api={props.api}
+                      onPrinterSelect={printerSelectionHandler}
+                    />
+                  </Button>
+                ))}
+              </InfiniteScroll>
+            </main>
+
+            <StyledLink to={props.api.home}>
+              <Button
+                className='list__back'
+                color='red'
+              >
+                <FormattedMessage
+                  id='back'
+                  defaultMessage='Back'
+                />
+              </Button>
+            </StyledLink>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

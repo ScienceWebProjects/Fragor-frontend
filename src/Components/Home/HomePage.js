@@ -39,6 +39,13 @@ function HomePage(props) {
   }
 
   if (permission.logged === 'logged') {
+    const permissionColor =
+      user.permission === 'OWNER' || user.permission === 'MASTER'
+        ? '#8a100e'
+        : user.permission === 'CHANGER'
+        ? '#1375bd'
+        : '#2f8a07';
+
     return (
       <div>
         {/* <header> */}
@@ -52,9 +59,15 @@ function HomePage(props) {
                 <div className='position__welcome'>
                   <div className='welcome__txt'>
                     <span>
-                      Welcome <b>user</b>
+                      <FormattedMessage
+                        id='home.welcome'
+                        defaultMessage='Welcome '
+                      />
+                      <b>user</b>
                     </span>
-                    <div>{user.permission}</div>
+                    <div style={{ fontSize: '2rem', color: permissionColor }}>
+                      {user.permission}
+                    </div>
                   </div>
                   <div className='welcome__image'>
                     <img
