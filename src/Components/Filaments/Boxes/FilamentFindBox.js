@@ -24,15 +24,35 @@ function FilamentFindBox({ api, onFilamentFindBox }) {
   const [findingDeviceSelected, setFindingDeviceSelected] = useState('');
   const [filamentFindData, setFilamentFindData] = useState([]);
 
-  // devices options conditions for CustomSelect
-  const devicesOptionsId = [];
-  const devicesOptionsName = [];
-  for (const option of findingDevices) {
-    devicesOptionsId.push(option.id);
-    devicesOptionsName.push(option.name);
-  }
+  // // devices options conditions for CustomSelect
+  // const devicesOptionsId = [];
+  // const devicesOptionsName = [];
+  // for (const option of findingDevices) {
+  //   devicesOptionsId.push(option.id);
+  //   devicesOptionsName.push(option.name);
+  // }
 
-  const devicesApiCall = async () => {};
+  const devicesApiCall = async () => {
+    const requestOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const response = await fetch(
+        `${api.ip}${api.devicesAddingList}`,
+        requestOptions
+      );
+
+      const devicesList = await response.json();
+      console.log(devicesList);
+      setFindingDevices(devicesList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     devicesApiCall();
@@ -88,14 +108,14 @@ function FilamentFindBox({ api, onFilamentFindBox }) {
   return (
     <div className='shadow'>
       <div className='box'>
-        <CustomSelect
+        {/* <CustomSelect
           options={findingDevices}
           onCustomSelect={(selectedValue) =>
             setFindingDeviceSelected(selectedValue)
           }
           labelKey='name' // Klucz do pobierania nazw
           valueKey='id'
-        />
+        /> */}
 
         <section className=''>
           <h3>Quantity: {filamentFindData.quantity} g</h3>

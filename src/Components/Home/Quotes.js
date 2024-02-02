@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import './UI/_quotes.scss';
 import quotes from '../../JSONs/quotes.json';
 
-const Quotes = () => {
+const Quotes = ({ className }) => {
   const [quote, setQuote] = useState('A kto umarł ten nie żyje!');
   const [author, setAuthor] = useState('Rak Pieseł');
 
@@ -44,7 +44,8 @@ const Quotes = () => {
     const showQuote = () => {
       if (
         localStorage.getItem('rememberedHour') == null ||
-        localStorage.getItem('rememberedHour') !== localStorage.getItem('currentHour')
+        localStorage.getItem('rememberedHour') !==
+          localStorage.getItem('currentHour')
       ) {
         rememberedHour();
         randomQuote();
@@ -58,7 +59,7 @@ const Quotes = () => {
   }, []);
 
   return (
-    <div className='quote_wrapper'>
+    <div className={`quote_wrapper ${className}`}>
       <div className='wrapper_quote'>{quote}</div>
       <div className='wrapper_author'>{author}</div>
     </div>

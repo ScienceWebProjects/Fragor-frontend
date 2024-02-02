@@ -17,7 +17,7 @@ import StyledLink from '../../UI/shared/StyledLink';
 
 // scss
 import '../scss/_forget-pin.scss';
-import '../../_shared/UI/_media-queries.scss';
+import '../../UI/shared/_media-queries.scss';
 import '../scss/_forget-media-queries.scss';
 
 function ForgetPin(props) {

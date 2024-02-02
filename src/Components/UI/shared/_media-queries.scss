@@ -4,11 +4,15 @@
 @media (min-width: $breakpoint-desktop) {
   .media-background {
     min-height: 80vh;
+    width: 90vw;
 
     background: $bcg-color--desktop;
-    padding: 10vh 10vw;
+    padding: 5vh 5vw;
+    margin: auto;
 
     .App {
+      height: 90vh;
+
       opacity: 0.99;
       @include flexCenter(row, space-between, center);
       margin: auto;
@@ -33,6 +37,17 @@
           height: 15rem;
           max-width: unset;
           max-height: unset;
+        }
+      }
+
+      .App-header {
+        min-height: unset;
+        height: 80vh;
+        width: 100%;
+
+        .lang-menu {
+          right: 12vw;
+          top: 14vh;
         }
       }
     }

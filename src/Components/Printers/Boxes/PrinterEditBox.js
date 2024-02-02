@@ -47,7 +47,7 @@ function PrinterEditBox(props) {
     console.log('Edit data:', editData);
 
     const requestOptions = {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
@@ -57,7 +57,7 @@ function PrinterEditBox(props) {
 
     try {
       const response = await fetch(
-        `${props.api.ip}${props.api.printerEdit_id}`,
+        `${props.api.ip}${props.api.printerEdit}`,
         requestOptions
       );
 
@@ -67,7 +67,8 @@ function PrinterEditBox(props) {
         window.location.reload();
       }
       if (response.status === 400 || response.status === 404) {
-        alert(response.message);
+        const res = await response.json();
+        console.log(res);
       }
 
       btn.textContent = 'Confirm';

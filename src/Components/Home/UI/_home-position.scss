@@ -1,0 +1,54 @@
+@import '../../UI/shared/functions';
+@import '../../UI/shared/variables';
+
+.home__position {
+  .position__welcome {
+    display: none;
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .home__position {
+    @include gridStart(
+      50% 50%,
+      40vh 40vh,
+      'position__welcome position__buttons' 'position__welcome position__quote',
+      0.625rem
+    );
+    // align-items: center;
+    // justify-items: center;
+
+    .position__quote {
+      grid-area: position__quote;
+    }
+
+    .position__buttons {
+      grid-area: position__buttons;
+      align-self: center;
+    }
+
+    .position__welcome {
+      display: block;
+      grid-area: position__welcome;
+      align-self: center;
+
+      .welcome__txt {
+        @include flexCenter(column, space-evenly, center);
+        font-size: 4rem;
+        height: 40vh;
+      }
+
+      .welcome__image {
+        @include flexCenter(row, center, center);
+
+        img {
+          width: 40vh;
+          height: auto;
+
+          border-radius: 12.5%;
+          box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+}

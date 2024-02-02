@@ -20,7 +20,6 @@ import StyledLink from '../../UI/shared/StyledLink';
 import '../../UI/shared/_media-queries.scss';
 import '../scss/LoginPage.scss';
 import '../scss/_login-media-queries.scss';
-import '../../_shared/UI/_media-queries.scss';
 
 function LoginPage(props) {
   const [emailEntered, setEmailEntered] = useState('');

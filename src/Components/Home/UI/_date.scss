@@ -9,3 +9,9 @@
   font-size: 1.25rem !important;
   line-height: 1.5 !important;
 }
+
+@media (min-width: $breakpoint-desktop) {
+  .date {
+    display: none !important;
+  }
+}
