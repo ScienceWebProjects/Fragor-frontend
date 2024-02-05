@@ -2,6 +2,10 @@
 @import '../../UI/shared/functions';
 
 @media (min-width: $breakpoint-desktop) {
+  .back__btn {
+    display: none !important;
+  }
+
   .media-background {
     min-height: 80vh;
     width: 90vw;
@@ -60,6 +64,26 @@
           top: 14vh;
         }
       }
+    }
+
+    .media__content {
+      text-align: center;
+
+      background: linear-gradient(
+          60deg,
+          rgb(238, 238, 238) 30%,
+          rgb(210, 210, 210) 50%,
+          rgb(238, 238, 238) 70%
+        )
+        no-repeat fixed;
+
+      height: 90vh;
+
+      opacity: 0.99;
+      @include flexCenter(row, flex-start, center);
+      margin: auto;
+
+      border-radius: 3rem;
     }
   }
 }

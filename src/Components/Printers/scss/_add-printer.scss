@@ -14,6 +14,7 @@ $dropdown-style: (
 
 .add-printer {
   // @include flexCenter(column, flex-start, center);
+  color: $font-color;
 
   width: 85vw;
 
@@ -24,82 +25,93 @@ $dropdown-style: (
   padding-right: 0px;
   margin: 0 auto;
 
-  h2 {
-    font-size: 1rem;
-    margin-top: 1.25rem;
-  }
+  .printer__forms {
+    display: block;
 
-  .add-btn {
-    font-size: 1rem;
-    width: 65vw;
-  }
+    h2 {
+      font-size: 1rem;
+      margin-top: 1.25rem;
+    }
 
-  .form-printer-add {
-    width: 80vw;
+    .form__model {
+      .model__input {
+      }
 
-    @include gridStart(
-      32% 32% 36%,
-      2.5rem 2.5rem 5rem,
-      'printer-name printer-name printer-model'
-        'printer-power printer-add-btn printer-add-btn'
-        'printer-add-power-warning printer-add-power-warning printer-add-power-warning',
-      0.625rem 0
-    );
+      .model__submit {
+      }
 
-    justify-items: baseline;
-    align-items: center;
+      .model__delete {
+        .delete__select {
+          @include flexCenter(row, center, center);
+          width: 80vw;
+          margin: auto;
 
-    .add-name {
-      width: 90%;
-      grid-area: printer-name;
+          .select__dropdown {
+            width: 35%;
+            @each $property, $value in $dropdown-style {
+              #{$property}: $value;
+            }
+          }
 
-      input::placeholder {
-        opacity: 0.5;
-        color: $primary-color;
+          .select__confirm {
+            font-size: 1rem;
+            width: 60%;
+          }
+        }
       }
     }
 
-    .add-model {
-      width: 90%;
-      grid-area: printer-model;
-      @each $property, $value in $dropdown-style {
-        #{$property}: $value;
+    .form__printer {
+      width: 80vw;
+
+      justify-items: baseline;
+      align-items: center;
+
+      .printer__add {
+        @include gridStart(
+          32% 32% 36%,
+          2.5rem 2.5rem 5rem,
+          'printer-name printer-name printer-model'
+            'printer-power printer-add-btn printer-add-btn'
+            'printer-add-power-warning printer-add-power-warning printer-add-power-warning',
+          0.625rem 0
+        );
+
+        .add-name {
+          width: 90%;
+          grid-area: printer-name;
+
+          input::placeholder {
+            opacity: 0.5;
+            color: $primary-color;
+          }
+        }
+
+        .add-model {
+          width: 90%;
+          grid-area: printer-model;
+          @each $property, $value in $dropdown-style {
+            #{$property}: $value;
+          }
+        }
+
+        .add-power {
+          width: 85%;
+          grid-area: printer-power;
+          text-align: center;
+        }
+
+        .add-btn {
+          width: 90%;
+          grid-area: printer-add-btn;
+        }
+
+        .printer-add-power-warning {
+          color: $red;
+          grid-area: printer-add-power-warning;
+        }
       }
     }
-
-    .add-power {
-      width: 85%;
-      grid-area: printer-power;
-      text-align: center;
-    }
-
-    .add-btn {
-      width: 90%;
-      grid-area: printer-add-btn;
-    }
-
-    .printer-add-power-warning {
-      color: $red;
-      grid-area: printer-add-power-warning;
-    }
-  }
-}
-
-.delete_model-select {
-  @include flexCenter(row, center, center);
-  width: 80vw;
-  margin: auto;
-
-  .select-dropdown {
-    width: 35%;
-    @each $property, $value in $dropdown-style {
-      #{$property}: $value;
-    }
-  }
-
-  .select-btn {
-    font-size: 1rem;
-    width: 60%;
   }
 }
 
@@ -113,5 +125,96 @@ $dropdown-style: (
 
   &::before {
     all: unset !important;
+  }
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .add-printer {
+    width: 70vw;
+
+    .printer__forms {
+      @include flexCenter(row, center, center);
+      width: 70vw;
+
+      .form__model {
+        width: 50%;
+        height: 50%;
+
+        font-size: 1.5rem;
+
+        .model__input {
+          width: 75%;
+        }
+
+        .model__submit {
+          width: 50%;
+          height: 4rem;
+        }
+
+        .model__delete {
+          width: 100%;
+          margin: 5rem auto;
+
+          .delete__select {
+            @include flexCenter(column, center, center);
+            width: 100%;
+
+            .select__dropdown {
+              width: 75%;
+            }
+
+            .select__confirm {
+              width: 50%;
+              height: 4rem;
+            }
+          }
+        }
+      }
+
+      .form__printer {
+        width: 50%;
+        height: 50%;
+        font-size: 1.5rem;
+
+        .printer__add {
+          // @include flexCenter(column, center, center);
+
+          @include gridStart(
+            50% 50%,
+            3rem,
+            'printer-name printer-name' 'printer-model printer-power'
+              'printer-add-btn printer-add-btn'
+              'printer-add-power-warning printer-add-power-warning',
+            0.625rem 0
+          );
+
+          .add-name,
+          .add-model,
+          .add-power,
+          .add-btn {
+            height: 3rem;
+          }
+
+          .add-name {
+            width: calc(100% - 0.625rem - 3px);
+          }
+
+          .add-model {
+          }
+
+          .add-power {
+            width: calc(100% - 0.625rem - 3px);
+          }
+
+          .add-btn {
+            width: 50%;
+          }
+
+          .printer-add-power-warning {
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
   }
 }

@@ -26,6 +26,7 @@ const Input = styled.input`
 const StyledInput = (props) => {
   return (
     <Input
+      style={props.style}
       className={props.className}
       name={props.name}
       id={props.id}

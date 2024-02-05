@@ -14,6 +14,7 @@ import LogoutUser from '../_shared/LogoutUser';
 import DeleteBox from '../_shared/DeleteBox';
 import CustomError from '../_shared/CustomError';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import NavBar from '../_shared/NavBar';
 
 // UI elements
 import InfoType from '../Authorization/Signin/UI/InfoType';
@@ -23,6 +24,8 @@ import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
+import '../../App.css';
+import '../UI/shared/_media-queries.scss';
 import './scss/_add-printer.scss';
 
 function AddPrinter(props) {
@@ -185,212 +188,225 @@ function AddPrinter(props) {
       <TopBar api={props.api} />
       {/* </ header> */}
 
-      <main className='App-header add-printer'>
-        <InfiniteScroll
-          dataLength={''}
-          hasMore={false}
-          height={windowSize * 0.7}
-        >
-          {(permission.owner || permission.master) && (
-            <form onSubmit={printerModelAddHandler}>
-              <InfoType
-                text={
-                  <FormattedMessage
-                    id='printers.model'
-                    defaultMessage='Model'
-                  />
-                }
-              />
-              <StyledLabel htmlFor='printer-model-add'>
-                <FormattedMessage
-                  id='printers.newModelName'
-                  defaultMessage='Add printer model name'
-                />
-              </StyledLabel>
-              <StyledInput
-                name='printer-model-add'
-                id='printer-model-add'
-                type='text'
-                value={modelEntered}
-                onChange={(event) => {
-                  setModelEntered(event.target.value);
-                }}
-                isRequired={true}
-              />
-              <Button
-                className='add-btn'
-                color='yellow'
-                type='submit'
-              >
-                <FormattedMessage
-                  id='printers.newModel'
-                  defaultMessage='Add model'
-                />
-              </Button>
-            </form>
-          )}
+      <div className='media-background'>
+        <div className='media__content'>
+          <NavBar
+            api={props.api}
+            backBtnLink={props.api.printersPage}
+          />
 
-          {(permission.owner || permission.master) && (
-            <div>
-              <div className='delete_model-select'>
-                <select
-                  className='select-dropdown'
-                  onChange={(event) => {
-                    const selectedValue = event.target.value;
-                    const [id, model] = selectedValue.split(',');
-                    setModelDelete({ id: id, model: model });
-                  }}
-                >
-                  <option
-                    value={''}
-                    select='true'
-                    hidden
-                  >
-                    Model...
-                  </option>
-                  {printersModels.map((model) => (
-                    <option
-                      key={model.id}
-                      value={`${model.id},${model.model}`}
+          <main className='App-header add-printer'>
+            <InfiniteScroll
+              dataLength={''}
+              hasMore={false}
+              height={windowSize * 0.7}
+              className='printer__forms'
+            >
+              <div className='form__model'>
+                {(permission.owner || permission.master) && (
+                  <form onSubmit={printerModelAddHandler}>
+                    <InfoType
+                      text={
+                        <FormattedMessage
+                          id='printers.model'
+                          defaultMessage='Model'
+                        />
+                      }
+                    />
+                    <StyledLabel htmlFor='printer-model-add'>
+                      <FormattedMessage
+                        id='printers.newModelName'
+                        defaultMessage='Add printer model name'
+                      />
+                    </StyledLabel>
+                    <StyledInput
+                      className='model__input'
+                      name='printer-model-add'
+                      id='printer-model-add'
+                      type='text'
+                      value={modelEntered}
+                      onChange={(event) => {
+                        setModelEntered(event.target.value);
+                      }}
+                      isRequired={true}
+                    />
+                    <Button
+                      className='model__submit'
+                      color='yellow'
+                      type='submit'
                     >
-                      {model.model}
-                    </option>
-                  ))}
-                </select>
+                      <FormattedMessage
+                        id='printers.newModel'
+                        defaultMessage='Add model'
+                      />
+                    </Button>
+                  </form>
+                )}
 
-                <Button
-                  className={`select-btn ${
-                    modelDelete.model ? '' : 'delete-inactive'
-                  }`}
-                  color='red'
-                  onClick={() => {
-                    setDeleteBox(true);
-                  }}
-                >
-                  <FormattedMessage
-                    id='printers.deleteModel'
-                    defaultMessage='Delete model'
-                  />
-                </Button>
+                {(permission.owner || permission.master) && (
+                  <div className='model__delete'>
+                    <div className='delete__select'>
+                      <select
+                        className='select__dropdown'
+                        onChange={(event) => {
+                          const selectedValue = event.target.value;
+                          const [id, model] = selectedValue.split(',');
+                          setModelDelete({ id: id, model: model });
+                        }}
+                      >
+                        <option
+                          value={''}
+                          select='true'
+                          hidden
+                        >
+                          Model...
+                        </option>
+                        {printersModels.map((model) => (
+                          <option
+                            key={model.id}
+                            value={`${model.id},${model.model}`}
+                          >
+                            {model.model}
+                          </option>
+                        ))}
+                      </select>
+
+                      <Button
+                        className={`select__confirm ${
+                          modelDelete.model ? '' : 'delete-inactive'
+                        }`}
+                        color='red'
+                        onClick={() => {
+                          setDeleteBox(true);
+                        }}
+                      >
+                        <FormattedMessage
+                          id='printers.deleteModel'
+                          defaultMessage='Delete model'
+                        />
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
+
+              <div className='form__printer'>
+                <InfoType
+                  text={intl.formatMessage({
+                    id: 'printers.printer',
+                    defaultMessage: 'Printer',
+                  })}
+                />
+
+                <form
+                  onSubmit={printerAddHandler}
+                  className='printer__add'
+                >
+                  <StyledInput
+                    className='add-name'
+                    name='printer-add'
+                    id='printer-add'
+                    type='text'
+                    value={printerNameEntered}
+                    placeholder={intl.formatMessage({
+                      id: 'printers.printerName',
+                      defaultMessage: 'Printer name',
+                    })}
+                    onChange={(event) => {
+                      setPrinterNameEntered(event.target.value);
+                    }}
+                    isRequired={true}
+                  />
+                  <select
+                    className='add-model'
+                    onChange={(event) => {
+                      console.log(modelAdd);
+                      setModelAdd(event.target.value);
+                    }}
+                  >
+                    {printersModels.map((model) => (
+                      <option
+                        key={model.id}
+                        value={model.model}
+                      >
+                        {model.model}
+                      </option>
+                    ))}
+                  </select>
+
+                  <StyledInput
+                    className='add-power'
+                    name='printer-power'
+                    id='printer-power'
+                    type='number'
+                    min={0}
+                    step={1}
+                    value={printerPowerEntered === 0 ? '' : printerPowerEntered}
+                    placeholder={intl.formatMessage({
+                      id: 'printers.power',
+                      defaultMessage: 'Power [W]',
+                    })}
+                    onChange={(event) => {
+                      setPrinterPowerEntered(event.target.value);
+                    }}
+                  />
+
+                  <Button
+                    className='add-btn'
+                    color='yellow'
+                    type='submit'
+                  >
+                    <FormattedMessage
+                      id='printers.addPrinter'
+                      defaultMessage='Add printer'
+                    />
+                  </Button>
+
+                  {printerPowerEntered <= 0 && (
+                    <h4 className='printer-add-power-warning'>
+                      <FormattedMessage
+                        id='errors.printerTariffWarning'
+                        defaultMessage='No Providing the printer power value may result in errors in
+            the calculation of material consumption costs.'
+                      />
+                    </h4>
+                  )}
+                </form>
+              </div>
+            </InfiniteScroll>
+          </main>
+
+          <StyledLink to={props.api.printersPage}>
+            <Button
+              className='back__btn'
+              color='red'
+            >
+              <FormattedMessage
+                id='back'
+                defaultMessage='Back'
+              />
+            </Button>
+          </StyledLink>
+
+          {deleteBox && (
+            <DeleteBox
+              api={props.api}
+              ID={modelDelete.id}
+              endpoint={props.api.printerModelDelete_id}
+              deleteOption={`model ${modelDelete.model}`}
+              onDeleteBox={setDeleteBox}
+            />
           )}
 
-          <InfoType
-            text={intl.formatMessage({
-              id: 'printers.printer',
-              defaultMessage: 'Printer',
-            })}
-          />
-
-          <form
-            onSubmit={printerAddHandler}
-            className='printer-add-input'
-          >
-            <div className='form-printer-add'>
-              <StyledInput
-                className='add-name'
-                name='printer-add'
-                id='printer-add'
-                type='text'
-                value={printerNameEntered}
-                placeholder={intl.formatMessage({
-                  id: 'printers.printerName',
-                  defaultMessage: 'Printer name',
-                })}
-                onChange={(event) => {
-                  setPrinterNameEntered(event.target.value);
-                }}
-                isRequired={true}
-              />
-              <select
-                className='add-model'
-                onChange={(event) => {
-                  console.log(modelAdd);
-                  setModelAdd(event.target.value);
-                }}
-              >
-                {printersModels.map((model) => (
-                  <option
-                    key={model.id}
-                    value={model.model}
-                  >
-                    {model.model}
-                  </option>
-                ))}
-              </select>
-
-              <StyledInput
-                className='add-power'
-                name='printer-power'
-                id='printer-power'
-                type='number'
-                min={0}
-                step={1}
-                value={printerPowerEntered === 0 ? '' : printerPowerEntered}
-                placeholder={intl.formatMessage({
-                  id: 'printers.power',
-                  defaultMessage: 'Power [W]',
-                })}
-                onChange={(event) => {
-                  setPrinterPowerEntered(event.target.value);
-                }}
-              />
-
-              <Button
-                className='add-btn'
-                color='yellow'
-                type='submit'
-              >
-                <FormattedMessage
-                  id='printers.addPrinter'
-                  defaultMessage='Add printer'
-                />
-              </Button>
-
-              {printerPowerEntered <= 0 && (
-                <h4 className='printer-add-power-warning'>
-                  <FormattedMessage
-                    id='errors.printerTariffWarning'
-                    defaultMessage='No Providing the printer power value may result in errors in
-            the calculation of material consumption costs.'
-                  />
-                </h4>
-              )}
-            </div>
-          </form>
-        </InfiniteScroll>
-      </main>
-
-      <StyledLink to={props.api.printersPage}>
-        <Button
-          className=''
-          color='red'
-        >
-          <FormattedMessage
-            id='back'
-            defaultMessage='Back'
-          />
-        </Button>
-      </StyledLink>
-
-      {deleteBox && (
-        <DeleteBox
-          api={props.api}
-          ID={modelDelete.id}
-          endpoint={props.api.printerModelDelete_id}
-          deleteOption={`model ${modelDelete.model}`}
-          onDeleteBox={setDeleteBox}
-        />
-      )}
-
-      {isError && (
-        <CustomError
-          message={errorMessage}
-          callback={errorCallback}
-          onErrorBox={setIsError}
-        />
-      )}
+          {isError && (
+            <CustomError
+              message={errorMessage}
+              callback={errorCallback}
+              onErrorBox={setIsError}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

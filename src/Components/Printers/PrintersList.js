@@ -67,7 +67,7 @@ function PrintersList(props) {
       {/* </ header> */}
 
       <div className='media-background'>
-        <div className='printer__list'>
+        <div className='media__content'>
           <NavBar
             api={props.api}
             backBtnLink={props.api.home}
@@ -130,7 +130,7 @@ function PrintersList(props) {
 
             <StyledLink to={props.api.home}>
               <Button
-                className='list__back'
+                className='back__btn'
                 color='red'
               >
                 <FormattedMessage
