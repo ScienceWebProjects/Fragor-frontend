@@ -16,3 +16,17 @@
     font-size: 1rem;
   }
 }
+
+@media (min-width: $breakpoint-desktop) {
+  .content__wrapper {
+    margin: 0 auto;
+
+    .buttons-wrapper {
+      width: 75vw;
+
+      .wrapper-btn {
+        height: 3rem;
+      }
+    }
+  }
+}

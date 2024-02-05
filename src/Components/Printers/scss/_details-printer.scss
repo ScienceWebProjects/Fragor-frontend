@@ -141,3 +141,36 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-desktop) {
+  .details-printer {
+    width: 75vw;
+
+    .printer-img {
+      max-height: 35vh;
+      max-width: 85%;
+
+      .img-img {
+      }
+
+      .form-new_image {
+        position: absolute;
+        top: 85%;
+        left: 15%;
+
+        width: 10rem;
+        height: 3rem;
+
+        .new_image-btn,
+        .new_image-confirm {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .printer-info {
+      position: relative;
+      font-size: 1.313rem;
+    }
+  }
+}

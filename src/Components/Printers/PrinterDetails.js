@@ -9,6 +9,7 @@ import { useIntl } from 'react-intl';
 
 // components
 import TopBar from '../_shared/TopBar';
+import NavBar from '../_shared/NavBar';
 import PrinterEditBox from './Boxes/PrinterEditBox';
 // import DeleteBox from './Boxes/DeleteBox';
 import { FormattedMessage } from 'react-intl';
@@ -24,6 +25,8 @@ import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
+import '../../App.css';
+import '../UI/shared/_media-queries.scss';
 import '../_shared/UI/_details-buttons.scss';
 import './scss/_details-printer.scss';
 
@@ -163,137 +166,146 @@ function PrinterDetails(props) {
       <TopBar api={props.api} />
       {/* </ header> */}
 
-      <main className='App-header'>
-        <div className='buttons-wrapper'>
-          <Button
-            className='wrapper-btn'
-            color='yellow'
-            onClick={() => {
-              setEditBox(true);
-            }}
-          >
-            <FormattedMessage
-              id='edit'
-              defaultMessage='Edit'
-            />
-          </Button>
-          <Button
-            className='wrapper-btn'
-            color='blue'
-            onClick={deviceAddHandler}
-            id='deviceAddBtn'
-          >
-            <FormattedMessage
-              id='addDevice'
-              defaultMessage='Add device'
-            />
-          </Button>
-          <Button
-            className='wrapper-btn'
-            color='red'
-            onClick={deleteButtonHandler}
-          >
-            <FormattedMessage
-              id='delete'
-              defaultMessage='Delete'
-            />
-          </Button>
-        </div>
+      <div className='media-background'>
+        <div className='media__content'>
+          <NavBar
+            api={props.api}
+            backBtnLink={props.api.printersPage}
+          />
 
-        <div className='details-printer'>
-          <div className='printer-img'>
-            {details.image ? (
-              <img
-                src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
-                className='img-img'
-                alt='Printer'
-              />
-            ) : (
-              'No image added yet.'
-            )}
-
-            <form
-              encType='multipart/form-data'
-              onSubmit={handleSubmit}
-              className='form-new_image'
-            >
-              <button
-                className='new_image-btn'
-                type='button'
+          <main className='App-header content__wrapper'>
+            <div className='buttons-wrapper'>
+              <Button
+                className='wrapper-btn'
+                color='yellow'
                 onClick={() => {
-                  document.getElementById('fileInput').click();
+                  setEditBox(true);
                 }}
               >
-                <i className='icon-picture-1'></i>
-              </button>
-
-              <input
-                type='file'
-                name='file'
-                id='fileInput'
-                style={{ display: 'none' }}
-                onChange={fileChangeHandler}
-              />
-              <button
-                type='submit'
-                className='new_image-confirm'
+                <FormattedMessage
+                  id='edit'
+                  defaultMessage='Edit'
+                />
+              </Button>
+              <Button
+                className='wrapper-btn'
+                color='blue'
+                onClick={deviceAddHandler}
+                id='deviceAddBtn'
               >
-                Send
-              </button>
-            </form>
-          </div>
+                <FormattedMessage
+                  id='addDevice'
+                  defaultMessage='Add device'
+                />
+              </Button>
+              <Button
+                className='wrapper-btn'
+                color='red'
+                onClick={deleteButtonHandler}
+              >
+                <FormattedMessage
+                  id='delete'
+                  defaultMessage='Delete'
+                />
+              </Button>
+            </div>
 
-          <div className='printer-info'>
-            <button
-              className='info-notes'
-              type='button'
-              onClick={() => {
-                setNotesBox(true);
-              }}
-            >
-              <i className='icon-edit-1'></i>
-            </button>
-            <InfiniteScroll
-              dataLength={''}
-              hasMore={false}
-              height={'30vh'}
-              // endMessage={'No more added filaments'}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <div>Name: {details.name}</div>
-              <div>Model: {details.model}</div>
-              <div>Power: {details.power}</div>
-              <br />
-              <div>Work hours: {details.workHours} h</div>
-              <br />
-              <div>Printed Filements:</div>
-              <div>All: {filamentAllAmount} kg</div>
+            <div className='details-printer'>
+              <div className='printer-img'>
+                {details.image ? (
+                  <img
+                    src={`${props.api.ip}${props.api.printerImageGet_id}${details.image}/`}
+                    className='img-img'
+                    alt='Printer'
+                  />
+                ) : (
+                  'No image added yet.'
+                )}
 
-              {Array.isArray(details.filaments) &&
-                details.filaments.map((item, index) => (
-                  <div key={index}>
-                    {`${item.type}: ${item.amount} kg - ${item.price} PLN`}
-                  </div>
-                ))}
-            </InfiniteScroll>
-          </div>
+                <form
+                  encType='multipart/form-data'
+                  onSubmit={handleSubmit}
+                  className='form-new_image'
+                >
+                  <button
+                    className='new_image-btn'
+                    type='button'
+                    onClick={() => {
+                      document.getElementById('fileInput').click();
+                    }}
+                  >
+                    <i className='icon-picture-1'></i>
+                  </button>
+
+                  <input
+                    type='file'
+                    name='file'
+                    id='fileInput'
+                    style={{ display: 'none' }}
+                    onChange={fileChangeHandler}
+                  />
+                  <button
+                    type='submit'
+                    className='new_image-confirm'
+                  >
+                    Send
+                  </button>
+                </form>
+              </div>
+
+              <div className='printer-info'>
+                <button
+                  className='info-notes'
+                  type='button'
+                  onClick={() => {
+                    setNotesBox(true);
+                  }}
+                >
+                  <i className='icon-edit-1'></i>
+                </button>
+                <InfiniteScroll
+                  dataLength={''}
+                  hasMore={false}
+                  height={'30vh'}
+                  // endMessage={'No more added filaments'}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div>Name: {details.name}</div>
+                  <div>Model: {details.model}</div>
+                  <div>Power: {details.power}</div>
+                  <br />
+                  <div>Work hours: {details.workHours} h</div>
+                  <br />
+                  <div>Printed Filements:</div>
+                  <div>All: {filamentAllAmount} kg</div>
+
+                  {Array.isArray(details.filaments) &&
+                    details.filaments.map((item, index) => (
+                      <div key={index}>
+                        {`${item.type}: ${item.amount} kg - ${item.price} PLN`}
+                      </div>
+                    ))}
+                </InfiniteScroll>
+              </div>
+            </div>
+            <StyledLink to={props.api.printersPage}>
+              <Button
+                className='back__btn'
+                color='red'
+              >
+                <FormattedMessage
+                  id='back'
+                  defaultMessage='Back'
+                />
+              </Button>
+            </StyledLink>
+          </main>
         </div>
-        <StyledLink to={props.api.printersPage}>
-          <Button
-            className=''
-            color='red'
-          >
-            <FormattedMessage
-              id='back'
-              defaultMessage='Back'
-            />
-          </Button>
-        </StyledLink>
-      </main>
+      </div>
 
       {editBox && (
         <PrinterEditBox
