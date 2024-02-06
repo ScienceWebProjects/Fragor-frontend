@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 // components
 import TopBar from '../_shared/TopBar';
+import NavBar from '../_shared/NavBar';
 import FilamentEditBox from './Boxes/FilamentEditBox';
 import FilamentDeleteBox from './Boxes/FilamentDeleteBox';
 import NotesBox from '../_shared/NotesBox';
@@ -16,6 +17,8 @@ import StyledLink from '../UI/shared/StyledLink';
 import Button from '../UI/shared/buttons/Button';
 
 // scss
+import '../../App.css';
+import '../UI/shared/_media-queries.scss';
 import '../_shared/UI/_details-buttons.scss';
 import './scss/_details-filament.scss';
 
@@ -120,65 +123,74 @@ function FilamentDetails(props) {
       <TopBar api={props.api} />
       {/* </ header> */}
 
-      <main className='App-header'>
-        <div className='buttons-wrapper'>
-          <Button
-            className='wrapper-btn'
-            color='yellow'
-            onClick={() => {
-              setEditBox(true);
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            className='wrapper-btn'
-            color='blue'
-            onClick={() => renewHandler()}
-          >
-            Renew
-          </Button>
-          <Button
-            className='wrapper-btn'
-            color='red'
-            onClick={() => {
-              setDeleteBox(true);
-            }}
-          >
-            Delete
-          </Button>
+      <div className='media-background'>
+        <div className='media__content'>
+          <NavBar
+            api={props.api}
+            backBtnLink={props.api.filamentsPage}
+          />
+
+          <main className='App-header content__wrapper'>
+            <div className='buttons-wrapper'>
+              <Button
+                className='wrapper-btn'
+                color='yellow'
+                onClick={() => {
+                  setEditBox(true);
+                }}
+              >
+                Edit
+              </Button>
+              <Button
+                className='wrapper-btn'
+                color='blue'
+                onClick={() => renewHandler()}
+              >
+                Renew
+              </Button>
+              <Button
+                className='wrapper-btn'
+                color='red'
+                onClick={() => {
+                  setDeleteBox(true);
+                }}
+              >
+                Delete
+              </Button>
+            </div>
+
+            <div className='details-filament'>
+              <button
+                className='info-notes'
+                type='button'
+                onClick={() => {
+                  setNotesBox(true);
+                }}
+              >
+                <i className='icon-edit-1'></i>
+              </button>
+
+              <section className='filament-data'>
+                <h3>Quantity: {details.quantity} g</h3>
+                <div>Material: {details.material}</div>
+                <div>Color: {details.color}</div>
+                <div>Brand: {details.brand}</div>
+                <div>Diameter: {details.diameter || 'No data.'}</div>
+                <div>Price: {details.price || 'No data.'}</div>
+              </section>
+            </div>
+          </main>
+
+          <StyledLink to={props.api.filamentsPage}>
+            <Button
+              className='back__btn'
+              color='red'
+            >
+              Back
+            </Button>
+          </StyledLink>
         </div>
-
-        <div className='details-filament'>
-          <button
-            className='info-notes'
-            type='button'
-            onClick={() => {
-              setNotesBox(true);
-            }}
-          >
-            <i className='icon-edit-1'></i>
-          </button>
-
-          <section className='filament-data'>
-            <h3>Quantity: {details.quantity} g</h3>
-            <div>Material: {details.material}</div>
-            <div>Color: {details.color}</div>
-            <div>Brand: {details.brand}</div>
-            <div>Diameter: {details.diameter || 'No data.'}</div>
-            <div>Price: {details.price || 'No data.'}</div>
-          </section>
-        </div>
-      </main>
-
-      <StyledLink to={props.api.filamentsPage}>
-        <Button
-          className=''
-          color='red'
-        >
-          Back
-        </Button>
-      </StyledLink>
+      </div>
 
       {editBox && (
         <FilamentEditBox

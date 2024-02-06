@@ -50,3 +50,17 @@
     line-height: 1.5;
   }
 }
+
+@media (min-width: $breakpoint-desktop) {
+  .details-filament {
+    width: 75vw;
+
+    .info-notes {
+      font-size: 3rem;
+    }
+
+    .filament-data {
+      font-size: 2rem;
+    }
+  }
+}
