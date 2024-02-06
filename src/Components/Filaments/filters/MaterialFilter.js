@@ -46,7 +46,7 @@ const MaterialFilter = (props) => {
 
   return (
     <SelectBox>
-      <div className='SelectBox_border-gradient'>
+      <div className='SelectBox_border-gradient bar_filter'>
         <label htmlFor='materials'>
           <FormattedMessage
             id='filaments.material'

@@ -11,3 +11,26 @@
     font-size: 0.9rem;
   }
 }
+
+@media (min-width: $breakpoint-desktop) {
+  .filament__content {
+    width: 75vw;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .btns-filaments_add {
+    position: fixed;
+    bottom: 5vh;
+    left: 17%;
+
+    @include flexCenter(row, space-between, center);
+    width: 75vw;
+    margin: 0 auto;
+
+    .filaments_add-btn {
+      width: 49%;
+      font-size: 1rem;
+    }
+  }
+}

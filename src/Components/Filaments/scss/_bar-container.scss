@@ -18,3 +18,16 @@
     border-radius: $corners;
   }
 }
+
+@media (min-width: $breakpoint-desktop) {
+  .container_bar {
+    position: unset;
+
+    width: 75vw;
+    height: 5rem;
+    margin: 0 auto;
+
+    .bar_filter {
+    }
+  }
+}

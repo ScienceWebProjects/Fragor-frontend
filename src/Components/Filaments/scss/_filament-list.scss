@@ -1,22 +1,39 @@
 @import '../../UI/shared/variables';
 @import '../../UI/shared/functions';
 
-.filament-button {
-  min-height: 4rem;
+.filament__list {
+  @include flexCenter(row, space-around, center);
+  flex-wrap: wrap;
+  margin-top: 2rem;
+
+  .list__button {
+    min-height: 4rem;
+
+    .filament__item {
+      @include flexCenter(row, space-around, center);
+
+      height: 4rem;
+      font-size: 1rem;
+
+      h2 {
+        font-size: 1.25rem;
+      }
+    }
+  }
 }
 
-.filament-item {
-  @include flexCenter(row, space-around, center);
+@media (min-width: $breakpoint-desktop) {
+  .filament__list {
+    height: 60vh !important;
 
-  height: 4rem;
-  font-size: 1rem;
+    .list__button {
+      min-height: 7rem;
+      width: 50%;
 
-  h2 {
-    font-size: 1.25rem;
+      .filament__item {
+        h2 {
+        }
+      }
+    }
   }
-
-  // @media screen and (min-width: 768px) {
-  //   font-size: 1.2rem;
-  //   width: 45vw !important;
-  // }
 }

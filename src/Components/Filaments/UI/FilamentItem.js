@@ -54,7 +54,7 @@ const FilamentItem = (props) => {
         state: { filament: props.filament },
       }}
       style={{ cursor: 'pointer', width: '100%' }}
-      className='filament-item'
+      className='filament__item'
       onClick={filamentDetailsHandler}
     >
       <h2>{props.filament.material}</h2>
