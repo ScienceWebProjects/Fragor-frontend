@@ -1,0 +1,16 @@
+@import '../../UI/shared/variables';
+@import '../../UI/shared/functions';
+
+.filament-options__content {
+}
+
+@media (min-width: $breakpoint-desktop) {
+  .filament-options__content {
+    width: 75vw;
+    margin: 0 auto;
+
+    .filament-options__content--btn {
+      width: 70vw;
+    }
+  }
+}

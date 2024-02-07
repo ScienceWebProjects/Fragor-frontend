@@ -20,7 +20,7 @@ import StyledInput from '../UI/authorization/StyledInput';
 import InfoType from '../Authorization/Signin/UI/InfoType';
 
 // scss
-import './scss/_filament-options.scss';
+import './scss/_materials-options.scss';
 import './scss/_list-elements.scss';
 
 function MaterialsOptions(props) {
@@ -168,7 +168,7 @@ function MaterialsOptions(props) {
 
             <form
               onSubmit={materialAddHandler}
-              className='filament-options'
+              className='filament-options__form '
             >
               {/* NAME INPUT */}
               <StyledLabel htmlFor='material-name'>Material name</StyledLabel>
