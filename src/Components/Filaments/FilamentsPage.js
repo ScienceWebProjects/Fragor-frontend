@@ -3,7 +3,6 @@ import React from 'react';
 
 // hooks
 import { useState, useEffect } from 'react';
-import { useIntl } from 'react-intl';
 import useToken from '../../Hooks/useToken';
 import usePermissions from '../../Hooks/usePermissions';
 
@@ -30,7 +29,6 @@ import './scss/_filaments_add-btns.scss';
 function FilamentsPage(props) {
   const user = useToken();
   const permission = usePermissions(user);
-  const intl = useIntl();
 
   // variabels for filters
   const [filaments, setFilaments] = useState([]);

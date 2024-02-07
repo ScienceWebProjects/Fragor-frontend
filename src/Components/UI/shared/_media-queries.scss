@@ -1,6 +1,11 @@
 @import '../../UI/shared/variables';
 @import '../../UI/shared/functions';
 
+.media__content {
+  text-align: center;
+  @include flexCenter(column, center, center);
+}
+
 @media (min-width: $breakpoint-desktop) {
   .back__btn {
     display: none !important;
