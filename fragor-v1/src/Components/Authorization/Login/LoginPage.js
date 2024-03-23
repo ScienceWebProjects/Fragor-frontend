@@ -11,6 +11,7 @@ import SelectLanguage from './SelectLanguage';
 
 // UI elements
 import logo from '../../../Images/logo-black.png';
+
 import Button from '../../UI/shared/buttons/Button';
 import StyledLabel from '../../UI/authorization/StyledLabel';
 import StyledInput from '../../UI/authorization/StyledInput';

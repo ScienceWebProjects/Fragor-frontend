@@ -1,21 +1,19 @@
 // libs
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { RootState } from 'store/rootReducer';
 
 // components
-import PrimaryButton from 'components/ui/Button/PrimaryButton';
+import LoginPage from 'pages/Login/LoginPage';
 
 const App: React.FC = () => {
+  // const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+
   const router = createBrowserRouter([
     {
       path: '/',
-      element: (
-        <div className='App-wrapper'>
-          <header className='App-content'>
-            <PrimaryButton type='button'>Button</PrimaryButton>
-          </header>
-        </div>
-      ),
+      element: <LoginPage />,
     },
   ]);
 
