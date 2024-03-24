@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 import { Provider } from 'react-redux';
 import store from 'store';
+import LanguageContext from 'store/LanguageContext';
 
 import MediaLook from 'components/ui/MediaLook/MediaLook';
 
@@ -16,9 +17,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <MediaLook>
-        <App />
-      </MediaLook>
+      <LanguageContext>
+        <MediaLook>
+          <App />
+        </MediaLook>
+      </LanguageContext>
     </Provider>
   </React.StrictMode>
 );

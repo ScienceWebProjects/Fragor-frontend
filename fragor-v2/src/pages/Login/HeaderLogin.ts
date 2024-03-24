@@ -42,6 +42,26 @@ const HeaderLogin = styled.header`
   }
 
   @media (min-width: ${mediaBreakpoints.tablet}) {
+    h1 {
+      font-size: 2rem;
+    }
+
+    div {
+      width: 12rem;
+      height: 12rem;
+
+      border-radius: 2rem;
+
+      a img {
+        width: 100%;
+        height: 100%;
+
+        border-radius: 1.5rem;
+      }
+    }
+  }
+
+  @media (min-width: ${mediaBreakpoints.desctop}) {
     height: 90vh;
     max-width: 40%;
     ${flexStyles({ direction: 'column' })}

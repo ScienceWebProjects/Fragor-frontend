@@ -35,7 +35,7 @@ const MediaLookStyle = styled.div`
     min-height: 70vh;
   }
 
-  @media (min-width: ${mediaBreakpoints.tablet}) {
+  @media (min-width: ${mediaBreakpoints.desctop}) {
     min-height: 80vh;
     width: 90vw;
 

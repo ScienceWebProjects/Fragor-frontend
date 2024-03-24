@@ -4,14 +4,17 @@ import React from 'react';
 // import { useDispatch } from 'react-redux';
 // import { RootState } from 'store/rootReducer';
 // import { authActions } from 'store/auth';
+import { FormattedMessage } from 'react-intl';
 
 // components
 // import PrimaryButton from 'components/ui/Button/PrimaryButton';
+import SelectLanguage from 'components/language/SelectLanguage';
 
 // UI
 import logo from 'assets/images/logo-black.png';
 import HeaderLogin from './HeaderLogin';
 import MainLogin from './MainLogin';
+import { Button, Input } from 'antd';
 
 const LoginPage: React.FC = () => {
   // const dispatch = useDispatch();
@@ -47,7 +50,31 @@ const LoginPage: React.FC = () => {
         </div>
       </HeaderLogin>
 
-      <MainLogin></MainLogin>
+      <MainLogin>
+        <SelectLanguage />
+        <form>
+          <Input placeholder='E-mail' />
+          <Input placeholder='PIN' />
+          <Button>Login</Button>
+        </form>
+
+        <Button>Sign in</Button>
+
+        <div>
+          <Button>
+            <FormattedMessage
+              id='login.forgetPin'
+              defaultMessage='Forget PIN?'
+            />
+          </Button>
+          <Button>
+            <FormattedMessage
+              id='login.privacy'
+              defaultMessage='Privacy policy'
+            />
+          </Button>
+        </div>
+      </MainLogin>
     </div>
   );
 };

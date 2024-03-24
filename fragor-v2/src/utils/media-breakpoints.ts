@@ -1,6 +1,6 @@
 const mediaBreakpoints = {
   mobile: '650px',
-  tablet: '920px',
+  tablet: '768px',
   desctop: '1024px',
 };
 
