@@ -10880,6 +10880,13 @@ react-is@^18.0.0, react-is@^18.2.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-pin-field@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/react-pin-field/-/react-pin-field-3.1.5.tgz#aef73bb06513e3db523a8612b23044ba4ef9f669"
+  integrity sha512-0WqQkLP3SdBEI08ykZxRNAPnZLEZ7iOm/EE/MNQuFmJAYcUfeNbjc7KB2VvcE/b1iWnS/spmFHpd9eSxvJJQ+g==
+  dependencies:
+    react-use-bireducer "^1.1.1"
+
 react-redux@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-9.1.0.tgz#46a46d4cfed4e534ce5452bb39ba18e1d98a8197"
@@ -10962,6 +10969,11 @@ react-scripts@5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
+
+react-use-bireducer@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-use-bireducer/-/react-use-bireducer-1.1.1.tgz#9d79bf09a1c85a6c1687bc48c717aa05685d52ed"
+  integrity sha512-FysDYTxA9TQnzt4HURQBvB2FdFqyNytjIGzvzj3qv7YlOkcDnkJQPNlzcC7RbfDiepxdtbxCgovvLGm/DHjzUA==
 
 "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0:
   version "18.2.0"

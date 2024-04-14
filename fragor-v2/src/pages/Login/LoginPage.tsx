@@ -1,22 +1,75 @@
 // libs
-import React from 'react';
+import React, { useReducer } from 'react';
 
 // import { useDispatch } from 'react-redux';
 // import { RootState } from 'store/rootReducer';
 // import { authActions } from 'store/auth';
 import { FormattedMessage } from 'react-intl';
 
+// utils
+import buttonColors from 'utils/button-colors';
+
 // components
-// import PrimaryButton from 'components/ui/Button/PrimaryButton';
+import { Button } from 'antd';
+import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import SelectLanguage from 'components/language/SelectLanguage';
+import PrimaryInput from 'components/ui/Input/PrimaryInput';
 
 // UI
 import logo from 'assets/images/logo-black.png';
-import HeaderLogin from './HeaderLogin';
-import MainLogin from './MainLogin';
-import { Button, Input } from 'antd';
+import HeaderLogin from './HeaderLoginStyle';
+import MainLogin from './MainLoginStyle';
+import AdidionalBtsWrapper from './AditionalBtnStyle';
+
+interface FormState {
+  emailValue: string;
+  emailValid: boolean | null;
+
+  pinValue: string;
+  pinValid: boolean | null;
+}
+
+type FormAction =
+  | { type: 'SET_EMAIL'; value: string }
+  | { type: 'SET_PIN'; value: string }
+  | { type: 'RESET_STATE' };
+
+const formReducer = (state: FormState, action: FormAction) => {
+  switch (action.type) {
+    case 'SET_EMAIL':
+      return {
+        ...state,
+        emailValue: action.value.trim(),
+        emailValid:
+          action.value.trim().length > 5 && action.value.includes('@'),
+      };
+    case 'SET_PIN':
+      return {
+        ...state,
+        pinValue: action.value.trim(),
+        pinValid: action.value.trim().length === 4,
+      };
+    case 'RESET_STATE':
+      return {
+        emailValue: '',
+        emailValid: null,
+
+        pinValue: '',
+        pinValid: null,
+      };
+    default:
+      return state;
+  }
+};
 
 const LoginPage: React.FC = () => {
+  const [formState, dispatchForm] = useReducer(formReducer, {
+    emailValue: '',
+    emailValid: null,
+
+    pinValue: '',
+    pinValid: null,
+  });
   // const dispatch = useDispatch();
 
   // const isLogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -53,27 +106,50 @@ const LoginPage: React.FC = () => {
       <MainLogin>
         <SelectLanguage />
         <form>
-          <Input placeholder='E-mail' />
-          <Input placeholder='PIN' />
-          <Button>Login</Button>
+          <PrimaryInput
+            label='E-mail'
+            placeholder='Enter your login e-mail'
+            onChange={(event) => {
+              dispatchForm({ type: 'SET_EMAIL', value: event.target.value });
+            }}
+            $isValid={formState.emailValid}
+            required={true}
+          />
+          <PrimaryInput
+            label='PIN'
+            placeholder='Enter your pin'
+            onChange={(event) => {
+              dispatchForm({
+                type: 'SET_PIN',
+                value: event.target.value.toString(),
+              });
+            }}
+            $isValid={formState.pinValid}
+          />
+          <PrimaryButton
+            colorBtn={buttonColors.red}
+            type='submit'
+          >
+            Login
+          </PrimaryButton>
         </form>
 
-        <Button>Sign in</Button>
+        <PrimaryButton style={{ marginTop: 0 }}>Sign in</PrimaryButton>
 
-        <div>
-          <Button>
+        <AdidionalBtsWrapper>
+          <Button type='link'>
             <FormattedMessage
               id='login.forgetPin'
               defaultMessage='Forget PIN?'
             />
           </Button>
-          <Button>
+          <Button type='link'>
             <FormattedMessage
               id='login.privacy'
               defaultMessage='Privacy policy'
             />
           </Button>
-        </div>
+        </AdidionalBtsWrapper>
       </MainLogin>
     </div>
   );
