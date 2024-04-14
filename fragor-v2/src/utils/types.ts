@@ -10,3 +10,17 @@ export interface InputProps {
   placeholder: string;
   onChange: (text: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+export interface PinInputProps {
+  label?: string;
+  length: number;
+  $isValid: boolean | null;
+  onPinEntered?: (pin: string) => void;
+}
+
+// ***************** Fetch type ***************** \\
+export type RequestFetchType = {
+  method: 'GET' | 'POST' | 'UPDATE';
+  headers: Record<string, string>;
+  body: object;
+};

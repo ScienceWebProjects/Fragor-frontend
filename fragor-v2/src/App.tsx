@@ -6,14 +6,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // components
 import LoginPage from 'pages/Login/LoginPage';
+import HomePage from 'pages/Home/HomePage';
+
+// utils
+import api from 'utils/apiKeys.json';
 
 const App: React.FC = () => {
   // const isLogin = useSelector((state: RootState) => state.auth.isLogin);
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: api.loginPage,
       element: <LoginPage />,
+    },
+    {
+      path: api.home,
+      element: <HomePage />,
     },
   ]);
 

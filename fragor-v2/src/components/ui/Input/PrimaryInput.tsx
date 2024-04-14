@@ -23,7 +23,6 @@ const PrimaryInput: React.FC<PrimaryInputProps> = ({
   $isValid,
   required = false,
 }) => {
-  console.log($isValid);
   return (
     <>
       <InputLabelStyle>{label}</InputLabelStyle>

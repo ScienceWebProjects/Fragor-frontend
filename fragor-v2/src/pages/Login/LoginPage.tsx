@@ -1,6 +1,6 @@
 // libs
 import React, { useReducer } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 // import { RootState } from 'store/rootReducer';
 // import { authActions } from 'store/auth';
@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 
 // utils
 import buttonColors from 'utils/button-colors';
+import api from 'utils/apiKeys.json';
 
 // components
 import { Button } from 'antd';
@@ -20,6 +21,9 @@ import logo from 'assets/images/logo-black.png';
 import HeaderLogin from './HeaderLoginStyle';
 import MainLogin from './MainLoginStyle';
 import AdidionalBtsWrapper from './AditionalBtnStyle';
+import PinInput from 'components/ui/Input/PinInput';
+import fetchData from 'functions/fetchData';
+import { RequestFetchType } from 'utils/types';
 
 interface FormState {
   emailValue: string;
@@ -70,6 +74,8 @@ const LoginPage: React.FC = () => {
     pinValue: '',
     pinValid: null,
   });
+
+  const navigate = useNavigate();
   // const dispatch = useDispatch();
 
   // const isLogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -77,6 +83,40 @@ const LoginPage: React.FC = () => {
   // const loginHandler = (): void => {
   //   dispatch(authActions.login());
   // };
+
+  const makeApiPost = async () => {
+    const loginData = {
+      email: formState.emailValue,
+      pin: formState.pinValue,
+    };
+
+    const requestOptions: RequestFetchType = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: loginData,
+    };
+
+    const response = await fetchData({
+      api: `${api.ip}${api.loginPin}`,
+      requestOptions: requestOptions,
+    });
+
+    const user = response ? response.response.json() : {};
+
+    const encodedToken = btoa(JSON.stringify(user));
+    sessionStorage.setItem('token', encodedToken);
+
+    return response ? response.sucsess : false;
+  };
+
+  const loginSubmitHandler = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const succsesful = await makeApiPost();
+
+    if (succsesful) {
+      navigate(api.home);
+    }
+  };
 
   return (
     <div className='App-wrapper'>
@@ -105,7 +145,7 @@ const LoginPage: React.FC = () => {
 
       <MainLogin>
         <SelectLanguage />
-        <form>
+        <form onSubmit={loginSubmitHandler}>
           <PrimaryInput
             label='E-mail'
             placeholder='Enter your login e-mail'
@@ -115,16 +155,16 @@ const LoginPage: React.FC = () => {
             $isValid={formState.emailValid}
             required={true}
           />
-          <PrimaryInput
+          <PinInput
             label='PIN'
-            placeholder='Enter your pin'
-            onChange={(event) => {
+            length={4}
+            $isValid={formState.pinValid}
+            onPinEntered={(pin) => {
               dispatchForm({
                 type: 'SET_PIN',
-                value: event.target.value.toString(),
+                value: pin,
               });
             }}
-            $isValid={formState.pinValid}
           />
           <PrimaryButton
             colorBtn={buttonColors.red}
