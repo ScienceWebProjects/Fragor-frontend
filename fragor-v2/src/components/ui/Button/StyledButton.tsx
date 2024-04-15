@@ -24,7 +24,7 @@ const StyledButton = styled(Button)<StyledButtonProps>`
     justify-content: center;
     align-items: center;
 
-    width: 85vw;
+    width: 90%;
     height: 2.5rem;
     padding: 0.625rem 1.25rem;
 
@@ -78,7 +78,6 @@ const StyledButton = styled(Button)<StyledButtonProps>`
 
     @media (min-width: 768px) {
       font-size: 1.5rem;
-      width: 30vw;
     }
   }
 `;

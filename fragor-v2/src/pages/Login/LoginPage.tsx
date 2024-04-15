@@ -10,6 +10,7 @@ import buttonColors from 'utils/button-colors';
 import api from 'utils/apiKeys.json';
 
 import { encodedToken } from 'hooks/useToken';
+import { useWindowSize } from 'hooks/useWindowSize';
 
 import { Button } from 'antd';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
@@ -23,46 +24,7 @@ import fetchData from 'functions/fetchData';
 import { RequestFetchType } from 'utils/types';
 import AuthorizationHeader from 'components/AuthorizationHeader';
 
-interface FormState {
-  emailValue: string;
-  emailValid: boolean | null;
-
-  pinValue: string;
-  pinValid: boolean | null;
-}
-
-type FormAction =
-  | { type: 'SET_EMAIL'; value: string }
-  | { type: 'SET_PIN'; value: string }
-  | { type: 'RESET_STATE' };
-
-const formReducer = (state: FormState, action: FormAction) => {
-  switch (action.type) {
-    case 'SET_EMAIL':
-      return {
-        ...state,
-        emailValue: action.value.trim(),
-        emailValid:
-          action.value.trim().length > 5 && action.value.includes('@'),
-      };
-    case 'SET_PIN':
-      return {
-        ...state,
-        pinValue: action.value.trim(),
-        pinValid: action.value.trim().length === 4,
-      };
-    case 'RESET_STATE':
-      return {
-        emailValue: '',
-        emailValid: null,
-
-        pinValue: '',
-        pinValid: null,
-      };
-    default:
-      return state;
-  }
-};
+import { formReducer } from './formReducer';
 
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -75,6 +37,7 @@ const LoginPage: React.FC = () => {
     pinValid: null,
   });
 
+  const { windowWidth } = useWindowSize();
   const navigate = useNavigate();
 
   const makeApiPost = async () => {
@@ -119,6 +82,7 @@ const LoginPage: React.FC = () => {
         <SelectLanguage />
         <form onSubmit={loginSubmitHandler}>
           <PrimaryInput
+            id='e-mail'
             label='E-mail'
             placeholder='Enter your login e-mail'
             onChange={(event) => {
@@ -139,6 +103,7 @@ const LoginPage: React.FC = () => {
             }}
           />
           <PrimaryButton
+            style={{ width: windowWidth > 1024 ? '20vw' : '70vw' }}
             colorBtn={buttonColors.red}
             type='submit'
           >
@@ -147,7 +112,7 @@ const LoginPage: React.FC = () => {
         </form>
 
         <PrimaryButton
-          style={{ marginTop: 0 }}
+          style={{ marginTop: 0, width: windowWidth > 1024 ? '20vw' : '70vw' }}
           onClick={() => navigate(api.signinPage)}
         >
           Sign in

@@ -6,25 +6,28 @@ import styled from 'styled-components';
 import mediaBreakpoints from 'utils/media-breakpoints';
 import flexStyles from 'utils/flex-styles';
 
-const MainLogin = styled.main`
-  min-height: 70vh;
+const MainSignin = styled.main`
+  min-height: 60vh;
   width: 100%;
 
-  position: relative;
+  ${flexStyles({ direction: 'column', align: 'center', justify: 'flex-start' })}
 
-  ${flexStyles({ direction: 'column', align: 'center', justify: 'center' })}
-
-  & form {
+  // infinite-scroll
+  & {
     width: 80%;
+    margin: 1rem auto;
   }
 
   @media (min-width: ${mediaBreakpoints.desctop}) {
     height: 90vh;
+    min-height: 60vh;
+    justify-content: center;
 
-    & form {
-      width: 70%;
+    & {
+      width: 30%;
+      margin: 0 auto;
     }
   }
 `;
 
-export default MainLogin;
+export default MainSignin;

@@ -19,6 +19,7 @@ interface PrimaryInputProps extends InputProps {
 const PrimaryInput: React.FC<PrimaryInputProps> = ({
   onChange,
   label,
+  id,
   placeholder,
   $isValid,
   required = false,
@@ -28,6 +29,7 @@ const PrimaryInput: React.FC<PrimaryInputProps> = ({
       <InputLabelStyle>{label}</InputLabelStyle>
       <PrimaryInputStyle
         onChange={(text) => onChange(text)}
+        id={id}
         placeholder={placeholder}
         $isValid={$isValid}
         required={required}

@@ -5,6 +5,7 @@ export type ButtonColors = { textColor: string; borderColor: string };
 // ***************** Inputs types ***************** \\
 
 export interface InputProps {
+  id: string;
   $isValid: boolean | null;
   required?: boolean;
   placeholder: string;

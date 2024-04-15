@@ -4,7 +4,6 @@ import PinField from 'react-pin-field';
 import styled from 'styled-components';
 
 // utils
-import mediaBreakpoints from 'utils/media-breakpoints';
 import { PinInputProps } from 'utils/types';
 
 const StyledContainer = styled.div`
