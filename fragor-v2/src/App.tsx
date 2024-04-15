@@ -10,6 +10,7 @@ import HomePage from 'pages/Home/HomePage';
 
 // utils
 import api from 'utils/apiKeys.json';
+import SigninPage from 'pages/Signin/SigninPage';
 
 const App: React.FC = () => {
   // const isLogin = useSelector((state: RootState) => state.auth.isLogin);
@@ -18,6 +19,10 @@ const App: React.FC = () => {
     {
       path: api.loginPage,
       element: <LoginPage />,
+    },
+    {
+      path: api.signinPage,
+      element: <SigninPage />,
     },
     {
       path: api.home,

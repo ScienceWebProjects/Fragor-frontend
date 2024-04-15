@@ -30,7 +30,10 @@ const fetchData = async ({ api, requestOptions }: fetchDataProps) => {
 
     if (response.status >= 200 && response.status < 300) {
       console.log(`Success fetchData! Status: ${response.status}`);
-      return { sucsess: true, response: response };
+
+      const fetchResponse = await response.json();
+
+      return { sucsess: true, response: fetchResponse };
     }
 
     // throw new Error(`Error: ${response.status}`);

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { Provider } from 'react-redux';
-import store from 'store';
+import store from 'store/index';
 import LanguageContext from 'store/LanguageContext';
 
 import MediaLook from 'components/ui/MediaLook/MediaLook';

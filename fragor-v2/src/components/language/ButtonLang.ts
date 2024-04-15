@@ -9,6 +9,9 @@ import mediaBreakpoints from 'utils/media-breakpoints';
 import flexStyles from 'utils/flex-styles';
 
 const ButtonLang = styled(Dropdown)`
+  background-color: #ffffffff;
+  border-radius: 1rem;
+
   width: 8rem;
   color: black;
 
@@ -16,7 +19,7 @@ const ButtonLang = styled(Dropdown)`
 
   position: absolute;
   top: 5vh;
-  right: 0rem;
+  right: 0.625rem;
 
   img {
     width: 2rem;

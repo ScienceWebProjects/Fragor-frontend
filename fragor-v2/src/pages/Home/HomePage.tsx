@@ -1,22 +1,32 @@
-// libs
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// hooks
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { authActions } from 'store/auth-slice';
 
-// components
+import PrimaryButton from 'components/ui/Button/PrimaryButton';
 
-// data
-
-// utils
+import api from 'utils/apiKeys.json';
+import { useDecodedToken } from 'hooks/useToken';
 
 interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
-  return (
-    <div>
-      <div>React ts</div>
-    </div>
-  );
+  const isLogin = useAppSelector((state) => state.auth.isLogin);
+  const dispatch = useAppDispatch();
+
+  const token = useDecodedToken();
+  const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    if (!isLogin && !token) {
+      navigate(api.loginPage);
+    } else {
+      dispatch(authActions.login());
+    }
+  }, [isLogin, token, navigate, dispatch]);
+
+  return <div>{isLogin && <PrimaryButton />}</div>;
 };
 
 export default HomePage;

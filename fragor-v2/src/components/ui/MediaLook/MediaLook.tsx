@@ -64,7 +64,11 @@ const MediaLookStyle = styled.div`
 `;
 
 const MediaLook: React.FC<MediaLookProps> = ({ children }) => {
-  return <MediaLookStyle>{children}</MediaLookStyle>;
+  return (
+    <MediaLookStyle>
+      <div className='App-wrapper'>{children}</div>
+    </MediaLookStyle>
+  );
 };
 
 export default MediaLook;

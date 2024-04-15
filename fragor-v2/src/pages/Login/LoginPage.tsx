@@ -1,29 +1,27 @@
 // libs
 import React, { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-// import { RootState } from 'store/rootReducer';
-// import { authActions } from 'store/auth';
 import { FormattedMessage } from 'react-intl';
 
-// utils
+import { useAppDispatch } from 'store/hooks';
+import { authActions } from 'store/auth-slice';
+
 import buttonColors from 'utils/button-colors';
 import api from 'utils/apiKeys.json';
 
-// components
+import { encodedToken } from 'hooks/useToken';
+
 import { Button } from 'antd';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import SelectLanguage from 'components/language/SelectLanguage';
 import PrimaryInput from 'components/ui/Input/PrimaryInput';
 
-// UI
-import logo from 'assets/images/logo-black.png';
-import HeaderLogin from './HeaderLoginStyle';
 import MainLogin from './MainLoginStyle';
 import AdidionalBtsWrapper from './AditionalBtnStyle';
 import PinInput from 'components/ui/Input/PinInput';
 import fetchData from 'functions/fetchData';
 import { RequestFetchType } from 'utils/types';
+import AuthorizationHeader from 'components/AuthorizationHeader';
 
 interface FormState {
   emailValue: string;
@@ -67,6 +65,8 @@ const formReducer = (state: FormState, action: FormAction) => {
 };
 
 const LoginPage: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   const [formState, dispatchForm] = useReducer(formReducer, {
     emailValue: '',
     emailValid: null,
@@ -76,13 +76,6 @@ const LoginPage: React.FC = () => {
   });
 
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-
-  // const isLogin = useSelector((state: RootState) => state.auth.isLogin);
-
-  // const loginHandler = (): void => {
-  //   dispatch(authActions.login());
-  // };
 
   const makeApiPost = async () => {
     const loginData = {
@@ -101,10 +94,9 @@ const LoginPage: React.FC = () => {
       requestOptions: requestOptions,
     });
 
-    const user = response ? response.response.json() : {};
+    const user = response ? response.response : {};
 
-    const encodedToken = btoa(JSON.stringify(user));
-    sessionStorage.setItem('token', encodedToken);
+    encodedToken(user);
 
     return response ? response.sucsess : false;
   };
@@ -114,34 +106,14 @@ const LoginPage: React.FC = () => {
     const succsesful = await makeApiPost();
 
     if (succsesful) {
+      dispatch(authActions.login());
       navigate(api.home);
     }
   };
 
   return (
-    <div className='App-wrapper'>
-      <HeaderLogin>
-        <h1>
-          3D printing assistant
-          <br />
-          Project by:
-          <br />
-          Piotr Goraj & Dawid Franczak
-          <br />
-        </h1>
-        <div>
-          <a
-            href='https://github.com/ScienceWebProjects/filament-measurement'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <img
-              src={logo}
-              alt='Logo'
-            />
-          </a>
-        </div>
-      </HeaderLogin>
+    <>
+      <AuthorizationHeader />
 
       <MainLogin>
         <SelectLanguage />
@@ -174,7 +146,12 @@ const LoginPage: React.FC = () => {
           </PrimaryButton>
         </form>
 
-        <PrimaryButton style={{ marginTop: 0 }}>Sign in</PrimaryButton>
+        <PrimaryButton
+          style={{ marginTop: 0 }}
+          onClick={() => navigate(api.signinPage)}
+        >
+          Sign in
+        </PrimaryButton>
 
         <AdidionalBtsWrapper>
           <Button type='link'>
@@ -191,7 +168,7 @@ const LoginPage: React.FC = () => {
           </Button>
         </AdidionalBtsWrapper>
       </MainLogin>
-    </div>
+    </>
   );
 };
 

@@ -7,11 +7,12 @@ import StyledButton from './StyledButton';
 import { ButtonColors } from 'utils/types';
 import buttonColors from 'utils/button-colors';
 
-interface PrimaryButtonProps {
+export interface PrimaryButtonProps {
   children?: ReactNode;
   type?: 'button' | 'submit' | 'reset';
   colorBtn?: ButtonColors;
   style?: React.CSSProperties;
+  antType?: 'link' | 'text' | 'default' | 'primary' | 'dashed';
   onClick?: () => void;
 }
 
@@ -20,6 +21,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   type = 'button',
   style,
   colorBtn = buttonColors.blue,
+  antType = 'primary',
   onClick,
 }) => {
   return (
@@ -27,7 +29,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
       htmlType={type}
       onClick={onClick}
       $colorBtn={colorBtn}
-      type='primary'
+      type={antType}
       style={style}
     >
       {children}
