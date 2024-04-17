@@ -61,7 +61,7 @@ const LoginPage: React.FC = () => {
 
     encodedToken(user);
 
-    return response ? response.sucsess : false;
+    return response ? response.success : false;
   };
 
   const loginSubmitHandler = async (event: React.FormEvent) => {
@@ -114,6 +114,7 @@ const LoginPage: React.FC = () => {
         <PrimaryButton
           style={{ marginTop: 0, width: windowWidth > 1024 ? '20vw' : '70vw' }}
           onClick={() => navigate(api.signinPage)}
+          colorBtn={buttonColors.yellow}
         >
           Sign in
         </PrimaryButton>

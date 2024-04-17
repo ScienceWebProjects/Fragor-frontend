@@ -20,6 +20,7 @@ const PrimaryInput: React.FC<PrimaryInputProps> = ({
   onChange,
   label,
   id,
+  type,
   placeholder,
   $isValid,
   required = false,
@@ -30,6 +31,7 @@ const PrimaryInput: React.FC<PrimaryInputProps> = ({
       <PrimaryInputStyle
         onChange={(text) => onChange(text)}
         id={id}
+        type={type}
         placeholder={placeholder}
         $isValid={$isValid}
         required={required}

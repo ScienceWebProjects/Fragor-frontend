@@ -2,9 +2,9 @@
 import styled from 'styled-components';
 
 // utils
-// import Colors from 'utils/colors';
 import mediaBreakpoints from 'utils/media-breakpoints';
 import flexStyles from 'utils/flex-styles';
+import Colors from 'utils/colors';
 
 const MainSignin = styled.main`
   min-height: 60vh;
@@ -16,6 +16,11 @@ const MainSignin = styled.main`
   & {
     width: 80%;
     margin: 1rem auto;
+  }
+
+  & .infinite-scroll-component {
+    scrollbar-color: ${Colors.grey[300]} #00000000;
+    scrollbar-width: none;
   }
 
   @media (min-width: ${mediaBreakpoints.desctop}) {

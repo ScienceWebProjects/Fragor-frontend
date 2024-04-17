@@ -6,6 +6,15 @@ export type ButtonColors = { textColor: string; borderColor: string };
 
 export interface InputProps {
   id: string;
+  type?:
+    | 'email'
+    | 'number'
+    | 'password'
+    | 'text'
+    | 'url'
+    | 'tel'
+    | 'search'
+    | 'hidden';
   $isValid: boolean | null;
   required?: boolean;
   placeholder: string;

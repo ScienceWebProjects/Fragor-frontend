@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from 'utils/apiKeys.json';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -14,6 +14,9 @@ import { useWindowSize } from 'hooks/useWindowSize';
 import buttonColors from 'utils/button-colors';
 
 import { formReducer } from './formReducer';
+import WarningText from 'components/ui/WarningText';
+import fetchData from 'functions/fetchData';
+import { RequestFetchType } from 'utils/types';
 
 const SigninPage: React.FC = () => {
   const [formState, dispatchForm] = useReducer(formReducer, {
@@ -42,6 +45,35 @@ const SigninPage: React.FC = () => {
   const { windowHeight, windowWidth } = useWindowSize();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    return () => dispatchForm({ type: 'RESET_STATE' });
+  }, []);
+
+  const makeApiPost = async () => {
+    const registerData = {
+      email: formState.emailValue,
+      firstName: formState.firstNameValue,
+      lastName: formState.lastNameValue,
+      password: formState.passwordValue,
+      password2: formState.passwordConfirmValue,
+      pin: formState.pinValue,
+      token: formState.productInfoValue,
+    };
+
+    const requestOptions: RequestFetchType = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: registerData,
+    };
+
+    const response = await fetchData({
+      api: `${api.ip}${api.registration}`,
+      requestOptions: requestOptions,
+    });
+
+    return response ? response.success : false;
+  };
+
   const formSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -55,15 +87,47 @@ const SigninPage: React.FC = () => {
       productInfoValue,
     } = formState;
 
-    console.log(
-      emailValue,
-      firstNameValue,
-      lastNameValue,
-      passwordConfirmValue,
-      passwordValue,
-      pinValue,
-      productInfoValue
-    );
+    const {
+      emailValid,
+      firstNameValid,
+      lastNameValid,
+      passwordConfirmValid,
+      passwordValid,
+      pinValid,
+      productInfoValid,
+    } = formState;
+
+    const isFormValid =
+      emailValid &&
+      firstNameValid &&
+      lastNameValid &&
+      passwordConfirmValid &&
+      passwordValid &&
+      pinValid &&
+      productInfoValid;
+
+    if (isFormValid) {
+      const successful = await makeApiPost();
+
+      if (successful) {
+        navigate(api.loginPage);
+      } else {
+        console.error('Something go wrong with signin fetch data...');
+      }
+    } else {
+      dispatchForm({ type: 'SET_FIRST_NAME', value: firstNameValue });
+      dispatchForm({ type: 'SET_LAST_NAME', value: lastNameValue });
+      dispatchForm({ type: 'SET_EMAIL', value: emailValue });
+      dispatchForm({ type: 'SET_PIN', value: pinValue });
+      dispatchForm({ type: 'SET_PASSWORD', value: passwordValue });
+      dispatchForm({
+        type: 'SET_PASSWORD_CONFIRM',
+        value: passwordConfirmValue,
+      });
+      dispatchForm({ type: 'SET_PRODUCT_INFO', value: productInfoValue });
+
+      console.log('Wrong form data');
+    }
   };
 
   const SigninForm: JSX.Element = (
@@ -90,6 +154,7 @@ const SigninPage: React.FC = () => {
       />
       <PrimaryInput
         id='e-mail'
+        type='email'
         label='E-mail'
         placeholder=''
         $isValid={formState.emailValid}
@@ -106,6 +171,7 @@ const SigninPage: React.FC = () => {
       />
       <PrimaryInput
         id='password'
+        type='password'
         label='Password'
         placeholder=''
         $isValid={formState.passwordValid}
@@ -114,8 +180,15 @@ const SigninPage: React.FC = () => {
         }
         required={true}
       />
+      {!formState.passwordValid && formState.passwordValid !== null && (
+        <WarningText>
+          Password must contain one small letter, one big letter, one number,
+          one special sign and be more or equal to 8 sign length.
+        </WarningText>
+      )}
       <PrimaryInput
         id='cpnfirm-password'
+        type='password'
         label='Confirm password'
         placeholder=''
         $isValid={formState.passwordConfirmValid}
@@ -127,6 +200,10 @@ const SigninPage: React.FC = () => {
         }
         required={true}
       />
+      {!formState.passwordConfirmValid &&
+        formState.passwordConfirmValid !== null && (
+          <WarningText>Passwords must be the same!</WarningText>
+        )}
       <PrimaryInput
         id='product-code'
         label='Product code'
@@ -159,7 +236,7 @@ const SigninPage: React.FC = () => {
             {SigninForm}
             <PrimaryButton
               type='submit'
-              colorBtn={buttonColors.green}
+              colorBtn={buttonColors.yellow}
             >
               Sign in
             </PrimaryButton>
