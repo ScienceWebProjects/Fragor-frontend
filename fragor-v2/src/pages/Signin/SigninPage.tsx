@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from 'utils/apiKeys.json';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useIntl } from 'react-intl';
 
 import AuthorizationHeader from 'components/AuthorizationHeader';
 import MainSignin from './MainSigninStyle';
@@ -44,6 +45,7 @@ const SigninPage: React.FC = () => {
 
   const { windowHeight, windowWidth } = useWindowSize();
   const navigate = useNavigate();
+  const intl = useIntl();
 
   useEffect(() => {
     return () => dispatchForm({ type: 'RESET_STATE' });
@@ -134,7 +136,10 @@ const SigninPage: React.FC = () => {
     <>
       <PrimaryInput
         id='first-name'
-        label='First name'
+        label={intl.formatMessage({
+          id: 'signin.firstName',
+          defaultMessage: 'First Name',
+        })}
         placeholder=''
         $isValid={formState.firstNameValid}
         onChange={(event) =>
@@ -144,7 +149,10 @@ const SigninPage: React.FC = () => {
       />
       <PrimaryInput
         id='last-name'
-        label='Last Name'
+        label={intl.formatMessage({
+          id: 'signin.lastName',
+          defaultMessage: 'Last Name',
+        })}
         placeholder=''
         $isValid={formState.lastNameValid}
         onChange={(event) =>
@@ -172,7 +180,10 @@ const SigninPage: React.FC = () => {
       <PrimaryInput
         id='password'
         type='password'
-        label='Password'
+        label={intl.formatMessage({
+          id: 'signin.password',
+          defaultMessage: 'Password',
+        })}
         placeholder=''
         $isValid={formState.passwordValid}
         onChange={(event) =>
@@ -189,7 +200,10 @@ const SigninPage: React.FC = () => {
       <PrimaryInput
         id='cpnfirm-password'
         type='password'
-        label='Confirm password'
+        label={intl.formatMessage({
+          id: 'signin.passwordConfirm',
+          defaultMessage: 'Confirm password',
+        })}
         placeholder=''
         $isValid={formState.passwordConfirmValid}
         onChange={(event) =>
@@ -206,7 +220,10 @@ const SigninPage: React.FC = () => {
         )}
       <PrimaryInput
         id='product-code'
-        label='Product code'
+        label={intl.formatMessage({
+          id: 'signin.productCode',
+          defaultMessage: 'Product code',
+        })}
         placeholder=''
         $isValid={formState.productInfoValid}
         onChange={(event) =>

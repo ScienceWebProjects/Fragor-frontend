@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // utils
 import Colors from 'utils/colors';
-import mediaBreakpoints from 'utils/media-breakpoints';
+import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 import flexStyles from 'utils/flex-styles';
 
 const HeaderLogin = styled.header`
@@ -41,7 +41,7 @@ const HeaderLogin = styled.header`
     }
   }
 
-  @media (min-width: ${mediaBreakpoints.tablet}) {
+  @media (min-width: ${mediaBreakpointsStyle.tablet}) {
     h1 {
       font-size: 2rem;
     }
@@ -61,7 +61,7 @@ const HeaderLogin = styled.header`
     }
   }
 
-  @media (min-width: ${mediaBreakpoints.desctop}) {
+  @media (min-width: ${mediaBreakpointsStyle.desctop}) {
     height: 90vh;
     max-width: 40%;
     ${flexStyles({ direction: 'column' })}

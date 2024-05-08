@@ -5,21 +5,18 @@ import styled from 'styled-components';
 import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 import flexStyles from 'utils/flex-styles';
 
-const AdidionalBtsWrapper = styled.div`
-  position: absolute;
-  bottom: 2rem;
-  right: 0;
+const HomeContainer = styled.div`
+  width: 90vw;
+  min-height: 20vh;
 
   ${flexStyles({
     direction: 'column',
-    align: 'flex-start',
-    justify: 'flex-start',
   })}
 
   @media (min-width: ${mediaBreakpointsStyle.desctop}) {
-    bottom: 2rem;
-    right: 2rem;
+    width: 45vw;
+    height: 50%;
   }
 `;
 
-export default AdidionalBtsWrapper;
+export default HomeContainer;

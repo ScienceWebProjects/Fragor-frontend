@@ -107,7 +107,10 @@ const LoginPage: React.FC = () => {
             colorBtn={buttonColors.red}
             type='submit'
           >
-            Login
+            <FormattedMessage
+              id='login.loginBtn'
+              defaultMessage='Log in'
+            />
           </PrimaryButton>
         </form>
 
@@ -116,7 +119,10 @@ const LoginPage: React.FC = () => {
           onClick={() => navigate(api.signinPage)}
           colorBtn={buttonColors.yellow}
         >
-          Sign in
+          <FormattedMessage
+            id='login.signinBtn'
+            defaultMessage='Sign in'
+          />
         </PrimaryButton>
 
         <AdidionalBtsWrapper>

@@ -29,7 +29,7 @@
   "signin.password": "Password",
   "signin.passwordConfirm": "Confirm password",
   "signin.productInfo": "Product information",
-  "signin.productKey": "Product key",
+  "signin.productCode": "Product code",
 
   "home.printers": "Printers",
   "home.filaments": "Filaments",

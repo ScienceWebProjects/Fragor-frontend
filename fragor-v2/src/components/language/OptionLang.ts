@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // components
 
 // utils
-import mediaBreakpoints from 'utils/media-breakpoints';
+import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 import flexStyles from 'utils/flex-styles';
 
 interface ButtonLangProps {}
@@ -17,7 +17,7 @@ const OptionLang = styled.div<ButtonLangProps>`
     height: 2rem;
   }
 
-  @media (min-width: ${mediaBreakpoints.desctop}) {
+  @media (min-width: ${mediaBreakpointsStyle.desctop}) {
   }
 `;
 

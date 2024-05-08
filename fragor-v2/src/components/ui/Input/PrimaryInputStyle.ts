@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Input } from 'antd';
 
 // utils
-import mediaBreakpoints from 'utils/media-breakpoints';
+import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 import Colors from 'utils/colors';
 import { InputProps } from 'utils/types';
 
@@ -40,7 +40,7 @@ const PrimaryInputStyle: React.FC<InputProps> = styled(Input)`
       outline-offset: 5px;
     }
 
-    @media (min-width: ${mediaBreakpoints.desctop}) {
+    @media (min-width: ${mediaBreakpointsStyle.desctop}) {
       font-size: 1.25rem;
     }
   }

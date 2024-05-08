@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 // utils
-import mediaBreakpoints from 'utils/media-breakpoints';
+import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 import flexStyles from 'utils/flex-styles';
 import Colors from 'utils/colors';
 
@@ -23,7 +23,7 @@ const MainSignin = styled.main`
     scrollbar-width: none;
   }
 
-  @media (min-width: ${mediaBreakpoints.desctop}) {
+  @media (min-width: ${mediaBreakpointsStyle.desctop}) {
     height: 90vh;
     min-height: 60vh;
     justify-content: center;

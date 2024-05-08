@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 // utils
-import mediaBreakpoints from 'utils/media-breakpoints';
+import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 
 interface MediaLookProps {
   children: ReactNode;
@@ -35,7 +35,7 @@ const MediaLookStyle = styled.div`
     min-height: 70vh;
   }
 
-  @media (min-width: ${mediaBreakpoints.desctop}) {
+  @media (min-width: ${mediaBreakpointsStyle.desctop}) {
     min-height: 80vh;
     width: 90vw;
 
