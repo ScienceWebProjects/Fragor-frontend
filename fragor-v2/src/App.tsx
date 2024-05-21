@@ -1,20 +1,17 @@
 // libs
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
-// import { RootState } from 'store/rootReducer';
-
-// components
-import LoginPage from 'pages/Login/LoginPage';
-import HomePage from 'pages/Home/HomePage';
 
 // utils
 import api from 'utils/apiKeys.json';
 import SigninPage from 'pages/Signin/SigninPage';
 
-const App: React.FC = () => {
-  // const isLogin = useSelector((state: RootState) => state.auth.isLogin);
+// components
+import LoginPage from 'pages/Login/LoginPage';
+import HomePage from 'pages/Home/HomePage';
+import PrintersPage from 'pages/Printers/PrintersPage';
 
+const App: React.FC = () => {
   const router = createBrowserRouter([
     {
       path: api.loginPage,
@@ -27,6 +24,10 @@ const App: React.FC = () => {
     {
       path: api.home,
       element: <HomePage />,
+    },
+    {
+      path: api.printersPage,
+      element: <PrintersPage />,
     },
   ]);
 

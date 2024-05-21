@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+
+import api from 'utils/apiKeys.json';
 
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import { FormattedMessage } from 'react-intl';
 import buttonColors from 'utils/button-colors';
+import { useNavigate } from 'react-router-dom';
 
-interface MenuButtonsProps {}
+interface MenuButtonsProps {
+  children?: ReactNode;
+  containerStyle?: React.CSSProperties;
+  buttonStyle?: { width: string; height: string };
+}
 
-const buttonStyle = {
-  width: '45%',
-  height: '5rem',
-};
+const MenuButtons: React.FC<MenuButtonsProps> = ({
+  children,
+  containerStyle,
+  buttonStyle = {
+    width: '45%',
+    height: '5rem',
+  },
+}) => {
+  const navigate = useNavigate();
 
-const MenuButtons: React.FC<MenuButtonsProps> = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        ...containerStyle,
+      }}
+    >
       <PrimaryButton
         colorBtn={buttonColors.red}
         style={buttonStyle}
+        onClick={() => navigate(api.printersPage)}
       >
         <FormattedMessage
           id='home.printers'
@@ -67,6 +86,7 @@ const MenuButtons: React.FC<MenuButtonsProps> = () => {
           defaultMessage='Owners'
         />
       </PrimaryButton>
+      {children}
     </div>
   );
 };

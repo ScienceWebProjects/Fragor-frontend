@@ -1,7 +1,7 @@
 import { css, Interpolation } from 'styled-components';
 
 interface FlexProps {
-  direction: 'row' | 'row-reverse' | 'column' | 'column-reverse' | 'unset';
+  direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse' | 'unset';
   justify?:
     | 'flex-start'
     | 'flex-end'
@@ -21,7 +21,7 @@ interface FlexProps {
 }
 
 const flexStyles = ({
-  direction,
+  direction = 'column',
   justify = 'center',
   align = 'center',
 }: FlexProps): Interpolation<any> => css`

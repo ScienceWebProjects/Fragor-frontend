@@ -1,11 +1,15 @@
+const mobile = 650;
+const tablet = 768;
+const desctop = 1024;
+
 export const mediaBreakpointsStyle = {
-  mobile: '650px',
-  tablet: '768px',
-  desctop: '1024px',
+  mobile: `${mobile}px`,
+  tablet: `${tablet}px`,
+  desctop: `${desctop}px`,
 };
 
 export const mediaBreakpointsPoints = {
-  mobile: 650,
-  tablet: 768,
-  desctop: 1024,
+  mobile,
+  tablet,
+  desctop,
 };
