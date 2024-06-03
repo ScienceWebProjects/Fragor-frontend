@@ -11,6 +11,7 @@ interface MenuButtonsProps {
   children?: ReactNode;
   containerStyle?: React.CSSProperties;
   buttonStyle?: { width: string; height: string };
+  isMenuBar?: boolean;
 }
 
 const MenuButtons: React.FC<MenuButtonsProps> = ({
@@ -20,6 +21,7 @@ const MenuButtons: React.FC<MenuButtonsProps> = ({
     width: '45%',
     height: '5rem',
   },
+  isMenuBar = false,
 }) => {
   const navigate = useNavigate();
 
@@ -32,6 +34,19 @@ const MenuButtons: React.FC<MenuButtonsProps> = ({
         ...containerStyle,
       }}
     >
+      {isMenuBar && (
+        <PrimaryButton
+          colorBtn={buttonColors.green}
+          style={buttonStyle}
+          onClick={() => navigate(api.home)}
+        >
+          <FormattedMessage
+            id='menu.home'
+            defaultMessage='Home'
+          />
+        </PrimaryButton>
+      )}
+
       <PrimaryButton
         colorBtn={buttonColors.red}
         style={buttonStyle}

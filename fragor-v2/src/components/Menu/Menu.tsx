@@ -12,7 +12,11 @@ import MenuButtons from 'pages/Home/MenuButtons';
 
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 
-const Menu: React.FC = () => {
+interface MenuProps {
+  isMenuBar?: boolean;
+}
+
+const Menu: React.FC<MenuProps> = ({ isMenuBar = false }) => {
   const { windowWidth } = useWindowSize();
   const navigate = useNavigate();
 
@@ -29,6 +33,7 @@ const Menu: React.FC = () => {
         }}
       >
         <MenuButtons
+          isMenuBar={isMenuBar}
           containerStyle={{
             flexGrow: 1, // Make this element grow to take up available space
             flexShrink: 1,

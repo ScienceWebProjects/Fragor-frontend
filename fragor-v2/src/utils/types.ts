@@ -32,5 +32,21 @@ export interface PinInputProps {
 export type RequestFetchType = {
   method: 'GET' | 'POST' | 'UPDATE';
   headers: Record<string, string>;
-  body: object;
+  body?: object;
+};
+
+// ***************** body types ***************** \\
+export type Filament = {
+  id: number;
+  color: string;
+};
+
+export type Printer = {
+  filaments: Filament[];
+  id: number;
+  image: string;
+  model: string;
+  name: string;
+  power: number;
+  workHours: number;
 };
