@@ -7,32 +7,32 @@ import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 import { STYLES } from 'utils/styles';
 import { Printer } from 'utils/types';
 
+const DetailsContainer = styled.div`
+  @media (min-width: ${mediaBreakpointsStyle.desctop}) {
+    ${flexStyles({
+      direction: 'row',
+      align: 'center',
+    })};
+    height: 100%;
+  }
+`;
+
+const Image = styled.img`
+  @media (min-width: ${mediaBreakpointsStyle.desctop}) {
+    max-width: 50%;
+    height: auto;
+    margin: 0.625rem;
+    border-radius: ${STYLES.borderRadius};
+  }
+`;
+
+const Details = styled.div`
+  ${flexStyles({ direction: 'column', align: 'center' })};
+  width: 50%;
+  font-size: 1.625rem;
+`;
+
 const PrinterCardDetails: React.FC<{ printer: Printer }> = ({ printer }) => {
-  const DetailsContainer = styled.div`
-    @media (min-width: ${mediaBreakpointsStyle.desctop}) {
-      ${flexStyles({
-        direction: 'row',
-        align: 'center',
-      })};
-      height: 100%;
-    }
-  `;
-
-  const Image = styled.img`
-    @media (min-width: ${mediaBreakpointsStyle.desctop}) {
-      max-width: 50%;
-      height: auto;
-      margin: 0.625rem;
-      border-radius: ${STYLES.borderRadius};
-    }
-  `;
-
-  const Details = styled.div`
-    ${flexStyles({ direction: 'column', align: 'center' })};
-    width: 50%;
-    font-size: 1.625rem;
-  `;
-
   return (
     <DetailsContainer>
       <Image

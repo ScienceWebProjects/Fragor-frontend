@@ -1,5 +1,6 @@
 {
   "back": "Back",
+  "close": "CLOSE",
   "confirm": "Confirm",
   "waiting": "Waiting...",
   "deleting": "Deleting...",
@@ -40,7 +41,7 @@
 
   "printers.addPrinter": "Add printer",
   "printers.model": "Model",
-  "printers.name": "Nazwa",
+  "printers.name": "Name",
   "printers.printer": "Printer",
   "printers.workHours": "Hours worked",
   "printers.printedFilaments": "Filaments printed",
@@ -48,7 +49,7 @@
   "printers.newModel": "Add model",
   "printers.deleteModel": "Delete model",
   "printers.printerName": "Printer name",
-  "printers.power": "Power [W]",
+  "printers.power": "Power",
 
   "filaments.material": "Material",
   "filaments.color": "Color",

@@ -13,6 +13,8 @@ import PrinterCard from 'components/ui/Card/Printers/PrinterCard';
 import PrintersCardsContainer from './PrintersCardsContainer';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import buttonColors from 'utils/button-colors';
+import { FormattedMessage } from 'react-intl';
+import Modal from 'components/ui/Card/Modal';
 
 interface PrintersPageProps {}
 
@@ -21,6 +23,7 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
   const { windowHeight } = useWindowSize();
 
   const [printersList, setPrintersList] = useState<Printer[]>([]);
+  const [isPrinterModal, setIsPrinterModal] = useState<boolean>(false);
 
   const apiPrintersGet = async () => {
     const requestOptions: RequestFetchType = {
@@ -41,11 +44,13 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
 
   useEffect(() => {
     apiPrintersGet();
+    // eslint-disable-next-line
   }, []);
 
   return (
     <>
       <Menu isMenuBar />
+
       <PrintersCardsContainer>
         <InfiniteScroll
           dataLength={printersList.length}
@@ -62,21 +67,31 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
           next={() => {}}
         >
           {printersList.map((printer) => (
-            <>
-              <PrinterCard
-                key={printer.id}
-                printer={printer}
-              />
-            </>
+            <PrinterCard
+              key={printer.id}
+              printer={printer}
+            />
           ))}
         </InfiniteScroll>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
-          <PrimaryButton colorBtn={buttonColors.yellow}>
-            Add printer
+          <PrimaryButton
+            colorBtn={buttonColors.yellow}
+            onClick={() => setIsPrinterModal(true)}
+          >
+            <FormattedMessage
+              id='printers.addPrinter'
+              defaultMessage='Add printer'
+            />
           </PrimaryButton>
           <PrimaryButton colorBtn={buttonColors.green}>Charts</PrimaryButton>
         </div>
       </PrintersCardsContainer>
+
+      {isPrinterModal && (
+        <Modal onClose={setIsPrinterModal}>
+          <>ADD PRINTER</>
+        </Modal>
+      )}
     </>
   );
 };

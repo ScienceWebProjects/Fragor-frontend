@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import api from 'utils/apiKeys.json';
 import Colors from 'utils/colors';
@@ -44,6 +45,8 @@ const PrinterDetails = styled.div`
 `;
 
 const PrinterCard: React.FC<{ printer: Printer }> = ({ printer }) => {
+  const intl = useIntl();
+
   const [isModal, setIsModal] = useState<boolean>(false);
   const [printerDetails, setPrinterDetails] = useState<Printer>();
 
@@ -67,31 +70,69 @@ const PrinterCard: React.FC<{ printer: Printer }> = ({ printer }) => {
         />
         <PrinterDetails>
           <div>
-            <b>Name:</b> {printer.name}
+            <b>
+              {intl.formatMessage({
+                id: 'printers.name',
+                defaultMessage: 'Name',
+              })}
+              :
+            </b>{' '}
+            {printer.name}
           </div>
           <div>
-            <b>Model:</b> {printer.model}
+            <b>
+              {intl.formatMessage({
+                id: 'printers.model',
+                defaultMessage: 'Model',
+              })}
+              :
+            </b>{' '}
+            {printer.model}
           </div>
           <div>
-            <b>Power:</b> {printer.power} W
+            <b>
+              {intl.formatMessage({
+                id: 'printers.power',
+                defaultMessage: 'Power',
+              })}
+              :
+            </b>{' '}
+            {printer.power} W
           </div>
           <div>
-            <b>Work hours:</b> {printer.workHours} h
+            <b>
+              {intl.formatMessage({
+                id: 'printers.workHours',
+                defaultMessage: 'Hours worked',
+              })}
+              :
+            </b>{' '}
+            {printer.workHours} h
           </div>
         </PrinterDetails>
       </PrinterCardContainer>
 
-      {isModal && (
+      {isModal && printerDetails && (
         <Modal
           onClose={setIsModal}
           button={
             <>
-              <PrimaryButton colorBtn={buttonColors.red}>Delete</PrimaryButton>
-              <PrimaryButton colorBtn={buttonColors.yellow}>Edit</PrimaryButton>
+              <PrimaryButton colorBtn={buttonColors.red}>
+                <FormattedMessage
+                  id='delete'
+                  defaultMessage='Delete'
+                />
+              </PrimaryButton>
+              <PrimaryButton colorBtn={buttonColors.yellow}>
+                <FormattedMessage
+                  id='edit'
+                  defaultMessage='Edit'
+                />
+              </PrimaryButton>
             </>
           }
         >
-          <PrinterCardDetails printer={printer} />
+          <PrinterCardDetails printer={printerDetails} />
         </Modal>
       )}
     </>

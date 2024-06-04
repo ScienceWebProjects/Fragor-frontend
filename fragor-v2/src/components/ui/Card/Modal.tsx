@@ -25,6 +25,7 @@ const ModalContainer = styled.div`
 
 const ModalCard = styled.div`
   @media (min-width: ${mediaBreakpointsStyle.desctop}) {
+    position: inherit;
     width: 65vw;
     height: 70vh;
     padding: 2rem;
@@ -37,6 +38,7 @@ const ModalCard = styled.div`
 
 const ButtonsWrapper = styled.div`
   width: 80%;
+  position: relative;
 
   ${flexStyles({ direction: 'row' })}
 `;
@@ -56,19 +58,25 @@ const Modal: React.FC<ModalProps> = ({ children, button, onClose }) => {
         ReactDOM.createPortal(
           <ModalContainer>
             <ModalCard>
+              <PrimaryButton
+                colorBtn={buttonColors.red}
+                onClick={() => onClose(false)}
+                style={{
+                  position: 'absolute',
+                  top: '-1.5rem',
+                  right: '-2rem',
+                  width: '10rem',
+                  height: '2.313rem',
+                }}
+              >
+                <FormattedMessage
+                  id='close'
+                  defaultMessage='CLOSE'
+                />
+              </PrimaryButton>
+
               {children}
-              <ButtonsWrapper>
-                <PrimaryButton
-                  colorBtn={buttonColors.red}
-                  onClick={() => onClose(false)}
-                >
-                  <FormattedMessage
-                    id='back'
-                    defaultMessage='Back'
-                  />
-                </PrimaryButton>
-                {button}
-              </ButtonsWrapper>
+              <ButtonsWrapper>{button}</ButtonsWrapper>
             </ModalCard>
           </ModalContainer>,
           modalRoot

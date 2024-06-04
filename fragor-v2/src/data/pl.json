@@ -1,5 +1,6 @@
 {
   "back": "Wróć",
+  "close": "ZAMKNIJ",
   "confirm": "Potwierdź",
   "waiting": "Czekaj...",
   "deleting": "Usuwanie...",
@@ -48,7 +49,7 @@
   "printers.newModel": "Dodaj model",
   "printers.deleteModel": "Usuń model",
   "printers.printerName": "Nazwa drukarki",
-  "printers.power": "Moc [W]",
+  "printers.power": "Moc",
 
   "filaments.material": "Materiał",
   "filaments.color": "Kolor",
