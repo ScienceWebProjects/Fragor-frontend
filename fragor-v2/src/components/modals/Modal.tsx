@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import styled from 'styled-components';
 import Colors from 'utils/colors';
-import PrimaryButton from '../Button/PrimaryButton';
+import PrimaryButton from '../ui/Button/PrimaryButton';
 import { mediaBreakpointsStyle } from 'utils/media-breakpoints';
 import buttonColors from 'utils/button-colors';
 import { FormattedMessage } from 'react-intl';

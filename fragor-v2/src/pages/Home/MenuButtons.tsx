@@ -1,11 +1,14 @@
 import React, { ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import api from 'utils/apiKeys.json';
-
-import PrimaryButton from 'components/ui/Button/PrimaryButton';
-import { FormattedMessage } from 'react-intl';
 import buttonColors from 'utils/button-colors';
-import { useNavigate } from 'react-router-dom';
+
+import { FormattedMessage } from 'react-intl';
+import PrimaryButton from 'components/ui/Button/PrimaryButton';
+
+import { useDecodedToken } from 'hooks/useToken';
+import usePermissions from 'hooks/usePermissions';
 
 interface MenuButtonsProps {
   children?: ReactNode;
@@ -24,6 +27,8 @@ const MenuButtons: React.FC<MenuButtonsProps> = ({
   isMenuBar = false,
 }) => {
   const navigate = useNavigate();
+  const user = useDecodedToken();
+  const permission = usePermissions(user.permission);
 
   return (
     <div
@@ -78,29 +83,36 @@ const MenuButtons: React.FC<MenuButtonsProps> = ({
         />
       </PrimaryButton>
 
-      <PrimaryButton
-        colorBtn={buttonColors.red}
-        style={buttonStyle}
-      >
-        <FormattedMessage
-          id='home.devices'
-          defaultMessage='Devices'
-        />
-      </PrimaryButton>
+      {permission.MASTER && (
+        <PrimaryButton
+          colorBtn={buttonColors.red}
+          style={buttonStyle}
+        >
+          <FormattedMessage
+            id='home.devices'
+            defaultMessage='Devices'
+          />
+        </PrimaryButton>
+      )}
 
-      <PrimaryButton style={buttonStyle}>
-        <FormattedMessage
-          id='home.users'
-          defaultMessage='Users'
-        />
-      </PrimaryButton>
+      {permission.MASTER && (
+        <PrimaryButton style={buttonStyle}>
+          <FormattedMessage
+            id='home.users'
+            defaultMessage='Users'
+          />
+        </PrimaryButton>
+      )}
 
-      <PrimaryButton style={buttonStyle}>
-        <FormattedMessage
-          id='home.owners'
-          defaultMessage='Owners'
-        />
-      </PrimaryButton>
+      {permission.OWNER && (
+        <PrimaryButton style={buttonStyle}>
+          <FormattedMessage
+            id='home.owners'
+            defaultMessage='Owners'
+          />
+        </PrimaryButton>
+      )}
+
       {children}
     </div>
   );

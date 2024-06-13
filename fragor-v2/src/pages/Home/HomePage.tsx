@@ -19,17 +19,17 @@ const HomePage: React.FC<HomePageProps> = () => {
   const isLogin = useAppSelector((state) => state.auth.isLogin);
   const dispatch = useAppDispatch();
 
-  const token = useDecodedToken();
+  const user = useDecodedToken();
   const navigate = useNavigate();
   const { windowWidth } = useWindowSize();
 
   useEffect(() => {
-    if (!isLogin && !token) {
+    if (!isLogin && !user.token) {
       navigate(api.loginPage);
     } else {
       dispatch(authActions.login());
     }
-  }, [isLogin, token, navigate, dispatch]);
+  }, [isLogin, user, navigate, dispatch]);
 
   return (
     <>

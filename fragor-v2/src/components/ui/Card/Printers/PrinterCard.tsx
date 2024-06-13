@@ -10,7 +10,7 @@ import { STYLES } from 'utils/styles';
 import { Printer } from 'utils/types';
 import PrimaryButton from '../../Button/PrimaryButton';
 import buttonColors from 'utils/button-colors';
-import Modal from '../Modal';
+import Modal from '../../../modals/Modal';
 import PrinterCardDetails from './PrinterCardDetails';
 
 const PrinterCardContainer = styled.div`

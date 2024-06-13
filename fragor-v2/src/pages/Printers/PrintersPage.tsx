@@ -8,17 +8,26 @@ import { useDecodedToken } from 'hooks/useToken';
 import { useWindowSize } from 'hooks/useWindowSize';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
+import PrintersCardsContainer from './PrintersCardsContainer';
 import Menu from 'components/Menu/Menu';
 import PrinterCard from 'components/ui/Card/Printers/PrinterCard';
-import PrintersCardsContainer from './PrintersCardsContainer';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import buttonColors from 'utils/button-colors';
 import { FormattedMessage } from 'react-intl';
-import Modal from 'components/ui/Card/Modal';
+import Modal from 'components/modals/Modal';
+import AddPrinterModal from 'components/modals/AddPrinterModal';
+import { useNavigate } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { authActions } from 'store/auth-slice';
 
 interface PrintersPageProps {}
 
 const PrintersPage: React.FC<PrintersPageProps> = () => {
+  const isLogin = useAppSelector((state) => state.auth.isLogin);
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
   const user = useDecodedToken();
   const { windowHeight } = useWindowSize();
 
@@ -40,7 +49,17 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
     });
 
     setPrintersList(response.response);
+
+    // console.log('apiPrintersGet fcn executed');
   };
+
+  useEffect(() => {
+    if (!isLogin && !user.token) {
+      navigate(api.loginPage);
+    } else {
+      dispatch(authActions.login());
+    }
+  }, [isLogin, user, navigate, dispatch]);
 
   useEffect(() => {
     apiPrintersGet();
@@ -88,8 +107,13 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
       </PrintersCardsContainer>
 
       {isPrinterModal && (
-        <Modal onClose={setIsPrinterModal}>
-          <>ADD PRINTER</>
+        <Modal
+          onClose={(modal) => {
+            setIsPrinterModal(modal);
+            apiPrintersGet();
+          }}
+        >
+          <AddPrinterModal />
         </Modal>
       )}
     </>

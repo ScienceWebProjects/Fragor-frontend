@@ -3,13 +3,14 @@ export const encodedToken = (user: object) => {
   sessionStorage.setItem('token', token);
 };
 
-export const useDecodedToken = () => {
+export const useDecodedToken = (): { permission: string; token: string } => {
   const encodedToken = sessionStorage.getItem('token');
 
   if (encodedToken) {
     const decodedToken = JSON.parse(atob(encodedToken));
-    return decodedToken;
+
+    return { permission: decodedToken.permission, token: decodedToken.token };
   }
 
-  return console.error('The token could not be decoded.');
+  return { permission: '', token: '' };
 };
