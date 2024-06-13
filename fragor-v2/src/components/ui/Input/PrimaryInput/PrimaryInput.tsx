@@ -1,15 +1,8 @@
-// libs
 import React from 'react';
 
-// hooks
-
-// components
 import PrimaryInputStyle from './PrimaryInputStyle';
-import InputLabelStyle from './InputLabelStyle';
+import InputLabelStyle from '../InputLabelStyle';
 
-// data
-
-// utils
 import { InputProps } from 'utils/types';
 
 interface PrimaryInputProps extends InputProps {

@@ -1,16 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import { useDecodedToken } from 'hooks/useToken';
-import { useWindowSize } from 'hooks/useWindowSize';
-import usePermissions from 'hooks/usePermissions';
+import Label from 'components/ui/Label';
+import NewModelForm from 'components/Printers/NewModelForm';
+import { FormattedMessage } from 'react-intl';
 
 interface AddPrinterModalProps {}
 
 const AddPrinterModal: React.FC<AddPrinterModalProps> = () => {
-  const user = useDecodedToken();
-  const permission = usePermissions(user.permission);
-  const { windowHeight } = useWindowSize();
-
   return (
     <div
       style={{
@@ -23,22 +20,43 @@ const AddPrinterModal: React.FC<AddPrinterModalProps> = () => {
         alignItems: 'center',
       }}
     >
-      <div>
-        NEW MODEL
-        <div>model name</div>
-        <div>new model button</div>
-      </div>
+      <FormWrapper>
+        <Label>
+          <b>
+            <FormattedMessage
+              id='printers.newModelLabel'
+              defaultMessage='NEW MODEL'
+            />
+          </b>
+        </Label>
+        <NewModelForm />
+      </FormWrapper>
 
-      <div>
-        NEW PRINTER
+      <FormWrapper>
+        <Label>
+          <b>
+            <FormattedMessage
+              id='printers.newPrinterLabel'
+              defaultMessage={'NEW PRINTER'}
+            />
+          </b>
+        </Label>
         <div>image</div>
         <div>printer name</div>
         <div>printer model</div>
         <div>printer power</div>
         <div>new printer button</div>
-      </div>
+      </FormWrapper>
     </div>
   );
 };
 
 export default AddPrinterModal;
+
+const FormWrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;

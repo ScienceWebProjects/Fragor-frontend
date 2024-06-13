@@ -6,8 +6,8 @@ import { useIntl } from 'react-intl';
 
 import AuthorizationHeader from 'components/AuthorizationHeader';
 import MainSignin from './MainSigninStyle';
-import PrimaryInput from 'components/ui/Input/PrimaryInput';
-import PinInput from 'components/ui/Input/PinInput';
+import PrimaryInput from 'components/ui/Input/PrimaryInput/PrimaryInput';
+import PinInput from 'components/ui/Input/PinInput/PinInput';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 
 import { useWindowSize } from 'hooks/useWindowSize';

@@ -6,7 +6,7 @@ import React, { RefObject } from 'react';
 // components
 
 // UI
-import InputLabelStyle from './InputLabelStyle';
+import InputLabelStyle from '../InputLabelStyle';
 import PinInputStyle from './PinInputStyle';
 
 // data

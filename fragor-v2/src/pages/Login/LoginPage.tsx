@@ -15,11 +15,11 @@ import { useWindowSize } from 'hooks/useWindowSize';
 import { Button } from 'antd';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import SelectLanguage from 'components/language/SelectLanguage';
-import PrimaryInput from 'components/ui/Input/PrimaryInput';
+import PrimaryInput from 'components/ui/Input/PrimaryInput/PrimaryInput';
 
 import MainLogin from './MainLoginStyle';
 import AdidionalBtsWrapper from './AditionalBtnStyle';
-import PinInput from 'components/ui/Input/PinInput';
+import PinInput from 'components/ui/Input/PinInput/PinInput';
 import fetchData from 'functions/fetchData';
 import { RequestFetchType } from 'utils/types';
 import AuthorizationHeader from 'components/AuthorizationHeader';

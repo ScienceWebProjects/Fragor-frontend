@@ -6,6 +6,7 @@ import { Printer, RequestFetchType } from 'utils/types';
 import fetchData from 'functions/fetchData';
 import { useDecodedToken } from 'hooks/useToken';
 import { useWindowSize } from 'hooks/useWindowSize';
+import usePermissions from 'hooks/usePermissions';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PrintersCardsContainer from './PrintersCardsContainer';
@@ -29,6 +30,7 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
 
   const navigate = useNavigate();
   const user = useDecodedToken();
+  const permission = usePermissions(user.permission);
   const { windowHeight } = useWindowSize();
 
   const [printersList, setPrintersList] = useState<Printer[]>([]);
@@ -93,16 +95,23 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
           ))}
         </InfiniteScroll>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
-          <PrimaryButton
-            colorBtn={buttonColors.yellow}
-            onClick={() => setIsPrinterModal(true)}
-          >
+          {permission.CHANGER && (
+            <PrimaryButton
+              colorBtn={buttonColors.yellow}
+              onClick={() => setIsPrinterModal(true)}
+            >
+              <FormattedMessage
+                id='printers.addPrinter'
+                defaultMessage='Add printer'
+              />
+            </PrimaryButton>
+          )}
+          <PrimaryButton colorBtn={buttonColors.green}>
             <FormattedMessage
-              id='printers.addPrinter'
-              defaultMessage='Add printer'
+              id='charts'
+              defaultMessage='Charts'
             />
           </PrimaryButton>
-          <PrimaryButton colorBtn={buttonColors.green}>Charts</PrimaryButton>
         </div>
       </PrintersCardsContainer>
 

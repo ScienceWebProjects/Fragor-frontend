@@ -41,13 +41,14 @@
 
   "printers.addPrinter": "Add printer",
   "printers.model": "Model",
+  "printers.modelName": "Model name",
+  "printers.newModelLabel": "NEW MODEL",
+  "printers.newPrinterLabel": "NEW PRINTER",
+  "printers.deleteModel": "Delete model",
   "printers.name": "Name",
   "printers.printer": "Printer",
   "printers.workHours": "Hours worked",
   "printers.printedFilaments": "Filaments printed",
-  "printers.newModelName": "Add printer model name",
-  "printers.newModel": "Add model",
-  "printers.deleteModel": "Delete model",
   "printers.printerName": "Printer name",
   "printers.power": "Power",
 
