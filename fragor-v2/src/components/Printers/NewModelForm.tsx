@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form, Field, FormRenderProps } from 'react-final-form';
 
 import { FormattedMessage } from 'react-intl';
@@ -7,19 +7,58 @@ import InputLabelStyle from 'components/ui/Input/InputLabelStyle';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import ErrorLabel from 'components/ui/Input/ErrorLabel';
 
+// import api from 'utils/apiKeys.json';
 import buttonColors from 'utils/button-colors';
 
+// import fetchData from 'functions/fetchData';
+// import { RequestFetchType } from 'utils/types';
+import { useDecodedToken } from 'hooks/useToken';
+
+import MessageContext from 'store/printerModalContext/message-context';
+
 interface FormValues {
-  modelName: string;
+  model: string;
 }
 
-const NewModelForm: React.FC = () => {
+interface NewModelFormProps {
+  onCloseModal: (close: boolean) => void;
+}
+
+const NewModelForm: React.FC<NewModelFormProps> = ({ onCloseModal }) => {
+  const ctx = useContext(MessageContext);
+  // const user = useDecodedToken();
+
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
   const onSubmit = async (values: FormValues) => {
     await sleep(300);
-    console.log(JSON.stringify(values));
+
+    // const requestOptions: RequestFetchType = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${user.token}`,
+    //   },
+    //   body: values,
+    // };
+
+    // const response = await fetchData({
+    //   api: `${api.ip}${api.printerModelAdd}`,
+    //   requestOptions: requestOptions,
+    // });
+
+    // if (response.success === true) {
+    //   onCloseModal(false);
+
+    //   messageApi.open({
+    //     type: 'success',
+    //     content: `Susscessfully add ${values.modelName}`,
+    //   });
+    // }
+
+    ctx.onMessage('success', `Susscessfully add ${values.model}`);
+    onCloseModal(false);
   };
 
   const required = (value: string) => (value ? null : 'Required');

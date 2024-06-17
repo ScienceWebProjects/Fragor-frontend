@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { authActions } from 'store/auth-slice';
+import { useAppDispatch, useAppSelector } from 'store/Redux/hooks';
+import { authActions } from 'store/Redux/auth-slice';
 
 import api from 'utils/apiKeys.json';
 import { useDecodedToken } from 'hooks/useToken';

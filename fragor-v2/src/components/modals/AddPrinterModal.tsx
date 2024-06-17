@@ -5,9 +5,11 @@ import Label from 'components/ui/Label';
 import NewModelForm from 'components/Printers/NewModelForm';
 import { FormattedMessage } from 'react-intl';
 
-interface AddPrinterModalProps {}
+interface AddPrinterModalProps {
+  onCloseModal: (close: boolean) => void;
+}
 
-const AddPrinterModal: React.FC<AddPrinterModalProps> = () => {
+const AddPrinterModal: React.FC<AddPrinterModalProps> = ({ onCloseModal }) => {
   return (
     <div
       style={{
@@ -29,7 +31,7 @@ const AddPrinterModal: React.FC<AddPrinterModalProps> = () => {
             />
           </b>
         </Label>
-        <NewModelForm />
+        <NewModelForm onCloseModal={(close: boolean) => onCloseModal(close)} />
       </FormWrapper>
 
       <FormWrapper>

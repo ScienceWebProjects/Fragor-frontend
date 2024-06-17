@@ -3,8 +3,8 @@ import React, { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { useAppDispatch } from 'store/hooks';
-import { authActions } from 'store/auth-slice';
+import { useAppDispatch } from 'store/Redux/hooks';
+import { authActions } from 'store/Redux/auth-slice';
 
 import buttonColors from 'utils/button-colors';
 import api from 'utils/apiKeys.json';

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { message } from 'antd';
 
 import api from 'utils/apiKeys.json';
 import { Printer, RequestFetchType } from 'utils/types';
@@ -19,8 +20,12 @@ import Modal from 'components/modals/Modal';
 import AddPrinterModal from 'components/modals/AddPrinterModal';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { authActions } from 'store/auth-slice';
+import MessageContext, {
+  MessageContextProvider,
+} from 'store/printerModalContext/message-context';
+import { useAppDispatch, useAppSelector } from 'store/Redux/hooks';
+import { authActions } from 'store/Redux/auth-slice';
+import { NoticeType } from 'antd/es/message/interface';
 
 interface PrintersPageProps {}
 
@@ -28,13 +33,16 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
   const isLogin = useAppSelector((state) => state.auth.isLogin);
   const dispatch = useAppDispatch();
 
+  const [messageApi, contextHolder] = message.useMessage();
+
   const navigate = useNavigate();
   const user = useDecodedToken();
   const permission = usePermissions(user.permission);
   const { windowHeight } = useWindowSize();
 
-  const [printersList, setPrintersList] = useState<Printer[]>([]);
   const [isPrinterModal, setIsPrinterModal] = useState<boolean>(false);
+
+  const [printersList, setPrintersList] = useState<Printer[]>([]);
 
   const apiPrintersGet = async () => {
     const requestOptions: RequestFetchType = {
@@ -67,6 +75,15 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
     apiPrintersGet();
     // eslint-disable-next-line
   }, []);
+
+  const messageHandler = (type: NoticeType, content: string) => {
+    messageApi.open({
+      type,
+      content,
+    });
+
+    console.log(type, content);
+  };
 
   return (
     <>
@@ -115,16 +132,48 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
         </div>
       </PrintersCardsContainer>
 
-      {isPrinterModal && (
-        <Modal
-          onClose={(modal) => {
-            setIsPrinterModal(modal);
-            apiPrintersGet();
-          }}
-        >
-          <AddPrinterModal />
-        </Modal>
-      )}
+      {/* <MessageContext.Provider
+        value={{
+          messageText: message,
+          onMessage: setMessage,
+        }}
+      >
+        {isPrinterModal && (
+          <Modal
+            onClose={(modal) => {
+              setIsPrinterModal(modal);
+              apiPrintersGet();
+            }}
+          >
+            <AddPrinterModal onCloseModal={setIsPrinterModal} />
+          </Modal>
+        )}
+        </MessageContext.Provider> */}
+
+      <MessageContextProvider>
+        {contextHolder}
+        <MessageContext.Consumer>
+          {(ctx) => (
+            <>
+              {isPrinterModal && (
+                <Modal
+                  onClose={(modal) => {
+                    setIsPrinterModal(modal);
+                    apiPrintersGet();
+                  }}
+                >
+                  <AddPrinterModal
+                    onCloseModal={(modal) => {
+                      setIsPrinterModal(modal);
+                      messageHandler(ctx.messageType, ctx.messageText);
+                    }}
+                  />
+                </Modal>
+              )}
+            </>
+          )}
+        </MessageContext.Consumer>
+      </MessageContextProvider>
     </>
   );
 };

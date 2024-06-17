@@ -1,14 +1,6 @@
 // libs
 import { RequestFetchType } from 'utils/types';
 
-// hooks
-
-// components
-
-// data
-
-// utils
-
 interface fetchDataProps {
   requestOptions: RequestFetchType;
   api: string;
