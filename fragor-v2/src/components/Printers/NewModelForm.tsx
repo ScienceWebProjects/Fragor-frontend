@@ -7,11 +7,11 @@ import InputLabelStyle from 'components/ui/Input/InputLabelStyle';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import ErrorLabel from 'components/ui/Input/ErrorLabel';
 
-// import api from 'utils/apiKeys.json';
+import api from 'utils/apiKeys.json';
 import buttonColors from 'utils/button-colors';
 
-// import fetchData from 'functions/fetchData';
-// import { RequestFetchType } from 'utils/types';
+import fetchData from 'functions/fetchData';
+import { RequestFetchType } from 'utils/types';
 import { useDecodedToken } from 'hooks/useToken';
 
 import MessageContext from 'store/printerModalContext/message-context';
@@ -26,7 +26,7 @@ interface NewModelFormProps {
 
 const NewModelForm: React.FC<NewModelFormProps> = ({ onCloseModal }) => {
   const ctx = useContext(MessageContext);
-  // const user = useDecodedToken();
+  const user = useDecodedToken();
 
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
@@ -34,31 +34,24 @@ const NewModelForm: React.FC<NewModelFormProps> = ({ onCloseModal }) => {
   const onSubmit = async (values: FormValues) => {
     await sleep(300);
 
-    // const requestOptions: RequestFetchType = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${user.token}`,
-    //   },
-    //   body: values,
-    // };
+    const requestOptions: RequestFetchType = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: values,
+    };
 
-    // const response = await fetchData({
-    //   api: `${api.ip}${api.printerModelAdd}`,
-    //   requestOptions: requestOptions,
-    // });
+    const response = await fetchData({
+      api: `${api.ip}${api.printerModelAdd}`,
+      requestOptions: requestOptions,
+    });
 
-    // if (response.success === true) {
-    //   onCloseModal(false);
-
-    //   messageApi.open({
-    //     type: 'success',
-    //     content: `Susscessfully add ${values.modelName}`,
-    //   });
-    // }
-
-    ctx.onMessage('success', `Susscessfully add ${values.model}`);
-    onCloseModal(false);
+    if (response.success === true) {
+      ctx.onMessage('success', `Susscessfully add ${values.model}`);
+      onCloseModal(false);
+    }
   };
 
   const required = (value: string) => (value ? null : 'Required');

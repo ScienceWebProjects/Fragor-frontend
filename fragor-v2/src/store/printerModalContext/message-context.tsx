@@ -1,5 +1,6 @@
 import { NoticeType } from 'antd/es/message/interface';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { message } from 'antd';
 
 const MessageContext = React.createContext<{
   messageType: NoticeType;
@@ -17,6 +18,17 @@ export const MessageContextProvider: React.FC<{ children: ReactNode }> = ({
   const [messageType, setMessageType] = useState<NoticeType>('info');
   const [messageText, setMessageText] = useState<string>('');
 
+  const [messageApi, contextHolder] = message.useMessage();
+
+  useEffect(() => {
+    if (messageText) {
+      messageApi.open({
+        type: messageType,
+        content: messageText,
+      });
+    }
+  }, [messageType, messageText, messageApi]);
+
   return (
     <MessageContext.Provider
       value={{
@@ -28,6 +40,7 @@ export const MessageContextProvider: React.FC<{ children: ReactNode }> = ({
         },
       }}
     >
+      {contextHolder}
       {children}
     </MessageContext.Provider>
   );
