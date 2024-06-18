@@ -1,14 +1,9 @@
 import React from 'react';
 
+import FormInputProps from './input_props';
 import PrimaryInputStyle from '../PrimaryInput/PrimaryInputStyle';
 
-interface InputProps {
-  input: any;
-  meta: any;
-  type: string;
-}
-
-const FormInput: React.FC<InputProps> = ({ input, meta, type }) => (
+const FormInput: React.FC<FormInputProps> = ({ input, meta, type }) => (
   <>
     <PrimaryInputStyle
       {...input}

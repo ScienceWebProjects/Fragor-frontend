@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Label from 'components/ui/Label';
 import NewModelForm from 'components/Printers/NewModelForm';
 import { FormattedMessage } from 'react-intl';
+import NewPrinterForm from 'components/Printers/NewPrinterForm';
 
 interface AddPrinterModalProps {
   onCloseModal: (close: boolean) => void;
@@ -43,11 +44,9 @@ const AddPrinterModal: React.FC<AddPrinterModalProps> = ({ onCloseModal }) => {
             />
           </b>
         </Label>
-        <div>image</div>
-        <div>printer name</div>
-        <div>printer model</div>
-        <div>printer power</div>
-        <div>new printer button</div>
+        <NewPrinterForm
+          onCloseModal={(close: boolean) => onCloseModal(close)}
+        />
       </FormWrapper>
     </div>
   );
@@ -56,6 +55,8 @@ const AddPrinterModal: React.FC<AddPrinterModalProps> = ({ onCloseModal }) => {
 export default AddPrinterModal;
 
 const FormWrapper = styled.div`
+  margin: 0 1rem 0 1rem;
+
   flex-grow: 1;
   display: flex;
   flex-direction: column;
