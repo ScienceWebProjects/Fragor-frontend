@@ -40,7 +40,7 @@
   "home.users": "Użytkownicy",
   "home.owners": "Właściciele",
 
-  "printers.addPrinter": "Dodaj drukarkę",
+  "printers.addPrinter": "Dodaj / Usuń",
   "printers.model": "Model",
   "printers.modelName": "Nazwa modelu",
   "printers.newModelLabel": "NOWY MODEL",

@@ -40,7 +40,7 @@
   "home.users": "Users",
   "home.owners": "Owners",
 
-  "printers.addPrinter": "Add printer",
+  "printers.addPrinter": "Add / Delete",
   "printers.model": "Model",
   "printers.modelName": "Model name",
   "printers.newModelLabel": "NEW MODEL",

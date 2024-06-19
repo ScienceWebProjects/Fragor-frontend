@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Form, Field, FormRenderProps } from 'react-final-form';
 
 import { FormattedMessage } from 'react-intl';
-import FormInput from 'components/ui/Input/FormInput/FormInput';
+import FormInput from 'components/ui/Input/FormInput/Textnput';
 import InputLabelStyle from 'components/ui/Input/InputLabelStyle';
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 import ErrorLabel from 'components/ui/Input/ErrorLabel';
@@ -80,7 +80,9 @@ const NewModelForm: React.FC<NewModelFormProps> = ({ onCloseModal }) => {
               component={FormInput}
               type='text'
               validate={required}
-              parse={(value: string) => value.trim()}
+              format={(value: string) => (value ? value.trim() : '')}
+              formatOnBlur={true}
+              initialValue=''
             />
             {props.errors &&
               props.touched &&

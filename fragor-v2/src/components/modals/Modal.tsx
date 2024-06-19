@@ -13,7 +13,7 @@ import { STYLES } from 'utils/styles';
 const ModalContainer = styled.div`
   @media (min-width: ${mediaBreakpointsStyle.desctop}) {
     position: fixed;
-    z-index: 9999;
+    z-index: 999;
 
     ${flexStyles({})}
 

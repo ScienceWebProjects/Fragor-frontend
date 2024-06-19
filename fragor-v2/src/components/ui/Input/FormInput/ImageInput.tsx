@@ -13,16 +13,7 @@ const getBase64 = (file: Blob): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-interface ImageInputProps extends FormInputProps {
-  onChange: (fileList: UploadFile[]) => void;
-}
-
-const ImageInput: React.FC<ImageInputProps> = ({
-  input,
-  meta,
-  type,
-  onChange,
-}) => {
+const ImageInput: React.FC<FormInputProps> = ({ input, meta, type }) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -39,7 +30,6 @@ const ImageInput: React.FC<ImageInputProps> = ({
     fileList: newFileList,
   }: UploadChangeParam<UploadFile>) => {
     setFileList(newFileList);
-    onChange(newFileList);
     input.onChange(newFileList); // pass value to react-final-form
   };
 
