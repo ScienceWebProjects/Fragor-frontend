@@ -10,6 +10,7 @@ import SigninPage from 'pages/Signin/SigninPage';
 import LoginPage from 'pages/Login/LoginPage';
 import HomePage from 'pages/Home/HomePage';
 import PrintersPage from 'pages/Printers/PrintersPage';
+import PrintersCharts from 'pages/PrintersCharts/PrintersCharts';
 
 const App: React.FC = () => {
   const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const App: React.FC = () => {
     {
       path: api.printersPage,
       element: <PrintersPage />,
+    },
+    {
+      path: api.printersCharts,
+      element: <PrintersCharts />,
     },
   ]);
 

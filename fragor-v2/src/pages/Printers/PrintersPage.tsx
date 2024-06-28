@@ -108,7 +108,10 @@ const PrintersPage: React.FC<PrintersPageProps> = () => {
               />
             </PrimaryButton>
           )}
-          <PrimaryButton colorBtn={buttonColors.green}>
+          <PrimaryButton
+            colorBtn={buttonColors.green}
+            onClick={() => navigate(api.printersCharts)}
+          >
             <FormattedMessage
               id='charts'
               defaultMessage='Charts'

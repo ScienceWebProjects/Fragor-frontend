@@ -11,7 +11,7 @@ import { useWindowSize } from 'hooks/useWindowSize';
 import { mediaBreakpointsPoints } from 'utils/media-breakpoints';
 import MobileTopBar from 'components/MobileTopBar';
 import HomeContainer from './HomeContainer';
-import MenuButtons from './MenuButtons';
+import MenuButtons from '../../components/Menu/MenuButtons';
 
 interface HomePageProps {}
 

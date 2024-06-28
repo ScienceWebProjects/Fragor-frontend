@@ -8,15 +8,19 @@ import api from 'utils/apiKeys.json';
 import { mediaBreakpointsPoints } from 'utils/media-breakpoints';
 import buttonColors from 'utils/button-colors';
 
-import MenuButtons from 'pages/Home/MenuButtons';
+import MenuButtons from 'components/Menu/MenuButtons';
 
 import PrimaryButton from 'components/ui/Button/PrimaryButton';
 
 interface MenuProps {
   isMenuBar?: boolean;
+  backNavi?: string;
 }
 
-const Menu: React.FC<MenuProps> = ({ isMenuBar = false }) => {
+const Menu: React.FC<MenuProps> = ({
+  isMenuBar = false,
+  backNavi = api.home,
+}) => {
   const { windowWidth } = useWindowSize();
   const navigate = useNavigate();
 
@@ -49,7 +53,7 @@ const Menu: React.FC<MenuProps> = ({ isMenuBar = false }) => {
           <PrimaryButton
             colorBtn={buttonColors.red}
             style={{ width: '90%', height: '5rem' }}
-            onClick={() => navigate(api.home)}
+            onClick={() => navigate(backNavi)}
           >
             <FormattedMessage
               id='back'
