@@ -52,17 +52,26 @@ const PrintersCharts: React.FC<PrintersChartsProps> = () => {
           labels: MONTHS,
           datasets: [
             {
+              type: 'line',
+              label: 'Line Dataset',
+              data: [104, 108, 155, 145, 115, 58, 43],
+              backgroundColor: '#000',
+              borderColor: '#000000',
+            },
+            {
               label: 'Black',
               data: [28, 40, 72, 16],
-              // backgroundColor: Utils.CHART_COLORS.red,
+              backgroundColor: '#000000aa',
             },
             {
               label: 'Blue',
               data: [65, 59, 80, 81, 56, 55, 40],
+              backgroundColor: '#0400ffaa',
             },
             {
               label: 'Red',
               data: [12, 12, 0, 50, 56, 0, 7],
+              backgroundColor: '#ff0000aa',
             },
           ],
         },
